@@ -28,6 +28,10 @@
 		1366D67C1BD4EAA300B69C04 /* ClassInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1366D67A1BD4EAA300B69C04 /* ClassInfoTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		1366D6821BD4F19000B69C04 /* ClassNoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D6801BD4F19000B69C04 /* ClassNoteTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		1366D6831BD4F19000B69C04 /* ClassNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1366D6811BD4F19000B69C04 /* ClassNoteTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		13766B0F1BDA3FF600322371 /* NoteLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 13766B0E1BDA3FF600322371 /* NoteLabel.m */; settings = {ASSET_TAGS = (); }; };
+		13766B121BDA456300322371 /* NoteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13766B111BDA456300322371 /* NoteTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		137C8C2B1BDA956900236C79 /* Note+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C281BDA956900236C79 /* Note+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
+		137C8C2C1BDA956900236C79 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C2A1BDA956900236C79 /* Note.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C33A1BCBEEE60003E703 /* NSMutableArray+Shuffle.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C3411BCBFB3F0003E703 /* KGModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C33E1BCBFB3F0003E703 /* KGModal.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C3461BCC07840003E703 /* SemesterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C3451BCC07840003E703 /* SemesterTableViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -109,6 +113,14 @@
 		1366D67F1BD4F19000B69C04 /* ClassNoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassNoteTableViewCell.h; sourceTree = "<group>"; };
 		1366D6801BD4F19000B69C04 /* ClassNoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassNoteTableViewCell.m; sourceTree = "<group>"; };
 		1366D6811BD4F19000B69C04 /* ClassNoteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ClassNoteTableViewCell.xib; sourceTree = "<group>"; };
+		13766B0D1BDA3FF600322371 /* NoteLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteLabel.h; sourceTree = "<group>"; };
+		13766B0E1BDA3FF600322371 /* NoteLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteLabel.m; sourceTree = "<group>"; };
+		13766B101BDA456300322371 /* NoteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteTableViewController.h; sourceTree = "<group>"; };
+		13766B111BDA456300322371 /* NoteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteTableViewController.m; sourceTree = "<group>"; };
+		137C8C271BDA956900236C79 /* Note+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Note+CoreDataProperties.h"; sourceTree = "<group>"; };
+		137C8C281BDA956900236C79 /* Note+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Note+CoreDataProperties.m"; sourceTree = "<group>"; };
+		137C8C291BDA956900236C79 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		137C8C2A1BDA956900236C79 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		13C4C3391BCBEEE60003E703 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
 		13C4C33A1BCBEEE60003E703 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
 		13C4C33D1BCBFB3F0003E703 /* KGModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGModal.h; sourceTree = "<group>"; };
@@ -314,6 +326,7 @@
 				1366D67E1BD4F17B00B69C04 /* ClassNoteCell */,
 				1366D66A1BD4B56F00B69C04 /* PersonViewController.h */,
 				1366D66B1BD4B56F00B69C04 /* PersonViewController.m */,
+				13766B131BDA45ED00322371 /* NoteTableViewController */,
 			);
 			name = PersonViewController;
 			sourceTree = "<group>";
@@ -349,11 +362,49 @@
 		1366D67E1BD4F17B00B69C04 /* ClassNoteCell */ = {
 			isa = PBXGroup;
 			children = (
+				13766B0C1BDA3FE100322371 /* Note */,
 				1366D67F1BD4F19000B69C04 /* ClassNoteTableViewCell.h */,
 				1366D6801BD4F19000B69C04 /* ClassNoteTableViewCell.m */,
 				1366D6811BD4F19000B69C04 /* ClassNoteTableViewCell.xib */,
 			);
 			name = ClassNoteCell;
+			sourceTree = "<group>";
+		};
+		13766B0B1BDA3FDB00322371 /* NoteLabel */ = {
+			isa = PBXGroup;
+			children = (
+				13766B0D1BDA3FF600322371 /* NoteLabel.h */,
+				13766B0E1BDA3FF600322371 /* NoteLabel.m */,
+			);
+			name = NoteLabel;
+			sourceTree = "<group>";
+		};
+		13766B0C1BDA3FE100322371 /* Note */ = {
+			isa = PBXGroup;
+			children = (
+				13766B0B1BDA3FDB00322371 /* NoteLabel */,
+			);
+			name = Note;
+			sourceTree = "<group>";
+		};
+		13766B131BDA45ED00322371 /* NoteTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				13766B101BDA456300322371 /* NoteTableViewController.h */,
+				13766B111BDA456300322371 /* NoteTableViewController.m */,
+			);
+			name = NoteTableViewController;
+			sourceTree = "<group>";
+		};
+		13766B201BDA535D00322371 /* Note */ = {
+			isa = PBXGroup;
+			children = (
+				137C8C271BDA956900236C79 /* Note+CoreDataProperties.h */,
+				137C8C281BDA956900236C79 /* Note+CoreDataProperties.m */,
+				137C8C291BDA956900236C79 /* Note.h */,
+				137C8C2A1BDA956900236C79 /* Note.m */,
+			);
+			name = Note;
 			sourceTree = "<group>";
 		};
 		13C4C3381BCBEECA0003E703 /* NSMutableArray+Shuffle */ = {
@@ -547,6 +598,7 @@
 			children = (
 				131EF3521BD7DD5E007ECFE8 /* ClassBox */,
 				13D8E2D81BD7252C0051617C /* Model.xcdatamodeld */,
+				13766B201BDA535D00322371 /* Note */,
 				13D8E2F41BD7351A0051617C /* CourseTable */,
 				13D8E2F31BD735120051617C /* Course */,
 			);
@@ -743,6 +795,7 @@
 				1335FC741BCA25A100BC0F23 /* WeekView.m in Sources */,
 				13C7072D1BC8230E003061A4 /* InputTextField.m in Sources */,
 				131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */,
+				13766B0F1BDA3FF600322371 /* NoteLabel.m in Sources */,
 				131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */,
 				13DBA09E1BD247DA00FC0682 /* DetailViewController.m in Sources */,
 				1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */,
@@ -763,16 +816,19 @@
 				13C4C3801BCCEE2B0003E703 /* GKImagePickerController.m in Sources */,
 				13C4C37E1BCCEE2B0003E703 /* GKImageCropViewController.m in Sources */,
 				13C4C3811BCCEE2B0003E703 /* GKResizeableCropOverlayView.m in Sources */,
+				137C8C2B1BDA956900236C79 /* Note+CoreDataProperties.m in Sources */,
 				13D8E2C11BD625180051617C /* MBProgressHUD.m in Sources */,
 				1366D6821BD4F19000B69C04 /* ClassNoteTableViewCell.m in Sources */,
 				1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */,
 				1366D6711BD4BAD500B69C04 /* DiscussViewController.m in Sources */,
 				13C4C37B1BCCEE2B0003E703 /* GKCropBorderView.m in Sources */,
+				13766B121BDA456300322371 /* NoteTableViewController.m in Sources */,
 				13ED2C861BD88AB500E250A2 /* CourseTable+CoreDataProperties.m in Sources */,
 				13C7070F1BC7DE10003061A4 /* main.m in Sources */,
 				13ED2C921BD8BC3F00E250A2 /* Course+CoreDataProperties.m in Sources */,
 				1366D6741BD4BAE000B69C04 /* HomeworkViewController.m in Sources */,
 				13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */,
+				137C8C2C1BDA956900236C79 /* Note.m in Sources */,
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,
 				1366D67B1BD4EAA300B69C04 /* ClassInfoTableViewCell.m in Sources */,
 				1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */,

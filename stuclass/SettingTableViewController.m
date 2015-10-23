@@ -51,6 +51,10 @@
         if (row == 0) {
             [self performSegueWithIdentifier:@"BackgroundVC" sender:nil];
         }
+    } else if (section == 2) {
+        if (row == 0) {
+            [self performSegueWithIdentifier:@"ShowAboutUs" sender:nil];
+        }
     } else if (section == 3) {
         if (row == 0) {
             [_delegate settingTableViewControllerLogOut];

@@ -7,30 +7,33 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ClassNoteTableViewCell" rowHeight="140" id="KGk-i7-Jjw" customClass="ClassNoteTableViewCell">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ClassNoteTableViewCell" rowHeight="140" id="KGk-i7-Jjw" customClass="ClassNoteTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="287" height="139.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="写点什么..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2Co-vQ-IxF">
-                        <rect key="frame" x="5" y="0.0" width="310" height="139.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="272" translatesAutoresizingMaskIntoConstraints="NO" id="HPL-RF-tFl" customClass="NoteLabel">
+                        <rect key="frame" x="15" y="2" width="272" height="129.5"/>
                         <animations/>
-                        <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                    </textView>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <animations/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="2Co-vQ-IxF" secondAttribute="bottom" id="DgN-yC-diI"/>
-                    <constraint firstItem="2Co-vQ-IxF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="LmH-Lk-dli"/>
-                    <constraint firstItem="2Co-vQ-IxF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="T4J-GW-7UU"/>
-                    <constraint firstAttribute="trailing" secondItem="2Co-vQ-IxF" secondAttribute="trailing" constant="5" id="wgc-cA-12J"/>
+                    <constraint firstAttribute="trailing" secondItem="HPL-RF-tFl" secondAttribute="trailing" id="2uS-jw-1on"/>
+                    <constraint firstItem="HPL-RF-tFl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="9ht-dt-Ep1"/>
+                    <constraint firstAttribute="bottom" secondItem="HPL-RF-tFl" secondAttribute="bottom" constant="8" id="d0c-CE-2NO"/>
+                    <constraint firstItem="HPL-RF-tFl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="dZB-Lj-UKB"/>
                 </constraints>
             </tableViewCellContentView>
             <animations/>
+            <connections>
+                <outlet property="noteLabel" destination="HPL-RF-tFl" id="7Ac-YT-hDy"/>
+            </connections>
             <point key="canvasLocation" x="342" y="284"/>
         </tableViewCell>
     </objects>

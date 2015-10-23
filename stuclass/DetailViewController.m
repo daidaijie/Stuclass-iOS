@@ -11,8 +11,7 @@
 #import "PersonViewController.h"
 #import "HomeworkViewController.h"
 #import "DiscussViewController.h"
-
-static const CGFloat kBarViewHeight = 43.0;
+#import "Define.h"
 
 @interface DetailViewController ()
 
@@ -55,7 +54,7 @@ static const CGFloat kBarViewHeight = 43.0;
 
 - (void)setupBarView
 {
-    self.barView = [[BarView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, kBarViewHeight)];
+    self.barView = [[BarView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, global_BarViewHeight)];
     [self.view addSubview:self.barView];
     
     [self.barView.firstButton addTarget:self action:@selector(barButtonPress:) forControlEvents:UIControlEventTouchDown];
@@ -66,7 +65,7 @@ static const CGFloat kBarViewHeight = 43.0;
 
 - (void)setupScrollView
 {
-    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.barView.frame.origin.y + kBarViewHeight, self.view.frame.size.width, self.view.frame.size.height - kBarViewHeight - 64)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, self.barView.frame.origin.y + global_BarViewHeight, self.view.frame.size.width, self.view.frame.size.height - global_BarViewHeight - 64)];
     self.scrollView.showsVerticalScrollIndicator = NO;
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.scrollEnabled = NO;
@@ -84,7 +83,7 @@ static const CGFloat kBarViewHeight = 43.0;
     PersonViewController *pvc = [[PersonViewController alloc] init];
     [self addChildViewController:pvc];
     pvc.view.frame = CGRectMake(0, 0, width, height);
-    pvc.classBox = self.classBox;
+    [pvc setupBoxData:self.classBox];
     [self.scrollView addSubview:pvc.view];
     
     HomeworkViewController *hvc = [[HomeworkViewController alloc] init];

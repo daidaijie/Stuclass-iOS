@@ -14,4 +14,8 @@
 
 @property (strong, nonatomic) ClassBox *classBox;
 
+- (void)setupBoxData:(ClassBox *)boxData;
+
 @end
+
+

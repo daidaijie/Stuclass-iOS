@@ -10,8 +10,9 @@
 #import "ClassInfoTableViewCell.h"
 #import "ClassNoteTableViewCell.h"
 #import "ClassBox.h"
-
-static const CGFloat kBarViewHeight = 43.0;
+#import "NoteTableViewController.h"
+#import "Define.h"
+#import "CoreDataManager.h"
 
 static NSString *info_cell_id = @"ClassInfoTableViewCell";
 
@@ -26,11 +27,15 @@ static NSString *kTitleForInfoSection = @"课程信息";
 static NSString *kTitleForNoteSection = @"备忘笔记";
 
 
-@interface PersonViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface PersonViewController () <UITableViewDelegate, UITableViewDataSource, NoteTableViewControllerDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 
 @property (strong, nonatomic) NSArray *infoTitleArray;
+
+@property (strong, nonatomic) NSString *noteStr;
+
+@property (strong, nonatomic) NSString *timeStr;
 
 @end
 
@@ -42,6 +47,8 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 {
     [super viewDidLoad];
     
+    [self setupBarBackButton];
+    
     [self initInfoTitleArray];
     
     [self initTableView];
@@ -49,6 +56,15 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 
 
 #pragma mark - Initialize Method
+
+- (void)setupBarBackButton
+{
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                                 style:UIBarButtonItemStylePlain
+                                                                target:nil
+                                                                action:nil];
+    [self.navigationItem setBackBarButtonItem:backItem];
+}
 
 
 - (void)initInfoTitleArray
@@ -59,7 +75,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 
 - (void)initTableView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - 64 - kBarViewHeight) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - 64 - global_BarViewHeight) style:UITableViewStyleGrouped];
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -77,7 +93,23 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     [self.view addSubview:self.tableView];
 }
 
+- (void)initNoteStr
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *username = [ud valueForKey:@"USERNAME"];
+    
+    NSDictionary *dict = [[CoreDataManager sharedInstance] getNoteFromCoreDataWithClassID:_classBox.box_id username:username];
+    self.noteStr = dict[@"content"];
+    self.timeStr = dict[@"time"];
+    
+}
 
+- (void)setupBoxData:(ClassBox *)boxData
+{
+    self.classBox = boxData;
+    
+    [self initNoteStr];
+}
 
 #pragma mark - TableView Delegate
 
@@ -101,6 +133,17 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
         return kTitleForInfoSection;
     } else {
         return kTitleForNoteSection;
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    if (section == 1) {
+        
+        return (self.timeStr.length > 0 && self.timeStr != nil) ? [NSString stringWithFormat:@"更新于%@", self.timeStr] : @"";
+        
+    } else {
+        return @"";
     }
 }
 
@@ -160,10 +203,49 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
         
         ClassNoteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:note_cell_id forIndexPath:indexPath];
         
+        cell.noteLabel.text = _noteStr;
+        
         return cell;
     }
     
 }
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        NoteTableViewController *ntvc = [sb instantiateViewControllerWithIdentifier:@"NoteTableVC"];
+        
+        ntvc.noteStr = _noteStr;
+        ntvc.classID = _classBox.box_id;
+        ntvc.delegate = self;
+        
+        [self.navigationController pushViewController:ntvc animated:YES];
+    }
+}
+
+
+#pragma mark - NoteTableViewControllerDelegate
+
+- (void)noteTableViewControllerDidSaveNote:(NSString *)noteStr time:(NSString *)timeStr
+{
+    self.noteStr = noteStr;
+    self.timeStr = timeStr;
+    
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+}
+
 
 @end
 

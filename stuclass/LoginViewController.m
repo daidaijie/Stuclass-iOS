@@ -228,7 +228,8 @@ static NSString *login_url = @"http://10.22.27.65/syllabus";
         [self showHUDWithText:@"请输入账号和密码" andHideDelay:1.2];
         return;
     } else if (_year == 0 && _semester == 0) {
-        [self showHUDWithText:@"请选择学期" andHideDelay:1.2];
+//        [self showHUDWithText:@"请选择学期" andHideDelay:1.2];
+        [self semesterPress:nil];
         return;
     } else if (password.length < 6) {
         [self showHUDWithText:@"请输入6位或6位以上的密码" andHideDelay:1.2];

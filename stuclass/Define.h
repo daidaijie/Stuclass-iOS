@@ -16,6 +16,8 @@
 
 static const NSTimeInterval global_timeout = 5.0;
 
+static const CGFloat global_BarViewHeight = 43.0;
+
 // class colors
 
 #define COLOR_0 [UIColor colorWithRed:0.275 green:0.729 blue:0.902 alpha:1.000]

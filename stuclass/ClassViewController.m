@@ -252,7 +252,7 @@ static NSString *login_url = @"http://10.22.27.65/syllabus";
 - (void)classCollectionViewCellDidPressWithTag:(NSInteger)tag
 {
     NSLog(@"cell - %d", tag);
-//    [[KGModal sharedInstance] showWithContentView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, 350)] andAnimated:YES];
+    
     [self performSegueWithIdentifier:@"ShowDetail" sender:self.boxData[tag]];
 }
 

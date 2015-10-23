@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "CourseTable.h"
 #import "Course.h"
+#import "Note.h"
 #import "AppDelegate.h"
 
 @interface CoreDataManager ()
@@ -48,6 +49,8 @@
 
 #pragma mark - CoreData
 
+
+#pragma mark - Class
 // 写入课表到数据库
 - (void)writeClassTableToCoreDataWithClassesArray:(NSMutableArray *)data withYear:(NSInteger)year semester:(NSInteger)semester username:(NSString *)username
 {
@@ -71,7 +74,7 @@
     CourseTable *table = [obj firstObject];
     
     if (error) {
-        NSLog(@"查询错误 - %@", error);
+        NSLog(@"课程 - 查询错误 - %@", error);
         return;
     }
     
@@ -173,7 +176,7 @@
         [_appDelagate.managedObjectContext save:&error];
         
         if (error) {
-            NSLog(@"存在时添加错误 - %@", error);
+            NSLog(@"课程 - 存在时添加错误 - %@", error);
             return;
         }
         
@@ -222,7 +225,7 @@
         [_appDelagate.managedObjectContext save:&error];
         
         if (error) {
-            NSLog(@"不存在时添加错误 - %@", error);
+            NSLog(@"课程 - 不存在时添加错误 - %@", error);
             return;
         }
     }
@@ -243,7 +246,7 @@
     CourseTable *table = [obj firstObject];
     
     if (error) {
-        NSLog(@"查询错误 - %@", error);
+        NSLog(@"课程 - 查询错误 - %@", error);
         return nil;
     }
     
@@ -292,13 +295,106 @@
     CourseTable *table = [obj firstObject];
     
     if (error) {
-        NSLog(@"查询错误 - %@", error);
+        NSLog(@"课程 - 查询错误 - %@", error);
         return;
     }
     
     [_appDelagate.managedObjectContext deleteObject:table];
     
     [_appDelagate.managedObjectContext save:&error];
+}
+
+
+#pragma mark - Note
+
+// 写入笔记
+- (void)writeNoteToCoreDataWithContent:(NSString *)content time:(NSString *)time classID:(NSString *)class_id username:(NSString *)username
+{
+    // 判断是否存在
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Note"];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"class_id==%@ AND username==%@", class_id, username];
+    
+    request.predicate = predicate;
+    
+    NSError *error = nil;
+    NSArray *obj = [_appDelagate.managedObjectContext executeFetchRequest:request error:&error];
+    
+    Note *note = [obj firstObject];
+    
+    if (error) {
+        NSLog(@"笔记 - 查询错误 - %@", error);
+        return;
+    }
+    
+    if (note) {
+        // 更新
+        
+        NSLog(@"更新笔记 %@ - %@ - %@", note.username, note.class_id, content);
+        
+        note.content = content;
+        note.content = time;
+        
+        NSError *error = nil;
+        
+        [_appDelagate.managedObjectContext save:&error];
+        
+        if (error) {
+            NSLog(@"笔记 - 存在时添加错误 - %@", error);
+            return;
+        }
+        
+        
+    } else {
+        // 新增
+        Note *newNote = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:_appDelagate.managedObjectContext];
+        
+        newNote.class_id = class_id;
+        newNote.username = username;
+        newNote.content = content;
+        newNote.time = time;
+        
+        NSLog(@"新建笔记 %@ - %@ - %@", newNote.username, newNote.class_id, newNote.content);
+        
+        NSError *error = nil;
+        
+        [_appDelagate.managedObjectContext save:&error];
+        
+        if (error) {
+            NSLog(@"笔记 - 不存在时添加错误 - %@", error);
+            return;
+        }
+    }
+}
+
+// 拿出笔记
+- (NSDictionary *)getNoteFromCoreDataWithClassID:(NSString *)class_id username:(NSString *)username
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Note"];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"class_id==%@ AND username==%@", class_id, username];
+    
+    request.predicate = predicate;
+    
+    NSError *error = nil;
+    NSArray *obj = [_appDelagate.managedObjectContext executeFetchRequest:request error:&error];
+    
+    Note *note = [obj firstObject];
+    
+    if (error) {
+        NSLog(@"笔记 - 查询错误 - %@", error);
+        return nil;
+    }
+    
+    if (note) {
+        
+        return @{@"content": note.content, @"time": note.time};
+        
+    } else {
+        
+        // 不存在笔记
+        return @{@"content": @"", @"time": @""};
+    }
 }
 
 

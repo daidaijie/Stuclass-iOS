@@ -9,7 +9,7 @@
 #import "BarView.h"
 #import "Define.h"
 
-static const CGFloat kButtonFontSize = 16.0;
+static const CGFloat kButtonFontSize = 17.0;
 
 static const CGFloat kIndicatorViewHeight = 4.5;
 
