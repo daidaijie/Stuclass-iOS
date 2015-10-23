@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8195" systemVersion="15A284" minimumToolsVersion="Xcode 7.0">
+    <entity name="Course" representedClassName="Course" syncable="YES">
+        <attribute name="course_credit" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="course_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="course_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="course_number" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="course_order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="course_room" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="course_span" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="course_teacher" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="course_time" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <relationship name="course_table" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CourseTable" inverseName="course" inverseEntity="CourseTable" syncable="YES"/>
+    </entity>
+    <entity name="CourseTable" representedClassName="CourseTable" syncable="YES">
+        <attribute name="semester" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="course" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Course" inverseName="course_table" inverseEntity="Course" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Course" positionX="-54" positionY="-9" width="128" height="195"/>
+        <element name="CourseTable" positionX="135" positionY="9" width="128" height="105"/>
+    </elements>
+</model>
