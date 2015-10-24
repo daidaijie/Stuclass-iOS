@@ -179,7 +179,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     Homework *homework = self.homeworkData[indexPath.section];
     
-    cell.publisherLabel.text = [NSString stringWithFormat:@"%@发布的作业信息:", homework.publisher];
+//    cell.publisherLabel.text = [NSString stringWithFormat:@"%@发布的作业信息:", homework.publisher];
+    cell.publisherLabel.text = homework.publisher;
     cell.dateLabel.text = [self getTimeStrWithTimeFrom1970:homework.pub_time];
     cell.contentLabel.text = homework.content;
 }
