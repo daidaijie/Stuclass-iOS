@@ -333,7 +333,7 @@
         NSLog(@"更新笔记 %@ - %@ - %@", note.username, note.class_id, content);
         
         note.content = content;
-        note.content = time;
+        note.time = time;
         
         NSError *error = nil;
         

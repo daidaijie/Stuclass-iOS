@@ -14,9 +14,19 @@
 
 #define BOTTOM_LINE_COLOR [UIColor colorWithRed:0.867 green:0.878 blue:0.886 alpha:1.000]
 
+#define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.961 alpha:1.000]
+
 static const NSTimeInterval global_timeout = 5.0;
 
 static const CGFloat global_BarViewHeight = 43.0;
+
+static const CGFloat global_textView_RowHeightFor4 = 118;
+
+static const CGFloat global_textView_RowHeightFor5 = 206;
+
+static const CGFloat global_textView_RowHeightFor6 = 298;
+
+static const CGFloat global_textView_RowHeightFor6p = 354;
 
 // class colors
 

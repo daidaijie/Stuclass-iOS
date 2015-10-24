@@ -1,14 +1,14 @@
 //
-//  NoteTableViewController.m
+//  HomeworkPostTableViewController.m
 //  stuclass
 //
-//  Created by JunhaoWang on 10/23/15.
+//  Created by JunhaoWang on 10/24/15.
 //  Copyright © 2015 JunhaoWang. All rights reserved.
 //
 
-#import "NoteTableViewController.h"
-#import "CoreDataManager.h"
+#import "HomeworkPostTableViewController.h"
 #import "Define.h"
+#import <AFNetworking/AFNetworking.h>
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
@@ -16,21 +16,19 @@ static const NSInteger kNumberOfSections = 1;
 
 static const NSInteger kNumberOfRowsInNoteSection = 1;
 
-@interface NoteTableViewController ()
+@interface HomeworkPostTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
 @end
 
-@implementation NoteTableViewController
+@implementation HomeworkPostTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setupTableView];
-    [self setupNote];
 }
-
 
 #pragma mark - Setup Method
 
@@ -39,18 +37,12 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     self.tableView.contentInset = UIEdgeInsetsMake(-12, 0, 0, 0);
 }
 
-- (void)setupNote
-{
-    self.textView.text = self.noteStr;
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
     [self.textView becomeFirstResponder];
 }
-
 
 #pragma mark - TableView Delegate
 
@@ -92,35 +84,11 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     }
 }
 
+#pragma mark - Event
 
-- (IBAction)saveItemPress:(id)sender
+- (IBAction)postItemPress:(id)sender
 {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *username = [ud valueForKey:@"USERNAME"];
     
-    // date
-    NSDate *date = [self getCurrentZoneDate:[NSDate date]];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateStyle = NSDateFormatterFullStyle;
-    formatter.dateFormat = @"yyyy年MM月dd日HH时mm分ss秒";
-    
-    NSString *timeStr = [formatter stringFromDate:date];
-    NSLog(@"更新笔记时间 - %@", timeStr);
-    
-    // content
-    [[CoreDataManager sharedInstance] writeNoteToCoreDataWithContent:self.textView.text time:timeStr classID:_classID username:username];
-    
-    [_delegate noteTableViewControllerDidSaveNote:self.textView.text time:timeStr];
-    
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-
-- (NSDate *)getCurrentZoneDate:(NSDate *)date {
-    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-    NSInteger interval = [zone secondsFromGMTForDate:date];
-    
-    return [date dateByAddingTimeInterval:interval];
 }
 
 
@@ -130,6 +98,8 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 }
 
 @end
+
+
 
 
 

@@ -204,7 +204,7 @@
         <scene sceneID="1Xb-zf-afK">
             <objects>
                 <tableViewController storyboardIdentifier="NoteTableVC" id="709-SW-O5u" customClass="NoteTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Tpn-aw-TS7">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="140" sectionHeaderHeight="18" sectionFooterHeight="18" id="Tpn-aw-TS7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
@@ -261,6 +261,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IjK-US-kl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1375" y="970"/>
+        </scene>
+        <!--新的作业信息-->
+        <scene sceneID="9zj-QO-rXr">
+            <objects>
+                <tableViewController storyboardIdentifier="HomeworkPostTVC" id="D1B-a4-k8L" customClass="HomeworkPostTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="140" sectionHeaderHeight="18" sectionFooterHeight="18" id="in9-BZ-Aft">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="lsZ-pK-WTH">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="140" id="YCK-ua-ga9">
+                                        <rect key="frame" x="0.0" y="99" width="320" height="140"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YCK-ua-ga9" id="osM-t6-RT7">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cyx-BU-160">
+                                                    <rect key="frame" x="4" y="4" width="312" height="131.5"/>
+                                                    <animations/>
+                                                    <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="cyx-BU-160" secondAttribute="bottom" constant="4" id="U6y-6D-JWy"/>
+                                                <constraint firstAttribute="trailing" secondItem="cyx-BU-160" secondAttribute="trailing" constant="4" id="Y9q-GW-4bq"/>
+                                                <constraint firstItem="cyx-BU-160" firstAttribute="leading" secondItem="osM-t6-RT7" secondAttribute="leading" constant="4" id="n9i-U9-wfz"/>
+                                                <constraint firstItem="cyx-BU-160" firstAttribute="top" secondItem="osM-t6-RT7" secondAttribute="top" constant="4" id="rdW-Wr-fJd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="D1B-a4-k8L" id="Jgx-Lr-2Nf"/>
+                            <outlet property="delegate" destination="D1B-a4-k8L" id="fXP-HB-QU5"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="新的作业信息" id="IVu-N7-g5h">
+                        <barButtonItem key="rightBarButtonItem" title="发布" id="RzF-H8-3GX">
+                            <connections>
+                                <action selector="postItemPress:" destination="D1B-a4-k8L" id="7ta-vP-dpX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="textView" destination="cyx-BU-160" id="4Wt-Ot-HcV"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jXc-Nz-RdX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1731" y="970"/>
         </scene>
         <!--设置-->
         <scene sceneID="CJw-6G-lsO">

@@ -32,6 +32,11 @@
 		13766B121BDA456300322371 /* NoteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13766B111BDA456300322371 /* NoteTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		137C8C2B1BDA956900236C79 /* Note+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C281BDA956900236C79 /* Note+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		137C8C2C1BDA956900236C79 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C2A1BDA956900236C79 /* Note.m */; settings = {ASSET_TAGS = (); }; };
+		137C8C301BDB149100236C79 /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C2F1BDB149100236C79 /* UITableView+FDTemplateLayoutCell.m */; settings = {ASSET_TAGS = (); }; };
+		137C8C341BDB178400236C79 /* Homework.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C331BDB178400236C79 /* Homework.m */; settings = {ASSET_TAGS = (); }; };
+		137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C371BDB1A4900236C79 /* HomeworkTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		137C8C3A1BDB1A4900236C79 /* HomeworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 137C8C381BDB1A4900236C79 /* HomeworkTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		137C8C3D1BDB2C5200236C79 /* HomeworkPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C33A1BCBEEE60003E703 /* NSMutableArray+Shuffle.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C3411BCBFB3F0003E703 /* KGModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C33E1BCBFB3F0003E703 /* KGModal.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C3461BCC07840003E703 /* SemesterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C3451BCC07840003E703 /* SemesterTableViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -121,6 +126,15 @@
 		137C8C281BDA956900236C79 /* Note+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Note+CoreDataProperties.m"; sourceTree = "<group>"; };
 		137C8C291BDA956900236C79 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		137C8C2A1BDA956900236C79 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		137C8C2E1BDB149100236C79 /* UITableView+FDTemplateLayoutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCell.h"; sourceTree = "<group>"; };
+		137C8C2F1BDB149100236C79 /* UITableView+FDTemplateLayoutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCell.m"; sourceTree = "<group>"; };
+		137C8C321BDB178400236C79 /* Homework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Homework.h; sourceTree = "<group>"; };
+		137C8C331BDB178400236C79 /* Homework.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Homework.m; sourceTree = "<group>"; };
+		137C8C361BDB1A4900236C79 /* HomeworkTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeworkTableViewCell.h; sourceTree = "<group>"; };
+		137C8C371BDB1A4900236C79 /* HomeworkTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeworkTableViewCell.m; sourceTree = "<group>"; };
+		137C8C381BDB1A4900236C79 /* HomeworkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeworkTableViewCell.xib; sourceTree = "<group>"; };
+		137C8C3B1BDB2C5200236C79 /* HomeworkPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeworkPostTableViewController.h; sourceTree = "<group>"; };
+		137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeworkPostTableViewController.m; sourceTree = "<group>"; };
 		13C4C3391BCBEEE60003E703 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
 		13C4C33A1BCBEEE60003E703 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
 		13C4C33D1BCBFB3F0003E703 /* KGModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGModal.h; sourceTree = "<group>"; };
@@ -334,8 +348,10 @@
 		1366D66D1BD4BAA800B69C04 /* HomeworkViewController */ = {
 			isa = PBXGroup;
 			children = (
+				137C8C351BDB1A3000236C79 /* HomeworkTableViewCell */,
 				1366D6721BD4BAE000B69C04 /* HomeworkViewController.h */,
 				1366D6731BD4BAE000B69C04 /* HomeworkViewController.m */,
+				137C8C3E1BDB2E9500236C79 /* HomeworkPostTableViewController */,
 			);
 			name = HomeworkViewController;
 			sourceTree = "<group>";
@@ -405,6 +421,43 @@
 				137C8C2A1BDA956900236C79 /* Note.m */,
 			);
 			name = Note;
+			sourceTree = "<group>";
+		};
+		137C8C2D1BDB149100236C79 /* UITableView+FDTemplateLayoutCell */ = {
+			isa = PBXGroup;
+			children = (
+				137C8C2E1BDB149100236C79 /* UITableView+FDTemplateLayoutCell.h */,
+				137C8C2F1BDB149100236C79 /* UITableView+FDTemplateLayoutCell.m */,
+			);
+			path = "UITableView+FDTemplateLayoutCell";
+			sourceTree = "<group>";
+		};
+		137C8C311BDB177100236C79 /* Homework */ = {
+			isa = PBXGroup;
+			children = (
+				137C8C321BDB178400236C79 /* Homework.h */,
+				137C8C331BDB178400236C79 /* Homework.m */,
+			);
+			name = Homework;
+			sourceTree = "<group>";
+		};
+		137C8C351BDB1A3000236C79 /* HomeworkTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				137C8C361BDB1A4900236C79 /* HomeworkTableViewCell.h */,
+				137C8C371BDB1A4900236C79 /* HomeworkTableViewCell.m */,
+				137C8C381BDB1A4900236C79 /* HomeworkTableViewCell.xib */,
+			);
+			name = HomeworkTableViewCell;
+			sourceTree = "<group>";
+		};
+		137C8C3E1BDB2E9500236C79 /* HomeworkPostTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				137C8C3B1BDB2C5200236C79 /* HomeworkPostTableViewController.h */,
+				137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */,
+			);
+			name = HomeworkPostTableViewController;
 			sourceTree = "<group>";
 		};
 		13C4C3381BCBEECA0003E703 /* NSMutableArray+Shuffle */ = {
@@ -551,6 +604,7 @@
 		13C707241BC7DE55003061A4 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				137C8C2D1BDB149100236C79 /* UITableView+FDTemplateLayoutCell */,
 				13D8E2BE1BD625180051617C /* MBProgressHUD */,
 				13C4C36C1BCCEE2B0003E703 /* GKImagePicker */,
 				13C4C33C1BCBFB3F0003E703 /* KGModal */,
@@ -596,6 +650,7 @@
 		13D8E2C21BD71C430051617C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				137C8C311BDB177100236C79 /* Homework */,
 				131EF3521BD7DD5E007ECFE8 /* ClassBox */,
 				13D8E2D81BD7252C0051617C /* Model.xcdatamodeld */,
 				13766B201BDA535D00322371 /* Note */,
@@ -727,6 +782,7 @@
 				13C4C39D1BCDE9360003E703 /* class_bg_1_1.jpg in Resources */,
 				1366D6831BD4F19000B69C04 /* ClassNoteTableViewCell.xib in Resources */,
 				13C4C39F1BCDE9360003E703 /* class_bg_1_3.jpg in Resources */,
+				137C8C3A1BDB1A4900236C79 /* HomeworkTableViewCell.xib in Resources */,
 				13C707181BC7DE10003061A4 /* Main.storyboard in Resources */,
 				13C4C3A11BCDE9360003E703 /* class_bg_1_5.jpg in Resources */,
 				13C4C3991BCDE9360003E703 /* class_bg_0_0.jpg in Resources */,
@@ -811,10 +867,12 @@
 				131EF3511BD7DAEA007ECFE8 /* CoreDataManager.m in Sources */,
 				13C4C3411BCBFB3F0003E703 /* KGModal.m in Sources */,
 				13D8E2DA1BD7252C0051617C /* Model.xcdatamodeld in Sources */,
+				137C8C301BDB149100236C79 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				13C4C35E1BCCDC980003E703 /* BackgoundTableViewController.m in Sources */,
 				1335FC771BCA25EE00BC0F23 /* UIView+BorderCategory.m in Sources */,
 				13C4C3801BCCEE2B0003E703 /* GKImagePickerController.m in Sources */,
 				13C4C37E1BCCEE2B0003E703 /* GKImageCropViewController.m in Sources */,
+				137C8C3D1BDB2C5200236C79 /* HomeworkPostTableViewController.m in Sources */,
 				13C4C3811BCCEE2B0003E703 /* GKResizeableCropOverlayView.m in Sources */,
 				137C8C2B1BDA956900236C79 /* Note+CoreDataProperties.m in Sources */,
 				13D8E2C11BD625180051617C /* MBProgressHUD.m in Sources */,
@@ -830,11 +888,13 @@
 				13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */,
 				137C8C2C1BDA956900236C79 /* Note.m in Sources */,
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,
+				137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */,
 				1366D67B1BD4EAA300B69C04 /* ClassInfoTableViewCell.m in Sources */,
 				1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */,
 				1345308B1BC8AE0C0018C15E /* ClassViewController.m in Sources */,
 				1335FC711BCA259700BC0F23 /* StartView.m in Sources */,
 				13C4C3461BCC07840003E703 /* SemesterTableViewController.m in Sources */,
+				137C8C341BDB178400236C79 /* Homework.m in Sources */,
 				131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */,
 				13C4C37F1BCCEE2B0003E703 /* GKImagePicker.m in Sources */,
 			);

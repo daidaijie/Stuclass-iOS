@@ -143,6 +143,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
         return (self.timeStr.length > 0 && self.timeStr != nil) ? [NSString stringWithFormat:@"更新于%@", self.timeStr] : @"";
         
     } else {
+        
         return @"";
     }
 }
@@ -234,7 +235,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     self.noteStr = noteStr;
     self.timeStr = timeStr;
     
-    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 

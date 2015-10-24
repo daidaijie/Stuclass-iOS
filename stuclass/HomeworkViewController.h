@@ -10,4 +10,6 @@
 
 @interface HomeworkViewController : UIViewController
 
+- (void)getHomeworkDataWithClassNumber:(NSString *)number;
+
 @end
