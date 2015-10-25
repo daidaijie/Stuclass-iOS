@@ -25,6 +25,20 @@
     self.homeworkView.layer.shadowOpacity = 0.25;
     self.homeworkView.layer.shadowOffset = CGSizeMake(-0.1, 0.1);
     self.homeworkView.layer.shadowColor = [UIColor grayColor].CGColor;
+    
+    // Gesture
+    UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    gesture.minimumPressDuration = 0.4;
+    
+    [self addGestureRecognizer:gesture];
+}
+
+- (void)longPress:(UILongPressGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+    
+        [_delegate homeworkTableViewCellDidLongPressWithTag:self.tag];
+    }
 }
 
 

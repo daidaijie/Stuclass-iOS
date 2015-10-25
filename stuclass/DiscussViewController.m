@@ -24,7 +24,7 @@ static const CGFloat kHeightForPostButton = 52;
 
 static const CGFloat kHeightForSectionHeader = 8.0;
 
-@interface DiscussViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface DiscussViewController () <UITableViewDelegate, UITableViewDataSource, DiscussTableViewCellDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
@@ -185,10 +185,13 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     Discuss *discuss = self.discussData[indexPath.section];
     
-    cell.publisherLabel.text = [NSString stringWithFormat:@"%@说:", discuss.publisher];
+    cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 说:", discuss.publisher];
     //    cell.publisherLabel.text = discuss.publisher;
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:discuss.pub_time];
     cell.contentLabel.text = discuss.content;
+    
+    cell.tag = indexPath.section;
+    cell.delegate = self;
 }
 
 
@@ -198,6 +201,35 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         [self configureCell:cell atIndexPath:indexPath];
     }];
 }
+
+
+#pragma mark - DiscussTableViewCellDelegate
+
+- (void)discussTableViewCellDidLongPressWithTag:(NSInteger)tag
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *username = [ud valueForKey:@"USERNAME"];
+    Discuss *d = self.discussData[tag];
+    NSString *cellUsername = d.publisher;
+    NSLog(@"%@ - %@", cellUsername, username);
+    if ([cellUsername isEqualToString:username]) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
+        actionSheet.tag = tag;
+        [actionSheet showInView:self.view];
+    }
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+//        [self.tableView beginUpdates];
+//        [self.discussData removeObjectAtIndex:actionSheet.tag];
+//        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:actionSheet.tag] withRowAnimation:UITableViewRowAnimationFade];
+//        [self.tableView endUpdates];
+//        actionSheet.tag = 99999;
+    }
+}
+
 
 
 #pragma mark - Event

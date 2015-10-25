@@ -24,7 +24,7 @@ static const CGFloat kHeightForPostButton = 52;
 
 static const CGFloat kHeightForSectionHeader = 8.0;
 
-@interface HomeworkViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface HomeworkViewController () <UITableViewDelegate, UITableViewDataSource, HomeworkTableViewCellDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
@@ -184,10 +184,13 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     Homework *homework = self.homeworkData[indexPath.section];
     
-    cell.publisherLabel.text = [NSString stringWithFormat:@"%@发布的作业信息:", homework.publisher];
+    cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 发布的作业信息:", homework.publisher];
 //    cell.publisherLabel.text = homework.publisher;
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:homework.pub_time];
     cell.contentLabel.text = homework.content;
+    
+    cell.tag = indexPath.section;
+    cell.delegate = self;
 }
 
 
@@ -196,6 +199,34 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     return [tableView fd_heightForCellWithIdentifier:cell_id cacheByIndexPath:indexPath configuration:^(id cell) {
             [self configureCell:cell atIndexPath:indexPath];
     }];
+}
+
+
+#pragma mark - HomeworkTableViewCellDelegate
+
+- (void)homeworkTableViewCellDidLongPressWithTag:(NSInteger)tag
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *username = [ud valueForKey:@"USERNAME"];
+    Homework *h = self.homeworkData[tag];
+    NSString *cellUsername = h.publisher;
+    NSLog(@"%@ - %@", username, cellUsername);
+    if ([cellUsername isEqualToString:username]) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
+        [actionSheet showInView:self.view];
+    }
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+//        [self.tableView beginUpdates];
+//        [self.homeworkData removeObjectAtIndex:actionSheet.tag];
+//        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:actionSheet.tag] withRowAnimation:UITableViewRowAnimationFade];
+//        [self.tableView endUpdates];
+//        actionSheet.tag = 99999;
+    }
 }
 
 

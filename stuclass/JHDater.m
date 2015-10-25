@@ -81,7 +81,7 @@
     } else if (interval >= (3600 * 24 * 30) && interval < (3600 * 24 * 30 * 365)) {
         return [NSString stringWithFormat:@"%llu月前", interval / 3600 / 24 / 30];
     } else if (interval >= (3600 * 24 * 30 * 365)) {
-        NSLog(@"----------%llu", interval);
+//        NSLog(@"----------%llu", interval);
         return [NSString stringWithFormat:@"%llu年前", interval / 3600 / 24 / 30 / 365];
     } else if (interval < 0) {
         return [NSString stringWithFormat:@"来自未来"];
