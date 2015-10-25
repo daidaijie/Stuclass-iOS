@@ -256,7 +256,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     [manager GET:[NSString stringWithFormat:@"%@%@", global_host, discuss_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        //        NSLog(@"讨论 - 连接服务器 - 成功 - %@", responseObject);
+//                NSLog(@"讨论 - 连接服务器 - 成功 - %@", responseObject);
         NSLog(@"讨论 - 连接服务器 - 成功");
         [self parseResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

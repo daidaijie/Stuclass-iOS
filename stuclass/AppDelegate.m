@@ -49,6 +49,8 @@
     // 启动等待时间
     [NSThread sleepForTimeInterval:0.6];
     
+    NSLog(@"当前用户 - TOKEN - %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"USER_TOKEN"]);
+    
     return YES;
 }
 

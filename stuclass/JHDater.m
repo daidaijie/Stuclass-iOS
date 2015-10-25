@@ -70,7 +70,7 @@
     
     long long interval = now_second - pub_time;
     
-    if (interval < 60) {
+    if (interval >= 0 && interval < 60) {
         return @"1分钟前";
     } else if (interval >= 60 && interval < 3600) {
         return [NSString stringWithFormat:@"%llu分钟前", interval / 60];
@@ -79,9 +79,12 @@
     } else if (interval >= (3600 * 24) && interval < (3600 * 24 * 30)) {
         return [NSString stringWithFormat:@"%llu天前", interval / 3600 / 24];
     } else if (interval >= (3600 * 24 * 30) && interval < (3600 * 24 * 30 * 365)) {
-        return [NSString stringWithFormat:@"%llu分钟前", interval / 3600 / 24 / 30];
-    } else {
+        return [NSString stringWithFormat:@"%llu月前", interval / 3600 / 24 / 30];
+    } else if (interval >= (3600 * 24 * 30 * 365)) {
+        NSLog(@"----------%llu", interval);
         return [NSString stringWithFormat:@"%llu年前", interval / 3600 / 24 / 30 / 365];
+    } else if (interval < 0) {
+        return [NSString stringWithFormat:@"来自未来"];
     }
     
     
