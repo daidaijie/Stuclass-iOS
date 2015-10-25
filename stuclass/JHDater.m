@@ -19,17 +19,83 @@
 @implementation JHDater
 
 
++ (instancetype)sharedInstance {
+    
+    static id sharedInstance;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        sharedInstance = [[[self class] alloc] init];
+    });
+    
+    return sharedInstance;
+}
+
+
 - (instancetype)init
 {
     self = [super init];
+    
     if (self) {
         _flags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday;
         _formatter = [[NSDateFormatter alloc] init];
         [_formatter setDateStyle:NSDateFormatterFullStyle];
         [_formatter setDateFormat:@"yyyy/MM/dd"];
     }
+    
     return self;
 }
+
+
+//- (instancetype)init
+//{
+//    self = [super init];
+//    if (self) {
+//        _flags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday;
+//        _formatter = [[NSDateFormatter alloc] init];
+//        [_formatter setDateStyle:NSDateFormatterFullStyle];
+//        [_formatter setDateFormat:@"yyyy/MM/dd"];
+//    }
+//    return self;
+//}
+
+
+#pragma mark - Date Method
+
+- (NSString *)getTimeStrWithTimeFrom1970:(long long)pub_time
+{
+//    NSDate *now = [self getCurrentZoneDate:[NSDate date]];
+    NSDate *now = [NSDate date];
+    
+    long long now_second = [now timeIntervalSince1970];
+    
+    long long interval = now_second - pub_time;
+    
+    if (interval < 60) {
+        return @"1分钟前";
+    } else if (interval >= 60 && interval < 3600) {
+        return [NSString stringWithFormat:@"%llu分钟前", interval / 60];
+    } else if (interval >= 3600 && interval < (3600 * 24)) {
+        return [NSString stringWithFormat:@"%llu小时前", interval / 3600];
+    } else if (interval >= (3600 * 24) && interval < (3600 * 24 * 30)) {
+        return [NSString stringWithFormat:@"%llu天前", interval / 3600 / 24];
+    } else if (interval >= (3600 * 24 * 30) && interval < (3600 * 24 * 30 * 365)) {
+        return [NSString stringWithFormat:@"%llu分钟前", interval / 3600 / 24 / 30];
+    } else {
+        return [NSString stringWithFormat:@"%llu年前", interval / 3600 / 24 / 30 / 365];
+    }
+    
+    
+    return @"";
+}
+
+
+- (NSDate *)getCurrentZoneDate:(NSDate *)date {
+    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+    NSInteger interval = [zone secondsFromGMTForDate:date];
+    
+    return [date dateByAddingTimeInterval:interval];
+}
+
 
 // 返回具体时间
 - (NSInteger)yearForDate:(NSDate *)date

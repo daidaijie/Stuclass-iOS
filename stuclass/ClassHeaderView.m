@@ -19,7 +19,6 @@
 @interface ClassHeaderView ()
 
 @property (strong, nonatomic) NSMutableArray *weekViewArray;
-@property (strong, nonatomic) JHDater *dater;
 
 @end
 
@@ -36,7 +35,6 @@
         self.backgroundColor = [UIColor clearColor];
         
         // 日期生成器
-        _dater = [[JHDater alloc] init];
         
         CGFloat width = [UIScreen mainScreen].bounds.size.width;
         CGFloat k = width / 320.0;
@@ -100,17 +98,17 @@
 - (NSString *)dateAtWeekIndex:(NSUInteger)i
 {
     NSDate *todayDate = [NSDate date];
-    NSInteger todayWeek = [_dater weekForDate:todayDate];
-    NSDate *weekDate = [_dater dateAfterDay:i - todayWeek];
+    NSInteger todayWeek = [[JHDater sharedInstance] weekForDate:todayDate];
+    NSDate *weekDate = [[JHDater sharedInstance] dateAfterDay:i - todayWeek];
     
-    return [_dater dateStringForDate:weekDate withFormate:@"MM-dd"];
+    return [[JHDater sharedInstance] dateStringForDate:weekDate withFormate:@"MM-dd"];
 }
 
 
 - (UIColor *)colorForDay:(NSUInteger)i
 {
     NSDate *todayDate = [NSDate date];
-    NSInteger todayWeek = [_dater weekForDate:todayDate];
+    NSInteger todayWeek = [[JHDater sharedInstance] weekForDate:todayDate];
     
     return todayWeek == i ? [UIColor colorWithWhite:1.0 alpha:0.45] : [UIColor colorWithWhite:1.0 alpha:0.2];
 }

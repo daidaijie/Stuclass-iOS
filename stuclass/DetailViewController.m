@@ -139,6 +139,8 @@
         
         if (self.index == 1) {
             [self performSelector:@selector(getHomework) withObject:nil afterDelay:0.3];
+        } else if (self.index == 2) {
+            [self performSelector:@selector(getDiscuss) withObject:nil afterDelay:0.3];
         }
     }
 }
@@ -146,6 +148,11 @@
 - (void)getHomework
 {
     [self.hvc getHomeworkDataWithClassNumber:_classBox.box_number];
+}
+
+- (void)getDiscuss
+{
+    [self.dvc getDiscussDataWithClassNumber:_classBox.box_number];
 }
 
 
@@ -164,6 +171,8 @@
             
             if (self.index == 1) {
                 [self performSelector:@selector(getHomework) withObject:nil afterDelay:0.3];
+            } else if (self.index == 2) {
+                [self performSelector:@selector(getDiscuss) withObject:nil afterDelay:0.3];
             }
         }
         
@@ -178,6 +187,8 @@
             
             if (self.index == 1) {
                 [self performSelector:@selector(getHomework) withObject:nil afterDelay:0.3];
+            } else if (self.index == 2) {
+                [self performSelector:@selector(getDiscuss) withObject:nil afterDelay:0.3];
             }
         }
     }

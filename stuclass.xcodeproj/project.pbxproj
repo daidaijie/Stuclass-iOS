@@ -70,6 +70,10 @@
 		13D8E2C11BD625180051617C /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D8E2C01BD625180051617C /* MBProgressHUD.m */; settings = {ASSET_TAGS = (); }; };
 		13D8E2DA1BD7252C0051617C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13D8E2D81BD7252C0051617C /* Model.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		13DBA09E1BD247DA00FC0682 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DBA09D1BD247DA00FC0682 /* DetailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		13DE7B461BDC67F1003AFF93 /* DiscussPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DE7B451BDC67F1003AFF93 /* DiscussPostTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		13DE7B4A1BDC682E003AFF93 /* DiscussTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DE7B481BDC682E003AFF93 /* DiscussTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		13DE7B4B1BDC682E003AFF93 /* DiscussTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13DE7B491BDC682E003AFF93 /* DiscussTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		13DE7B4F1BDC6AAC003AFF93 /* Discuss.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DE7B4E1BDC6AAC003AFF93 /* Discuss.m */; settings = {ASSET_TAGS = (); }; };
 		13ED2C861BD88AB500E250A2 /* CourseTable+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C831BD88AB500E250A2 /* CourseTable+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		13ED2C871BD88AB500E250A2 /* CourseTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C851BD88AB500E250A2 /* CourseTable.m */; settings = {ASSET_TAGS = (); }; };
 		13ED2C921BD8BC3F00E250A2 /* Course+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C8F1BD8BC3F00E250A2 /* Course+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
@@ -190,6 +194,13 @@
 		13D8E2D91BD7252C0051617C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		13DBA09C1BD247DA00FC0682 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		13DBA09D1BD247DA00FC0682 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		13DE7B441BDC67F1003AFF93 /* DiscussPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussPostTableViewController.h; sourceTree = "<group>"; };
+		13DE7B451BDC67F1003AFF93 /* DiscussPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussPostTableViewController.m; sourceTree = "<group>"; };
+		13DE7B471BDC682E003AFF93 /* DiscussTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscussTableViewCell.h; sourceTree = "<group>"; };
+		13DE7B481BDC682E003AFF93 /* DiscussTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscussTableViewCell.m; sourceTree = "<group>"; };
+		13DE7B491BDC682E003AFF93 /* DiscussTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussTableViewCell.xib; sourceTree = "<group>"; };
+		13DE7B4D1BDC6AAC003AFF93 /* Discuss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Discuss.h; sourceTree = "<group>"; };
+		13DE7B4E1BDC6AAC003AFF93 /* Discuss.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Discuss.m; sourceTree = "<group>"; };
 		13ED2C821BD88AB500E250A2 /* CourseTable+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CourseTable+CoreDataProperties.h"; sourceTree = "<group>"; };
 		13ED2C831BD88AB500E250A2 /* CourseTable+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CourseTable+CoreDataProperties.m"; sourceTree = "<group>"; };
 		13ED2C841BD88AB500E250A2 /* CourseTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CourseTable.h; sourceTree = "<group>"; };
@@ -359,8 +370,10 @@
 		1366D66E1BD4BAB400B69C04 /* DiscussViewController */ = {
 			isa = PBXGroup;
 			children = (
+				13DE7B421BDC67A7003AFF93 /* DiscussTableViewCell */,
 				1366D66F1BD4BAD500B69C04 /* DiscussViewController.h */,
 				1366D6701BD4BAD500B69C04 /* DiscussViewController.m */,
+				13DE7B431BDC67B0003AFF93 /* DiscussPostTableViewController */,
 			);
 			name = DiscussViewController;
 			sourceTree = "<group>";
@@ -650,6 +663,7 @@
 		13D8E2C21BD71C430051617C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				13DE7B4C1BDC6AA3003AFF93 /* Discuss */,
 				137C8C311BDB177100236C79 /* Homework */,
 				131EF3521BD7DD5E007ECFE8 /* ClassBox */,
 				13D8E2D81BD7252C0051617C /* Model.xcdatamodeld */,
@@ -693,6 +707,34 @@
 				1366D66E1BD4BAB400B69C04 /* DiscussViewController */,
 			);
 			name = DetailViewController;
+			sourceTree = "<group>";
+		};
+		13DE7B421BDC67A7003AFF93 /* DiscussTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				13DE7B471BDC682E003AFF93 /* DiscussTableViewCell.h */,
+				13DE7B481BDC682E003AFF93 /* DiscussTableViewCell.m */,
+				13DE7B491BDC682E003AFF93 /* DiscussTableViewCell.xib */,
+			);
+			name = DiscussTableViewCell;
+			sourceTree = "<group>";
+		};
+		13DE7B431BDC67B0003AFF93 /* DiscussPostTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				13DE7B441BDC67F1003AFF93 /* DiscussPostTableViewController.h */,
+				13DE7B451BDC67F1003AFF93 /* DiscussPostTableViewController.m */,
+			);
+			name = DiscussPostTableViewController;
+			sourceTree = "<group>";
+		};
+		13DE7B4C1BDC6AA3003AFF93 /* Discuss */ = {
+			isa = PBXGroup;
+			children = (
+				13DE7B4D1BDC6AAC003AFF93 /* Discuss.h */,
+				13DE7B4E1BDC6AAC003AFF93 /* Discuss.m */,
+			);
+			name = Discuss;
 			sourceTree = "<group>";
 		};
 		713C935CB701BE90F52CE36D /* Pods */ = {
@@ -782,6 +824,7 @@
 				13C4C39D1BCDE9360003E703 /* class_bg_1_1.jpg in Resources */,
 				1366D6831BD4F19000B69C04 /* ClassNoteTableViewCell.xib in Resources */,
 				13C4C39F1BCDE9360003E703 /* class_bg_1_3.jpg in Resources */,
+				13DE7B4B1BDC682E003AFF93 /* DiscussTableViewCell.xib in Resources */,
 				137C8C3A1BDB1A4900236C79 /* HomeworkTableViewCell.xib in Resources */,
 				13C707181BC7DE10003061A4 /* Main.storyboard in Resources */,
 				13C4C3A11BCDE9360003E703 /* class_bg_1_5.jpg in Resources */,
@@ -861,6 +904,7 @@
 				13C7072A1BC82187003061A4 /* InputView.m in Sources */,
 				13C4C37C1BCCEE2B0003E703 /* GKImageCropOverlayView.m in Sources */,
 				1335FC7C1BCA274900BC0F23 /* JHDater.m in Sources */,
+				13DE7B4F1BDC6AAC003AFF93 /* Discuss.m in Sources */,
 				13C4C3A51BCE0C360003E703 /* ClassParser.m in Sources */,
 				13C707121BC7DE10003061A4 /* AppDelegate.m in Sources */,
 				131EF3551BD7DD95007ECFE8 /* ClassBox.m in Sources */,
@@ -887,11 +931,13 @@
 				1366D6741BD4BAE000B69C04 /* HomeworkViewController.m in Sources */,
 				13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */,
 				137C8C2C1BDA956900236C79 /* Note.m in Sources */,
+				13DE7B4A1BDC682E003AFF93 /* DiscussTableViewCell.m in Sources */,
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,
 				137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */,
 				1366D67B1BD4EAA300B69C04 /* ClassInfoTableViewCell.m in Sources */,
 				1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */,
 				1345308B1BC8AE0C0018C15E /* ClassViewController.m in Sources */,
+				13DE7B461BDC67F1003AFF93 /* DiscussPostTableViewController.m in Sources */,
 				1335FC711BCA259700BC0F23 /* StartView.m in Sources */,
 				13C4C3461BCC07840003E703 /* SemesterTableViewController.m in Sources */,
 				137C8C341BDB178400236C79 /* Homework.m in Sources */,

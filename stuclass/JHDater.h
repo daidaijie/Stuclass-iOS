@@ -10,7 +10,7 @@
 
 @interface JHDater : NSObject
 
-
++ (instancetype)sharedInstance;
 
 // 返回具体时间
 - (NSInteger)yearForDate:(NSDate *)date;
@@ -34,5 +34,12 @@
 
 // 返回day天后的日期
 - (NSDate *)dateAfterDay:(NSUInteger)day;
+
+// 返回1970年秒数
+- (NSString *)getTimeStrWithTimeFrom1970:(long long)pub_time;
+
+
+// 返回当前时间
+- (NSDate *)getCurrentZoneDate:(NSDate *)date;
 
 @end

@@ -10,4 +10,6 @@
 
 @interface DiscussViewController : UIViewController
 
+- (void)getDiscussDataWithClassNumber:(NSString *)number;
+
 @end

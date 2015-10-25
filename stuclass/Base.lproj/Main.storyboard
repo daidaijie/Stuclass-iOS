@@ -324,6 +324,68 @@
             </objects>
             <point key="canvasLocation" x="1731" y="970"/>
         </scene>
+        <!--吹一下水-->
+        <scene sceneID="hao-ix-Xja">
+            <objects>
+                <tableViewController storyboardIdentifier="DiscussPostTVC" id="StQ-yR-9Jf" customClass="DiscussPostTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="140" sectionHeaderHeight="18" sectionFooterHeight="18" id="Cgb-pN-sQQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="fVZ-Ke-C44">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="tjj-gl-u1D">
+                                        <rect key="frame" x="0.0" y="99" width="320" height="140"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tjj-gl-u1D" id="AcH-CF-eDY">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-Qo-EAm">
+                                                    <rect key="frame" x="4" y="4" width="312" height="131.5"/>
+                                                    <animations/>
+                                                    <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="XJe-Qo-EAm" secondAttribute="trailing" constant="4" id="4rB-Aw-hXs"/>
+                                                <constraint firstItem="XJe-Qo-EAm" firstAttribute="leading" secondItem="AcH-CF-eDY" secondAttribute="leading" constant="4" id="IwA-xg-fy0"/>
+                                                <constraint firstItem="XJe-Qo-EAm" firstAttribute="top" secondItem="AcH-CF-eDY" secondAttribute="top" constant="4" id="UbV-lU-vBL"/>
+                                                <constraint firstAttribute="bottom" secondItem="XJe-Qo-EAm" secondAttribute="bottom" constant="4" id="qvZ-Ry-sJG"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="StQ-yR-9Jf" id="OLC-W0-QtX"/>
+                            <outlet property="delegate" destination="StQ-yR-9Jf" id="4jN-uB-8Uz"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="吹一下水" id="F0h-sm-3LB">
+                        <barButtonItem key="rightBarButtonItem" title="发布" id="UfN-1V-n0D">
+                            <connections>
+                                <action selector="postItemPress:" destination="StQ-yR-9Jf" id="Zdo-u3-cBH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="textView" destination="XJe-Qo-EAm" id="0WE-ES-Dnl"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5pY-0y-mGG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2116" y="970"/>
+        </scene>
         <!--设置-->
         <scene sceneID="CJw-6G-lsO">
             <objects>
