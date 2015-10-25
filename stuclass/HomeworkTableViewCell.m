@@ -22,9 +22,9 @@
     self.homeworkView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     self.homeworkView.layer.shouldRasterize = YES;
     self.homeworkView.layer.cornerRadius = 4.0;
-    self.homeworkView.layer.shadowOpacity = 0.2;
+    self.homeworkView.layer.shadowOpacity = 0.25;
     self.homeworkView.layer.shadowOffset = CGSizeMake(-0.1, 0.1);
-    self.homeworkView.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.homeworkView.layer.shadowColor = [UIColor grayColor].CGColor;
 }
 
 

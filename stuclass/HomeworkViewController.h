@@ -10,6 +10,8 @@
 
 @interface HomeworkViewController : UIViewController
 
+@property (strong, nonatomic) UITableView *tableView;
+
 - (void)getHomeworkDataWithClassNumber:(NSString *)number;
 
 @end

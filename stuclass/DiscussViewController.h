@@ -10,6 +10,8 @@
 
 @interface DiscussViewController : UIViewController
 
+@property (strong, nonatomic) UITableView *tableView;
+
 - (void)getDiscussDataWithClassNumber:(NSString *)number;
 
 @end

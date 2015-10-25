@@ -14,6 +14,8 @@
 
 @property (strong, nonatomic) ClassBox *classBox;
 
+@property (strong, nonatomic) UITableView *tableView;
+
 - (void)setupBoxData:(ClassBox *)boxData;
 
 @end

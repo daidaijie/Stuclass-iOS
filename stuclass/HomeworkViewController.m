@@ -26,8 +26,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 @interface HomeworkViewController () <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) UITableView *tableView;
-
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) UIButton *emptyView;

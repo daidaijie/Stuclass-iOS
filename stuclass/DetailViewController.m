@@ -143,6 +143,8 @@
             [self performSelector:@selector(getDiscuss) withObject:nil afterDelay:0.3];
         }
     }
+    
+    [self updateScrollsToTop];
 }
 
 - (void)getHomework
@@ -192,7 +194,30 @@
             }
         }
     }
+    
+    [self updateScrollsToTop];
 }
+
+
+#pragma mark - StatusBar ScrollsToTop
+
+- (void)updateScrollsToTop
+{
+    if (self.index == 0) {
+        self.pvc.tableView.scrollsToTop = YES;
+        self.hvc.tableView.scrollsToTop = NO;
+        self.dvc.tableView.scrollsToTop = NO;
+    } else if (self.index == 1) {
+        self.pvc.tableView.scrollsToTop = NO;
+        self.hvc.tableView.scrollsToTop = YES;
+        self.dvc.tableView.scrollsToTop = NO;
+    } else if (self.index == 2) {
+        self.pvc.tableView.scrollsToTop = NO;
+        self.hvc.tableView.scrollsToTop = NO;
+        self.dvc.tableView.scrollsToTop = YES;
+    }
+}
+
 
 
 @end

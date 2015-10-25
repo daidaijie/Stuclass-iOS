@@ -29,8 +29,6 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 
 @interface PersonViewController () <UITableViewDelegate, UITableViewDataSource, NoteTableViewControllerDelegate>
 
-@property (strong, nonatomic) UITableView *tableView;
-
 @property (strong, nonatomic) NSArray *infoTitleArray;
 
 @property (strong, nonatomic) NSString *noteStr;
