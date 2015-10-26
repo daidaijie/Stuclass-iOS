@@ -10,7 +10,7 @@
 
 @protocol HomeworkTableViewCellDelegate <NSObject>
 
-- (void)homeworkTableViewCellDidLongPressWithTag:(NSInteger)tag;
+- (void)homeworkTableViewCellDidLongPressOnCell:(UITableViewCell *)cell;
 
 @end
 
@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *publisherLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+
+@property (assign, nonatomic) NSInteger homework_id;
 
 @property (weak, nonatomic) id<HomeworkTableViewCellDelegate> delegate;
 

@@ -37,7 +37,7 @@
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
     
-        [_delegate homeworkTableViewCellDidLongPressWithTag:self.tag];
+        [_delegate homeworkTableViewCellDidLongPressOnCell:self];
     }
 }
 

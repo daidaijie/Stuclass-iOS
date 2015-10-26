@@ -225,14 +225,14 @@ static NSString *login_url = @"/syllabus";
     NSString *password = self.inputView.passwordTextField.text;
     
     if (username.length == 0 || password.length == 0) {
-        [self showHUDWithText:@"请输入账号和密码" andHideDelay:1.2];
+        [self showHUDWithText:@"请输入账号和密码" andHideDelay:global_hud_delay];
         return;
     } else if (_year == 0 && _semester == 0) {
-//        [self showHUDWithText:@"请选择学期" andHideDelay:1.2];
+//        [self showHUDWithText:@"请选择学期" andHideDelay:global_hud_delay];
         [self semesterPress:nil];
         return;
     } else if (password.length < 6) {
-        [self showHUDWithText:@"请输入6位或6位以上的密码" andHideDelay:1.2];
+        [self showHUDWithText:@"请输入6位或6位以上的密码" andHideDelay:global_hud_delay];
         return;
     }
     

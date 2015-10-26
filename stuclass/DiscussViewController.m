@@ -189,8 +189,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     //    cell.publisherLabel.text = discuss.publisher;
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:discuss.pub_time];
     cell.contentLabel.text = discuss.content;
-    
-    cell.tag = indexPath.section;
+    cell.discuss_id = discuss.discuss_id;
     cell.delegate = self;
 }
 
@@ -205,16 +204,19 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 #pragma mark - DiscussTableViewCellDelegate
 
-- (void)discussTableViewCellDidLongPressWithTag:(NSInteger)tag
+- (void)discussTableViewCellDidLongPressOnCell:(UITableViewCell *)cell
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud valueForKey:@"USERNAME"];
-    Discuss *d = self.discussData[tag];
+    
+    NSInteger section = [self.tableView indexPathForCell:cell].section;
+    
+    Discuss *d = self.discussData[section];
     NSString *cellUsername = d.publisher;
-    NSLog(@"%@ - %@", cellUsername, username);
+    
     if ([cellUsername isEqualToString:username]) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
-        actionSheet.tag = tag;
+        actionSheet.tag = section;
         [actionSheet showInView:self.view];
     }
 }
@@ -222,12 +224,30 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-//        [self.tableView beginUpdates];
-//        [self.discussData removeObjectAtIndex:actionSheet.tag];
-//        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:actionSheet.tag] withRowAnimation:UITableViewRowAnimationFade];
-//        [self.tableView endUpdates];
-//        actionSheet.tag = 99999;
+        [self deleteDiscussWithTag:actionSheet.tag];
+        actionSheet.tag = 99999;
     }
+}
+
+
+- (void)deleteDiscussWithTag:(NSInteger)tag
+{
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    [self performSelector:@selector(sendDeleteRequest:) withObject:[NSNumber numberWithInteger:tag] afterDelay:1.5];
+}
+
+
+- (void)sendDeleteRequest:(NSNumber *)tagNumber
+{
+    NSInteger tag = [tagNumber integerValue];
+    
+    [self.tableView beginUpdates];
+    [self.discussData removeObjectAtIndex:tag];
+    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:tag] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+    
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
 }
 
 
@@ -297,7 +317,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         // 失败
         NSLog(@"---%@", operation.request);
         NSLog(@"讨论 - 连接服务器 - 失败 - %@", error);
-        [self showHUDWithText:@"连接服务器失败" andHideDelay:1.2];
+        [self showHUDWithText:@"连接服务器失败" andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         _isLoading = NO;
         [self.refreshControl endRefreshing];
@@ -318,7 +338,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             
         } else {
             NSLog(@"----%@", errorStr);
-            [self showHUDWithText:@"获取讨论信息失败" andHideDelay:1.2];
+            [self showHUDWithText:@"获取讨论信息失败" andHideDelay:global_hud_delay];
         }
         
     } else {
@@ -336,6 +356,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             dicuss.pub_time = [d[@"time"] longLongValue];
             
             dicuss.content = d[@"content"];
+            
+            dicuss.discuss_id = [d[@"discuss_id"] integerValue];
             
             [discussData addObject:dicuss];
         }

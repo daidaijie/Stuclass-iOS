@@ -188,8 +188,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 //    cell.publisherLabel.text = homework.publisher;
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:homework.pub_time];
     cell.contentLabel.text = homework.content;
+    cell.homework_id = homework.homework_id;
     
-    cell.tag = indexPath.section;
     cell.delegate = self;
 }
 
@@ -204,15 +204,19 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 #pragma mark - HomeworkTableViewCellDelegate
 
-- (void)homeworkTableViewCellDidLongPressWithTag:(NSInteger)tag
+- (void)homeworkTableViewCellDidLongPressOnCell:(UITableViewCell *)cell
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud valueForKey:@"USERNAME"];
-    Homework *h = self.homeworkData[tag];
+    
+    NSInteger section = [self.tableView indexPathForCell:cell].section;
+    
+    Homework *h = self.homeworkData[section];
     NSString *cellUsername = h.publisher;
-    NSLog(@"%@ - %@", username, cellUsername);
+    
     if ([cellUsername isEqualToString:username]) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
+        actionSheet.tag = section;
         [actionSheet showInView:self.view];
     }
 }
@@ -221,13 +225,33 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-//        [self.tableView beginUpdates];
-//        [self.homeworkData removeObjectAtIndex:actionSheet.tag];
-//        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:actionSheet.tag] withRowAnimation:UITableViewRowAnimationFade];
-//        [self.tableView endUpdates];
-//        actionSheet.tag = 99999;
+        [self deleteHomeworkWithTag:actionSheet.tag];
+        actionSheet.tag = 99999;
     }
 }
+
+
+- (void)deleteHomeworkWithTag:(NSInteger)tag
+{
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    [self performSelector:@selector(sendDeleteRequest:) withObject:[NSNumber numberWithInteger:tag] afterDelay:1.5];
+}
+
+
+- (void)sendDeleteRequest:(NSNumber *)tagNumber
+{
+    NSInteger tag = [tagNumber integerValue];
+    
+    [self.tableView beginUpdates];
+    [self.homeworkData removeObjectAtIndex:tag];
+    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:tag] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+    
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+}
+
+
 
 
 #pragma mark - Event
@@ -294,7 +318,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         // 失败
         NSLog(@"---%@", operation.request);
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [self showHUDWithText:@"连接服务器失败" andHideDelay:1.2];
+        [self showHUDWithText:@"连接服务器失败" andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         _isLoading = NO;
         [self.refreshControl endRefreshing];
@@ -315,7 +339,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             
         } else {
             NSLog(@"----%@", errorStr);
-            [self showHUDWithText:@"获取作业信息失败" andHideDelay:1.2];
+            [self showHUDWithText:@"获取作业信息失败" andHideDelay:global_hud_delay];
         }
         
     } else {
@@ -333,6 +357,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             homework.pub_time = [h[@"pub_time"] longLongValue];
             
             homework.content = h[@"content"];
+            
+            homework.homework_id = [h[@"id"] integerValue];
             
             [homeworkData addObject:homework];
         }

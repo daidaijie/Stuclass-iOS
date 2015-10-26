@@ -18,6 +18,8 @@
 
 static const NSTimeInterval global_timeout = 2.0;
 
+static const NSTimeInterval global_hud_delay = 1.0;
+
 static const CGFloat global_BarViewHeight = 43.0;
 
 static const CGFloat global_textView_RowHeightFor4 = 118;

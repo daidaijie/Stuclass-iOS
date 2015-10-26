@@ -13,5 +13,6 @@
 @property (strong, nonatomic) NSString *publisher;
 @property (assign, nonatomic) long long pub_time;
 @property (strong, nonatomic) NSString *content;
+@property (assign, nonatomic) NSInteger discuss_id;
 
 @end

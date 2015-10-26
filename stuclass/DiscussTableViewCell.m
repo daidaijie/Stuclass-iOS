@@ -39,7 +39,7 @@
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         
-        [_delegate discussTableViewCellDidLongPressWithTag:self.tag];
+        [_delegate discussTableViewCellDidLongPressOnCell:self];
     }
 }
 
