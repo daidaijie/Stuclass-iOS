@@ -9,6 +9,7 @@
 #import "NoteTableViewController.h"
 #import "CoreDataManager.h"
 #import "Define.h"
+#import "PlaceholderTextView.h"
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
@@ -16,9 +17,9 @@ static const NSInteger kNumberOfSections = 1;
 
 static const NSInteger kNumberOfRowsInNoteSection = 1;
 
-@interface NoteTableViewController ()
+@interface NoteTableViewController () <UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet PlaceholderTextView *textView;
 
 @end
 
@@ -28,6 +29,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     [super viewDidLoad];
     
     [self setupTableView];
+    [self setupTextView];
     [self setupNote];
 }
 
@@ -37,6 +39,11 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 - (void)setupTableView
 {
     self.tableView.contentInset = UIEdgeInsetsMake(-12, 0, 0, 0);
+}
+
+- (void)setupTextView
+{
+    self.textView.placeholder.text = @"今天，我要认真听课...";
 }
 
 - (void)setupNote
@@ -91,6 +98,15 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         return global_textView_RowHeightFor5;
     }
 }
+
+
+#pragma mark - TextView Delegate
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    self.textView.placeholder.hidden = (textView.text.length > 0);
+}
+
 
 
 - (IBAction)saveItemPress:(id)sender

@@ -219,12 +219,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="n6B-Fy-J9F">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="n6B-Fy-J9F" customClass="PlaceholderTextView">
                                                     <rect key="frame" x="4" y="4" width="312" height="131.5"/>
                                                     <animations/>
                                                     <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="709-SW-O5u" id="F3c-AP-fqL"/>
+                                                    </connections>
                                                 </textView>
                                             </subviews>
                                             <animations/>
@@ -282,19 +285,32 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cyx-BU-160" customClass="PlaceholderTextView">
-                                                    <rect key="frame" x="4" y="4" width="312" height="131.5"/>
+                                                    <rect key="frame" x="4" y="4" width="312" height="88"/>
                                                     <animations/>
                                                     <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                                 </textView>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="作业提交截止时间" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gOZ-m9-pXO" customClass="HomeworkTextField">
+                                                    <rect key="frame" x="8" y="95" width="304" height="44.5"/>
+                                                    <animations/>
+                                                    <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="6vH-JL-1s5"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="cyx-BU-160" secondAttribute="bottom" constant="4" id="U6y-6D-JWy"/>
+                                                <constraint firstAttribute="trailing" secondItem="gOZ-m9-pXO" secondAttribute="trailing" constant="8" id="7Do-wa-0rA"/>
+                                                <constraint firstAttribute="bottom" secondItem="gOZ-m9-pXO" secondAttribute="bottom" id="OdZ-g0-jnf"/>
+                                                <constraint firstItem="gOZ-m9-pXO" firstAttribute="leading" secondItem="osM-t6-RT7" secondAttribute="leading" constant="8" id="T8x-Ax-2Qg"/>
                                                 <constraint firstAttribute="trailing" secondItem="cyx-BU-160" secondAttribute="trailing" constant="4" id="Y9q-GW-4bq"/>
                                                 <constraint firstItem="cyx-BU-160" firstAttribute="leading" secondItem="osM-t6-RT7" secondAttribute="leading" constant="4" id="n9i-U9-wfz"/>
                                                 <constraint firstItem="cyx-BU-160" firstAttribute="top" secondItem="osM-t6-RT7" secondAttribute="top" constant="4" id="rdW-Wr-fJd"/>
+                                                <constraint firstItem="gOZ-m9-pXO" firstAttribute="top" secondItem="cyx-BU-160" secondAttribute="bottom" constant="3" id="suq-4S-aCC"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -386,7 +402,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="吹一下水" id="F0h-sm-3LB">
-                        <barButtonItem key="rightBarButtonItem" title="发布" id="UfN-1V-n0D">
+                        <barButtonItem key="rightBarButtonItem" title="吹!" id="UfN-1V-n0D">
                             <connections>
                                 <action selector="postItemPress:" destination="StQ-yR-9Jf" id="Zdo-u3-cBH"/>
                             </connections>

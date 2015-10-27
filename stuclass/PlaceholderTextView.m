@@ -16,7 +16,7 @@
     [super awakeFromNib];
     
     self.placeholder = [[UILabel alloc] initWithFrame:CGRectMake(5, 3, 200, 30)];
-    self.placeholder.textColor = [UIColor lightGrayColor];
+    self.placeholder.textColor = [UIColor colorWithRed:0.780 green:0.780 blue:0.804 alpha:1.000];
     self.placeholder.font = [UIFont systemFontOfSize:16.0];
     
     [self addSubview:self.placeholder];

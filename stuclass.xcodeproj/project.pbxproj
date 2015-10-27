@@ -68,6 +68,7 @@
 		13C7072A1BC82187003061A4 /* InputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C707291BC82187003061A4 /* InputView.m */; settings = {ASSET_TAGS = (); }; };
 		13C7072D1BC8230E003061A4 /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C7072C1BC8230E003061A4 /* InputTextField.m */; settings = {ASSET_TAGS = (); }; };
 		13CB2C7A1BDFD2BA00460BE4 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CB2C791BDFD2BA00460BE4 /* PlaceholderTextView.m */; settings = {ASSET_TAGS = (); }; };
+		13CB2C7E1BDFDC1B00460BE4 /* HomeworkTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CB2C7D1BDFDC1B00460BE4 /* HomeworkTextField.m */; settings = {ASSET_TAGS = (); }; };
 		13D8E2C11BD625180051617C /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D8E2C01BD625180051617C /* MBProgressHUD.m */; settings = {ASSET_TAGS = (); }; };
 		13D8E2DA1BD7252C0051617C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13D8E2D81BD7252C0051617C /* Model.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		13DBA09E1BD247DA00FC0682 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DBA09D1BD247DA00FC0682 /* DetailViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -192,6 +193,8 @@
 		13C7072C1BC8230E003061A4 /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
 		13CB2C781BDFD2BA00460BE4 /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
 		13CB2C791BDFD2BA00460BE4 /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
+		13CB2C7C1BDFDC1B00460BE4 /* HomeworkTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeworkTextField.h; sourceTree = "<group>"; };
+		13CB2C7D1BDFDC1B00460BE4 /* HomeworkTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeworkTextField.m; sourceTree = "<group>"; };
 		13D8E2BF1BD625180051617C /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		13D8E2C01BD625180051617C /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		13D8E2D91BD7252C0051617C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -362,6 +365,7 @@
 		1366D66D1BD4BAA800B69C04 /* HomeworkViewController */ = {
 			isa = PBXGroup;
 			children = (
+				13CB2C7B1BDFDBF900460BE4 /* HomeworkTextField */,
 				137C8C351BDB1A3000236C79 /* HomeworkTableViewCell */,
 				1366D6721BD4BAE000B69C04 /* HomeworkViewController.h */,
 				1366D6731BD4BAE000B69C04 /* HomeworkViewController.m */,
@@ -664,6 +668,15 @@
 			name = PlaceholderTextView;
 			sourceTree = "<group>";
 		};
+		13CB2C7B1BDFDBF900460BE4 /* HomeworkTextField */ = {
+			isa = PBXGroup;
+			children = (
+				13CB2C7C1BDFDC1B00460BE4 /* HomeworkTextField.h */,
+				13CB2C7D1BDFDC1B00460BE4 /* HomeworkTextField.m */,
+			);
+			name = HomeworkTextField;
+			sourceTree = "<group>";
+		};
 		13D8E2BE1BD625180051617C /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -953,6 +966,7 @@
 				1345308B1BC8AE0C0018C15E /* ClassViewController.m in Sources */,
 				13DE7B461BDC67F1003AFF93 /* DiscussPostTableViewController.m in Sources */,
 				1335FC711BCA259700BC0F23 /* StartView.m in Sources */,
+				13CB2C7E1BDFDC1B00460BE4 /* HomeworkTextField.m in Sources */,
 				13C4C3461BCC07840003E703 /* SemesterTableViewController.m in Sources */,
 				137C8C341BDB178400236C79 /* Homework.m in Sources */,
 				131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */,
