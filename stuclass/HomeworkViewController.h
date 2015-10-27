@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class DetailViewController;
+
 @interface HomeworkViewController : UIViewController
 
 @property (strong, nonatomic) UITableView *tableView;
 
-- (void)getHomeworkDataWithClassNumber:(NSString *)number;
+@property (weak, nonatomic) DetailViewController *dvc;
+
+- (void)getHomeworkData;
 
 @end

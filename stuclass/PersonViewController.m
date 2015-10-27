@@ -13,6 +13,7 @@
 #import "NoteTableViewController.h"
 #import "Define.h"
 #import "CoreDataManager.h"
+#import "DetailViewController.h"
 
 static NSString *info_cell_id = @"ClassInfoTableViewCell";
 
@@ -96,7 +97,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud valueForKey:@"USERNAME"];
     
-    NSDictionary *dict = [[CoreDataManager sharedInstance] getNoteFromCoreDataWithClassID:_classBox.box_id username:username];
+    NSDictionary *dict = [[CoreDataManager sharedInstance] getNoteFromCoreDataWithClassID:self.dvc.classBox.box_id username:username];
     self.noteStr = dict[@"content"];
     self.timeStr = dict[@"time"];
     
@@ -104,7 +105,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 
 - (void)setupBoxData:(ClassBox *)boxData
 {
-    self.classBox = boxData;
+    self.dvc.classBox = boxData;
     
     [self initNoteStr];
 }
@@ -172,22 +173,22 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
         
         switch (row) {
             case 0:
-                content = self.classBox.box_name;
+                content = self.dvc.classBox.box_name;
                 break;
             case 1:
-                content = self.classBox.box_number;
+                content = self.dvc.classBox.box_number;
                 break;
             case 2:
-                content = self.classBox.box_teacher;
+                content = self.dvc.classBox.box_teacher;
                 break;
             case 3:
-                content = self.classBox.box_room;
+                content = self.dvc.classBox.box_room;
                 break;
             case 4:
-                content = self.classBox.box_credit;
+                content = self.dvc.classBox.box_credit;
                 break;
             case 5:
-                content = self.classBox.box_span;
+                content = self.dvc.classBox.box_span;
                 break;
                 
             default:
@@ -218,7 +219,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
         NoteTableViewController *ntvc = [sb instantiateViewControllerWithIdentifier:@"NoteTableVC"];
         
         ntvc.noteStr = _noteStr;
-        ntvc.classID = _classBox.box_id;
+        ntvc.classID = self.dvc.classBox.box_id;
         ntvc.delegate = self;
         
         [self.navigationController pushViewController:ntvc animated:YES];

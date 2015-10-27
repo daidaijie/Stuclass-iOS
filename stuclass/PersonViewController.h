@@ -7,16 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class DetailViewController;
 
 @class ClassBox;
 
 @interface PersonViewController : UIViewController
 
-@property (strong, nonatomic) ClassBox *classBox;
-
 @property (strong, nonatomic) UITableView *tableView;
 
-- (void)setupBoxData:(ClassBox *)boxData;
+@property (weak, nonatomic) DetailViewController *dvc;
 
 @end
 

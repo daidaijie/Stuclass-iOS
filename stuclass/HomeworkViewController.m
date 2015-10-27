@@ -15,6 +15,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "Homework.h"
 #import "JHDater.h"
+#import "DetailViewController.h"
+#import "ClassBox.h"
 
 static NSString *cell_id = @"HomeworkTableViewCell";
 
@@ -37,8 +39,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 @property (assign, nonatomic) BOOL hasLoadedFirstly;
 
 @property (assign, nonatomic) BOOL isLoading;
-
-@property (strong, nonatomic) NSString *number;
 
 @end
 
@@ -265,20 +265,18 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     [self.navigationController pushViewController:hptvc animated:YES];
 }
 
-- (void)getHomeworkDataWithClassNumber:(NSString *)number
+- (void)getHomeworkData
 {
     if (!_hasLoadedFirstly) {
         
-        self.number = number;
-        
         // Request
-        [self sendRequestWithNumber:number];
+        [self sendRequest];
         
         _hasLoadedFirstly = YES;
     }
 }
 
-- (void)sendRequestWithNumber:(NSString *)number
+- (void)sendRequest
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -293,7 +291,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     // get data
     NSDictionary *getData = @{
-                               @"number": number,
+                               @"number": self.dvc.classBox.box_number,
                                @"semester": [NSString stringWithFormat:@"%d", semester],
                                @"start_year": [NSString stringWithFormat:@"%d", year],
                                @"end_year": [NSString stringWithFormat:@"%d", year + 1],
@@ -379,7 +377,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     if (!_isLoading) {
         
         NSLog(@"点击获取 - 作业");
-        [self sendRequestWithNumber:self.number];
+        [self sendRequest];
     }
 }
 
@@ -390,7 +388,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     if (!_isLoading) {
         NSLog(@"下拉刷新 - 作业");
-        [self sendRequestWithNumber:self.number];
+        [self sendRequest];
     }
 }
 

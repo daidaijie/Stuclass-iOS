@@ -42,4 +42,7 @@
 // 返回当前时间
 - (NSDate *)getCurrentZoneDate:(NSDate *)date;
 
+// 返回当前距离1970的秒数
+- (long long)getNowSecondFrom1970;
+
 @end

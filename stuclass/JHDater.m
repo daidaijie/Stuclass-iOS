@@ -61,6 +61,14 @@
 
 #pragma mark - Date Method
 
+- (long long)getNowSecondFrom1970
+{
+    NSDate *now = [NSDate date];
+    
+    return [now timeIntervalSince1970];
+}
+
+
 - (NSString *)getTimeStrWithTimeFrom1970:(long long)pub_time
 {
 //    NSDate *now = [self getCurrentZoneDate:[NSDate date]];

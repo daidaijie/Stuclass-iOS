@@ -15,6 +15,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "Discuss.h"
 #import "JHDater.h"
+#import "DetailViewController.h"
 
 static NSString *cell_id = @"DiscussTableViewCell";
 
@@ -24,7 +25,7 @@ static const CGFloat kHeightForPostButton = 52;
 
 static const CGFloat kHeightForSectionHeader = 8.0;
 
-@interface DiscussViewController () <UITableViewDelegate, UITableViewDataSource, DiscussTableViewCellDelegate, UIActionSheetDelegate>
+@interface DiscussViewController () <UITableViewDelegate, UITableViewDataSource, DiscussTableViewCellDelegate, UIActionSheetDelegate, DiscussPostTableViewControllerDelegate>
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
@@ -147,6 +148,13 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 }
 
 
+- (void)setupBoxData:(ClassBox *)boxData
+{
+    self.classBox = boxData;
+}
+
+
+
 #pragma mark - TableView Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -260,23 +268,25 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     DiscussPostTableViewController *dptvc = [sb instantiateViewControllerWithIdentifier:@"DiscussPostTVC"];
     
+    dptvc.dvc = self.dvc;
+    
+    dptvc.delegate = self;
+    
     [self.navigationController pushViewController:dptvc animated:YES];
 }
 
-- (void)getDiscussDataWithClassNumber:(NSString *)number
+- (void)getDiscussData
 {
     if (!_hasLoadedFirstly) {
         
-        self.number = number;
-        
         // Request
-        [self sendRequestWithNumber:number];
+        [self sendRequest];
         
         _hasLoadedFirstly = YES;
     }
 }
 
-- (void)sendRequestWithNumber:(NSString *)number
+- (void)sendRequest
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -289,11 +299,9 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     NSInteger year = [dict[@"year"] integerValue];
     NSInteger semester = [dict[@"semester"] integerValue];
     
-//    NSLog(@"---%@", number);
-    
     // get data
     NSDictionary *getData = @{
-                              @"number": number,
+                              @"number": self.dvc.classBox.box_number,
                               @"semester": [NSString stringWithFormat:@"%d", semester],
                               @"start_year": [NSString stringWithFormat:@"%d", year],
                               @"end_year": [NSString stringWithFormat:@"%d", year + 1],
@@ -378,7 +386,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     if (!_isLoading) {
         
         NSLog(@"点击获取 - 讨论");
-        [self sendRequestWithNumber:self.number];
+        [self sendRequest];
     }
 }
 
@@ -389,8 +397,20 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     if (!_isLoading) {
         NSLog(@"下拉刷新 - 讨论");
-        [self sendRequestWithNumber:self.number];
+        [self sendRequest];
     }
+}
+
+
+#pragma mark - DiscussPostTableViewControllerDelegate
+
+- (void)discussPostTableViewControllerPostSuccessfullyWithDiscuss:(Discuss *)discuss
+{
+    NSLog(@"增加cell - %@", discuss.content);
+    
+    [self.discussData insertObject:discuss atIndex:0];
+    
+    [self.tableView reloadData];
 }
 
 

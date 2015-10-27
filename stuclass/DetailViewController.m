@@ -105,17 +105,19 @@
     CGFloat height = self.scrollView.frame.size.height;
     
     self.pvc = [[PersonViewController alloc] init];
+    self.pvc.dvc = self;
     [self addChildViewController:self.pvc];
     self.pvc.view.frame = CGRectMake(0, 0, width, height);
-    [self.pvc setupBoxData:self.classBox];
     [self.scrollView addSubview:self.pvc.view];
     
     self.hvc = [[HomeworkViewController alloc] init];
+    self.hvc.dvc = self;
     [self addChildViewController:self.hvc];
     self.hvc.view.frame = CGRectMake(width, 0, width, height);
     [self.scrollView addSubview:self.hvc.view];
     
     self.dvc = [[DiscussViewController alloc] init];
+    self.dvc.dvc = self;
     [self addChildViewController:self.dvc];
     self.dvc.view.frame = CGRectMake(width * 2, 0, width, height);
     [self.scrollView addSubview:self.dvc.view];
@@ -149,12 +151,12 @@
 
 - (void)getHomework
 {
-    [self.hvc getHomeworkDataWithClassNumber:_classBox.box_number];
+    [self.hvc getHomeworkData];
 }
 
 - (void)getDiscuss
 {
-    [self.dvc getDiscussDataWithClassNumber:_classBox.box_number];
+    [self.dvc getDiscussData];
 }
 
 
