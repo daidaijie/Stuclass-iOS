@@ -297,7 +297,8 @@ static NSString *login_url = @"/syllabus";
             [KVNProgress showErrorWithStatus:@"暂时没有该课表信息"];
         } else {
             // 其他异常情况
-            [KVNProgress showErrorWithStatus:@"发生未知错误"];
+            NSLog(@"发生未知错误");
+            [KVNProgress showErrorWithStatus:@"连接服务器失败"];
         }
     } else {
         // 成功

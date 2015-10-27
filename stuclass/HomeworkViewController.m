@@ -214,7 +214,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     Homework *h = self.homeworkData[section];
     NSString *cellUsername = h.publisher;
     
-    if ([cellUsername isEqualToString:username]) {
+    if ([cellUsername isEqualToString:username] && !_isLoading) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
         actionSheet.tag = section;
         [actionSheet showInView:self.view];

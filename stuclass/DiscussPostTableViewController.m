@@ -19,7 +19,7 @@
 
 static NSString *discuss_post_url = @"/api/v1.0/discuss";
 
-static NSString *course_url = @"";
+static NSString *course_url = @"/api/course";
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
@@ -161,7 +161,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     
     NSString *token = [ud valueForKey:@"USER_TOKEN"];
     
-    // get data
+    // post data
     
     NSDictionary *postData = @{
                               @"publisher": username,
@@ -182,14 +182,14 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, discuss_post_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        NSLog(@"讨论 - 连接服务器 - 成功 - %@", responseObject);
-//        NSLog(@"讨论 - 连接服务器 - 成功");
-        [self parseResponseObject:responseObject];
+        NSLog(@"发布讨论 - 连接服务器 - 成功 - %@", responseObject);
+//        NSLog(@"发布讨论 - 连接服务器 - 成功");
+        [self parseResponseObject:responseObject firstTry:firstTry];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"---%@", operation.request);
-        NSLog(@"讨论 - 连接服务器 - 失败 - %@", error);
+        NSLog(@"发布讨论 - 连接服务器 - 失败 - %@", error);
         [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
             [self.textView becomeFirstResponder];
         }];
@@ -199,7 +199,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 }
 
 
-- (void)parseResponseObject:(NSDictionary *)responseObject
+- (void)parseResponseObject:(NSDictionary *)responseObject firstTry:(BOOL)firstTry
 {
     NSString *errorStr = responseObject[@"ERROR"];
     NSString *statusStr = responseObject[@"status"];
@@ -215,16 +215,24 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
             
         } else if ([errorStr isEqualToString:@"no such class"]) {
             
-            // go on adding class info
+            if (firstTry) {
+                
+                [self sendClassInfoToServer];
+                
+            } else {
+                NSLog(@"发生未知错误");
+                [KVNProgress showErrorWithStatus:@"连接服务器失败"];
+            }
             
         } else {
-            [KVNProgress showErrorWithStatus:@"发生未知错误" completion:^{
+            NSLog(@"发生未知错误");
+            [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
                 [self.textView becomeFirstResponder];
             }];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }
         
-    } else if ([statusStr isEqualToString:@"succeed to add the discussion"]) {
+    } else if (statusStr) {
         
         Discuss *discuss = [[Discuss alloc] init];
         
@@ -234,7 +242,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         
         discuss.publisher = [[NSUserDefaults standardUserDefaults] valueForKey:@"USERNAME"];
         
-//        discuss.discuss_id = @"123";
+        discuss.discuss_id = [statusStr integerValue];
         
         [_delegate discussPostTableViewControllerPostSuccessfullyWithDiscuss:discuss];
         
@@ -246,12 +254,85 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } else {
-        [KVNProgress showErrorWithStatus:@"发生未知错误" completion:^{
+        NSLog(@"发生未知错误");
+        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
             [self.textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }
 }
+
+
+- (void)sendClassInfoToServer
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+    
+    NSInteger year = [dict[@"year"] integerValue];
+    
+    NSInteger semester = [dict[@"semester"] integerValue];
+    
+    // post data
+    
+    NSDictionary *postData = @{
+                               @"number": self.dvc.classBox.box_number,
+                               @"name": self.dvc.classBox.box_name,
+                               @"credit": self.dvc.classBox.box_credit,
+                               @"teacher": self.dvc.classBox.box_teacher,
+                               @"room": self.dvc.classBox.box_room,
+                               @"span": self.dvc.classBox.box_span,
+                               @"time": [NSString stringWithFormat:@"x - %d y - %d length - %d", self.dvc.classBox.box_x, self.dvc.classBox.box_y, self.dvc.classBox.box_length],
+                               @"semester": [NSString stringWithFormat:@"%d", semester],
+                               @"start_year": [NSString stringWithFormat:@"%d", year],
+                               @"end_year": [NSString stringWithFormat:@"%d", year + 1],
+                               };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, course_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"添加课程 - 连接服务器 - 成功 - %@", responseObject);
+//        NSLog(@"添加课程 - 连接服务器 - 成功");
+        [self parseClassInfoResponseObject:responseObject];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"---%@", operation.request);
+        NSLog(@"添加课程 - 连接服务器 - 失败 - %@", error);
+        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+            [self.textView becomeFirstResponder];
+        }];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+    
+}
+
+
+- (void)parseClassInfoResponseObject:(NSDictionary *)responseObject
+{
+    NSString *errorStr = responseObject[@"ERROR"];
+    
+    if (errorStr) {
+        
+        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+            [self.textView becomeFirstResponder];
+        }];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } else {
+        
+        // 添加成功
+        [self sendRequest:NO];
+    }
+}
+
 
 
 // Log Out

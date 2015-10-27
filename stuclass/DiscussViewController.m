@@ -21,6 +21,8 @@ static NSString *cell_id = @"DiscussTableViewCell";
 
 static NSString *discuss_url = @"/api/course_info/1"; // discuss - 1
 
+static NSString *discuss_delete_url = @"/api/v1.0/delete/1";
+
 static const CGFloat kHeightForPostButton = 52;
 
 static const CGFloat kHeightForSectionHeader = 8.0;
@@ -222,7 +224,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     Discuss *d = self.discussData[section];
     NSString *cellUsername = d.publisher;
     
-    if ([cellUsername isEqualToString:username]) {
+    if ([cellUsername isEqualToString:username] && !_isLoading) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
         actionSheet.tag = section;
         [actionSheet showInView:self.view];
@@ -242,22 +244,78 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
-    [self performSelector:@selector(sendDeleteRequest:) withObject:[NSNumber numberWithInteger:tag] afterDelay:1.5];
+    [self sendDeleteRequest:tag];
 }
 
 
-- (void)sendDeleteRequest:(NSNumber *)tagNumber
+- (void)sendDeleteRequest:(NSInteger)discuss_id
 {
-    NSInteger tag = [tagNumber integerValue];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    [self.tableView beginUpdates];
-    [self.discussData removeObjectAtIndex:tag];
-    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:tag] withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView endUpdates];
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     
-    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    NSString *username = [ud valueForKey:@"USERNAME"];
+    
+    NSString *token = [ud valueForKey:@"USER_TOKEN"];
+    
+    // delete data
+    NSDictionary *deleteData = @{
+                               @"user": username,
+                               @"token": token,
+                               @"resource_id": [NSString stringWithFormat:@"%d", discuss_id],
+                              };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, discuss_delete_url] parameters:deleteData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"删除讨论 - 连接服务器 - 成功 - %@", responseObject);
+//        NSLog(@"删除讨论 - 连接服务器 - 成功");
+        [self parseDeleteResponseObject:responseObject discussID:discuss_id];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"---%@", operation.request);
+        NSLog(@"删除讨论 - 连接服务器 - 失败 - %@", error);
+        [self showHUDWithText:@"连接服务器失败" andHideDelay:global_hud_delay];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
 }
 
+
+- (void)parseDeleteResponseObject:(NSDictionary *)responseObject discussID:(NSInteger)discuss_id
+{
+    NSString *errorStr = responseObject[@"ERROR"];
+    
+    if (errorStr) {
+        
+        if ([errorStr isEqualToString:@"not authorized: wrong token"]) {
+            
+            [self logout];
+            
+        } else {
+        
+            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+            [self showHUDWithText:@"删除失败，请重试" andHideDelay:1.0];
+        }
+        
+    } else {
+        
+        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        [self showHUDWithText:@"删除成功" andHideDelay:1.0];
+        
+        [self.tableView beginUpdates];
+        [self.discussData removeObjectAtIndex:discuss_id];
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:discuss_id] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+        
+    }
+}
 
 
 #pragma mark - Event
@@ -390,6 +448,32 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     }
 }
 
+// Log Out
+- (void)logout
+{
+    [self logutClearData];
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController popViewControllerAnimated:NO];
+    
+}
+
+- (void)logutClearData
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    //    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+    
+    //    NSInteger year = [dict[@"year"] integerValue];
+    //    NSInteger semester = [dict[@"semester"] integerValue];
+    
+    // CoreData
+    //    [[CoreDataManager sharedInstance] deleteClassTableWithYear:year semester:semester];
+    
+    // ud
+    [ud setValue:nil forKey:@"USER_TOKEN"];
+    [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
+}
+
 
 #pragma mark - Refresh Control
 
@@ -407,6 +491,10 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 - (void)discussPostTableViewControllerPostSuccessfullyWithDiscuss:(Discuss *)discuss
 {
     NSLog(@"增加cell - %@", discuss.content);
+    
+    if (!self.discussData) {
+        self.discussData = [NSMutableArray array];
+    }
     
     [self.discussData insertObject:discuss atIndex:0];
     
