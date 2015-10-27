@@ -67,6 +67,7 @@
 		13C7071D1BC7DE10003061A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C7071B1BC7DE10003061A4 /* LaunchScreen.storyboard */; };
 		13C7072A1BC82187003061A4 /* InputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C707291BC82187003061A4 /* InputView.m */; settings = {ASSET_TAGS = (); }; };
 		13C7072D1BC8230E003061A4 /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C7072C1BC8230E003061A4 /* InputTextField.m */; settings = {ASSET_TAGS = (); }; };
+		13CB2C7A1BDFD2BA00460BE4 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CB2C791BDFD2BA00460BE4 /* PlaceholderTextView.m */; settings = {ASSET_TAGS = (); }; };
 		13D8E2C11BD625180051617C /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D8E2C01BD625180051617C /* MBProgressHUD.m */; settings = {ASSET_TAGS = (); }; };
 		13D8E2DA1BD7252C0051617C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13D8E2D81BD7252C0051617C /* Model.xcdatamodeld */; settings = {ASSET_TAGS = (); }; };
 		13DBA09E1BD247DA00FC0682 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DBA09D1BD247DA00FC0682 /* DetailViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -189,6 +190,8 @@
 		13C707291BC82187003061A4 /* InputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputView.m; sourceTree = "<group>"; };
 		13C7072B1BC8230E003061A4 /* InputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextField.h; sourceTree = "<group>"; };
 		13C7072C1BC8230E003061A4 /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
+		13CB2C781BDFD2BA00460BE4 /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
+		13CB2C791BDFD2BA00460BE4 /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
 		13D8E2BF1BD625180051617C /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		13D8E2C01BD625180051617C /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		13D8E2D91BD7252C0051617C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -617,6 +620,7 @@
 		13C707241BC7DE55003061A4 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				13CB2C771BDFD2A700460BE4 /* PlaceholderTextView */,
 				137C8C2D1BDB149100236C79 /* UITableView+FDTemplateLayoutCell */,
 				13D8E2BE1BD625180051617C /* MBProgressHUD */,
 				13C4C36C1BCCEE2B0003E703 /* GKImagePicker */,
@@ -649,6 +653,15 @@
 				13C7072C1BC8230E003061A4 /* InputTextField.m */,
 			);
 			name = InputView;
+			sourceTree = "<group>";
+		};
+		13CB2C771BDFD2A700460BE4 /* PlaceholderTextView */ = {
+			isa = PBXGroup;
+			children = (
+				13CB2C781BDFD2BA00460BE4 /* PlaceholderTextView.h */,
+				13CB2C791BDFD2BA00460BE4 /* PlaceholderTextView.m */,
+			);
+			name = PlaceholderTextView;
 			sourceTree = "<group>";
 		};
 		13D8E2BE1BD625180051617C /* MBProgressHUD */ = {
@@ -931,6 +944,7 @@
 				1366D6741BD4BAE000B69C04 /* HomeworkViewController.m in Sources */,
 				13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */,
 				137C8C2C1BDA956900236C79 /* Note.m in Sources */,
+				13CB2C7A1BDFD2BA00460BE4 /* PlaceholderTextView.m in Sources */,
 				13DE7B4A1BDC682E003AFF93 /* DiscussTableViewCell.m in Sources */,
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,
 				137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */,

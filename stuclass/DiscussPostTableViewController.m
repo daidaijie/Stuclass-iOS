@@ -16,6 +16,7 @@
 #import "Discuss.h"
 #import "DetailViewController.h"
 #import "JHDater.h"
+#import "PlaceholderTextView.h"
 
 static NSString *discuss_post_url = @"/api/v1.0/discuss";
 
@@ -29,7 +30,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 @interface DiscussPostTableViewController () <UITextViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet PlaceholderTextView *textView;
 
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 
@@ -41,6 +42,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     [super viewDidLoad];
     
     [self setupTableView];
+    [self setupTextView];
 }
 
 #pragma mark - Setup Method
@@ -49,6 +51,12 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 {
     self.tableView.contentInset = UIEdgeInsetsMake(-12, 0, 0, 0);
 }
+
+- (void)setupTextView
+{
+    self.textView.placeholder.text = @"你可以吹140个字...";
+}
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -120,9 +128,12 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     return YES;
 }
 
+
 - (void)textViewDidChange:(UITextView *)textView
 {
     self.countLabel.text = [NSString stringWithFormat:@"%d", textView.text.length];
+    
+    self.textView.placeholder.hidden = (textView.text.length > 0);
 }
 
 

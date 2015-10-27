@@ -281,7 +281,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cyx-BU-160">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cyx-BU-160" customClass="PlaceholderTextView">
                                                     <rect key="frame" x="4" y="4" width="312" height="131.5"/>
                                                     <animations/>
                                                     <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -343,7 +343,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-Qo-EAm">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="XJe-Qo-EAm" customClass="PlaceholderTextView">
                                                     <rect key="frame" x="4" y="4" width="312" height="131.5"/>
                                                     <animations/>
                                                     <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -354,7 +354,7 @@
                                                     </connections>
                                                 </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9eY-ye-iHA">
-                                                    <rect key="frame" x="276" y="114" width="35" height="21"/>
+                                                    <rect key="frame" x="275" y="113" width="35" height="21"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="35" id="0Do-tQ-Zht"/>
@@ -368,10 +368,10 @@
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="XJe-Qo-EAm" secondAttribute="trailing" constant="4" id="4rB-Aw-hXs"/>
-                                                <constraint firstAttribute="bottom" secondItem="9eY-ye-iHA" secondAttribute="bottom" constant="4.5" id="6fn-oq-HkH"/>
+                                                <constraint firstAttribute="bottom" secondItem="9eY-ye-iHA" secondAttribute="bottom" constant="5" id="6fn-oq-HkH"/>
                                                 <constraint firstItem="XJe-Qo-EAm" firstAttribute="leading" secondItem="AcH-CF-eDY" secondAttribute="leading" constant="4" id="IwA-xg-fy0"/>
                                                 <constraint firstItem="XJe-Qo-EAm" firstAttribute="top" secondItem="AcH-CF-eDY" secondAttribute="top" constant="4" id="UbV-lU-vBL"/>
-                                                <constraint firstAttribute="trailing" secondItem="9eY-ye-iHA" secondAttribute="trailing" constant="9" id="mdO-zX-ogl"/>
+                                                <constraint firstAttribute="trailing" secondItem="9eY-ye-iHA" secondAttribute="trailing" constant="10" id="mdO-zX-ogl"/>
                                                 <constraint firstAttribute="bottom" secondItem="XJe-Qo-EAm" secondAttribute="bottom" constant="4" id="qvZ-Ry-sJG"/>
                                             </constraints>
                                         </tableViewCellContentView>

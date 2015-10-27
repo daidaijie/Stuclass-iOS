@@ -9,6 +9,7 @@
 #import "HomeworkPostTableViewController.h"
 #import "Define.h"
 #import <AFNetworking/AFNetworking.h>
+#import "PlaceholderTextView.h"
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
@@ -18,7 +19,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 @interface HomeworkPostTableViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet PlaceholderTextView *textView;
 
 @end
 
@@ -28,6 +29,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     [super viewDidLoad];
     
     [self setupTableView];
+    [self setupTextView];
 }
 
 #pragma mark - Setup Method
@@ -35,6 +37,11 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 - (void)setupTableView
 {
     self.tableView.contentInset = UIEdgeInsetsMake(-12, 0, 0, 0);
+}
+
+- (void)setupTextView
+{
+    self.textView.placeholder.text = @"告诉大家有什么作业...";
 }
 
 - (void)viewDidAppear:(BOOL)animated
