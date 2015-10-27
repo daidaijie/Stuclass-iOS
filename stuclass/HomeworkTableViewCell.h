@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *publisherLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *deadlineLabel;
+
 
 @property (assign, nonatomic) NSInteger homework_id;
 

@@ -28,7 +28,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天离散作业没做啊哈哈哈啊哈哈哈今天离散作业没做啊哈哈哈啊哈哈哈今天离散作业没做啊哈哈哈啊哈哈哈" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="PbK-TV-wEn">
-                                <rect key="frame" x="8" y="32" width="288" height="92"/>
+                                <rect key="frame" x="8" y="32" width="288" height="72"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="highlightedColor"/>
@@ -44,20 +44,39 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="截止时间: 无" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="qDy-ns-aR1">
+                                <rect key="frame" x="8" y="107" width="288" height="24"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="kzF-4q-F36"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                <color key="textColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="qDy-ns-aR1" firstAttribute="top" secondItem="PbK-TV-wEn" secondAttribute="bottom" constant="3" id="192-bE-0Rf"/>
                             <constraint firstAttribute="trailing" secondItem="nlj-Ub-vMK" secondAttribute="trailing" constant="8" id="8Ef-a7-mJk"/>
+                            <constraint firstAttribute="bottom" secondItem="qDy-ns-aR1" secondAttribute="bottom" constant="1" id="G8q-6w-AXW"/>
                             <constraint firstAttribute="trailing" secondItem="PbK-TV-wEn" secondAttribute="trailing" constant="8" id="Ku0-fg-eLO"/>
                             <constraint firstItem="PbK-TV-wEn" firstAttribute="top" secondItem="nlj-Ub-vMK" secondAttribute="bottom" constant="3" id="LLa-ed-aYe"/>
                             <constraint firstItem="wqC-Z8-zCZ" firstAttribute="leading" secondItem="ouU-HF-WRx" secondAttribute="leading" constant="8" id="SiA-fl-dKS"/>
                             <constraint firstItem="wqC-Z8-zCZ" firstAttribute="top" secondItem="ouU-HF-WRx" secondAttribute="top" constant="5" id="UC0-te-5td"/>
+                            <constraint firstAttribute="trailing" secondItem="qDy-ns-aR1" secondAttribute="trailing" constant="8" id="Ww6-gg-cOz"/>
                             <constraint firstItem="PbK-TV-wEn" firstAttribute="leading" secondItem="ouU-HF-WRx" secondAttribute="leading" constant="8" id="XMD-mB-3kj"/>
                             <constraint firstItem="nlj-Ub-vMK" firstAttribute="leading" secondItem="wqC-Z8-zCZ" secondAttribute="trailing" constant="1" id="but-cH-LH7"/>
                             <constraint firstItem="nlj-Ub-vMK" firstAttribute="top" secondItem="ouU-HF-WRx" secondAttribute="top" constant="5" id="cGD-Me-UXp"/>
-                            <constraint firstAttribute="bottom" secondItem="PbK-TV-wEn" secondAttribute="bottom" constant="8" id="iHn-ps-8Tw"/>
+                            <constraint firstItem="qDy-ns-aR1" firstAttribute="leading" secondItem="ouU-HF-WRx" secondAttribute="leading" constant="8" id="eoB-2I-cT0"/>
+                            <constraint firstItem="qDy-ns-aR1" firstAttribute="top" secondItem="PbK-TV-wEn" secondAttribute="bottom" constant="-1" id="fvW-1S-YGk"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="fvW-1S-YGk"/>
+                            </mask>
+                        </variation>
                     </view>
                 </subviews>
                 <animations/>
@@ -73,6 +92,7 @@
             <connections>
                 <outlet property="contentLabel" destination="PbK-TV-wEn" id="iAw-K3-UbE"/>
                 <outlet property="dateLabel" destination="nlj-Ub-vMK" id="orr-np-pNq"/>
+                <outlet property="deadlineLabel" destination="qDy-ns-aR1" id="6aQ-d7-Nhz"/>
                 <outlet property="homeworkView" destination="ouU-HF-WRx" id="Isb-iw-X0d"/>
                 <outlet property="publisherLabel" destination="wqC-Z8-zCZ" id="wf4-Rf-4PZ"/>
             </connections>

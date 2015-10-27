@@ -14,5 +14,6 @@
 @property (assign, nonatomic) long long pub_time;
 @property (strong, nonatomic) NSString *content;
 @property (assign, nonatomic) NSInteger homework_id;
+@property (strong, nonatomic) NSString *deadline;
 
 @end

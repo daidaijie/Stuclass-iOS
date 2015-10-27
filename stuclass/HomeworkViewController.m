@@ -189,6 +189,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:homework.pub_time];
     cell.contentLabel.text = homework.content;
     cell.homework_id = homework.homework_id;
+    cell.deadlineLabel.text = [NSString stringWithFormat:@"截止时间: %@", homework.deadline.length > 0 ? homework.deadline : @"无"];
     
     cell.delegate = self;
 }
@@ -355,6 +356,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             homework.pub_time = [h[@"pub_time"] longLongValue];
             
             homework.content = h[@"content"];
+            
+            homework.deadline = h[@"hand_in_time"];
             
             homework.homework_id = [h[@"id"] integerValue];
             
