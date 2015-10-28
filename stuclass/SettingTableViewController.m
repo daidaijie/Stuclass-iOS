@@ -7,7 +7,7 @@
 //
 
 #import "SettingTableViewController.h"
-//#import "CoreDataManager.h"
+#import <KVNProgress/KVNProgress.h>
 
 @interface SettingTableViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -57,12 +57,19 @@
         }
     } else if (section == 3) {
         if (row == 0) {
-            [_delegate settingTableViewControllerLogOut];
-            [self dismissViewControllerAnimated:NO completion:nil];
+            [KVNProgress showSuccessWithStatus:@"登出成功"];
+            [self performSelector:@selector(logout) withObject:nil afterDelay:0.3];
+//            }];
         }
     }
 }
 
+
+- (void)logout
+{
+    [_delegate settingTableViewControllerLogOut];
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
 
 
 - (IBAction)backButtonPress:(id)sender
