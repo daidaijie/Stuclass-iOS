@@ -122,6 +122,8 @@ static NSString *login_url = @"/syllabus";
 
 - (void)initCollectionView
 {
+    self.collectionView.exclusiveTouch = YES;
+    
     // layout
     ClassCollectionViewLayout *layout = [[ClassCollectionViewLayout alloc] init];
     layout.layoutDelegate = self;

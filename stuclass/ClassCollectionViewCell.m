@@ -27,6 +27,9 @@ static const CGFloat kCellInset = 1.2;
         self.btn = [[ClassButton alloc] initWithFrame:CGRectMake(kCellInset, kCellInset, frame.size.width-kCellInset*2, frame.size.height-kCellInset*2)];
         [self.btn addTarget:self action:@selector(btnPress) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:self.btn];
+        
+        self.exclusiveTouch = YES;
+        self.btn.exclusiveTouch = YES;
     }
     
     return self;

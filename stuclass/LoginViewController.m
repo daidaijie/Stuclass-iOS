@@ -42,6 +42,8 @@ static NSString *login_url = @"/syllabus";
     [self setupView];
     [self setupDefault];
     [self checkIfLogin];
+    
+    [self setupExclusiveTouch];
 }
 
 #pragma mark - Setup Method
@@ -57,6 +59,14 @@ static NSString *login_url = @"/syllabus";
 {
     // navigation
     self.navigationController.view.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)setupExclusiveTouch
+{
+    self.navigationController.navigationBar.exclusiveTouch = YES;
+    for (UIView *view in self.navigationController.navigationBar.subviews) {
+        [view setExclusiveTouch:YES];
+    }
 }
 
 - (void)setupView
