@@ -227,7 +227,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     if (buttonIndex == 0) {
         [self deleteHomeworkWithTag:actionSheet.tag];
-        actionSheet.tag = 99999;
+        actionSheet.tag = 0;
     }
 }
 

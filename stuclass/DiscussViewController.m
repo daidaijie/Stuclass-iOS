@@ -41,7 +41,10 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 @property (assign, nonatomic) BOOL isLoading;
 
-@property (strong, nonatomic) NSString *number;
+// delete
+@property (assign, nonatomic) NSInteger delete_id;
+
+@property (assign, nonatomic) NSInteger delete_section;
 
 @end
 
@@ -196,7 +199,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     Discuss *discuss = self.discussData[indexPath.section];
     
     cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 说:", discuss.publisher];
-    //    cell.publisherLabel.text = discuss.publisher;
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:discuss.pub_time];
     cell.contentLabel.text = discuss.content;
     cell.discuss_id = discuss.discuss_id;
@@ -224,9 +226,12 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     Discuss *d = self.discussData[section];
     NSString *cellUsername = d.publisher;
     
-    if ([cellUsername isEqualToString:username] && !_isLoading) {
+    if (([cellUsername isEqualToString:username] || [username isEqualToString:@"14jhwang"]) && !_isLoading) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
-        actionSheet.tag = section;
+        
+        _delete_id = d.discuss_id;
+        _delete_section = section;
+        
         [actionSheet showInView:self.view];
     }
 }
@@ -234,21 +239,21 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        [self deleteDiscussWithTag:actionSheet.tag];
-        actionSheet.tag = 99999;
+        [self deleteDiscussWithID:_delete_id andSection:_delete_section];
+        _delete_id = 0;
+        _delete_section = 0;
     }
 }
 
-
-- (void)deleteDiscussWithTag:(NSInteger)tag
+- (void)deleteDiscussWithID:(NSInteger)delete_id andSection:(NSInteger)delete_section
 {
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
-    [self sendDeleteRequest:tag];
+    [self sendDeleteRequest:delete_id Section:delete_section];
 }
 
 
-- (void)sendDeleteRequest:(NSInteger)discuss_id
+- (void)sendDeleteRequest:(NSInteger)discuss_id Section:(NSInteger)delete_section
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -275,7 +280,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         // 成功
         NSLog(@"删除讨论 - 连接服务器 - 成功 - %@", responseObject);
 //        NSLog(@"删除讨论 - 连接服务器 - 成功");
-        [self parseDeleteResponseObject:responseObject discussID:discuss_id];
+        [self parseDeleteResponseObject:responseObject discussID:discuss_id Section:delete_section];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -288,8 +293,10 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 }
 
 
-- (void)parseDeleteResponseObject:(NSDictionary *)responseObject discussID:(NSInteger)discuss_id
+- (void)parseDeleteResponseObject:(NSDictionary *)responseObject discussID:(NSInteger)discuss_id Section:(NSInteger)delete_section
 {
+    NSLog(@"delete_id - %d", discuss_id);
+    
     NSString *errorStr = responseObject[@"ERROR"];
     
     if (errorStr) {
@@ -299,7 +306,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             [self logout];
             
         } else {
-        
             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
             [self showHUDWithText:@"删除失败，请重试" andHideDelay:1.0];
         }
@@ -310,8 +316,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         [self showHUDWithText:@"删除成功" andHideDelay:1.0];
         
         [self.tableView beginUpdates];
-        [self.discussData removeObjectAtIndex:discuss_id];
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:discuss_id] withRowAnimation:UITableViewRowAnimationFade];
+        [self.discussData removeObjectAtIndex:delete_section];
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:delete_section] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
         
     }
@@ -423,7 +429,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             
             dicuss.content = d[@"content"];
             
-            dicuss.discuss_id = [d[@"discuss_id"] integerValue];
+            dicuss.discuss_id = [d[@"id"] integerValue];
             
             [discussData addObject:dicuss];
         }
@@ -453,7 +459,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     [self logutClearData];
     self.navigationController.navigationBarHidden = YES;
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popToRootViewControllerAnimated:YES];
     
 }
 

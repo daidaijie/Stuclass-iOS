@@ -285,18 +285,21 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="cyx-BU-160" customClass="PlaceholderTextView">
-                                                    <rect key="frame" x="4" y="4" width="312" height="88"/>
+                                                    <rect key="frame" x="4" y="4" width="312" height="84"/>
                                                     <animations/>
                                                     <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="D1B-a4-k8L" id="iWu-2J-MY4"/>
+                                                    </connections>
                                                 </textView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="作业提交截止时间" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gOZ-m9-pXO" customClass="HomeworkTextField">
-                                                    <rect key="frame" x="8" y="95" width="304" height="44.5"/>
+                                                    <rect key="frame" x="8" y="91" width="304" height="48"/>
                                                     <animations/>
                                                     <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="44" id="6vH-JL-1s5"/>
+                                                        <constraint firstAttribute="height" constant="48" id="6vH-JL-1s5"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -597,10 +600,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddp-50-Vrx">
-                                <rect key="frame" x="0.0" y="72" width="320" height="488"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="😂" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddp-50-Vrx">
+                                <rect key="frame" x="0.0" y="72" width="320" height="435"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="300"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email: 14jhwang@stu.edu.cn - iOS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O2W-Bu-4gS">
+                                <rect key="frame" x="0.0" y="538" width="320" height="22"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="VyM-01-kIC"/>
+                                    <constraint firstAttribute="height" constant="22" id="bhp-Py-gCj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email: 14xfdeng@stu.edu.cn - Android" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mCK-96-9NS">
+                                <rect key="frame" x="0.0" y="515" width="320" height="22"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="4qP-eI-p1Z"/>
+                                    <constraint firstAttribute="height" constant="22" id="Yvd-HP-7ZA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -609,9 +634,13 @@
                         <color key="backgroundColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ddp-50-Vrx" firstAttribute="leading" secondItem="hHb-XF-Xut" secondAttribute="leading" id="2s3-ZD-8UR"/>
+                            <constraint firstItem="0g8-z8-OSQ" firstAttribute="top" secondItem="O2W-Bu-4gS" secondAttribute="bottom" constant="8" id="6ps-FP-XbS"/>
+                            <constraint firstItem="O2W-Bu-4gS" firstAttribute="top" secondItem="mCK-96-9NS" secondAttribute="bottom" constant="1" id="E6n-dZ-qBh"/>
                             <constraint firstAttribute="trailing" secondItem="ddp-50-Vrx" secondAttribute="trailing" id="LAy-bS-d8f"/>
+                            <constraint firstItem="O2W-Bu-4gS" firstAttribute="centerX" secondItem="hHb-XF-Xut" secondAttribute="centerX" id="PEd-vE-ixo"/>
                             <constraint firstItem="ddp-50-Vrx" firstAttribute="top" secondItem="Bwj-kY-lXY" secondAttribute="bottom" constant="8" id="WV5-AA-RKb"/>
-                            <constraint firstItem="0g8-z8-OSQ" firstAttribute="top" secondItem="ddp-50-Vrx" secondAttribute="bottom" constant="8" id="kvx-ml-qUV"/>
+                            <constraint firstItem="mCK-96-9NS" firstAttribute="centerX" secondItem="O2W-Bu-4gS" secondAttribute="centerX" id="cPl-Ti-Mo8"/>
+                            <constraint firstItem="mCK-96-9NS" firstAttribute="top" secondItem="ddp-50-Vrx" secondAttribute="bottom" constant="8" id="crq-iB-0QD"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="关于我们" id="foz-lr-CGn"/>

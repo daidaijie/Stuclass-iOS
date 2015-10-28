@@ -54,7 +54,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 - (void)setupTextView
 {
-    self.textView.placeholder.text = @"你可以吹140个字...";
+    self.textView.placeholder.text = @"你可以吹180个字...";
 }
 
 
@@ -145,8 +145,8 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         [self showHUDWithText:@"内容不能为空" andHideDelay:1.0];
     } else if ([self.textView.text rangeOfString:@"\n\n\n"].location != NSNotFound) {
         [self showHUDWithText:@"不能连续换三行以上" andHideDelay:1.0];
-    } else if (self.textView.text.length > 140) {
-        [self showHUDWithText:@"限制140字以内" andHideDelay:1.0];
+    } else if (self.textView.text.length > 180) {
+        [self showHUDWithText:@"限制180字以内" andHideDelay:1.0];
     } else {
         [self.textView resignFirstResponder];
         [KVNProgress showWithStatus:@"发布中"];
@@ -351,7 +351,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 {
     [self logutClearData];
     self.navigationController.navigationBarHidden = YES;
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popToRootViewControllerAnimated:YES];
     
 }
 

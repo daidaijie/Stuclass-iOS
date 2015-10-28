@@ -10,6 +10,7 @@
 #import "Define.h"
 #import <AFNetworking/AFNetworking.h>
 #import "PlaceholderTextView.h"
+#import "MBProgressHUD.h"
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
@@ -17,7 +18,7 @@ static const NSInteger kNumberOfSections = 1;
 
 static const NSInteger kNumberOfRowsInNoteSection = 1;
 
-@interface HomeworkPostTableViewController ()
+@interface HomeworkPostTableViewController () <UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet PlaceholderTextView *textView;
 
@@ -95,7 +96,31 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 - (IBAction)postItemPress:(id)sender
 {
+    [self showHUDWithText:@"这个功能还没弄好" andHideDelay:1.0];
+}
+
+#pragma mark - TextView Delegate
+- (void)textViewDidChange:(UITextView *)textView
+{
+    self.textView.placeholder.hidden = (textView.text.length > 0);
+}
+
+
+#pragma mark - HUD
+
+- (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {
     
+    [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
+    
+    if (self.navigationController.view) {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = string;
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:delay];
+    }
 }
 
 
