@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+@class Homework;
+
+@class DetailViewController;
+
+@protocol HomeworkPostTableViewControllerDelegate <NSObject>
+
+- (void)homeworkPostTableViewControllerPostSuccessfullyWithHomework:(Homework *)homework;
+
+@end
+
 @interface HomeworkPostTableViewController : UITableViewController
+
+@property (weak, nonatomic) DetailViewController *dvc;
+
+@property (weak ,nonatomic) id<HomeworkPostTableViewControllerDelegate> delegate;
 
 @end

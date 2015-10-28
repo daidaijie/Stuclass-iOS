@@ -7,7 +7,6 @@
 //
 
 #import "DiscussPostTableViewController.h"
-#import "Define.h"
 #import "MBProgressHUD.h"
 #import <AFNetworking/AFNetworking.h>
 #import <KVNProgress/KVNProgress.h>
@@ -149,7 +148,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         [self showHUDWithText:@"限制180字以内" andHideDelay:1.0];
     } else {
         [self.textView resignFirstResponder];
-        [KVNProgress showWithStatus:@"发布中"];
+        [KVNProgress showWithStatus:@"吹~吹~吹~"];
         [self sendRequest:YES];
     }
 }
@@ -199,7 +198,6 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-        NSLog(@"---%@", operation.request);
         NSLog(@"发布讨论 - 连接服务器 - 失败 - %@", error);
         [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
             [self.textView becomeFirstResponder];
@@ -257,7 +255,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         
         [_delegate discussPostTableViewControllerPostSuccessfullyWithDiscuss:discuss];
         
-        [KVNProgress showSuccessWithStatus:@"发布成功" completion:^{
+        [KVNProgress showSuccessWithStatus:@"吹水成功" completion:^{
             
             [self.navigationController popViewControllerAnimated:YES];
         }];
@@ -309,14 +307,13 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, course_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        NSLog(@"添加课程 - 连接服务器 - 成功 - %@", responseObject);
+        NSLog(@"讨论 - 添加课程 - 连接服务器 - 成功 - %@", responseObject);
 //        NSLog(@"添加课程 - 连接服务器 - 成功");
         [self parseClassInfoResponseObject:responseObject];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-        NSLog(@"---%@", operation.request);
-        NSLog(@"添加课程 - 连接服务器 - 失败 - %@", error);
+        NSLog(@"讨论 - 添加课程 - 连接服务器 - 失败 - %@", error);
         [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
             [self.textView becomeFirstResponder];
         }];

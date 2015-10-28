@@ -303,7 +303,21 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="D1B-a4-k8L" id="noC-ej-IBb"/>
+                                                    </connections>
                                                 </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ctl-3a-f9P">
+                                                    <rect key="frame" x="275" y="66" width="35" height="21"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="EgL-lg-U6x"/>
+                                                        <constraint firstAttribute="height" constant="21" id="jv1-1H-zlW"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <animations/>
                                             <constraints>
@@ -311,8 +325,10 @@
                                                 <constraint firstAttribute="bottom" secondItem="gOZ-m9-pXO" secondAttribute="bottom" id="OdZ-g0-jnf"/>
                                                 <constraint firstItem="gOZ-m9-pXO" firstAttribute="leading" secondItem="osM-t6-RT7" secondAttribute="leading" constant="8" id="T8x-Ax-2Qg"/>
                                                 <constraint firstAttribute="trailing" secondItem="cyx-BU-160" secondAttribute="trailing" constant="4" id="Y9q-GW-4bq"/>
+                                                <constraint firstItem="gOZ-m9-pXO" firstAttribute="top" secondItem="Ctl-3a-f9P" secondAttribute="bottom" constant="4" id="jfd-zQ-pzY"/>
                                                 <constraint firstItem="cyx-BU-160" firstAttribute="leading" secondItem="osM-t6-RT7" secondAttribute="leading" constant="4" id="n9i-U9-wfz"/>
                                                 <constraint firstItem="cyx-BU-160" firstAttribute="top" secondItem="osM-t6-RT7" secondAttribute="top" constant="4" id="rdW-Wr-fJd"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ctl-3a-f9P" secondAttribute="trailing" constant="10" id="sRv-pT-hkT"/>
                                                 <constraint firstItem="gOZ-m9-pXO" firstAttribute="top" secondItem="cyx-BU-160" secondAttribute="bottom" constant="3" id="suq-4S-aCC"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -336,6 +352,8 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="countLabel" destination="Ctl-3a-f9P" id="SpX-ec-4vn"/>
+                        <outlet property="textField" destination="gOZ-m9-pXO" id="M8y-WK-fpd"/>
                         <outlet property="textView" destination="cyx-BU-160" id="4Wt-Ot-HcV"/>
                     </connections>
                 </tableViewController>
@@ -517,7 +535,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="分享给朋友" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hT5-Mp-7SC">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="分享给朋友(Not Available)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hT5-Mp-7SC">
                                                     <rect key="frame" x="15" y="0.0" width="270" height="49.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>

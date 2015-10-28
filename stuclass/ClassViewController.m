@@ -170,6 +170,7 @@ static NSString *login_url = @"/syllabus";
 
 
 #pragma mark - collectionView delegate
+
 // 设置Cell的个数
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {

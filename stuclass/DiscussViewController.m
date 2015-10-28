@@ -16,6 +16,7 @@
 #import "Discuss.h"
 #import "JHDater.h"
 #import "DetailViewController.h"
+#import "ClassBox.h"
 
 static NSString *cell_id = @"DiscussTableViewCell";
 
@@ -153,13 +154,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 }
 
 
-- (void)setupBoxData:(ClassBox *)boxData
-{
-    self.classBox = boxData;
-}
-
-
-
 #pragma mark - TableView Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -226,7 +220,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     Discuss *d = self.discussData[section];
     NSString *cellUsername = d.publisher;
     
-    if (([cellUsername isEqualToString:username] || [username isEqualToString:@"14jhwang"]) && !_isLoading) {
+    if (([cellUsername isEqualToString:username] || [username isEqualToString:@"14jhwang"] || [username isEqualToString:@"14xfdeng"]) && !_isLoading) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
         
         _delete_id = d.discuss_id;
@@ -245,15 +239,15 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     }
 }
 
-- (void)deleteDiscussWithID:(NSInteger)delete_id andSection:(NSInteger)delete_section
+- (void)deleteDiscussWithID:(NSInteger)discuss_id andSection:(NSInteger)discuss_section
 {
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
-    [self sendDeleteRequest:delete_id Section:delete_section];
+    [self sendDeleteRequest:discuss_id Section:discuss_section];
 }
 
 
-- (void)sendDeleteRequest:(NSInteger)discuss_id Section:(NSInteger)delete_section
+- (void)sendDeleteRequest:(NSInteger)discuss_id Section:(NSInteger)discuss_section
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -280,12 +274,11 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         // 成功
         NSLog(@"删除讨论 - 连接服务器 - 成功 - %@", responseObject);
 //        NSLog(@"删除讨论 - 连接服务器 - 成功");
-        [self parseDeleteResponseObject:responseObject discussID:discuss_id Section:delete_section];
+        [self parseDeleteResponseObject:responseObject discussID:discuss_id Section:discuss_section];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-        NSLog(@"---%@", operation.request);
         NSLog(@"删除讨论 - 连接服务器 - 失败 - %@", error);
         [self showHUDWithText:@"连接服务器失败" andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -293,9 +286,9 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 }
 
 
-- (void)parseDeleteResponseObject:(NSDictionary *)responseObject discussID:(NSInteger)discuss_id Section:(NSInteger)delete_section
+- (void)parseDeleteResponseObject:(NSDictionary *)responseObject discussID:(NSInteger)discuss_id Section:(NSInteger)discuss_section
 {
-    NSLog(@"delete_id - %d", discuss_id);
+    NSLog(@"删除讨论id - %d", discuss_id);
     
     NSString *errorStr = responseObject[@"ERROR"];
     
@@ -316,8 +309,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         [self showHUDWithText:@"删除成功" andHideDelay:1.0];
         
         [self.tableView beginUpdates];
-        [self.discussData removeObjectAtIndex:delete_section];
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:delete_section] withRowAnimation:UITableViewRowAnimationFade];
+        [self.discussData removeObjectAtIndex:discuss_section];
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:discuss_section] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
         
     }
@@ -387,7 +380,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-        NSLog(@"---%@", operation.request);
         NSLog(@"讨论 - 连接服务器 - 失败 - %@", error);
         [self showHUDWithText:@"连接服务器失败" andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -496,7 +488,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 - (void)discussPostTableViewControllerPostSuccessfullyWithDiscuss:(Discuss *)discuss
 {
-    NSLog(@"增加cell - %@", discuss.content);
+    NSLog(@"讨论 - 增加cell - %@", discuss.content);
     
     if (!self.discussData) {
         self.discussData = [NSMutableArray array];
@@ -527,12 +519,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 
 @end
-
-
-
-
-
-
 
 
 

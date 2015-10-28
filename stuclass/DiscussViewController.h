@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ClassBox.h"
+
 @class DetailViewController;
 
 @interface DiscussViewController : UIViewController
-
-@property (strong, nonatomic) ClassBox *classBox;
 
 @property (strong, nonatomic) UITableView *tableView;
 

@@ -38,7 +38,6 @@
 		137C8C3A1BDB1A4900236C79 /* HomeworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 137C8C381BDB1A4900236C79 /* HomeworkTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		137C8C3D1BDB2C5200236C79 /* HomeworkPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C33A1BCBEEE60003E703 /* NSMutableArray+Shuffle.m */; settings = {ASSET_TAGS = (); }; };
-		13C4C3411BCBFB3F0003E703 /* KGModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C33E1BCBFB3F0003E703 /* KGModal.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C3461BCC07840003E703 /* SemesterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C3451BCC07840003E703 /* SemesterTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C34A1BCC0D300003E703 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C3491BCC0D300003E703 /* SettingTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C35E1BCCDC980003E703 /* BackgoundTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C35D1BCCDC980003E703 /* BackgoundTableViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -143,8 +142,6 @@
 		137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeworkPostTableViewController.m; sourceTree = "<group>"; };
 		13C4C3391BCBEEE60003E703 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
 		13C4C33A1BCBEEE60003E703 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
-		13C4C33D1BCBFB3F0003E703 /* KGModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KGModal.h; sourceTree = "<group>"; };
-		13C4C33E1BCBFB3F0003E703 /* KGModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KGModal.m; sourceTree = "<group>"; };
 		13C4C3441BCC07840003E703 /* SemesterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SemesterTableViewController.h; sourceTree = "<group>"; };
 		13C4C3451BCC07840003E703 /* SemesterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SemesterTableViewController.m; sourceTree = "<group>"; };
 		13C4C3481BCC0D300003E703 /* SettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewController.h; sourceTree = "<group>"; };
@@ -489,15 +486,6 @@
 			name = "NSMutableArray+Shuffle";
 			sourceTree = "<group>";
 		};
-		13C4C33C1BCBFB3F0003E703 /* KGModal */ = {
-			isa = PBXGroup;
-			children = (
-				13C4C33D1BCBFB3F0003E703 /* KGModal.h */,
-				13C4C33E1BCBFB3F0003E703 /* KGModal.m */,
-			);
-			path = KGModal;
-			sourceTree = "<group>";
-		};
 		13C4C3431BCC07650003E703 /* SemesterTableViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -628,7 +616,6 @@
 				137C8C2D1BDB149100236C79 /* UITableView+FDTemplateLayoutCell */,
 				13D8E2BE1BD625180051617C /* MBProgressHUD */,
 				13C4C36C1BCCEE2B0003E703 /* GKImagePicker */,
-				13C4C33C1BCBFB3F0003E703 /* KGModal */,
 				13C4C3381BCBEECA0003E703 /* NSMutableArray+Shuffle */,
 				1335FC791BCA273900BC0F23 /* JHDater */,
 				1335FC781BCA25F200BC0F23 /* UIView+BoarderCategory */,
@@ -935,7 +922,6 @@
 				13C707121BC7DE10003061A4 /* AppDelegate.m in Sources */,
 				131EF3551BD7DD95007ECFE8 /* ClassBox.m in Sources */,
 				131EF3511BD7DAEA007ECFE8 /* CoreDataManager.m in Sources */,
-				13C4C3411BCBFB3F0003E703 /* KGModal.m in Sources */,
 				13D8E2DA1BD7252C0051617C /* Model.xcdatamodeld in Sources */,
 				137C8C301BDB149100236C79 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				13C4C35E1BCCDC980003E703 /* BackgoundTableViewController.m in Sources */,

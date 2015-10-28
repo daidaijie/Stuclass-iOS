@@ -9,8 +9,18 @@
 #import "HomeworkPostTableViewController.h"
 #import "Define.h"
 #import <AFNetworking/AFNetworking.h>
-#import "PlaceholderTextView.h"
 #import "MBProgressHUD.h"
+#import <KVNProgress/KVNProgress.h>
+#import "ClassBox.h"
+#import "Homework.h"
+#import "DetailViewController.h"
+#import "JHDater.h"
+#import "PlaceholderTextView.h"
+#import "HomeworkTextField.h"
+
+static NSString *homework_post_url = @"/api/v1.0/homework";
+
+static NSString *course_url = @"/api/course";
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
@@ -18,9 +28,13 @@ static const NSInteger kNumberOfSections = 1;
 
 static const NSInteger kNumberOfRowsInNoteSection = 1;
 
-@interface HomeworkPostTableViewController () <UITextViewDelegate>
+@interface HomeworkPostTableViewController () <UITextViewDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet PlaceholderTextView *textView;
+
+@property (weak, nonatomic) IBOutlet HomeworkTextField *textField;
+
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
 
 @end
 
@@ -92,18 +106,276 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     }
 }
 
+
+#pragma mark - TextView Delegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if (textView.text.length > 1) {
+        // 禁止换行
+        NSString *originStr = textView.text;
+        NSString *lastTwoChar = [originStr substringWithRange:NSMakeRange(originStr.length - 2, 2)];
+        
+        //    NSLog(@"lastTwoChar - %@", [lastTwoChar isEqualToString:@"\n\n"] ? @"换行" : lastTwoChar);
+        //    NSLog(@"newText - %@", [text isEqualToString:@"\n"] ? @"换行" : text);
+        
+        if ([lastTwoChar isEqualToString:@"\n\n"] && [text isEqualToString:@"\n"]) {
+            //            NSLog(@"---------------不能连续换两行以上");
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    self.countLabel.text = [NSString stringWithFormat:@"%d", textView.text.length];
+    
+    self.textView.placeholder.hidden = (textView.text.length > 0);
+}
+
+
 #pragma mark - Event
 
 - (IBAction)postItemPress:(id)sender
 {
-    [self showHUDWithText:@"这个功能还没弄好" andHideDelay:1.0];
+    if (self.textView.text.length == 0) {
+        [self showHUDWithText:@"作业内容不能为空" andHideDelay:1.0];
+    } else if ([self.textView.text rangeOfString:@"\n\n\n"].location != NSNotFound) {
+        [self showHUDWithText:@"不能连续换三行以上" andHideDelay:1.0];
+    } else if (self.textView.text.length > 180) {
+        [self showHUDWithText:@"限制180字以内" andHideDelay:1.0];
+    } else if (self.textField.text.length > 16) {
+        [self showHUDWithText:@"截止时间16字以内" andHideDelay:1.0];
+    } else {
+        [self.textView resignFirstResponder];
+        [self.textField resignFirstResponder];
+        [KVNProgress showWithStatus:@"发布中"];
+        [self sendRequest:YES];
+    }
 }
 
-#pragma mark - TextView Delegate
-- (void)textViewDidChange:(UITextView *)textView
+
+#pragma mark - Networking
+
+- (void)sendRequest:(BOOL)firstTry
 {
-    self.textView.placeholder.hidden = (textView.text.length > 0);
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+    
+    NSInteger year = [dict[@"year"] integerValue];
+    NSInteger semester = [dict[@"semester"] integerValue];
+    
+    NSString *username = [ud valueForKey:@"USERNAME"];
+    
+    NSString *token = [ud valueForKey:@"USER_TOKEN"];
+    
+    // post data
+    
+    NSDictionary *postData = @{
+                               @"publisher": username,
+                               @"pub_time": @"123",
+                               @"content": self.textView.text,
+                               @"hand_in_time": self.textField.text,
+                               @"number": self.dvc.classBox.box_number,
+                               @"semester": [NSString stringWithFormat:@"%d", semester],
+                               @"start_year": [NSString stringWithFormat:@"%d", year],
+                               @"end_year": [NSString stringWithFormat:@"%d", year + 1],
+                               @"token": token,
+                               };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, homework_post_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"发布作业 - 连接服务器 - 成功 - %@", responseObject);
+        //        NSLog(@"发布讨论 - 连接服务器 - 成功");
+        [self parseResponseObject:responseObject firstTry:firstTry];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"发布作业 - 连接服务器 - 失败 - %@", error);
+        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+            [self.textView becomeFirstResponder];
+        }];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+    
 }
+
+
+- (void)parseResponseObject:(NSDictionary *)responseObject firstTry:(BOOL)firstTry
+{
+    NSString *errorStr = responseObject[@"ERROR"];
+    NSString *statusStr = responseObject[@"status"];
+    
+    if (errorStr) {
+        
+        if ([errorStr isEqualToString:@"wrong token"]) {
+            
+            [KVNProgress showErrorWithStatus:@"登录超时，请重新登录" completion:^{
+                [self logout];
+            }];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            
+        } else if ([errorStr isEqualToString:@"no such class"]) {
+            
+            if (firstTry) {
+                
+                [self sendClassInfoToServer];
+                
+            } else {
+                NSLog(@"发生未知错误");
+                [KVNProgress showErrorWithStatus:@"连接服务器失败"];
+            }
+            
+        } else {
+            NSLog(@"发生未知错误");
+            [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+                [self.textView becomeFirstResponder];
+            }];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }
+        
+    } else if (statusStr) {
+        
+        Homework *homework = [[Homework alloc] init];
+        
+        homework.content = self.textView.text;
+        
+        homework.pub_time = [[JHDater sharedInstance] getNowSecondFrom1970];
+        
+        homework.publisher = [[NSUserDefaults standardUserDefaults] valueForKey:@"USERNAME"];
+        
+        homework.deadline = self.textField.text;
+        
+        homework.homework_id = [statusStr integerValue];
+        
+        [_delegate homeworkPostTableViewControllerPostSuccessfullyWithHomework:homework];
+        
+        [KVNProgress showSuccessWithStatus:@"发布成功" completion:^{
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } else {
+        NSLog(@"发生未知错误");
+        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+            [self.textView becomeFirstResponder];
+        }];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }
+}
+
+
+- (void)sendClassInfoToServer
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+    
+    NSInteger year = [dict[@"year"] integerValue];
+    
+    NSInteger semester = [dict[@"semester"] integerValue];
+    
+    // post data
+    
+    NSDictionary *postData = @{
+                               @"number": self.dvc.classBox.box_number,
+                               @"name": self.dvc.classBox.box_name,
+                               @"credit": self.dvc.classBox.box_credit,
+                               @"teacher": self.dvc.classBox.box_teacher,
+                               @"room": self.dvc.classBox.box_room,
+                               @"span": self.dvc.classBox.box_span,
+                               @"time": [NSString stringWithFormat:@"x - %d y - %d length - %d", self.dvc.classBox.box_x, self.dvc.classBox.box_y, self.dvc.classBox.box_length],
+                               @"semester": [NSString stringWithFormat:@"%d", semester],
+                               @"start_year": [NSString stringWithFormat:@"%d", year],
+                               @"end_year": [NSString stringWithFormat:@"%d", year + 1],
+                               };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, course_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"作业 - 添加课程 - 连接服务器 - 成功 - %@", responseObject);
+        //        NSLog(@"添加课程 - 连接服务器 - 成功");
+        [self parseClassInfoResponseObject:responseObject];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"作业 - 添加课程 - 连接服务器 - 失败 - %@", error);
+        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+            [self.textView becomeFirstResponder];
+        }];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+    
+}
+
+
+- (void)parseClassInfoResponseObject:(NSDictionary *)responseObject
+{
+    NSString *errorStr = responseObject[@"ERROR"];
+    
+    if (errorStr) {
+        
+        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+            [self.textView becomeFirstResponder];
+        }];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } else {
+        
+        // 添加成功
+        [self sendRequest:NO];
+    }
+}
+
+
+
+// Log Out
+- (void)logout
+{
+    [self logutClearData];
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+}
+
+- (void)logutClearData
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    //    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+    
+    //    NSInteger year = [dict[@"year"] integerValue];
+    //    NSInteger semester = [dict[@"semester"] integerValue];
+    
+    // CoreData
+    //    [[CoreDataManager sharedInstance] deleteClassTableWithYear:year semester:semester];
+    
+    // ud
+    [ud setValue:nil forKey:@"USER_TOKEN"];
+    [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
+}
+
+
 
 
 #pragma mark - HUD

@@ -22,11 +22,13 @@ static NSString *cell_id = @"HomeworkTableViewCell";
 
 static NSString *homework_url = @"/api/course_info/0"; // homework - 0
 
+static NSString *homework_delete_url = @"/api/v1.0/delete/0";
+
 static const CGFloat kHeightForPostButton = 52;
 
 static const CGFloat kHeightForSectionHeader = 8.0;
 
-@interface HomeworkViewController () <UITableViewDelegate, UITableViewDataSource, HomeworkTableViewCellDelegate, UIActionSheetDelegate>
+@interface HomeworkViewController () <UITableViewDelegate, UITableViewDataSource, HomeworkTableViewCellDelegate, UIActionSheetDelegate, HomeworkPostTableViewControllerDelegate>
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
@@ -39,6 +41,11 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 @property (assign, nonatomic) BOOL hasLoadedFirstly;
 
 @property (assign, nonatomic) BOOL isLoading;
+
+// delete
+@property (assign, nonatomic) NSInteger delete_id;
+
+@property (assign, nonatomic) NSInteger delete_section;
 
 @end
 
@@ -185,7 +192,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     Homework *homework = self.homeworkData[indexPath.section];
     
     cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 发布的作业信息:", homework.publisher];
-//    cell.publisherLabel.text = homework.publisher;
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:homework.pub_time];
     cell.contentLabel.text = homework.content;
     cell.homework_id = homework.homework_id;
@@ -215,9 +221,12 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     Homework *h = self.homeworkData[section];
     NSString *cellUsername = h.publisher;
     
-    if ([cellUsername isEqualToString:username] && !_isLoading) {
+    if (([cellUsername isEqualToString:username] || [username isEqualToString:@"14jhwang"] || [username isEqualToString:@"14xfdeng"]) && !_isLoading) {
         UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
-        actionSheet.tag = section;
+        
+        _delete_id = h.homework_id;
+        _delete_section = section;
+        
         [actionSheet showInView:self.view];
     }
 }
@@ -226,32 +235,89 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        [self deleteHomeworkWithTag:actionSheet.tag];
-        actionSheet.tag = 0;
+        [self deleteHomeworkWithID:_delete_id andSection:_delete_section];
+        _delete_id = 0;
+        _delete_section = 0;
     }
 }
 
 
-- (void)deleteHomeworkWithTag:(NSInteger)tag
+- (void)deleteHomeworkWithID:(NSInteger)homework_id andSection:(NSInteger)homework_section
 {
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
-    [self performSelector:@selector(sendDeleteRequest:) withObject:[NSNumber numberWithInteger:tag] afterDelay:1.5];
+    [self sendDeleteRequest:homework_id Section:homework_section];
 }
 
 
-- (void)sendDeleteRequest:(NSNumber *)tagNumber
+- (void)sendDeleteRequest:(NSInteger)homework_id Section:(NSInteger)homework_section
 {
-    NSInteger tag = [tagNumber integerValue];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    [self.tableView beginUpdates];
-    [self.homeworkData removeObjectAtIndex:tag];
-    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:tag] withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView endUpdates];
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     
-    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    NSString *username = [ud valueForKey:@"USERNAME"];
+    
+    NSString *token = [ud valueForKey:@"USER_TOKEN"];
+    
+    // delete data
+    NSDictionary *deleteData = @{
+                                 @"user": username,
+                                 @"token": token,
+                                 @"resource_id": [NSString stringWithFormat:@"%d", homework_id],
+                                 };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, homework_delete_url] parameters:deleteData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"删除作业 - 连接服务器 - 成功 - %@", responseObject);
+        //        NSLog(@"删除讨论 - 连接服务器 - 成功");
+        [self parseDeleteResponseObject:responseObject homeworkID:homework_id Section:homework_section];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"删除作业 - 连接服务器 - 失败 - %@", error);
+        [self showHUDWithText:@"连接服务器失败" andHideDelay:global_hud_delay];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
 }
 
+
+- (void)parseDeleteResponseObject:(NSDictionary *)responseObject homeworkID:(NSInteger)homework_id Section:(NSInteger)homework_section
+{
+    NSLog(@"删除作业id - %d", homework_id);
+    
+    NSString *errorStr = responseObject[@"ERROR"];
+    
+    if (errorStr) {
+        
+        if ([errorStr isEqualToString:@"not authorized: wrong token"]) {
+            
+            [self logout];
+            
+        } else {
+            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+            [self showHUDWithText:@"删除失败，请重试" andHideDelay:1.0];
+        }
+        
+    } else {
+        
+        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        [self showHUDWithText:@"删除成功" andHideDelay:1.0];
+        
+        [self.tableView beginUpdates];
+        [self.homeworkData removeObjectAtIndex:homework_section];
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:homework_section] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+        
+    }
+}
 
 
 
@@ -262,6 +328,10 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     HomeworkPostTableViewController *hptvc = [sb instantiateViewControllerWithIdentifier:@"HomeworkPostTVC"];
+    
+    hptvc.dvc = self.dvc;
+    
+    hptvc.delegate = self;
     
     [self.navigationController pushViewController:hptvc animated:YES];
 }
@@ -315,8 +385,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-        NSLog(@"---%@", operation.request);
-        NSLog(@"连接服务器 - 失败 - %@", error);
+        NSLog(@"作业 - 连接服务器 - 失败 - %@", error);
         [self showHUDWithText:@"连接服务器失败" andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         _isLoading = NO;
@@ -384,6 +453,32 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     }
 }
 
+// Log Out
+- (void)logout
+{
+    [self logutClearData];
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+}
+
+- (void)logutClearData
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    //    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+    
+    //    NSInteger year = [dict[@"year"] integerValue];
+    //    NSInteger semester = [dict[@"semester"] integerValue];
+    
+    // CoreData
+    //    [[CoreDataManager sharedInstance] deleteClassTableWithYear:year semester:semester];
+    
+    // ud
+    [ud setValue:nil forKey:@"USER_TOKEN"];
+    [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
+}
+
 
 #pragma mark - Refresh Control
 
@@ -393,6 +488,22 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         NSLog(@"下拉刷新 - 作业");
         [self sendRequest];
     }
+}
+
+
+#pragma mark - HomeworkPostTableViewControllerDelegate
+
+- (void)homeworkPostTableViewControllerPostSuccessfullyWithHomework:(Homework *)homework
+{
+    NSLog(@"作业 - 增加cell - %@", homework.content);
+    
+    if (!self.homeworkData) {
+        self.homeworkData = [NSMutableArray array];
+    }
+    
+    [self.homeworkData insertObject:homework atIndex:0];
+    
+    [self.tableView reloadData];
 }
 
 
