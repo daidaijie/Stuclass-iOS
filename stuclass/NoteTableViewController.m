@@ -49,6 +49,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 - (void)setupNote
 {
     self.textView.text = self.noteStr;
+    self.textView.placeholder.hidden = (self.textView.text.length > 0);
 }
 
 - (void)viewDidAppear:(BOOL)animated

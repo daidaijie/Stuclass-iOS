@@ -51,6 +51,8 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     [self initInfoTitleArray];
     
     [self initTableView];
+    
+    [self initNoteStr];
 }
 
 
@@ -101,13 +103,6 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     self.noteStr = dict[@"content"];
     self.timeStr = dict[@"time"];
     
-}
-
-- (void)setupBoxData:(ClassBox *)boxData
-{
-    self.dvc.classBox = boxData;
-    
-    [self initNoteStr];
 }
 
 #pragma mark - TableView Delegate
