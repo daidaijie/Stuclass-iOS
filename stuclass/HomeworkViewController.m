@@ -17,6 +17,7 @@
 #import "JHDater.h"
 #import "DetailViewController.h"
 #import "ClassBox.h"
+#import <KVNProgress/KVNProgress.h>
 
 static NSString *cell_id = @"HomeworkTableViewCell";
 
@@ -299,7 +300,10 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         
         if ([errorStr isEqualToString:@"not authorized: wrong token"]) {
             
-            [self logout];
+            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+            [KVNProgress showErrorWithStatus:@"登录超时，请重新登录" completion:^{
+                [self logout];
+            }];
             
         } else {
             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];

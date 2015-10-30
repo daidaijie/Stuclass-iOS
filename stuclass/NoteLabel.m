@@ -21,7 +21,7 @@
     
     // Placeholder
     self.placeholder = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 28)];
-    self.placeholder.textColor = [UIColor colorWithWhite:0.8 alpha:1.0];
+    self.placeholder.textColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.827 alpha:1.0];
     self.placeholder.font = [UIFont systemFontOfSize:16.0];
     self.placeholder.text = @"今天，我要认真听课...";
     
