@@ -301,9 +301,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         if ([errorStr isEqualToString:@"not authorized: wrong token"]) {
             
             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-            [KVNProgress showErrorWithStatus:@"登录超时，请重新登录" completion:^{
-                [self logout];
-            }];
+            [self showHUDWithText:@"登录超时，请重新登录" andHideDelay:1.6];
+            [self performSelector:@selector(logout) withObject:nil afterDelay:1.6];
             
         } else {
             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];

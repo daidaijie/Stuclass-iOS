@@ -40,6 +40,7 @@ static NSString *login_url = @"/syllabus";
     // Bar
     [self setupBarBackButton];
     [self initNavigationBar];
+    [self setupItems];
     
     // View
     [self initBgImageView];
@@ -78,6 +79,16 @@ static NSString *login_url = @"/syllabus";
     // navigation
     self.navigationController.view.backgroundColor = [UIColor whiteColor];
 }
+
+- (void)setupItems
+{
+    UIBarButtonItem *syncItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-sync"] style:UIBarButtonItemStylePlain target:self action:@selector(syncItemPress)];
+    
+    UIBarButtonItem *publicItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-public"] style:UIBarButtonItemStylePlain target:self action:@selector(publicItemPress)];
+    
+    self.navigationItem.rightBarButtonItems = @[syncItem, publicItem];
+}
+
 
 // View
 - (void)initBgImageView
@@ -275,9 +286,15 @@ static NSString *login_url = @"/syllabus";
     }
 }
 
-- (IBAction)syncItemPress:(id)sender
+- (void)syncItemPress
 {
     [self sync];
+}
+
+
+- (void)publicItemPress
+{
+    // TODO...
 }
 
 

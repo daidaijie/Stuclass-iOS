@@ -163,11 +163,6 @@
                                 <action selector="settingButtonPress:" destination="f6Q-Hq-ojy" id="y3L-ck-7vJ"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="toolbar-sync" id="qXw-cT-Ku6">
-                            <connections>
-                                <action selector="syncItemPress:" destination="f6Q-Hq-ojy" id="CE6-5n-hVb"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -991,6 +986,5 @@
     </scenes>
     <resources>
         <image name="logo" width="512" height="512"/>
-        <image name="toolbar-sync" width="22" height="22"/>
     </resources>
 </document>
