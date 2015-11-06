@@ -210,7 +210,7 @@ static NSString *login_url = @"/syllabus";
         
         NSString *className = [self shrinkName:box.box_name];
         
-        [cell setBtnDescription:[NSString stringWithFormat:@"%@@%@", className, box.box_room]];
+        [cell setBtnDescription:[NSString stringWithFormat:@"%@@%@%@", className, box.box_room, box.box_weekType.length == 0 ? @"" : [NSString stringWithFormat:@"(%@周)", box.box_weekType]]];
         [cell setBtnColor:box.box_color];
         
         cell.tag = row;

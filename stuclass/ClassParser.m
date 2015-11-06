@@ -88,10 +88,21 @@
                 box.box_credit = class[@"credit"];
                 box.box_color = color;
                 
+                
                 NSString *weekStr = key;
+                box.box_x = [self generateCoordinateX:weekStr];
+                
+                
                 NSString *numStr = days[key];
                 
-                box.box_x = [self generateCoordinateX:weekStr];
+                // weekType
+                NSString *weekType = @"";
+                if ([numStr hasPrefix:@"单"]) {
+                    weekType = @"单";
+                } else if ([numStr hasPrefix:@"双"]) {
+                    weekType = @"双";
+                }
+                box.box_weekType = weekType;
                 
                 NSArray *yAndLengthArray = [self generateCoordinateYAndLengthArray:numStr];
                 

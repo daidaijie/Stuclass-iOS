@@ -21,6 +21,6 @@
 @property (assign, nonatomic) NSInteger box_x;
 @property (assign, nonatomic) NSInteger box_y;
 @property (assign, nonatomic) NSInteger box_length;
-
+@property (strong, nonatomic) NSString *box_weekType;
 
 @end
