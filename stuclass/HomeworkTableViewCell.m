@@ -16,15 +16,15 @@
     [super awakeFromNib];
     
 //    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-//    self.contentLabel.preferredMaxLayoutWidth = width - 36.0; // 36.0 is the margin
+//    _contentLabel.preferredMaxLayoutWidth = width - 36.0; // 36.0 is the margin
     
     // postView
-    self.homeworkView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
-    self.homeworkView.layer.shouldRasterize = YES;
-    self.homeworkView.layer.cornerRadius = 4.0;
-    self.homeworkView.layer.shadowOpacity = 0.25;
-    self.homeworkView.layer.shadowOffset = CGSizeMake(-0.1, 0.1);
-    self.homeworkView.layer.shadowColor = [UIColor grayColor].CGColor;
+    _homeworkView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
+    _homeworkView.layer.shouldRasterize = YES;
+    _homeworkView.layer.cornerRadius = 4.0;
+    _homeworkView.layer.shadowOpacity = 0.25;
+    _homeworkView.layer.shadowOffset = CGSizeMake(-0.1, 0.1);
+    _homeworkView.layer.shadowColor = [UIColor grayColor].CGColor;
     
     // Gesture
     UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];

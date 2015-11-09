@@ -53,7 +53,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 - (void)setupTextView
 {
-    self.textView.placeholder.text = @"你可以吹180个字...";
+    _textView.placeholder.text = @"你可以吹180个字...";
 }
 
 
@@ -61,7 +61,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 {
     [super viewDidAppear:animated];
     
-    [self.textView becomeFirstResponder];
+    [_textView becomeFirstResponder];
 }
 
 #pragma mark - TableView Delegate
@@ -130,9 +130,9 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    self.countLabel.text = [NSString stringWithFormat:@"%d", textView.text.length];
+    _countLabel.text = [NSString stringWithFormat:@"%d", textView.text.length];
     
-    self.textView.placeholder.hidden = (textView.text.length > 0);
+    _textView.placeholder.hidden = (textView.text.length > 0);
 }
 
 
@@ -140,14 +140,14 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 - (IBAction)postItemPress:(id)sender
 {
-    if (self.textView.text.length == 0) {
+    if (_textView.text.length == 0) {
         [self showHUDWithText:@"内容不能为空" andHideDelay:1.0];
-    } else if ([self.textView.text rangeOfString:@"\n\n\n"].location != NSNotFound) {
+    } else if ([_textView.text rangeOfString:@"\n\n\n"].location != NSNotFound) {
         [self showHUDWithText:@"不能连续换三行以上" andHideDelay:1.0];
-    } else if (self.textView.text.length > 180) {
+    } else if (_textView.text.length > 180) {
         [self showHUDWithText:@"限制180字以内" andHideDelay:1.0];
     } else {
-        [self.textView resignFirstResponder];
+        [_textView resignFirstResponder];
         [KVNProgress showWithStatus:@"吹~吹~吹~"];
         [self sendRequest:YES];
     }
@@ -176,8 +176,8 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     NSDictionary *postData = @{
                               @"publisher": username,
                               @"pub_time": @"123",
-                              @"content": self.textView.text,
-                              @"number": self.dvc.classBox.box_number,
+                              @"content": _textView.text,
+                              @"number": _dvc.classBox.box_number,
                               @"semester": [NSString stringWithFormat:@"%d", semester],
                               @"start_year": [NSString stringWithFormat:@"%d", year],
                               @"end_year": [NSString stringWithFormat:@"%d", year + 1],
@@ -200,7 +200,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         // 失败
         NSLog(@"发布讨论 - 连接服务器 - 失败 - %@", error);
         [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
-            [self.textView becomeFirstResponder];
+            [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
@@ -236,7 +236,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         } else {
             NSLog(@"发生未知错误");
             [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
-                [self.textView becomeFirstResponder];
+                [_textView becomeFirstResponder];
             }];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }
@@ -245,7 +245,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         
         Discuss *discuss = [[Discuss alloc] init];
         
-        discuss.content = self.textView.text;
+        discuss.content = _textView.text;
         
         discuss.pub_time = [[JHDater sharedInstance] getNowSecondFrom1970];
         
@@ -265,7 +265,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     } else {
         NSLog(@"发生未知错误");
         [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
-            [self.textView becomeFirstResponder];
+            [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }
@@ -287,13 +287,13 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     // post data
     
     NSDictionary *postData = @{
-                               @"number": self.dvc.classBox.box_number,
-                               @"name": self.dvc.classBox.box_name,
-                               @"credit": self.dvc.classBox.box_credit,
-                               @"teacher": self.dvc.classBox.box_teacher,
-                               @"room": self.dvc.classBox.box_room,
-                               @"span": self.dvc.classBox.box_span,
-                               @"time": [NSString stringWithFormat:@"x - %d y - %d length - %d", self.dvc.classBox.box_x, self.dvc.classBox.box_y, self.dvc.classBox.box_length],
+                               @"number": _dvc.classBox.box_number,
+                               @"name": _dvc.classBox.box_name,
+                               @"credit": _dvc.classBox.box_credit,
+                               @"teacher": _dvc.classBox.box_teacher,
+                               @"room": _dvc.classBox.box_room,
+                               @"span": _dvc.classBox.box_span,
+                               @"time": [NSString stringWithFormat:@"x - %d y - %d length - %d", _dvc.classBox.box_x, _dvc.classBox.box_y, _dvc.classBox.box_length],
                                @"semester": [NSString stringWithFormat:@"%d", semester],
                                @"start_year": [NSString stringWithFormat:@"%d", year],
                                @"end_year": [NSString stringWithFormat:@"%d", year + 1],
@@ -315,7 +315,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         // 失败
         NSLog(@"讨论 - 添加课程 - 连接服务器 - 失败 - %@", error);
         [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
-            [self.textView becomeFirstResponder];
+            [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
@@ -330,7 +330,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     if (errorStr) {
         
         [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
-            [self.textView becomeFirstResponder];
+            [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         

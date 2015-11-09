@@ -20,12 +20,12 @@
     self.verticalAlignment = VerticalAlignmentTop;
     
     // Placeholder
-    self.placeholder = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 28)];
-    self.placeholder.textColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.827 alpha:1.0];
-    self.placeholder.font = [UIFont systemFontOfSize:16.0];
-    self.placeholder.text = @"今天，我要认真听课...";
+    _placeholder = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 300, 28)];
+    _placeholder.textColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.827 alpha:1.0];
+    _placeholder.font = [UIFont systemFontOfSize:16.0];
+    _placeholder.text = @"今天，我要认真听课...";
     
-    [self addSubview:self.placeholder];
+    [self addSubview:_placeholder];
 }
 
 - (void)setVerticalAlignment:(VerticalAlignment)verticalAlignment
@@ -64,9 +64,9 @@
     [super setText:text];
     
     if (text.length == 0 || text == nil) {
-        self.placeholder.hidden = NO;
+        _placeholder.hidden = NO;
     } else {
-        self.placeholder.hidden = YES;
+        _placeholder.hidden = YES;
     }
 }
 

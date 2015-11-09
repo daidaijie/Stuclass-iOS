@@ -57,7 +57,7 @@ static NSString *login_url = @"/syllabus";
     [super viewWillAppear:animated];
     
     // 更新顶部日期
-    [self.classHeaderView updateCurrentDateOnClassHeaderView];
+    [_classHeaderView updateCurrentDateOnClassHeaderView];
 }
 
 
@@ -93,9 +93,9 @@ static NSString *login_url = @"/syllabus";
 // View
 - (void)initBgImageView
 {
-    self.bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 64)];
+    _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 64)];
     
-    self.bgImageView.contentMode = UIViewContentModeScaleAspectFill;
+    _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     
     // 读取背景图片
     BOOL isBgImageExisted = NO;
@@ -109,16 +109,16 @@ static NSString *login_url = @"/syllabus";
     
     if (isBgImageExisted) {
         // 设置自定义背景图
-        self.bgImageView.image = [UIImage imageWithContentsOfFile:imageFilePath];
+        _bgImageView.image = [UIImage imageWithContentsOfFile:imageFilePath];
     } else {
         // 设置自带背景图
         NSInteger bgSection = [[NSUserDefaults standardUserDefaults] integerForKey:@"bgSection"];
         NSInteger bgIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"bgIndex"];
         UIImage *bgImage = [UIImage imageNamed:[NSString stringWithFormat:@"class_bg_%d_%d.jpg", bgSection, bgIndex]];
-        self.bgImageView.image = bgImage ? bgImage : [UIImage imageNamed:@"class_bg_0_0.jpg"];
+        _bgImageView.image = bgImage ? bgImage : [UIImage imageNamed:@"class_bg_0_0.jpg"];
     }
     
-    [self.view addSubview:self.bgImageView];
+    [self.view addSubview:_bgImageView];
 }
 
 
@@ -126,37 +126,37 @@ static NSString *login_url = @"/syllabus";
 {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat k = width / 320.0;
-    self.classHeaderView = [[ClassHeaderView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, 32.0f * k)];
+    _classHeaderView = [[ClassHeaderView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, 32.0f * k)];
     
-    [self.view addSubview:self.classHeaderView];
+    [self.view addSubview:_classHeaderView];
 }
 
 - (void)initCollectionView
 {
-    self.collectionView.exclusiveTouch = YES;
+    _collectionView.exclusiveTouch = YES;
     
     // layout
     ClassCollectionViewLayout *layout = [[ClassCollectionViewLayout alloc] init];
     layout.layoutDelegate = self;
     
     // collectionView
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64+_classHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - _classHeaderView.bounds.size.height - 64) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64+_classHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - _classHeaderView.bounds.size.height - 64) collectionViewLayout:layout];
     
-    self.collectionView.showsHorizontalScrollIndicator = NO;
-    self.collectionView.showsVerticalScrollIndicator = NO;
-    self.collectionView.bounces = NO;
-    self.collectionView.backgroundColor = [UIColor clearColor];
+    _collectionView.showsHorizontalScrollIndicator = NO;
+    _collectionView.showsVerticalScrollIndicator = NO;
+    _collectionView.bounces = NO;
+    _collectionView.backgroundColor = [UIColor clearColor];
     
-    [self.view addSubview:self.collectionView];
+    [self.view addSubview:_collectionView];
     
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
     
     // register Cell
-    [self.collectionView registerClass:[ClassCollectionViewCell class] forCellWithReuseIdentifier:@"ClassCell"];
+    [_collectionView registerClass:[ClassCollectionViewCell class] forCellWithReuseIdentifier:@"ClassCell"];
     
     // register SupplementaryView
-    [self.collectionView registerClass:[ClassNumberCollectionReusableView class] forSupplementaryViewOfKind:@"ClassNumber" withReuseIdentifier:@"ClassSupplementary"];
+    [_collectionView registerClass:[ClassNumberCollectionReusableView class] forSupplementaryViewOfKind:@"ClassNumber" withReuseIdentifier:@"ClassSupplementary"];
 }
 
 // Notification
@@ -170,13 +170,13 @@ static NSString *login_url = @"/syllabus";
 // 返回cell个数
 - (NSInteger)collectionView:(UICollectionView *)collectionView cellCountForCollectionViewLayout:(ClassCollectionViewLayout *)collectionViewLayout
 {
-    return self.boxData.count;
+    return _boxData.count;
 }
 
 // 返回坐标给Layout
 - (NSArray *)collectionView:(UICollectionView *)collectionView coordinateForCollectionViewLayout:(ClassCollectionViewLayout *)collectionViewLayout indexPath:(NSIndexPath *)indexPath
 {
-    ClassBox *box = self.boxData[indexPath.row];
+    ClassBox *box = _boxData[indexPath.row];
     return @[[NSNumber numberWithInteger:box.box_x], [NSNumber numberWithInteger:box.box_y], [NSNumber numberWithInteger:box.box_length]];
 }
 
@@ -188,7 +188,7 @@ static NSString *login_url = @"/syllabus";
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     // 看看要画多少个课程cell
-    return self.boxData.count;
+    return _boxData.count;
 }
 
 // CellView
@@ -202,7 +202,7 @@ static NSString *login_url = @"/syllabus";
 // 设置cell
 - (UICollectionViewCell *)configureClassCell:(ClassCollectionViewCell *)cell atIndex:(NSInteger)row
 {
-    ClassBox *box = self.boxData[row];
+    ClassBox *box = _boxData[row];
     
     if (box) {
         
@@ -267,7 +267,7 @@ static NSString *login_url = @"/syllabus";
 {
     NSLog(@"cell - %d", tag);
     
-    [self performSegueWithIdentifier:@"ShowDetail" sender:self.boxData[tag]];
+    [self performSegueWithIdentifier:@"ShowDetail" sender:_boxData[tag]];
 }
 
 
@@ -353,13 +353,13 @@ static NSString *login_url = @"/syllabus";
     
     if (isBgImageExisted) {
         // 设置自定义背景图
-        self.bgImageView.image = [UIImage imageWithContentsOfFile:imageFilePath];
+        _bgImageView.image = [UIImage imageWithContentsOfFile:imageFilePath];
     } else {
         // 设置自带背景图
         NSInteger bgSection = [[NSUserDefaults standardUserDefaults] integerForKey:@"bgSection"];
         NSInteger bgIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"bgIndex"];
         UIImage *bgImage = [UIImage imageNamed:[NSString stringWithFormat:@"class_bg_%d_%d.jpg", bgSection, bgIndex]];
-        self.bgImageView.image = bgImage ? bgImage : [UIImage imageNamed:@"class_bg_0_0.jpg"];
+        _bgImageView.image = bgImage ? bgImage : [UIImage imageNamed:@"class_bg_0_0.jpg"];
     }
 }
 
@@ -454,19 +454,19 @@ static NSString *login_url = @"/syllabus";
         NSString *token = responseObject[@"token"];
         [ud setValue:token forKey:@"USER_TOKEN"];
         
-        self.boxData = boxData;
+        _boxData = boxData;
         
-        [self.collectionView.collectionViewLayout invalidateLayout];
+        [_collectionView.collectionViewLayout invalidateLayout];
         
         ClassCollectionViewLayout *layout = [[ClassCollectionViewLayout alloc] init];
         
         layout.layoutDelegate = self;
         
-        [self.collectionView setCollectionViewLayout:layout animated:YES];
+        [_collectionView setCollectionViewLayout:layout animated:YES];
         
-        [self.collectionView reloadData];
+        [_collectionView reloadData];
         
-        [self.collectionView setContentOffset:CGPointZero animated:YES];
+        [_collectionView setContentOffset:CGPointZero animated:YES];
         
         [KVNProgress showSuccessWithStatus:@"同步课表成功"];
     }

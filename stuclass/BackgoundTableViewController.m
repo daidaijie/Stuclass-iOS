@@ -38,12 +38,12 @@
 
 - (void)setupImagePicker
 {
-    self.imagePicker = [[GKImagePicker alloc] init];
+    _imagePicker = [[GKImagePicker alloc] init];
     CGSize cropSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - 64);
     cropSize.width -= 4;
     cropSize.height -= 4;
-    self.imagePicker.cropSize = cropSize;
-    self.imagePicker.delegate = self;
+    _imagePicker.cropSize = cropSize;
+    _imagePicker.delegate = self;
 }
 
 
@@ -68,13 +68,13 @@
     
     if (!isBgImageExisted) {
         // 用户在使用自带图片
-        self.bgSection = [[NSUserDefaults standardUserDefaults] integerForKey:@"bgSection"];
-        self.bgIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"bgIndex"];
+        _bgSection = [[NSUserDefaults standardUserDefaults] integerForKey:@"bgSection"];
+        _bgIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"bgIndex"];
         
     } else {
         // 用户在使用自己的图片
-        self.bgSection = -1;
-        self.bgIndex = -1;
+        _bgSection = -1;
+        _bgIndex = -1;
     }
 }
 
@@ -85,7 +85,7 @@
     
     if (section == 0 || section == 1) {
         
-        if (section == self.bgSection && row == self.bgIndex) {
+        if (section == _bgSection && row == _bgIndex) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         } else {
             cell.accessoryType = UITableViewCellAccessoryNone;
@@ -108,12 +108,12 @@
     if (section == 0 || section == 1) {
         
         // 自带背景
-        self.bgSection = section;
-        self.bgIndex = row;
+        _bgSection = section;
+        _bgIndex = row;
         
         // ud
-        [[NSUserDefaults standardUserDefaults] setInteger:self.bgSection forKey:@"bgSection"];
-        [[NSUserDefaults standardUserDefaults] setInteger:self.bgIndex forKey:@"bgIndex"];
+        [[NSUserDefaults standardUserDefaults] setInteger:_bgSection forKey:@"bgSection"];
+        [[NSUserDefaults standardUserDefaults] setInteger:_bgIndex forKey:@"bgIndex"];
         
         // 删除自定义图片
         NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -141,8 +141,8 @@
                 return;
             }
             
-            self.imagePicker.imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController:self.imagePicker.imagePickerController animated:YES completion:nil];
+            _imagePicker.imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:_imagePicker.imagePickerController animated:YES completion:nil];
         }
     }
 }
@@ -200,7 +200,7 @@
     
     [self postNotification];
     
-    self.bgIndex = -1;
+    _bgIndex = -1;
     [self.tableView reloadData];
     
     [_imagePicker.imagePickerController dismissViewControllerAnimated:YES completion:nil];

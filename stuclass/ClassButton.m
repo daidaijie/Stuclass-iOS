@@ -36,22 +36,22 @@ static const CGFloat kAlpha = 0.9;
         [self addTarget:self action:@selector(setupHighlightColor) forControlEvents:UIControlEventTouchDown];
         
         // highlightView
-        self.highlightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        self.highlightView.backgroundColor = [UIColor blackColor];
-        self.highlightView.alpha = 0.3;
-        self.highlightView.layer.cornerRadius = kCornerRadius;
-        self.highlightView.hidden = YES;
-        [self addSubview:self.highlightView];
+        _highlightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        _highlightView.backgroundColor = [UIColor blackColor];
+        _highlightView.alpha = 0.3;
+        _highlightView.layer.cornerRadius = kCornerRadius;
+        _highlightView.hidden = YES;
+        [self addSubview:_highlightView];
         
         // label
-        self.label = [[UILabel alloc] initWithFrame:CGRectMake(kInset, kInset, frame.size.width - kInset * 2, frame.size.height - kInset * 2)];
-        self.label.textColor = [UIColor whiteColor];
-        self.label.font = [UIFont systemFontOfSize:9.5];
-        self.label.textAlignment = NSTextAlignmentCenter;
-        self.label.numberOfLines = 0;
-        self.label.lineBreakMode = NSLineBreakByTruncatingTail;
+        _label = [[UILabel alloc] initWithFrame:CGRectMake(kInset, kInset, frame.size.width - kInset * 2, frame.size.height - kInset * 2)];
+        _label.textColor = [UIColor whiteColor];
+        _label.font = [UIFont systemFontOfSize:9.5];
+        _label.textAlignment = NSTextAlignmentCenter;
+        _label.numberOfLines = 0;
+        _label.lineBreakMode = NSLineBreakByTruncatingTail;
         
-        [self addSubview:self.label];
+        [self addSubview:_label];
     }
     
     return self;
@@ -59,25 +59,25 @@ static const CGFloat kAlpha = 0.9;
 
 - (void)setupNormalColor
 {
-    self.highlightView.hidden = YES;
+    _highlightView.hidden = YES;
 }
 
 - (void)setupHighlightColor
 {
-    self.highlightView.hidden = NO;
+    _highlightView.hidden = NO;
 }
 
 - (void)setupBtnTitle:(NSString *)string
 {
-    self.label.text = string;
+    _label.text = string;
 }
 
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
     
-    self.highlightView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
-    self.label.frame = CGRectMake(kInset, kInset, frame.size.width - kInset * 2, frame.size.height - kInset * 2);
+    _highlightView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+    _label.frame = CGRectMake(kInset, kInset, frame.size.width - kInset * 2, frame.size.height - kInset * 2);
 }
 
 @end

@@ -15,11 +15,11 @@
 {
     [super awakeFromNib];
     
-    self.placeholder = [[UILabel alloc] initWithFrame:CGRectMake(5, 3, 200, 30)];
-    self.placeholder.textColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.827 alpha:1.0];
-    self.placeholder.font = [UIFont systemFontOfSize:16.0];
+    _placeholder = [[UILabel alloc] initWithFrame:CGRectMake(5, 3, 200, 30)];
+    _placeholder.textColor = [UIColor colorWithRed:0.804 green:0.804 blue:0.827 alpha:1.0];
+    _placeholder.font = [UIFont systemFontOfSize:16.0];
     
-    [self addSubview:self.placeholder];
+    [self addSubview:_placeholder];
 }
 
 

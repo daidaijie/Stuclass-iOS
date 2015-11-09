@@ -24,12 +24,12 @@ static const CGFloat kCellInset = 1.2;
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
-        self.btn = [[ClassButton alloc] initWithFrame:CGRectMake(kCellInset, kCellInset, frame.size.width-kCellInset*2, frame.size.height-kCellInset*2)];
-        [self.btn addTarget:self action:@selector(btnPress) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:self.btn];
+        _btn = [[ClassButton alloc] initWithFrame:CGRectMake(kCellInset, kCellInset, frame.size.width-kCellInset*2, frame.size.height-kCellInset*2)];
+        [_btn addTarget:self action:@selector(btnPress) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_btn];
         
         self.exclusiveTouch = YES;
-        self.btn.exclusiveTouch = YES;
+        _btn.exclusiveTouch = YES;
     }
     
     return self;
@@ -37,12 +37,12 @@ static const CGFloat kCellInset = 1.2;
 
 - (void)setBtnDescription:(NSString *)str
 {
-    [self.btn setupBtnTitle:str];
+    [_btn setupBtnTitle:str];
 }
 
 - (void)setBtnColor:(UIColor *)color
 {
-    self.btn.backgroundColor = color;
+    _btn.backgroundColor = color;
 }
 
 // 重写
@@ -51,13 +51,13 @@ static const CGFloat kCellInset = 1.2;
     [super setFrame:frame];
     
     // 更新btn的frame
-    self.btn.frame = CGRectMake(kCellInset, kCellInset, self.frame.size.width - kCellInset*2, self.frame.size.height -kCellInset*2);
+    _btn.frame = CGRectMake(kCellInset, kCellInset, self.frame.size.width - kCellInset*2, self.frame.size.height -kCellInset*2);
 }
 
 
 - (void)btnPress
 {
-    [self.delegate classCollectionViewCellDidPressWithTag:self.tag];
+    [_delegate classCollectionViewCellDidPressWithTag:self.tag];
 }
 
 

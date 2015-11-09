@@ -49,31 +49,31 @@ static const NSTimeInterval kAnimationDuration = 0.3;
     [self addSubview:bottomLineView];
     
     // indicator
-    self.indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - kIndicatorViewHeight, buttonWidth, kIndicatorViewHeight)];
-    self.indicatorView.backgroundColor = MAIN_COLOR;
-    [self addSubview:self.indicatorView];
+    _indicatorView = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height - kIndicatorViewHeight, buttonWidth, kIndicatorViewHeight)];
+    _indicatorView.backgroundColor = MAIN_COLOR;
+    [self addSubview:_indicatorView];
     
     // button
-    self.firstButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, frame.size.height - kIndicatorViewHeight)];
-    self.firstButton.tag = 0;
-    self.firstButton.titleLabel.font = [UIFont systemFontOfSize:kButtonFontSize];
-    [self.firstButton setTitle:@"个人" forState:UIControlStateNormal];
-    [self.firstButton setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
-    [self addSubview:self.firstButton];
+    _firstButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, buttonWidth, frame.size.height - kIndicatorViewHeight)];
+    _firstButton.tag = 0;
+    _firstButton.titleLabel.font = [UIFont systemFontOfSize:kButtonFontSize];
+    [_firstButton setTitle:@"个人" forState:UIControlStateNormal];
+    [_firstButton setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
+    [self addSubview:_firstButton];
     
-    self.secondButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonWidth, 0, buttonWidth, frame.size.height - kIndicatorViewHeight)];
-    self.secondButton.tag = 1;
-    self.secondButton.titleLabel.font = [UIFont systemFontOfSize:kButtonFontSize];
-    [self.secondButton setTitle:@"作业" forState:UIControlStateNormal];
-        [self.secondButton setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
-    [self addSubview:self.secondButton];
+    _secondButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonWidth, 0, buttonWidth, frame.size.height - kIndicatorViewHeight)];
+    _secondButton.tag = 1;
+    _secondButton.titleLabel.font = [UIFont systemFontOfSize:kButtonFontSize];
+    [_secondButton setTitle:@"作业" forState:UIControlStateNormal];
+        [_secondButton setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
+    [self addSubview:_secondButton];
     
-    self.thirdButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonWidth * 2, 0, buttonWidth, frame.size.height - kIndicatorViewHeight)];
-    self.thirdButton.tag = 2;
-    self.thirdButton.titleLabel.font = [UIFont systemFontOfSize:kButtonFontSize];
-    [self.thirdButton setTitle:@"吹水" forState:UIControlStateNormal];
-        [self.thirdButton setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
-    [self addSubview:self.thirdButton];
+    _thirdButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonWidth * 2, 0, buttonWidth, frame.size.height - kIndicatorViewHeight)];
+    _thirdButton.tag = 2;
+    _thirdButton.titleLabel.font = [UIFont systemFontOfSize:kButtonFontSize];
+    [_thirdButton setTitle:@"吹水" forState:UIControlStateNormal];
+        [_thirdButton setTitleColor:MAIN_COLOR forState:UIControlStateNormal];
+    [self addSubview:_thirdButton];
 }
 
 
@@ -83,9 +83,9 @@ static const NSTimeInterval kAnimationDuration = 0.3;
     [UIView beginAnimations:@"Animation" context:nil];
     [UIView setAnimationDuration:kAnimationDuration];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-    CGRect f = self.indicatorView.frame;
+    CGRect f = _indicatorView.frame;
     f.origin.x = f.size.width * index;
-    self.indicatorView.frame = f;
+    _indicatorView.frame = f;
     [UIView commitAnimations];
 }
 

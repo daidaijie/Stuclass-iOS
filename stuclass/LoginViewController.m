@@ -75,18 +75,18 @@ static NSString *login_url = @"/syllabus";
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:@"请选择学期"];
     NSRange strRange = {0, str.length};
     [str addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];
-    [self.semesterButton setAttributedTitle:str forState:UIControlStateNormal];
+    [_semesterButton setAttributedTitle:str forState:UIControlStateNormal];
     
     // loginButton
-    self.loginButton.layer.cornerRadius = 5.0;
+    _loginButton.layer.cornerRadius = 5.0;
     
     // inputView
-    self.inputView.usernameTextField.tag = 0;
-    self.inputView.passwordTextField.tag = 1;
-    self.inputView.usernameTextField.delegate = self;
-    self.inputView.passwordTextField.delegate = self;
-    [self.inputView.usernameTextField addTarget:self action:@selector(returnKeyPress:) forControlEvents:UIControlEventEditingDidEndOnExit];
-    [self.inputView.passwordTextField addTarget:self action:@selector(returnKeyPress:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    _inputView.usernameTextField.tag = 0;
+    _inputView.passwordTextField.tag = 1;
+    _inputView.usernameTextField.delegate = self;
+    _inputView.passwordTextField.delegate = self;
+    [_inputView.usernameTextField addTarget:self action:@selector(returnKeyPress:) forControlEvents:UIControlEventEditingDidEndOnExit];
+    [_inputView.passwordTextField addTarget:self action:@selector(returnKeyPress:) forControlEvents:UIControlEventEditingDidEndOnExit];
     
     // gesture
     UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
@@ -101,15 +101,15 @@ static NSString *login_url = @"/syllabus";
     // username & password
     NSString *username = [ud stringForKey:@"USERNAME"];
     NSString *password = [ud stringForKey:@"PASSWORD"];
-    self.inputView.usernameTextField.text = username;
-    self.inputView.passwordTextField.text = password;
+    _inputView.usernameTextField.text = username;
+    _inputView.passwordTextField.text = password;
     
     // year & semester
     NSDictionary *defaultYearAndSemester = [ud objectForKey:@"YEAR_AND_SEMESTER"];
     
     if (defaultYearAndSemester) {
-        self.year = [defaultYearAndSemester[@"year"] integerValue];
-        self.semester = [defaultYearAndSemester[@"semester"] integerValue];
+        _year = [defaultYearAndSemester[@"year"] integerValue];
+        _semester = [defaultYearAndSemester[@"semester"] integerValue];
     }
     
     [self updateSemester];
@@ -129,7 +129,7 @@ static NSString *login_url = @"/syllabus";
         ClassViewController *cvc = [sb instantiateViewControllerWithIdentifier:@"cvc"];
         
         // Get From CoreData
-        NSArray *classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:self.year semester:self.semester username:self.inputView.usernameTextField.text];
+        NSArray *classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:_year semester:_semester username:_inputView.usernameTextField.text];
         
         // Parse to BoxData
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];;
@@ -146,7 +146,7 @@ static NSString *login_url = @"/syllabus";
     
     if (textField.tag == 0) {
         // username
-        [self.inputView.passwordTextField becomeFirstResponder];
+        [_inputView.passwordTextField becomeFirstResponder];
     } else {
         // password
         [self hideKeyboard];
@@ -157,8 +157,8 @@ static NSString *login_url = @"/syllabus";
 // hideKeyboard
 - (void)hideKeyboard {
     [self resumeView];
-    [self.inputView.usernameTextField resignFirstResponder];
-    [self.inputView.passwordTextField resignFirstResponder];
+    [_inputView.usernameTextField resignFirstResponder];
+    [_inputView.passwordTextField resignFirstResponder];
 }
 
 #pragma mark - UITextField Delegate
@@ -219,7 +219,7 @@ static NSString *login_url = @"/syllabus";
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SemesterTableViewController *stvc = [sb instantiateViewControllerWithIdentifier:@"semesterVC"];
     stvc.semesterDelegate = self;
-    [stvc setupSelectedYear:self.year semester:self.semester];
+    [stvc setupSelectedYear:_year semester:_semester];
     UINavigationController *nvc = [[UINavigationController alloc] init];
     nvc.viewControllers = @[stvc];
     [self presentViewController:nvc animated:YES completion:nil];
@@ -231,8 +231,8 @@ static NSString *login_url = @"/syllabus";
 - (void)login {
     
     // locally checking
-    NSString *username = self.inputView.usernameTextField.text;
-    NSString *password = self.inputView.passwordTextField.text;
+    NSString *username = _inputView.usernameTextField.text;
+    NSString *password = _inputView.passwordTextField.text;
     
     if (username.length == 0 || password.length == 0) {
         [self showHUDWithText:@"请输入账号和密码" andHideDelay:global_hud_delay];
@@ -261,10 +261,10 @@ static NSString *login_url = @"/syllabus";
 {
     // post data
     NSDictionary *postData = @{
-                                 @"username": self.inputView.usernameTextField.text,
-                                 @"password": self.inputView.passwordTextField.text,
-                                 @"years": [NSString stringWithFormat:@"%d-%d", self.year, self.year + 1],
-                                 @"semester": [NSString stringWithFormat:@"%d", self.semester],
+                                 @"username": _inputView.usernameTextField.text,
+                                 @"password": _inputView.passwordTextField.text,
+                                 @"years": [NSString stringWithFormat:@"%d-%d", _year, _year + 1],
+                                 @"semester": [NSString stringWithFormat:@"%d", _semester],
                                  @"submit": @"query",
                                  
                                  };
@@ -279,7 +279,7 @@ static NSString *login_url = @"/syllabus";
         // 成功
 //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"连接服务器 - 成功");
-        [self parseResponseObject:responseObject withYear:self.year semester:self.semester];
+        [self parseResponseObject:responseObject withYear:_year semester:_semester];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -315,8 +315,8 @@ static NSString *login_url = @"/syllabus";
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         
         // 设置username & 密码 & 学期
-        [ud setValue:self.inputView.usernameTextField.text forKey:@"USERNAME"];
-        [ud setValue:self.inputView.passwordTextField.text forKey:@"PASSWORD"];
+        [ud setValue:_inputView.usernameTextField.text forKey:@"USERNAME"];
+        [ud setValue:_inputView.passwordTextField.text forKey:@"PASSWORD"];
         [ud setValue:@{@"year":[NSNumber numberWithInteger:year], @"semester":[NSNumber numberWithInteger:semester]} forKey:@"YEAR_AND_SEMESTER"];
         
         // 得到原始数据
@@ -326,7 +326,7 @@ static NSString *login_url = @"/syllabus";
         NSArray *classData = [[ClassParser sharedInstance] generateClassIDForOriginalData:originData withYear:year semester:semester];
         
         // 写入本地CoreData
-        [[CoreDataManager sharedInstance] writeClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:self.inputView.usernameTextField.text];
+        [[CoreDataManager sharedInstance] writeClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:_inputView.usernameTextField.text];
         
         // 生成DisplayData
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
@@ -354,20 +354,20 @@ static NSString *login_url = @"/syllabus";
 
 - (void)semesterTableViewControllerDidSelectYear:(NSInteger)year semester:(NSInteger)semester
 {
-    self.year = year;
-    self.semester = semester;
+    _year = year;
+    _semester = semester;
     
     [self updateSemester];
 }
 
 - (void)updateSemester
 {
-    if (self.year == 0 && self.semester == 0) {
+    if (_year == 0 && _semester == 0) {
         
         NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:@"请选择学期"];
         NSRange strRange = {0, attStr.length};
         [attStr addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];
-        [self.semesterButton setAttributedTitle:attStr forState:UIControlStateNormal];
+        [_semesterButton setAttributedTitle:attStr forState:UIControlStateNormal];
         
         return;
     }
@@ -375,7 +375,7 @@ static NSString *login_url = @"/syllabus";
     
     NSString *semesterStr = @"";
     
-    switch (self.semester) {
+    switch (_semester) {
         case 1:
             semesterStr = @"秋季学期";
             break;
@@ -389,11 +389,11 @@ static NSString *login_url = @"/syllabus";
             break;
     }
     
-    NSString *str = [NSString stringWithFormat:@"%d-%d %@", self.year, self.year + 1, semesterStr];
+    NSString *str = [NSString stringWithFormat:@"%d-%d %@", _year, _year + 1, semesterStr];
     NSMutableAttributedString *attStr = [[NSMutableAttributedString alloc] initWithString:str];
     NSRange strRange = {0, attStr.length};
     [attStr addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:strRange];
-    [self.semesterButton setAttributedTitle:attStr forState:UIControlStateNormal];
+    [_semesterButton setAttributedTitle:attStr forState:UIControlStateNormal];
 }
 
 

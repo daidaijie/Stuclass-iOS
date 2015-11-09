@@ -76,7 +76,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.semesterData.count * 3;
+    return _semesterData.count * 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -87,11 +87,11 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cell_id];
     
-    NSInteger year = [self.semesterData[row / 3] integerValue];
+    NSInteger year = [_semesterData[row / 3] integerValue];
     NSInteger semester = indexPath.row % 3 + 1;
     
     // AccessoryType
-    if (self.selectedYear == year && self.selectedSemester == semester) {
+    if (_selectedYear == year && _selectedSemester == semester) {
 
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
@@ -125,12 +125,12 @@
     NSInteger year = [_semesterData[indexPath.row / 3] integerValue];
     NSInteger semester = indexPath.row % 3 + 1;
     
-    self.selectedYear = year;
-    self.selectedSemester = semester;
+    _selectedYear = year;
+    _selectedSemester = semester;
     
     [tableView reloadData];
     
-    [self.semesterDelegate semesterTableViewControllerDidSelectYear:year semester:semester];
+    [_semesterDelegate semesterTableViewControllerDidSelectYear:year semester:semester];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

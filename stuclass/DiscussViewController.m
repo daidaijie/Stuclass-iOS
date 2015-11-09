@@ -78,66 +78,66 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 - (void)initTableView
 {
     // emptyView
-    self.emptyView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - 64 - global_BarViewHeight - kHeightForPostButton)];
+    _emptyView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - 64 - global_BarViewHeight - kHeightForPostButton)];
     
-    self.emptyView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
+    _emptyView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
     
-    UILabel *emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.emptyView.frame.size.width, 50)];
-    emptyLabel.center = CGPointMake(self.emptyView.frame.size.width / 2, self.emptyView.frame.size.height / 2 + 25);
+    UILabel *emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _emptyView.frame.size.width, 50)];
+    emptyLabel.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 + 25);
     emptyLabel.textAlignment = NSTextAlignmentCenter;
     emptyLabel.textColor = MAIN_COLOR;
     emptyLabel.text = @"目测都在潜水，点我刷新";
-    [self.emptyView addSubview:emptyLabel];
+    [_emptyView addSubview:emptyLabel];
     
     UIImageView *emptyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
-    emptyImageView.center = CGPointMake(self.emptyView.frame.size.width / 2, self.emptyView.frame.size.height / 2 - 40);
+    emptyImageView.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 - 40);
     emptyImageView.image = [UIImage imageNamed:@"icon-empty-discuss"];
-    [self.emptyView addSubview:emptyImageView];
+    [_emptyView addSubview:emptyImageView];
     
-    [self.emptyView addTarget:self action:@selector(tapToGetDiscuss) forControlEvents:UIControlEventTouchUpInside];
+    [_emptyView addTarget:self action:@selector(tapToGetDiscuss) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:self.emptyView];
+    [self.view addSubview:_emptyView];
     
     
     // tableView
-    self.tableView = [[UITableView alloc] initWithFrame:self.emptyView.frame style:UITableViewStylePlain];
+    _tableView = [[UITableView alloc] initWithFrame:_emptyView.frame style:UITableViewStylePlain];
     
-    self.tableView.fd_debugLogEnabled = NO;
+    _tableView.fd_debugLogEnabled = NO;
     
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
     
-    self.tableView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
+    _tableView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:_tableView];
     
     // refresh control
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refreshControlDidPull) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:self.refreshControl];
+    _refreshControl = [[UIRefreshControl alloc] init];
+    [_refreshControl addTarget:self action:@selector(refreshControlDidPull) forControlEvents:UIControlEventValueChanged];
+    [_tableView addSubview:_refreshControl];
     
     
     // footer
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 8)];
-    self.tableView.tableFooterView = footerView;
+    _tableView.tableFooterView = footerView;
     
     UINib *nib = [UINib nibWithNibName:cell_id bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:cell_id];
+    [_tableView registerNib:nib forCellReuseIdentifier:cell_id];
     
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:_tableView];
     
     // sectionHeaderView
-    self.sectionHeaderView = [[UIView alloc] init];
-    self.sectionHeaderView.backgroundColor = [UIColor clearColor];
+    _sectionHeaderView = [[UIView alloc] init];
+    _sectionHeaderView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)initButton
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
     
-    button.frame = CGRectMake(0, self.tableView.frame.size.height, self.view.frame.size.width, kHeightForPostButton);
+    button.frame = CGRectMake(0, _tableView.frame.size.height, self.view.frame.size.width, kHeightForPostButton);
     
     button.titleLabel.font = [UIFont systemFontOfSize:16.0];
     
@@ -164,7 +164,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return self.sectionHeaderView;
+    return _sectionHeaderView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -174,8 +174,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    self.tableView.hidden = !(self.discussData.count > 0);
-    return self.discussData.count;
+    _tableView.hidden = !(_discussData.count > 0);
+    return _discussData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -191,7 +191,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 - (void)configureCell:(DiscussTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    Discuss *discuss = self.discussData[indexPath.section];
+    Discuss *discuss = _discussData[indexPath.section];
     
     cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 说:", discuss.publisher];
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:discuss.pub_time];
@@ -216,9 +216,9 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud valueForKey:@"USERNAME"];
     
-    NSInteger section = [self.tableView indexPathForCell:cell].section;
+    NSInteger section = [_tableView indexPathForCell:cell].section;
     
-    Discuss *d = self.discussData[section];
+    Discuss *d = _discussData[section];
     NSString *cellUsername = d.publisher;
     
     if (([cellUsername isEqualToString:username] || [username isEqualToString:@"14jhwang"] || [username isEqualToString:@"14xfdeng"]) && !_isLoading) {
@@ -311,10 +311,10 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
         [self showHUDWithText:@"删除成功" andHideDelay:1.0];
         
-        [self.tableView beginUpdates];
-        [self.discussData removeObjectAtIndex:discuss_section];
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:discuss_section] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
+        [_tableView beginUpdates];
+        [_discussData removeObjectAtIndex:discuss_section];
+        [_tableView deleteSections:[NSIndexSet indexSetWithIndex:discuss_section] withRowAnimation:UITableViewRowAnimationFade];
+        [_tableView endUpdates];
         
     }
 }
@@ -328,7 +328,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     DiscussPostTableViewController *dptvc = [sb instantiateViewControllerWithIdentifier:@"DiscussPostTVC"];
     
-    dptvc.dvc = self.dvc;
+    dptvc.dvc = _dvc;
     
     dptvc.delegate = self;
     
@@ -361,7 +361,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     // get data
     NSDictionary *getData = @{
-                              @"number": self.dvc.classBox.box_number,
+                              @"number": _dvc.classBox.box_number,
                               @"semester": [NSString stringWithFormat:@"%d", semester],
                               @"start_year": [NSString stringWithFormat:@"%d", year],
                               @"end_year": [NSString stringWithFormat:@"%d", year + 1],
@@ -387,7 +387,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         [self showHUDWithText:@"连接服务器失败" andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         _isLoading = NO;
-        [self.refreshControl endRefreshing];
+        [_refreshControl endRefreshing];
     }];
     
 }
@@ -429,14 +429,14 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             [discussData addObject:dicuss];
         }
         
-        self.discussData = discussData;
+        _discussData = discussData;
         
-        [self.tableView reloadData];
+        [_tableView reloadData];
         
     }
     
     _isLoading = NO;
-    [self.refreshControl endRefreshing];
+    [_refreshControl endRefreshing];
 }
 
 
@@ -493,13 +493,13 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     NSLog(@"讨论 - 增加cell - %@", discuss.content);
     
-    if (!self.discussData) {
-        self.discussData = [NSMutableArray array];
+    if (!_discussData) {
+        _discussData = [NSMutableArray array];
     }
     
-    [self.discussData insertObject:discuss atIndex:0];
+    [_discussData insertObject:discuss atIndex:0];
     
-    [self.tableView reloadData];
+    [_tableView reloadData];
 }
 
 

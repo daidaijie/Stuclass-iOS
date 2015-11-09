@@ -27,23 +27,23 @@ static const CGFloat kOffset = 20;
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     
     // usernameTextField
-    self.usernameTextField = [[InputTextField alloc] initWithFrame:CGRectMake(kOffset, 0, width-kOffset*2, self.frame.size.height/2)];
-    self.usernameTextField.keyboardType = UIKeyboardTypeEmailAddress;
-    self.usernameTextField.returnKeyType = UIReturnKeyNext;
-    self.usernameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"校园网账号" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [self addSubview:self.usernameTextField];
+    _usernameTextField = [[InputTextField alloc] initWithFrame:CGRectMake(kOffset, 0, width - kOffset * 2, self.frame.size.height / 2)];
+    _usernameTextField.keyboardType = UIKeyboardTypeEmailAddress;
+    _usernameTextField.returnKeyType = UIReturnKeyNext;
+    _usernameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"校园网账号" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [self addSubview:_usernameTextField];
     
     // passwordTextField
-    self.passwordTextField = [[InputTextField alloc] initWithFrame:CGRectMake(kOffset, self.usernameTextField.frame.size.height, self.usernameTextField.frame.size.width, self.usernameTextField.frame.size.height)];
-    self.passwordTextField.returnKeyType = UIReturnKeyGo;
-    self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"校园网密码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.passwordTextField.secureTextEntry = YES;
-    self.passwordTextField.clearsOnBeginEditing = YES;
-    self.passwordTextField.enablesReturnKeyAutomatically = YES;
-    [self addSubview:self.passwordTextField];
+    _passwordTextField = [[InputTextField alloc] initWithFrame:CGRectMake(kOffset, _usernameTextField.frame.size.height, _usernameTextField.frame.size.width, _usernameTextField.frame.size.height)];
+    _passwordTextField.returnKeyType = UIReturnKeyGo;
+    _passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"校园网密码" attributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    _passwordTextField.secureTextEntry = YES;
+    _passwordTextField.clearsOnBeginEditing = YES;
+    _passwordTextField.enablesReturnKeyAutomatically = YES;
+    [self addSubview:_passwordTextField];
     
     // lineView
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kOffset, self.frame.size.height/2, width, 0.3)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kOffset, self.frame.size.height / 2, width, 0.3)];
     lineView.backgroundColor = [UIColor blackColor];
     lineView.alpha = 0.15;
     [self addSubview:lineView];

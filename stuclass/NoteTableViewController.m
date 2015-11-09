@@ -43,20 +43,20 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 - (void)setupTextView
 {
-    self.textView.placeholder.text = @"今天，我要认真听课...";
+    _textView.placeholder.text = @"今天，我要认真听课...";
 }
 
 - (void)setupNote
 {
-    self.textView.text = self.noteStr;
-    self.textView.placeholder.hidden = (self.textView.text.length > 0);
+    _textView.text = _noteStr;
+    _textView.placeholder.hidden = (_textView.text.length > 0);
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [self.textView becomeFirstResponder];
+    [_textView becomeFirstResponder];
 }
 
 
@@ -105,7 +105,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    self.textView.placeholder.hidden = (textView.text.length > 0);
+    _textView.placeholder.hidden = (textView.text.length > 0);
 }
 
 
@@ -125,9 +125,9 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     NSLog(@"更新笔记时间 - %@", timeStr);
     
     // content
-    [[CoreDataManager sharedInstance] writeNoteToCoreDataWithContent:self.textView.text time:timeStr classID:_classID username:username];
+    [[CoreDataManager sharedInstance] writeNoteToCoreDataWithContent:_textView.text time:timeStr classID:_classID username:username];
     
-    [_delegate noteTableViewControllerDidSaveNote:self.textView.text time:timeStr];
+    [_delegate noteTableViewControllerDidSaveNote:_textView.text time:timeStr];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

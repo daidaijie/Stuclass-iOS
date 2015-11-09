@@ -70,28 +70,28 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 
 - (void)initInfoTitleArray
 {
-    self.infoTitleArray = @[@"课程", @"班号", @"教师", @"课室", @"学分", @"周数"];
+    _infoTitleArray = @[@"课程", @"班号", @"教师", @"课室", @"学分", @"周数"];
 }
 
 
 - (void)initTableView
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - 64 - global_BarViewHeight) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - 64 - global_BarViewHeight) style:UITableViewStyleGrouped];
     
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(-12, 0, 0, 0);
-    self.tableView.sectionFooterHeight = 5;
+    _tableView.contentInset = UIEdgeInsetsMake(-12, 0, 0, 0);
+    _tableView.sectionFooterHeight = 5;
     
     UINib *nib = [UINib nibWithNibName:info_cell_id bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:info_cell_id];
+    [_tableView registerNib:nib forCellReuseIdentifier:info_cell_id];
     
     nib = [UINib nibWithNibName:note_cell_id bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:note_cell_id];
+    [_tableView registerNib:nib forCellReuseIdentifier:note_cell_id];
     
     
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:_tableView];
 }
 
 - (void)initNoteStr
@@ -99,9 +99,9 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud valueForKey:@"USERNAME"];
     
-    NSDictionary *dict = [[CoreDataManager sharedInstance] getNoteFromCoreDataWithClassID:self.dvc.classBox.box_id username:username];
-    self.noteStr = dict[@"content"];
-    self.timeStr = dict[@"time"];
+    NSDictionary *dict = [[CoreDataManager sharedInstance] getNoteFromCoreDataWithClassID:_dvc.classBox.box_id username:username];
+    _noteStr = dict[@"content"];
+    _timeStr = dict[@"time"];
     
 }
 
@@ -115,7 +115,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return self.infoTitleArray.count;
+        return _infoTitleArray.count;
     } else {
         return kNumberOfRowsInNoteSection;
     }
@@ -134,7 +134,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 {
     if (section == 1) {
         
-        return (self.timeStr.length > 0 && self.timeStr != nil) ? [NSString stringWithFormat:@"更新于%@", self.timeStr] : @"";
+        return (_timeStr.length > 0 && _timeStr != nil) ? [NSString stringWithFormat:@"更新于%@", _timeStr] : @"";
         
     } else {
         
@@ -161,29 +161,29 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
         ClassInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:info_cell_id forIndexPath:indexPath];
         
         // 标题
-        cell.infoLabel.text = self.infoTitleArray[row];
+        cell.infoLabel.text = _infoTitleArray[row];
         
         // 内容
         NSString *content = @"";
         
         switch (row) {
             case 0:
-                content = self.dvc.classBox.box_name;
+                content = _dvc.classBox.box_name;
                 break;
             case 1:
-                content = self.dvc.classBox.box_number;
+                content = _dvc.classBox.box_number;
                 break;
             case 2:
-                content = self.dvc.classBox.box_teacher;
+                content = _dvc.classBox.box_teacher;
                 break;
             case 3:
-                content = self.dvc.classBox.box_room;
+                content = _dvc.classBox.box_room;
                 break;
             case 4:
-                content = self.dvc.classBox.box_credit;
+                content = _dvc.classBox.box_credit;
                 break;
             case 5:
-                content = self.dvc.classBox.box_span;
+                content = _dvc.classBox.box_span;
                 break;
                 
             default:
@@ -214,7 +214,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
         NoteTableViewController *ntvc = [sb instantiateViewControllerWithIdentifier:@"NoteTableVC"];
         
         ntvc.noteStr = _noteStr;
-        ntvc.classID = self.dvc.classBox.box_id;
+        ntvc.classID = _dvc.classBox.box_id;
         ntvc.delegate = self;
         
         [self.navigationController pushViewController:ntvc animated:YES];
@@ -226,10 +226,10 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 
 - (void)noteTableViewControllerDidSaveNote:(NSString *)noteStr time:(NSString *)timeStr
 {
-    self.noteStr = noteStr;
-    self.timeStr = timeStr;
+    _noteStr = noteStr;
+    _timeStr = timeStr;
     
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 
@@ -238,7 +238,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 {
     [super viewWillAppear:animated];
     
-    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    [_tableView deselectRowAtIndexPath:[_tableView indexPathForSelectedRow] animated:YES];
 }
 
 
