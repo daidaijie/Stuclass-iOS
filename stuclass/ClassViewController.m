@@ -23,6 +23,7 @@
 #import <DXPopover/DXPopover.h>
 #import "MoreView.h"
 #import "GradeTableViewController.h"
+#import "Grade.h"
 
 static NSString *login_url = @"/syllabus";
 
@@ -334,8 +335,10 @@ static NSString *grade_url = @"/grade";
 
 - (void)more
 {
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    
     _popover = [DXPopover popover];
-    [_popover showAtPoint:CGPointMake(292 * [UIScreen mainScreen].bounds.size.width / 320, 67) popoverPostion:DXPopoverPositionDown withContentView:_moreView inView:self.navigationController.view];
+    [_popover showAtPoint:CGPointMake(width - (width == 414 ? 31 : 28), 67) popoverPostion:DXPopoverPositionDown withContentView:_moreView inView:self.navigationController.view];
 }
 
 - (void)moreSyncPress

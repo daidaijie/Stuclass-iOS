@@ -14,6 +14,8 @@
 		131EF3551BD7DD95007ECFE8 /* ClassBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 131EF3541BD7DD95007ECFE8 /* ClassBox.m */; settings = {ASSET_TAGS = (); }; };
 		1320FC7B1C01BF500084B152 /* GradeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1320FC7A1C01BF500084B152 /* GradeTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		1320FC7F1C01C1230084B152 /* Grade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1320FC7E1C01C1230084B152 /* Grade.m */; settings = {ASSET_TAGS = (); }; };
+		1320FC831C020B6F0084B152 /* GradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1320FC811C020B6F0084B152 /* GradeTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		1320FC841C020B6F0084B152 /* GradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1320FC821C020B6F0084B152 /* GradeTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC671BCA257500BC0F23 /* ClassCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC6D1BCA258300BC0F23 /* ClassHeaderView.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC711BCA259700BC0F23 /* StartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC701BCA259700BC0F23 /* StartView.m */; settings = {ASSET_TAGS = (); }; };
@@ -101,6 +103,9 @@
 		1320FC7A1C01BF500084B152 /* GradeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeTableViewController.m; sourceTree = "<group>"; };
 		1320FC7D1C01C1230084B152 /* Grade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grade.h; sourceTree = "<group>"; };
 		1320FC7E1C01C1230084B152 /* Grade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grade.m; sourceTree = "<group>"; };
+		1320FC801C020B6F0084B152 /* GradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeTableViewCell.h; sourceTree = "<group>"; };
+		1320FC811C020B6F0084B152 /* GradeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeTableViewCell.m; sourceTree = "<group>"; };
+		1320FC821C020B6F0084B152 /* GradeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GradeTableViewCell.xib; sourceTree = "<group>"; };
 		1335FC661BCA257500BC0F23 /* ClassCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewCell.h; sourceTree = "<group>"; };
 		1335FC671BCA257500BC0F23 /* ClassCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewCell.m; sourceTree = "<group>"; };
 		1335FC6C1BCA258300BC0F23 /* ClassHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassHeaderView.h; sourceTree = "<group>"; };
@@ -302,6 +307,7 @@
 		1320FC781C01BF2A0084B152 /* GradeTableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1320FC851C020B730084B152 /* GradeTableViewCell */,
 				1320FC791C01BF500084B152 /* GradeTableViewController.h */,
 				1320FC7A1C01BF500084B152 /* GradeTableViewController.m */,
 			);
@@ -315,6 +321,16 @@
 				1320FC7E1C01C1230084B152 /* Grade.m */,
 			);
 			name = Grade;
+			sourceTree = "<group>";
+		};
+		1320FC851C020B730084B152 /* GradeTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				1320FC801C020B6F0084B152 /* GradeTableViewCell.h */,
+				1320FC811C020B6F0084B152 /* GradeTableViewCell.m */,
+				1320FC821C020B6F0084B152 /* GradeTableViewCell.xib */,
+			);
+			name = GradeTableViewCell;
 			sourceTree = "<group>";
 		};
 		1335FC641BCA255600BC0F23 /* ClassCell */ = {
@@ -875,6 +891,7 @@
 				1366D67C1BD4EAA300B69C04 /* ClassInfoTableViewCell.xib in Resources */,
 				13C7071D1BC7DE10003061A4 /* LaunchScreen.storyboard in Resources */,
 				13C4C39C1BCDE9360003E703 /* class_bg_1_0.jpg in Resources */,
+				1320FC841C020B6F0084B152 /* GradeTableViewCell.xib in Resources */,
 				13C7071A1BC7DE10003061A4 /* Assets.xcassets in Resources */,
 				13C4C39A1BCDE9360003E703 /* class_bg_0_1.jpg in Resources */,
 				13C4C39B1BCDE9360003E703 /* class_bg_0_2.jpg in Resources */,
@@ -967,6 +984,7 @@
 				13C707121BC7DE10003061A4 /* AppDelegate.m in Sources */,
 				131EF3551BD7DD95007ECFE8 /* ClassBox.m in Sources */,
 				1320FC7F1C01C1230084B152 /* Grade.m in Sources */,
+				1320FC831C020B6F0084B152 /* GradeTableViewCell.m in Sources */,
 				131EF3511BD7DAEA007ECFE8 /* CoreDataManager.m in Sources */,
 				13D8E2DA1BD7252C0051617C /* Model.xcdatamodeld in Sources */,
 				137C8C301BDB149100236C79 /* UITableView+FDTemplateLayoutCell.m in Sources */,

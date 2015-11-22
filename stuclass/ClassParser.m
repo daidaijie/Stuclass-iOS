@@ -329,8 +329,6 @@
     
     NSDictionary *resultData = @{@"gpa": [NSString stringWithFormat:@"%.3f", gpa], @"semesters": semesterArray};
     
-    NSLog(@"%@", resultData);
-    
     return resultData;
 }
 

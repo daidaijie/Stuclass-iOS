@@ -81,6 +81,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     _tableView.delegate = self;
     _tableView.dataSource = self;
     
+    _tableView.separatorInset = UIEdgeInsetsMake(0, 15, 0, 0);
     _tableView.contentInset = UIEdgeInsetsMake(-12, 0, 0, 0);
     _tableView.sectionFooterHeight = 5;
     
