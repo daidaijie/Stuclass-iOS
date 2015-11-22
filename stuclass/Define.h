@@ -32,7 +32,9 @@ static const CGFloat global_textView_RowHeightFor6p = 354;
 
 //static NSString *global_host = @"http://hjsmallfly.wicp.net/";
 
-static NSString *global_host = @"http://10.22.27.65/";
+//static NSString *global_host = @"http://10.22.27.65/";
+
+static NSString *global_host = @"http://172.18.58.113:5000";
 
 // class colors
 

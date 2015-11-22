@@ -9,6 +9,7 @@
 #import "ClassParser.h"
 #import "NSMutableArray+Shuffle.h"
 #import "ClassBox.h"
+#import "Grade.h"
 #import "Define.h"
 
 @interface ClassParser ()
@@ -292,7 +293,46 @@
 }
 
 
+#pragma mark - Grade Parser
 
+- (NSDictionary *)parseGradeData:(NSDictionary *)gradeData
+{
+    // parse
+    float gpa = [gradeData[@"GPA"] floatValue];
+    
+    NSMutableArray *semesterArray = [NSMutableArray array];
+    
+    for (NSArray *gradeOfSemester in gradeData[@"GRADES"]) {
+        // semester
+        
+        NSString *year = @"";
+        NSString *semester = @"";
+        
+        NSMutableArray *gradeArray = [NSMutableArray array];
+        
+        for (NSDictionary *gradeDict in gradeOfSemester) {
+            // grade
+            Grade *grade = [[Grade alloc] init];
+            
+            grade.credit = gradeDict[@"class_credit"];
+            grade.grade = gradeDict[@"class_grade"];
+            grade.name = gradeDict[@"class_name"];
+            
+            year = gradeDict[@"years"];
+            semester = gradeDict[@"semester"];
+            
+            [gradeArray addObject:grade];
+        }
+        
+        [semesterArray addObject:@{@"year": year, @"semester": semester, @"grades": gradeArray}];
+    }
+    
+    NSDictionary *resultData = @{@"gpa": [NSString stringWithFormat:@"%.3f", gpa], @"semesters": semesterArray};
+    
+    NSLog(@"%@", resultData);
+    
+    return resultData;
+}
 
 @end
 

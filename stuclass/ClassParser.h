@@ -17,4 +17,6 @@
 
 - (NSArray *)generateClassIDForOriginalData:(NSMutableArray *)originalData withYear:(NSInteger)year semester:(NSInteger)semester;
 
+- (NSDictionary *)parseGradeData:(NSDictionary *)gradeData;
+
 @end

@@ -20,14 +20,25 @@
 #import "DetailViewController.h"
 #import "ClassBox.h"
 #import <AFNetworking/AFNetworking.h>
+#import <DXPopover/DXPopover.h>
+#import "MoreView.h"
+#import "GradeTableViewController.h"
 
 static NSString *login_url = @"/syllabus";
+
+static NSString *exam_url = @"/exam";
+
+static NSString *grade_url = @"/grade";
 
 @interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, SettingLogOutDelegate>
 
 @property (strong, nonatomic) ClassHeaderView *classHeaderView;
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIImageView *bgImageView;
+
+@property (strong, nonatomic) MoreView * moreView;
+
+@property (strong, nonatomic) DXPopover *popover;
 
 @end
 
@@ -44,6 +55,8 @@ static NSString *login_url = @"/syllabus";
     
     // View
     [self initBgImageView];
+    [self initPopover];
+    [self initMoreView];
     [self initClassHeaderView];
     [self initCollectionView];
     
@@ -82,11 +95,11 @@ static NSString *login_url = @"/syllabus";
 
 - (void)setupItems
 {
-    UIBarButtonItem *syncItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-sync"] style:UIBarButtonItemStylePlain target:self action:@selector(syncItemPress)];
+    UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreItemPress)];
     
     UIBarButtonItem *publicItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-public"] style:UIBarButtonItemStylePlain target:self action:@selector(publicItemPress)];
     
-    self.navigationItem.rightBarButtonItems = @[syncItem, publicItem];
+    self.navigationItem.rightBarButtonItems = @[moreItem, publicItem];
 }
 
 
@@ -119,6 +132,25 @@ static NSString *login_url = @"/syllabus";
     }
     
     [self.view addSubview:_bgImageView];
+}
+
+- (void)initPopover
+{
+    _popover = [DXPopover popover];
+}
+
+- (void)initMoreView
+{
+    _moreView = [[MoreView alloc] initWithItems:@[@"更新课表", @"考试信息", @"我的成绩"]];
+    
+    UIButton *syncBtn = _moreView.itemsArray[0];
+    [syncBtn addTarget:self action:@selector(moreSyncPress) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *examBtn = _moreView.itemsArray[1];
+    [examBtn addTarget:self action:@selector(moreExamPress) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *gradeBtn = _moreView.itemsArray[2];
+    [gradeBtn addTarget:self action:@selector(moreGradePress) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -283,12 +315,42 @@ static NSString *login_url = @"/syllabus";
         dvc.title = [self shrinkName:box.box_name];
         
         dvc.classBox = box;
+        
+    } else if ([segue.identifier isEqualToString:@"ShowGrade"]) {
+        
+        GradeTableViewController *gtvc = segue.destinationViewController;
+        
+        NSDictionary *gradeData = sender;
+        
+        gtvc.gradeDict = gradeData;
     }
 }
 
-- (void)syncItemPress
+- (void)moreItemPress
+{
+    [self more];
+}
+
+
+- (void)more
+{
+    _popover = [DXPopover popover];
+    [_popover showAtPoint:CGPointMake(292 * [UIScreen mainScreen].bounds.size.width / 320, 67) popoverPostion:DXPopoverPositionDown withContentView:_moreView inView:self.navigationController.view];
+}
+
+- (void)moreSyncPress
 {
     [self sync];
+}
+
+- (void)moreExamPress
+{
+    [self exam];
+}
+
+- (void)moreGradePress
+{
+    [self grade];
 }
 
 
@@ -375,10 +437,10 @@ static NSString *login_url = @"/syllabus";
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     // Request
-    [self sendRequest];
+    [self sendSyncRequest];
 }
 
-- (void)sendRequest
+- (void)sendSyncRequest
 {
     // ud
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -414,7 +476,9 @@ static NSString *login_url = @"/syllabus";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败\n(请连接校园网)"];
+        [KVNProgress showErrorWithStatus:@"连接服务器失败\n(请连接校园网)" completion:^{
+            [_popover dismiss];
+        }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
@@ -424,7 +488,8 @@ static NSString *login_url = @"/syllabus";
 {
     if ([responseObject[@"ERROR"] isEqualToString:@"the password is wrong"] || [responseObject[@"ERROR"] isEqualToString:@"account not exist or not allowed"]) {
         // 账号或密码错误
-        [KVNProgress showErrorWithStatus:@"账号信息有误，请重新登录" completion:^{
+        [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
+            [_popover dismiss];
             [self logutClearData];
             self.navigationController.navigationBarHidden = YES;
             [self.navigationController popViewControllerAnimated:NO];
@@ -432,7 +497,9 @@ static NSString *login_url = @"/syllabus";
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
         // 学分制崩溃了
-        [KVNProgress showErrorWithStatus:@"天哪！学分制系统崩溃了！"];
+        [KVNProgress showErrorWithStatus:@"天哪！学分制系统崩溃了！" completion:^{
+            [_popover dismiss];
+        }];
     } else {
         // 成功
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -468,9 +535,101 @@ static NSString *login_url = @"/syllabus";
         
         [_collectionView setContentOffset:CGPointZero animated:YES];
         
-        [KVNProgress showSuccessWithStatus:@"同步课表成功"];
+        [KVNProgress showSuccessWithStatus:@"更新课表成功" completion:^{
+            [_popover dismiss];
+        }];
     }
 }
+
+
+#pragma mark - Exam
+
+- (void)exam
+{
+    
+}
+
+#pragma mark - My Grade
+
+- (void)grade
+{
+    // KVN
+    [KVNProgress showWithStatus:@"正在获取我的成绩"];
+    
+    // ActivityIndicator
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    // Request
+    [self sendGradeRequest];
+}
+
+- (void)sendGradeRequest
+{
+    // ud
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *username = [ud valueForKey:@"USERNAME"];
+    NSString *password = [ud valueForKey:@"PASSWORD"];
+    
+    // post data
+    NSDictionary *postData = @{
+                               @"username": username,
+                               @"password": password,
+                               };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, grade_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
+        NSLog(@"连接服务器 - 成功");
+        [self parseGradeResponseObject:responseObject];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"连接服务器 - 失败 - %@", error);
+        [KVNProgress showErrorWithStatus:@"连接服务器失败\n(请连接校园网)" completion:^{
+            [_popover dismiss];
+        }];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
+
+- (void)parseGradeResponseObject:(id)responseObject
+{
+    if ([responseObject[@"ERROR"] isEqualToString:@"the password is wrong"] || [responseObject[@"ERROR"] isEqualToString:@"account not exist or not allowed"]) {
+        // 账号或密码错误
+        [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
+            [_popover dismiss];
+            [self logutClearData];
+            self.navigationController.navigationBarHidden = YES;
+            [self.navigationController popViewControllerAnimated:NO];
+        }];
+        
+    } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
+        // 学分制崩溃了
+        [KVNProgress showErrorWithStatus:@"天哪！学分制系统崩溃了！" completion:^{
+            [_popover dismiss];
+        }];
+    } else {
+        // 成功
+        
+        NSDictionary *gradeData = [[ClassParser sharedInstance] parseGradeData:responseObject];
+        
+//        NSLog(@"%@", gradeData);
+        
+        [KVNProgress dismiss];
+        [_popover dismiss];
+        
+        [self performSegueWithIdentifier:@"ShowGrade" sender:gradeData];
+    }
+}
+
 
 
 - (void)didReceiveMemoryWarning {

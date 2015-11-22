@@ -45,8 +45,10 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 // delete
 @property (assign, nonatomic) NSInteger delete_id;
-
 @property (assign, nonatomic) NSInteger delete_section;
+
+// copy
+@property (assign, nonatomic) NSInteger copy_section;
 
 @end
 
@@ -223,23 +225,50 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     NSString *cellUsername = h.publisher;
     
     if (([cellUsername isEqualToString:username] || [username isEqualToString:@"14jhwang"] || [username isEqualToString:@"14xfdeng"]) && !_isLoading) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
+        UIActionSheet *actionSheet1 = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:@"复制", nil];
+        actionSheet1.tag = 1;
         
         _delete_id = h.homework_id;
         _delete_section = section;
+        _copy_section = section;
         
-        [actionSheet showInView:self.view];
+        [actionSheet1 showInView:self.view];
+    } else {
+        UIActionSheet *actionSheet2 = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"复制", nil];
+        actionSheet2.tag = 2;
+        
+        _copy_section = section;
+        
+        [actionSheet2 showInView:self.view];
     }
 }
 
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
-        [self deleteHomeworkWithID:_delete_id andSection:_delete_section];
-        _delete_id = 0;
-        _delete_section = 0;
+    if (actionSheet.tag == 1) {
+        
+        if (buttonIndex == 0) {
+            [self deleteHomeworkWithID:_delete_id andSection:_delete_section];
+            _delete_id = 0;
+            _delete_section = 0;
+        } else if (buttonIndex == 1) {
+            [self copyContentAtSection:_copy_section];
+        }
+        
+    } else if (actionSheet.tag == 2) {
+        
+        if (buttonIndex == 0) {
+            [self copyContentAtSection:_copy_section];
+        }
     }
+}
+
+// copy
+- (void)copyContentAtSection:(NSInteger)section
+{
+    HomeworkTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:section]];
+    [UIPasteboard generalPasteboard].string = cell.contentLabel.text;
 }
 
 

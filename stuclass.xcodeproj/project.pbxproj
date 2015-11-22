@@ -12,6 +12,8 @@
 		131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D81BCB8676004EE13A /* ClassNumberCollectionReusableView.m */; settings = {ASSET_TAGS = (); }; };
 		131EF3511BD7DAEA007ECFE8 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 131EF3501BD7DAEA007ECFE8 /* CoreDataManager.m */; settings = {ASSET_TAGS = (); }; };
 		131EF3551BD7DD95007ECFE8 /* ClassBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 131EF3541BD7DD95007ECFE8 /* ClassBox.m */; settings = {ASSET_TAGS = (); }; };
+		1320FC7B1C01BF500084B152 /* GradeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1320FC7A1C01BF500084B152 /* GradeTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		1320FC7F1C01C1230084B152 /* Grade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1320FC7E1C01C1230084B152 /* Grade.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC671BCA257500BC0F23 /* ClassCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC6D1BCA258300BC0F23 /* ClassHeaderView.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC711BCA259700BC0F23 /* StartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC701BCA259700BC0F23 /* StartView.m */; settings = {ASSET_TAGS = (); }; };
@@ -20,6 +22,8 @@
 		1335FC7C1BCA274900BC0F23 /* JHDater.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC7A1BCA274900BC0F23 /* JHDater.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC7F1BCA343100BC0F23 /* ClassButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC7E1BCA343100BC0F23 /* ClassButton.m */; settings = {ASSET_TAGS = (); }; };
 		1345308B1BC8AE0C0018C15E /* ClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1345308A1BC8AE0C0018C15E /* ClassViewController.m */; settings = {ASSET_TAGS = (); }; };
+		134AB7D81C01840E00D8E816 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7D71C01840E00D8E816 /* MoreView.m */; settings = {ASSET_TAGS = (); }; };
+		134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7DA1C0184AE00D8E816 /* MoreButton.m */; settings = {ASSET_TAGS = (); }; };
 		1366D6681BD3E42600B69C04 /* BarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D6671BD3E42600B69C04 /* BarView.m */; settings = {ASSET_TAGS = (); }; };
 		1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D66B1BD4B56F00B69C04 /* PersonViewController.m */; settings = {ASSET_TAGS = (); }; };
 		1366D6711BD4BAD500B69C04 /* DiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D6701BD4BAD500B69C04 /* DiscussViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -93,6 +97,10 @@
 		131EF3501BD7DAEA007ECFE8 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		131EF3531BD7DD95007ECFE8 /* ClassBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassBox.h; sourceTree = "<group>"; };
 		131EF3541BD7DD95007ECFE8 /* ClassBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassBox.m; sourceTree = "<group>"; };
+		1320FC791C01BF500084B152 /* GradeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeTableViewController.h; sourceTree = "<group>"; };
+		1320FC7A1C01BF500084B152 /* GradeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeTableViewController.m; sourceTree = "<group>"; };
+		1320FC7D1C01C1230084B152 /* Grade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grade.h; sourceTree = "<group>"; };
+		1320FC7E1C01C1230084B152 /* Grade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Grade.m; sourceTree = "<group>"; };
 		1335FC661BCA257500BC0F23 /* ClassCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewCell.h; sourceTree = "<group>"; };
 		1335FC671BCA257500BC0F23 /* ClassCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewCell.m; sourceTree = "<group>"; };
 		1335FC6C1BCA258300BC0F23 /* ClassHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassHeaderView.h; sourceTree = "<group>"; };
@@ -109,6 +117,10 @@
 		1335FC7E1BCA343100BC0F23 /* ClassButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassButton.m; sourceTree = "<group>"; };
 		134530891BC8AE0C0018C15E /* ClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassViewController.h; sourceTree = "<group>"; };
 		1345308A1BC8AE0C0018C15E /* ClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassViewController.m; sourceTree = "<group>"; };
+		134AB7D61C01840E00D8E816 /* MoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreView.h; sourceTree = "<group>"; };
+		134AB7D71C01840E00D8E816 /* MoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreView.m; sourceTree = "<group>"; };
+		134AB7D91C0184AE00D8E816 /* MoreButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreButton.h; sourceTree = "<group>"; };
+		134AB7DA1C0184AE00D8E816 /* MoreButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreButton.m; sourceTree = "<group>"; };
 		1366D6661BD3E42600B69C04 /* BarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarView.h; sourceTree = "<group>"; };
 		1366D6671BD3E42600B69C04 /* BarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarView.m; sourceTree = "<group>"; };
 		1366D66A1BD4B56F00B69C04 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
@@ -287,6 +299,24 @@
 			name = ClassBox;
 			sourceTree = "<group>";
 		};
+		1320FC781C01BF2A0084B152 /* GradeTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1320FC791C01BF500084B152 /* GradeTableViewController.h */,
+				1320FC7A1C01BF500084B152 /* GradeTableViewController.m */,
+			);
+			name = GradeTableViewController;
+			sourceTree = "<group>";
+		};
+		1320FC7C1C01C1130084B152 /* Grade */ = {
+			isa = PBXGroup;
+			children = (
+				1320FC7D1C01C1230084B152 /* Grade.h */,
+				1320FC7E1C01C1230084B152 /* Grade.m */,
+			);
+			name = Grade;
+			sourceTree = "<group>";
+		};
 		1335FC641BCA255600BC0F23 /* ClassCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,6 +331,7 @@
 		1335FC651BCA255C00BC0F23 /* ClassView */ = {
 			isa = PBXGroup;
 			children = (
+				134AB7D51C0183FC00D8E816 /* MoreView */,
 				131951D41BCB85CE004EE13A /* HeaderView */,
 				131951D51BCB85D5004EE13A /* DecorationView */,
 				131951D61BCB85F8004EE13A /* SupplementaryView */,
@@ -336,6 +367,17 @@
 				1345308A1BC8AE0C0018C15E /* ClassViewController.m */,
 			);
 			name = ClassViewController;
+			sourceTree = "<group>";
+		};
+		134AB7D51C0183FC00D8E816 /* MoreView */ = {
+			isa = PBXGroup;
+			children = (
+				134AB7D61C01840E00D8E816 /* MoreView.h */,
+				134AB7D71C01840E00D8E816 /* MoreView.m */,
+				134AB7D91C0184AE00D8E816 /* MoreButton.h */,
+				134AB7DA1C0184AE00D8E816 /* MoreButton.m */,
+			);
+			name = MoreView;
 			sourceTree = "<group>";
 		};
 		1366D6651BD3E41000B69C04 /* BarView */ = {
@@ -587,6 +629,7 @@
 				13C4C3431BCC07650003E703 /* SemesterTableViewController */,
 				13C707261BC81FBE003061A4 /* LoginViewController */,
 				134530881BC8AD250018C15E /* ClassViewController */,
+				1320FC781C01BF2A0084B152 /* GradeTableViewController */,
 				13DBA09B1BD247B400FC0682 /* DetailViewController */,
 				13C4C3471BCC0D1A0003E703 /* SettingTableViewController */,
 				13C7070D1BC7DE10003061A4 /* Supporting Files */,
@@ -676,6 +719,7 @@
 		13D8E2C21BD71C430051617C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1320FC7C1C01C1130084B152 /* Grade */,
 				13DE7B4C1BDC6AA3003AFF93 /* Discuss */,
 				137C8C311BDB177100236C79 /* Homework */,
 				131EF3521BD7DD5E007ECFE8 /* ClassBox */,
@@ -909,6 +953,7 @@
 				131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */,
 				13766B0F1BDA3FF600322371 /* NoteLabel.m in Sources */,
 				131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */,
+				134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */,
 				13DBA09E1BD247DA00FC0682 /* DetailViewController.m in Sources */,
 				1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */,
 				13C4C34A1BCC0D300003E703 /* SettingTableViewController.m in Sources */,
@@ -921,6 +966,7 @@
 				13C4C3A51BCE0C360003E703 /* ClassParser.m in Sources */,
 				13C707121BC7DE10003061A4 /* AppDelegate.m in Sources */,
 				131EF3551BD7DD95007ECFE8 /* ClassBox.m in Sources */,
+				1320FC7F1C01C1230084B152 /* Grade.m in Sources */,
 				131EF3511BD7DAEA007ECFE8 /* CoreDataManager.m in Sources */,
 				13D8E2DA1BD7252C0051617C /* Model.xcdatamodeld in Sources */,
 				137C8C301BDB149100236C79 /* UITableView+FDTemplateLayoutCell.m in Sources */,
@@ -943,12 +989,14 @@
 				1366D6741BD4BAE000B69C04 /* HomeworkViewController.m in Sources */,
 				13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */,
 				137C8C2C1BDA956900236C79 /* Note.m in Sources */,
+				134AB7D81C01840E00D8E816 /* MoreView.m in Sources */,
 				13CB2C7A1BDFD2BA00460BE4 /* PlaceholderTextView.m in Sources */,
 				13DE7B4A1BDC682E003AFF93 /* DiscussTableViewCell.m in Sources */,
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,
 				137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */,
 				1366D67B1BD4EAA300B69C04 /* ClassInfoTableViewCell.m in Sources */,
 				1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */,
+				1320FC7B1C01BF500084B152 /* GradeTableViewController.m in Sources */,
 				1345308B1BC8AE0C0018C15E /* ClassViewController.m in Sources */,
 				13DE7B461BDC67F1003AFF93 /* DiscussPostTableViewController.m in Sources */,
 				1335FC711BCA259700BC0F23 /* StartView.m in Sources */,
