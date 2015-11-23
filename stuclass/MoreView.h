@@ -12,6 +12,6 @@
 
 @property (strong, nonatomic) NSArray *itemsArray;
 
-- (instancetype)initWithItems:(NSArray *)items;
+- (instancetype)initWithItems:(NSArray *)items images:(NSArray *)images;
 
 @end

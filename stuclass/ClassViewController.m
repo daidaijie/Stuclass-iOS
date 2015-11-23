@@ -142,7 +142,7 @@ static NSString *grade_url = @"/grade";
 
 - (void)initMoreView
 {
-    _moreView = [[MoreView alloc] initWithItems:@[@"更新课表", @"考试信息", @"我的成绩"]];
+    _moreView = [[MoreView alloc] initWithItems:@[@"同步课表", @"考试信息", @"我的成绩", @"办公自动化"] images:@[[UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-oa"]]];
     
     UIButton *syncBtn = _moreView.itemsArray[0];
     [syncBtn addTarget:self action:@selector(moreSyncPress) forControlEvents:UIControlEventTouchUpInside];
@@ -359,7 +359,7 @@ static NSString *grade_url = @"/grade";
 
 - (void)publicItemPress
 {
-    // TODO...
+    [self performSegueWithIdentifier:@"ShowPublic" sender:nil];
 }
 
 
@@ -538,7 +538,7 @@ static NSString *grade_url = @"/grade";
         
         [_collectionView setContentOffset:CGPointZero animated:YES];
         
-        [KVNProgress showSuccessWithStatus:@"更新课表成功" completion:^{
+        [KVNProgress showSuccessWithStatus:@"同步课表成功" completion:^{
             [_popover dismiss];
         }];
     }

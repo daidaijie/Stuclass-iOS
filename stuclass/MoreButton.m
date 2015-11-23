@@ -29,9 +29,16 @@
         
         self.titleLabel.font = [UIFont systemFontOfSize:16.0];
         
+        self.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+        
+//        self.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        
+        self.contentEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0);
+        
+        self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
         
         
-        
+        self.adjustsImageWhenHighlighted = NO;
         
         [self addTarget:self action:@selector(setupNormalColor) forControlEvents:UIControlEventTouchUpInside|UIControlEventTouchDragOutside|UIControlEventTouchUpOutside|UIControlEventTouchDragExit];
         [self addTarget:self action:@selector(setupHighlightColor) forControlEvents:UIControlEventTouchDown];

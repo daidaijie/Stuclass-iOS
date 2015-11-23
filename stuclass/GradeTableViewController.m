@@ -183,7 +183,10 @@ static const NSInteger kHeightForCellRow = 56.0;
         
         [self.tableView reloadData];
         
-        [KVNProgress dismiss];
+        [KVNProgress showSuccessWithStatus:@"获取成绩成功" completion:^{
+//            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [self.tableView setContentOffset:CGPointMake(0, -58) animated:YES];
+        }];
     }
 }
 

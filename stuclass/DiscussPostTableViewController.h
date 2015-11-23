@@ -24,4 +24,6 @@
 
 @property (weak, nonatomic) id<DiscussPostTableViewControllerDelegate> delegate;
 
+@property (assign, nonatomic) BOOL isPublic;
+
 @end

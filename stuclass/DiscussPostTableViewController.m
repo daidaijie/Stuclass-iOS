@@ -173,16 +173,32 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     
     // post data
     
-    NSDictionary *postData = @{
-                              @"publisher": username,
-                              @"pub_time": @"123",
-                              @"content": _textView.text,
-                              @"number": _dvc.classBox.box_number,
-                              @"semester": [NSString stringWithFormat:@"%d", semester],
-                              @"start_year": [NSString stringWithFormat:@"%d", year],
-                              @"end_year": [NSString stringWithFormat:@"%d", year + 1],
-                              @"token": token,
-                              };
+    NSDictionary *postData;
+    if (!_isPublic) {
+        
+        postData = @{
+                      @"publisher": username,
+                      @"pub_time": @"123",
+                      @"content": _textView.text,
+                      @"number": _dvc.classBox.box_number,
+                      @"semester": [NSString stringWithFormat:@"%d", semester],
+                      @"start_year": [NSString stringWithFormat:@"%d", year],
+                      @"end_year": [NSString stringWithFormat:@"%d", year + 1],
+                      @"token": token,
+                      };
+    } else {
+        
+        postData = @{
+                     @"publisher": username,
+                     @"pub_time": @"123",
+                     @"content": _textView.text,
+                     @"number": @"0",
+                     @"semester": @"0",
+                     @"start_year": @"0",
+                     @"end_year": @"0",
+                     @"token": token,
+                     };
+    }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     

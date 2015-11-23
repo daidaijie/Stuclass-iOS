@@ -298,7 +298,9 @@
 - (NSDictionary *)parseGradeData:(NSDictionary *)gradeData
 {
     // parse
-    float gpa = [gradeData[@"GPA"] floatValue];
+    float gpaFloat = [gradeData[@"GPA"] floatValue];
+    int gpaInt = (gpaFloat * 1000);
+    NSString *gpa = [NSString stringWithFormat:@"%.3f", gpaInt / 1000.0];
     
     NSMutableArray *semesterArray = [NSMutableArray array];
     
@@ -327,7 +329,7 @@
         [semesterArray addObject:@{@"year": year, @"semester": semester, @"grades": gradeArray}];
     }
     
-    NSDictionary *resultData = @{@"gpa": [NSString stringWithFormat:@"%.3f", gpa], @"semesters": semesterArray};
+    NSDictionary *resultData = @{@"gpa": gpa, @"semesters": semesterArray};
     
     return resultData;
 }

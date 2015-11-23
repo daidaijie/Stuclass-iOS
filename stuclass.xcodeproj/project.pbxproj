@@ -16,6 +16,7 @@
 		1320FC7F1C01C1230084B152 /* Grade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1320FC7E1C01C1230084B152 /* Grade.m */; settings = {ASSET_TAGS = (); }; };
 		1320FC831C020B6F0084B152 /* GradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1320FC811C020B6F0084B152 /* GradeTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		1320FC841C020B6F0084B152 /* GradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1320FC821C020B6F0084B152 /* GradeTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		1326F7D41C02DB5E0016B88E /* PublicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1326F7D31C02DB5E0016B88E /* PublicViewController.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC671BCA257500BC0F23 /* ClassCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC6D1BCA258300BC0F23 /* ClassHeaderView.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC711BCA259700BC0F23 /* StartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC701BCA259700BC0F23 /* StartView.m */; settings = {ASSET_TAGS = (); }; };
@@ -106,6 +107,8 @@
 		1320FC801C020B6F0084B152 /* GradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeTableViewCell.h; sourceTree = "<group>"; };
 		1320FC811C020B6F0084B152 /* GradeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeTableViewCell.m; sourceTree = "<group>"; };
 		1320FC821C020B6F0084B152 /* GradeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GradeTableViewCell.xib; sourceTree = "<group>"; };
+		1326F7D21C02DB5E0016B88E /* PublicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicViewController.h; sourceTree = "<group>"; };
+		1326F7D31C02DB5E0016B88E /* PublicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicViewController.m; sourceTree = "<group>"; };
 		1335FC661BCA257500BC0F23 /* ClassCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewCell.h; sourceTree = "<group>"; };
 		1335FC671BCA257500BC0F23 /* ClassCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewCell.m; sourceTree = "<group>"; };
 		1335FC6C1BCA258300BC0F23 /* ClassHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassHeaderView.h; sourceTree = "<group>"; };
@@ -331,6 +334,15 @@
 				1320FC821C020B6F0084B152 /* GradeTableViewCell.xib */,
 			);
 			name = GradeTableViewCell;
+			sourceTree = "<group>";
+		};
+		1326F7D11C02D9F20016B88E /* PublicTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1326F7D21C02DB5E0016B88E /* PublicViewController.h */,
+				1326F7D31C02DB5E0016B88E /* PublicViewController.m */,
+			);
+			name = PublicTableViewController;
 			sourceTree = "<group>";
 		};
 		1335FC641BCA255600BC0F23 /* ClassCell */ = {
@@ -645,6 +657,7 @@
 				13C4C3431BCC07650003E703 /* SemesterTableViewController */,
 				13C707261BC81FBE003061A4 /* LoginViewController */,
 				134530881BC8AD250018C15E /* ClassViewController */,
+				1326F7D11C02D9F20016B88E /* PublicTableViewController */,
 				1320FC781C01BF2A0084B152 /* GradeTableViewController */,
 				13DBA09B1BD247B400FC0682 /* DetailViewController */,
 				13C4C3471BCC0D1A0003E703 /* SettingTableViewController */,
@@ -1010,6 +1023,7 @@
 				134AB7D81C01840E00D8E816 /* MoreView.m in Sources */,
 				13CB2C7A1BDFD2BA00460BE4 /* PlaceholderTextView.m in Sources */,
 				13DE7B4A1BDC682E003AFF93 /* DiscussTableViewCell.m in Sources */,
+				1326F7D41C02DB5E0016B88E /* PublicViewController.m in Sources */,
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,
 				137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */,
 				1366D67B1BD4EAA300B69C04 /* ClassInfoTableViewCell.m in Sources */,
