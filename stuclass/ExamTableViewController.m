@@ -99,7 +99,7 @@ static const NSInteger kHeightForCellRow = 46.0;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 0 ? 1 : 7;
+    return section == 0 ? 1 : 5;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -141,26 +141,18 @@ static const NSInteger kHeightForCellRow = 46.0;
                 contentStr = exam.name;
                 break;
             case 1:
-                nameStr = @"考试班号";
-                contentStr = exam.number;
-                break;
-            case 2:
                 nameStr = @"地点、考号";
                 contentStr = [NSString stringWithFormat:@"%@, %@", exam.location, exam.position];
                 break;
-            case 3:
+            case 2:
                 nameStr = @"主考、监考";
                 contentStr = [NSString stringWithFormat:@"%@, %@", exam.teacher, exam.invigilator];
                 break;
-            case 4:
+            case 3:
                 nameStr = @"时间";
                 contentStr = exam.time;
                 break;
-            case 5:
-                nameStr = @"考生数";
-                contentStr = exam.amount;
-                break;
-            case 6:
+            case 4:
                 nameStr = @"备注";
                 contentStr = exam.comment;
                 break;

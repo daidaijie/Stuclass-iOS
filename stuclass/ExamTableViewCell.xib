@@ -25,7 +25,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第18周星期六第4场(2015.07.04 16:00-18:00)" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="14" preferredMaxLayoutWidth="202" translatesAutoresizingMaskIntoConstraints="NO" id="dBI-GG-zyD">
-                        <rect key="frame" x="110" y="0.0" width="202" height="46"/>
+                        <rect key="frame" x="108" y="0.0" width="202" height="46"/>
                         <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="202" id="aEq-HA-nhI"/>
@@ -41,7 +41,7 @@
                     <constraint firstItem="dBI-GG-zyD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Q2L-sr-gBl"/>
                     <constraint firstItem="dcg-ma-2hp" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="RT3-jt-5Of"/>
                     <constraint firstItem="dcg-ma-2hp" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ghL-r8-qoD"/>
-                    <constraint firstAttribute="trailing" secondItem="dBI-GG-zyD" secondAttribute="trailing" constant="8" id="s4T-H9-XST"/>
+                    <constraint firstAttribute="trailing" secondItem="dBI-GG-zyD" secondAttribute="trailing" constant="10" id="s4T-H9-XST"/>
                     <constraint firstAttribute="bottom" secondItem="dcg-ma-2hp" secondAttribute="bottom" constant="-1" id="xSi-he-bpT"/>
                 </constraints>
             </tableViewCellContentView>
