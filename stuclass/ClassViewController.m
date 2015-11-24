@@ -23,7 +23,7 @@
 #import <DXPopover/DXPopover.h>
 #import "MoreView.h"
 #import "GradeTableViewController.h"
-#import "Grade.h"
+#import "ExamTableViewController.h"
 
 static NSString *login_url = @"/syllabus";
 
@@ -324,6 +324,14 @@ static NSString *grade_url = @"/grade";
         NSDictionary *gradeData = sender;
         
         gtvc.gradeDict = gradeData;
+        
+    } else if ([segue.identifier isEqualToString:@"ShowExam"]) {
+        
+        ExamTableViewController *etvc = segue.destinationViewController;
+        
+        NSMutableArray *examData = sender;
+        
+        etvc.examData = examData;
     }
 }
 
@@ -549,8 +557,94 @@ static NSString *grade_url = @"/grade";
 
 - (void)exam
 {
+    // KVN
+    [KVNProgress showWithStatus:@"正在获取考试信息"];
     
+    // ActivityIndicator
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    // Request
+    [self sendExamRequest];
 }
+
+- (void)sendExamRequest
+{
+    // ud
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *username = [ud valueForKey:@"USERNAME"];
+    NSString *password = [ud valueForKey:@"PASSWORD"];
+    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+    NSInteger year = [dict[@"year"] integerValue];
+    NSInteger semester = [dict[@"semester"] integerValue];
+    
+    // post data
+    NSDictionary *postData = @{
+                               @"username": username,
+                               @"password": password,
+                               @"years": [NSString stringWithFormat:@"%d-%d", year, year + 1],
+                               @"semester": [NSString stringWithFormat:@"%d", semester],
+                               };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, exam_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
+        NSLog(@"连接服务器 - 成功");
+        [self parseExamResponseObject:responseObject];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"连接服务器 - 失败 - %@", error);
+        [KVNProgress showErrorWithStatus:@"连接服务器失败\n(请连接校园网)" completion:^{
+            [_popover dismiss];
+        }];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
+
+- (void)parseExamResponseObject:(id)responseObject
+{
+    if ([responseObject[@"ERROR"] isEqualToString:@"the password is wrong"] || [responseObject[@"ERROR"] isEqualToString:@"account not exist or not allowed"]) {
+        // 账号或密码错误
+        [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
+            [_popover dismiss];
+            [self logutClearData];
+            self.navigationController.navigationBarHidden = YES;
+            [self.navigationController popViewControllerAnimated:NO];
+        }];
+        
+    } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
+        // 学分制崩溃了
+        [KVNProgress showErrorWithStatus:@"天哪！学分制系统崩溃了！" completion:^{
+            [_popover dismiss];
+        }];
+        
+    } else if ([responseObject[@"ERROR"] isEqualToString:@"no exams"]) {
+        // 没有考试
+        [KVNProgress showErrorWithStatus:@"暂时没有考试信息" completion:^{
+            [_popover dismiss];
+        }];
+    } else {
+        // 成功
+        
+        NSMutableArray *examData = [[ClassParser sharedInstance] parseExamData:responseObject];
+        
+//        NSLog(@"%@", examData);
+        
+        [KVNProgress dismiss];
+        [_popover dismiss];
+        
+        [self performSegueWithIdentifier:@"ShowExam" sender:examData];
+    }
+}
+
 
 #pragma mark - My Grade
 
@@ -617,6 +711,12 @@ static NSString *grade_url = @"/grade";
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
         // 学分制崩溃了
         [KVNProgress showErrorWithStatus:@"天哪！学分制系统崩溃了！" completion:^{
+            [_popover dismiss];
+        }];
+        
+    } else if ([responseObject[@"ERROR"] isEqualToString:@"there is no information about grade"]) {
+        // 没有成绩
+        [KVNProgress showErrorWithStatus:@"你都还没考试呢！哪有成绩！" completion:^{
             [_popover dismiss];
         }];
     } else {

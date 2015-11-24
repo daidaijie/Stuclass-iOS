@@ -1,35 +1,39 @@
 //
-//  GradeTableViewController.m
+//  ExamTableViewController.m
 //  stuclass
 //
-//  Created by JunhaoWang on 11/22/15.
+//  Created by JunhaoWang on 11/24/15.
 //  Copyright © 2015 JunhaoWang. All rights reserved.
 //
 
-#import "GradeTableViewController.h"
-#import "GradeTableViewCell.h"
-#import "Grade.h"
+#import "ExamTableViewController.h"
+#import "ExamTableViewCell.h"
+#import "Exam.h"
 #import "ClassParser.h"
 #import <KVNProgress/KVNProgress.h>
 #import <AFNetworking/AFNetworking.h>
 #import "Define.h"
 
-static NSString *grade_url = @"/grade";
+static NSString *exam_url = @"/exam";
 
-static NSString *cell_id = @"GradeTableViewCell";
-static NSString *gpa_cell_id = @"GPAGradeTableViewCell";
+static NSString *cell_id = @"ExamTableViewCell";
+static NSString *header_cell_id = @"HeaderExamTableViewCell";
 
-static const NSInteger kHeightForGPACellRow = 44.0;
-static const NSInteger kHeightForCellRow = 56.0;
+static const NSInteger kHeightForHeaderCellRow = 44.0;
+static const NSInteger kHeightForCellRow = 46.0;
 
-@interface GradeTableViewController ()
+@interface ExamTableViewController ()
+
+@property (copy, nonatomic) NSString *yearAndSemester;
 
 @end
 
-@implementation GradeTableViewController
+@implementation ExamTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setupYearAndSemester];
     
     [self setupTableView];
 }
@@ -46,12 +50,43 @@ static const NSInteger kHeightForCellRow = 56.0;
     [self.tableView registerNib:nib forCellReuseIdentifier:cell_id];
 }
 
+- (void)setupYearAndSemester
+{
+    // ud
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+    
+    NSInteger year = [dict[@"year"] integerValue];
+    NSInteger semester = [dict[@"semester"] integerValue];
+    
+    NSString *semesterStr = @"";
+    
+    switch (semester) {
+            
+        case 0:
+            semesterStr = @"秋季学期";
+            break;
+        case 1:
+            semesterStr = @"春季学期";
+            break;
+        case 2:
+            semesterStr = @"夏季学期";
+            break;
+            
+        default:
+            break;
+    }
+    
+    _yearAndSemester = [NSString stringWithFormat:@"%d-%d %@", year, year + 1, semesterStr];
+}
+
+
 #pragma mark - TableView Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return kHeightForGPACellRow;
+        return kHeightForHeaderCellRow;
     } else {
         return kHeightForCellRow;
     }
@@ -59,12 +94,12 @@ static const NSInteger kHeightForCellRow = 56.0;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [_gradeDict[@"semesters"] count] + 1;
+    return _examData.count + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 0 ? 1 : [_gradeDict[@"semesters"][section - 1][@"grades"] count];
+    return section == 0 ? 1 : 7;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -72,10 +107,8 @@ static const NSInteger kHeightForCellRow = 56.0;
     if (section == 0) {
         return nil;
     } else {
-        NSString *year = _gradeDict[@"semesters"][section - 1][@"year"];
-        NSString *semester = _gradeDict[@"semesters"][section - 1][@"semester"];
-
-        return [NSString stringWithFormat:@"%@ %@", year, semester];
+        
+        return [NSString stringWithFormat:@"第 %d 场考试", section];
     }
 }
 
@@ -86,22 +119,59 @@ static const NSInteger kHeightForCellRow = 56.0;
     
     if (section == 0 && row == 0) {
         
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:gpa_cell_id forIndexPath:indexPath];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:header_cell_id forIndexPath:indexPath];
         
-        cell.textLabel.text = @"GPA（平均绩点）";
-        cell.detailTextLabel.text = _gradeDict[@"gpa"];
+        cell.textLabel.text = _yearAndSemester;
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"共有%d门考试", _examData.count];
         
         return cell;
         
     } else {
         
-        GradeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cell_id forIndexPath:indexPath];
+        ExamTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cell_id forIndexPath:indexPath];
         
-        Grade *grade = _gradeDict[@"semesters"][section - 1][@"grades"][row];
+        Exam *exam = _examData[section - 1];
         
-        cell.nameLabel.text = grade.name;
-        cell.gradeLabel.text = grade.grade;
-        cell.creditLabel.text = grade.credit;
+        NSString *nameStr = @"";
+        NSString *contentStr = @"";
+        
+        switch (row) {
+            case 0:
+                nameStr = @"课程名称";
+                contentStr = exam.name;
+                break;
+            case 1:
+                nameStr = @"考试班号";
+                contentStr = exam.number;
+                break;
+            case 2:
+                nameStr = @"地点、考号";
+                contentStr = [NSString stringWithFormat:@"%@, %@", exam.location, exam.position];
+                break;
+            case 3:
+                nameStr = @"主考、监考";
+                contentStr = [NSString stringWithFormat:@"%@, %@", exam.teacher, exam.invigilator];
+                break;
+            case 4:
+                nameStr = @"时间";
+                contentStr = exam.time;
+                break;
+            case 5:
+                nameStr = @"考生数";
+                contentStr = exam.amount;
+                break;
+            case 6:
+                nameStr = @"备注";
+                contentStr = exam.comment;
+                break;
+                
+            default:
+                break;
+        }
+        
+        cell.nameLabel.text = nameStr;
+        
+        cell.contentLabel.text = contentStr;
         
         return cell;
     }
@@ -110,11 +180,11 @@ static const NSInteger kHeightForCellRow = 56.0;
 #pragma mark - Event
 - (IBAction)syncItemPress:(id)sender
 {
-    [self grade];
+    [self exam];
 }
 
 
-- (void)grade
+- (void)exam
 {
     // KVN
     [KVNProgress showWithStatus:@"正在获取我的成绩"];
@@ -123,20 +193,26 @@ static const NSInteger kHeightForCellRow = 56.0;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
     // Request
-    [self sendGradeRequest];
+    [self sendExamRequest];
 }
 
-- (void)sendGradeRequest
+
+- (void)sendExamRequest
 {
     // ud
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud valueForKey:@"USERNAME"];
     NSString *password = [ud valueForKey:@"PASSWORD"];
+    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+    NSInteger year = [dict[@"year"] integerValue];
+    NSInteger semester = [dict[@"semester"] integerValue];
     
     // post data
     NSDictionary *postData = @{
                                @"username": username,
                                @"password": password,
+                               @"years": [NSString stringWithFormat:@"%d-%d", year, year + 1],
+                               @"semester": [NSString stringWithFormat:@"%d", semester],
                                };
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -145,11 +221,11 @@ static const NSInteger kHeightForCellRow = 56.0;
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, grade_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, exam_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
+//        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"连接服务器 - 成功");
-        [self parseGradeResponseObject:responseObject];
+        [self parseExamResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -161,11 +237,12 @@ static const NSInteger kHeightForCellRow = 56.0;
 }
 
 
-- (void)parseGradeResponseObject:(id)responseObject
+- (void)parseExamResponseObject:(id)responseObject
 {
     if ([responseObject[@"ERROR"] isEqualToString:@"the password is wrong"] || [responseObject[@"ERROR"] isEqualToString:@"account not exist or not allowed"]) {
         // 账号或密码错误
         [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
+            
             [self logutClearData];
             self.navigationController.navigationBarHidden = YES;
             [self.navigationController popViewControllerAnimated:NO];
@@ -174,19 +251,20 @@ static const NSInteger kHeightForCellRow = 56.0;
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
         // 学分制崩溃了
         [KVNProgress showErrorWithStatus:@"天哪！学分制系统崩溃了！"];
-    } else if ([responseObject[@"ERROR"] isEqualToString:@"there is no information about grade"]) {
-        // 没有成绩
-        [KVNProgress showErrorWithStatus:@"你都还没考试呢！哪有成绩！"];
+    } else if ([responseObject[@"ERROR"] isEqualToString:@"no exams"]) {
+        // 没有考试
+        [KVNProgress showErrorWithStatus:@"暂时没有考试信息"];
+        
     } else {
         // 成功
         
-        NSDictionary *gradeData = [[ClassParser sharedInstance] parseGradeData:responseObject];
+        NSMutableArray *examData = [[ClassParser sharedInstance] parseExamData:responseObject];
         
-        _gradeDict = gradeData;
+        _examData = examData;
         
         [self.tableView reloadData];
         
-        [KVNProgress showSuccessWithStatus:@"获取成绩成功" completion:^{
+        [KVNProgress showSuccessWithStatus:@"获取考试信息成功" completion:^{
             
             [self.tableView setContentOffset:CGPointMake(0, -58) animated:YES];
         }];

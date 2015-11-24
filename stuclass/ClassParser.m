@@ -10,6 +10,7 @@
 #import "NSMutableArray+Shuffle.h"
 #import "ClassBox.h"
 #import "Grade.h"
+#import "Exam.h"
 #import "Define.h"
 
 @interface ClassParser ()
@@ -332,6 +333,37 @@
     NSDictionary *resultData = @{@"gpa": gpa, @"semesters": semesterArray};
     
     return resultData;
+}
+
+
+#pragma mark - Exam Parser
+
+- (NSMutableArray *)parseExamData:(NSDictionary *)examData
+{
+    // parse
+    
+    NSMutableArray *examArray = [NSMutableArray array];
+    
+    for (NSDictionary *dict in examData[@"EXAMS"]) {
+        
+        Exam *exam = [[Exam alloc] init];
+        
+        exam.name = dict[@"exam_class"];
+        exam.number = dict[@"exam_class_number"];
+        exam.teacher = dict[@"exam_main_teacher"];
+        exam.invigilator = dict[@"exam_invigilator"];
+        exam.location = dict[@"exam_location"];
+        
+        exam.comment = [dict[@"exam_comment"] isEqualToString:@""] ? @"无" : dict[@"exam_comment"];
+        
+        exam.amount = dict[@"exam_stu_numbers"];
+        exam.position = dict[@"exam_stu_position"];
+        exam.time = dict[@"exam_time"];
+        
+        [examArray addObject:exam];
+    }
+    
+    return examArray;
 }
 
 @end

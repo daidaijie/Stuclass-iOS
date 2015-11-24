@@ -19,4 +19,6 @@
 
 - (NSDictionary *)parseGradeData:(NSDictionary *)gradeData;
 
+- (NSMutableArray *)parseExamData:(NSDictionary *)examData;
+
 @end
