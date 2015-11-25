@@ -285,7 +285,7 @@ static NSString *login_url = @"/syllabus";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败\n(请连接校园网)"];
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试"];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
@@ -334,6 +334,10 @@ static NSString *login_url = @"/syllabus";
         // token
         NSString *token = responseObject[@"token"];
         [ud setValue:token forKey:@"USER_TOKEN"];
+        
+        // nickname
+        NSString *nickname = responseObject[@"nickname"];
+        [ud setValue:nickname forKey:@"NICKNAME"];
         
         [KVNProgress showSuccessWithStatus:@"登录成功" completion:^{
             

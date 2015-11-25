@@ -450,7 +450,7 @@ static NSString *grade_url = @"/grade";
 
 - (void)semesterDelegateLogout
 {
-    [self logutClearData];
+    [self logoutClearData];
     self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:NO];
 }
@@ -491,26 +491,19 @@ static NSString *grade_url = @"/grade";
 // Log Out
 - (void)settingTableViewControllerLogOut
 {
-    [self logutClearData];
+    [self logoutClearData];
     self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:NO];
 }
 
-- (void)logutClearData
+- (void)logoutClearData
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    
-    //    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
-    
-    //    NSInteger year = [dict[@"year"] integerValue];
-    //    NSInteger semester = [dict[@"semester"] integerValue];
-    
-    // CoreData
-    //    [[CoreDataManager sharedInstance] deleteClassTableWithYear:year semester:semester];
     
     // ud
     [ud setValue:nil forKey:@"USER_TOKEN"];
     [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
+    [ud setValue:nil forKey:@"NICKNAME"];
 }
 
 
@@ -589,7 +582,7 @@ static NSString *grade_url = @"/grade";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败\n(请连接校园网)" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
             [_popover dismiss];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -603,7 +596,7 @@ static NSString *grade_url = @"/grade";
         // 账号或密码错误
         [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
             [_popover dismiss];
-            [self logutClearData];
+            [self logoutClearData];
             self.navigationController.navigationBarHidden = YES;
             [self.navigationController popViewControllerAnimated:NO];
         }];
@@ -647,6 +640,10 @@ static NSString *grade_url = @"/grade";
         // token
         NSString *token = responseObject[@"token"];
         [ud setValue:token forKey:@"USER_TOKEN"];
+        
+        // nickname
+        NSString *nickname = responseObject[@"nickname"];
+        [ud setValue:nickname forKey:@"NICKNAME"];
         
         _boxData = boxData;
         
@@ -708,7 +705,7 @@ static NSString *grade_url = @"/grade";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败\n(请连接校园网)" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
             [_popover dismiss];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -722,7 +719,7 @@ static NSString *grade_url = @"/grade";
         // 账号或密码错误
         [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
             [_popover dismiss];
-            [self logutClearData];
+            [self logoutClearData];
             self.navigationController.navigationBarHidden = YES;
             [self.navigationController popViewControllerAnimated:NO];
         }];
@@ -796,7 +793,7 @@ static NSString *grade_url = @"/grade";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败\n(请连接校园网)" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
             [_popover dismiss];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -810,7 +807,7 @@ static NSString *grade_url = @"/grade";
         // 账号或密码错误
         [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
             [_popover dismiss];
-            [self logutClearData];
+            [self logoutClearData];
             self.navigationController.navigationBarHidden = YES;
             [self.navigationController popViewControllerAnimated:NO];
         }];

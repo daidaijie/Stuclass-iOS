@@ -155,7 +155,7 @@ static const NSInteger kHeightForCellRow = 56.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败\n(请连接校园网)"];
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试"];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
@@ -166,7 +166,7 @@ static const NSInteger kHeightForCellRow = 56.0;
     if ([responseObject[@"ERROR"] isEqualToString:@"the password is wrong"] || [responseObject[@"ERROR"] isEqualToString:@"account not exist or not allowed"]) {
         // 账号或密码错误
         [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
-            [self logutClearData];
+            [self logoutClearData];
             self.navigationController.navigationBarHidden = YES;
             [self.navigationController popViewControllerAnimated:NO];
         }];
@@ -194,21 +194,14 @@ static const NSInteger kHeightForCellRow = 56.0;
 }
 
 
-- (void)logutClearData
+- (void)logoutClearData
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    
-    //    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
-    
-    //    NSInteger year = [dict[@"year"] integerValue];
-    //    NSInteger semester = [dict[@"semester"] integerValue];
-    
-    // CoreData
-    //    [[CoreDataManager sharedInstance] deleteClassTableWithYear:year semester:semester];
     
     // ud
     [ud setValue:nil forKey:@"USER_TOKEN"];
     [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
+    [ud setValue:nil forKey:@"NICKNAME"];
 }
 
 

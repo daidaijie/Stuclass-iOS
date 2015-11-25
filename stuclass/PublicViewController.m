@@ -459,27 +459,20 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 // Log Out
 - (void)logout
 {
-    [self logutClearData];
+    [self logoutClearData];
     self.navigationController.navigationBarHidden = YES;
     [self.navigationController popToRootViewControllerAnimated:YES];
     
 }
 
-- (void)logutClearData
+- (void)logoutClearData
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    
-    //    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
-    
-    //    NSInteger year = [dict[@"year"] integerValue];
-    //    NSInteger semester = [dict[@"semester"] integerValue];
-    
-    // CoreData
-    //    [[CoreDataManager sharedInstance] deleteClassTableWithYear:year semester:semester];
     
     // ud
     [ud setValue:nil forKey:@"USER_TOKEN"];
     [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
+    [ud setValue:nil forKey:@"NICKNAME"];
 }
 
 

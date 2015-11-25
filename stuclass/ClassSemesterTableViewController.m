@@ -215,7 +215,7 @@ static NSString *login_url = @"/syllabus";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败\n(请连接校园网)"];
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试"];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
@@ -266,6 +266,10 @@ static NSString *login_url = @"/syllabus";
         NSString *token = responseObject[@"token"];
         [ud setValue:token forKey:@"USER_TOKEN"];
         
+        // nickname
+        NSString *nickname = responseObject[@"nickname"];
+        [ud setValue:nickname forKey:@"NICKNAME"];
+        
         [_delegate semesterDelegateSemesterChanged:boxData semester:_selectedSemester];
         
         [KVNProgress showSuccessWithStatus:@"获取该学期课表成功" completion:^{
@@ -277,21 +281,14 @@ static NSString *login_url = @"/syllabus";
 
 
 
-- (void)logutClearData
+- (void)logoutClearData
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    
-    //    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
-    
-    //    NSInteger year = [dict[@"year"] integerValue];
-    //    NSInteger semester = [dict[@"semester"] integerValue];
-    
-    // CoreData
-    //    [[CoreDataManager sharedInstance] deleteClassTableWithYear:year semester:semester];
     
     // ud
     [ud setValue:nil forKey:@"USER_TOKEN"];
     [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
+    [ud setValue:nil forKey:@"NICKNAME"];
 }
 
 
