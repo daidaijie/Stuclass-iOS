@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
     
-    [self setupImagePicker];
+//    [self setupImagePicker];
     [self setupTableView];
     [self setupDisplayData];
 }
@@ -135,6 +135,10 @@
     } else if (section == 2) {
         if (row == 0) {
             // 从相册中选择
+            
+            if (!_imagePicker) {
+                [self setupImagePicker];
+            }
             
             // checking
             if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {

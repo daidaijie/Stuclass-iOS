@@ -115,14 +115,21 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud valueForKey:@"USERNAME"];
     
-    // date
-    NSDate *date = [self getCurrentZoneDate:[NSDate date]];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateStyle = NSDateFormatterFullStyle;
-    formatter.dateFormat = @"yyyy年MM月dd日HH时mm分ss秒";
+    NSString *timeStr = @"";
     
-    NSString *timeStr = [formatter stringFromDate:date];
-    NSLog(@"更新笔记时间 - %@", timeStr);
+    if (_textView.text.length > 0) {
+        
+        // date
+        NSDate *date = [self getCurrentZoneDate:[NSDate date]];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateStyle = NSDateFormatterFullStyle;
+        formatter.dateFormat = @"yyyy年MM月dd日HH时mm分ss秒";
+        
+        timeStr = [formatter stringFromDate:date];
+        NSLog(@"更新笔记时间 - %@", timeStr);
+    } else {
+        NSLog(@"去除笔记");
+    }
     
     // content
     [[CoreDataManager sharedInstance] writeNoteToCoreDataWithContent:_textView.text time:timeStr classID:_classID username:username];
