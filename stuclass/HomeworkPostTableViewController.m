@@ -256,6 +256,8 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         
         homework.publisher = [[NSUserDefaults standardUserDefaults] valueForKey:@"USERNAME"];
         
+        homework.nickname = [[NSUserDefaults standardUserDefaults] valueForKey:@"NICKNAME"];
+        
         homework.deadline = _textField.text;
         
         homework.homework_id = [statusStr integerValue];

@@ -33,7 +33,9 @@ static NSString *exam_url = @"/exam";
 
 static NSString *grade_url = @"/grade";
 
-@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, SettingLogOutDelegate, ClassSemesterDelegate>
+static const CGFloat kAnimationDurationForSemesterButton = 0.3;
+
+@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, SettingLogOutDelegate, ClassSemesterDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) ClassHeaderView *classHeaderView;
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -43,6 +45,8 @@ static NSString *grade_url = @"/grade";
 @property (strong, nonatomic) MoreView * moreView;
 
 @property (strong, nonatomic) DXPopover *popover;
+
+@property (assign, nonatomic) BOOL isSemesterButtonHidden;
 
 @end
 
@@ -443,6 +447,8 @@ static NSString *grade_url = @"/grade";
     UINavigationController *nvc = [[UINavigationController alloc] init];
     nvc.viewControllers = @[cstvc];
     
+    nvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
     [self presentViewController:nvc animated:YES completion:nil];
 }
 
@@ -838,6 +844,46 @@ static NSString *grade_url = @"/grade";
 }
 
 
+
+#pragma mark - ScrollView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat offset = scrollView.contentOffset.y;
+    
+    if (offset > 0.0) {
+        [self setSemesterButtonHidden:YES];
+    } else {
+        [self setSemesterButtonHidden:NO];
+    }
+}
+
+
+- (void)setSemesterButtonHidden:(BOOL)hidden
+{
+    if (_isSemesterButtonHidden != hidden) {
+    
+        _isSemesterButtonHidden = !_isSemesterButtonHidden;
+        
+        if (hidden) {
+            
+            [UIView animateWithDuration:kAnimationDurationForSemesterButton delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                
+                _semesterButton.alpha = 0.0;
+                
+            } completion:nil];
+            
+        } else {
+            
+            [UIView animateWithDuration:kAnimationDurationForSemesterButton delay:0.0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                
+                _semesterButton.alpha = 1.0;
+                
+            } completion:nil];
+            
+        }
+    }
+}
 
 
 

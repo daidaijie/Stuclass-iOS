@@ -8,11 +8,13 @@
 
 #import "SettingTableViewController.h"
 #import <KVNProgress/KVNProgress.h>
+#import "NicknameTableViewController.h"
 
 @interface SettingTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yearAndSemesterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 
 @end
 
@@ -76,6 +78,8 @@
     _yearAndSemesterLabel.text = [NSString stringWithFormat:@"%d-%d %@", year, year + 1, semesterStr];
     
     _usernameLabel.text = [ud valueForKey:@"USERNAME"];
+    
+    _nicknameLabel.text = [ud valueForKey:@"NICKNAME"];
 }
 
 
@@ -92,7 +96,14 @@
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     
-    if (section == 2) {
+    if (section == 1) {
+        
+        if (row == 1) {
+            
+            [self performSegueWithIdentifier:@"ShowNickname" sender:nil];
+            
+        }
+    } else if (section == 2) {
         if (row == 0) {
             [self performSegueWithIdentifier:@"BackgroundVC" sender:nil];
         }
@@ -104,7 +115,6 @@
         if (row == 0) {
             [KVNProgress showSuccessWithStatus:@"登出成功"];
             [self performSelector:@selector(logout) withObject:nil afterDelay:0.3];
-//            }];
         }
     }
 }

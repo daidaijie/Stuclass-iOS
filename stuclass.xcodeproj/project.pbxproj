@@ -50,6 +50,7 @@
 		137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C371BDB1A4900236C79 /* HomeworkTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		137C8C3A1BDB1A4900236C79 /* HomeworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 137C8C381BDB1A4900236C79 /* HomeworkTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		137C8C3D1BDB2C5200236C79 /* HomeworkPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		137F4EA11C06155200A6DC0E /* NicknameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C33A1BCBEEE60003E703 /* NSMutableArray+Shuffle.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C3461BCC07840003E703 /* SemesterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C3451BCC07840003E703 /* SemesterTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C34A1BCC0D300003E703 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C3491BCC0D300003E703 /* SettingTableViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -177,6 +178,8 @@
 		137C8C381BDB1A4900236C79 /* HomeworkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeworkTableViewCell.xib; sourceTree = "<group>"; };
 		137C8C3B1BDB2C5200236C79 /* HomeworkPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeworkPostTableViewController.h; sourceTree = "<group>"; };
 		137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeworkPostTableViewController.m; sourceTree = "<group>"; };
+		137F4E9F1C06155200A6DC0E /* NicknameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NicknameTableViewController.h; sourceTree = "<group>"; };
+		137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NicknameTableViewController.m; sourceTree = "<group>"; };
 		13C4C3391BCBEEE60003E703 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
 		13C4C33A1BCBEEE60003E703 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
 		13C4C3441BCC07840003E703 /* SemesterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SemesterTableViewController.h; sourceTree = "<group>"; };
@@ -613,6 +616,15 @@
 			name = HomeworkPostTableViewController;
 			sourceTree = "<group>";
 		};
+		137F4E9E1C0614ED00A6DC0E /* NicknameTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				137F4E9F1C06155200A6DC0E /* NicknameTableViewController.h */,
+				137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */,
+			);
+			name = NicknameTableViewController;
+			sourceTree = "<group>";
+		};
 		13C4C3381BCBEECA0003E703 /* NSMutableArray+Shuffle */ = {
 			isa = PBXGroup;
 			children = (
@@ -637,6 +649,7 @@
 				13C4C3481BCC0D300003E703 /* SettingTableViewController.h */,
 				13C4C3491BCC0D300003E703 /* SettingTableViewController.m */,
 				13C4C35F1BCCDC9B0003E703 /* BackgroundTableViewController */,
+				137F4E9E1C0614ED00A6DC0E /* NicknameTableViewController */,
 			);
 			name = SettingTableViewController;
 			sourceTree = "<group>";
@@ -1101,6 +1114,7 @@
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,
 				137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */,
 				1366D67B1BD4EAA300B69C04 /* ClassInfoTableViewCell.m in Sources */,
+				137F4EA11C06155200A6DC0E /* NicknameTableViewController.m in Sources */,
 				1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */,
 				1320FC7B1C01BF500084B152 /* GradeTableViewController.m in Sources */,
 				1345308B1BC8AE0C0018C15E /* ClassViewController.m in Sources */,

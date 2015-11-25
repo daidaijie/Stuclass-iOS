@@ -54,6 +54,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 - (void)setupTextView
 {
     _textView.placeholder.text = @"你可以吹180个字...";
+    [_textView becomeFirstResponder];
 }
 
 
@@ -61,7 +62,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 {
     [super viewDidAppear:animated];
     
-    [_textView becomeFirstResponder];
+//    [_textView becomeFirstResponder];
 }
 
 #pragma mark - TableView Delegate
@@ -267,6 +268,8 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         discuss.pub_time = [[JHDater sharedInstance] getNowSecondFrom1970];
         
         discuss.publisher = [[NSUserDefaults standardUserDefaults] valueForKey:@"USERNAME"];
+        
+        discuss.nickname = [[NSUserDefaults standardUserDefaults] valueForKey:@"NICKNAME"];
         
         discuss.discuss_id = [statusStr integerValue];
         
