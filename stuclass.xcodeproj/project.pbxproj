@@ -16,6 +16,8 @@
 		1320FC7F1C01C1230084B152 /* Grade.m in Sources */ = {isa = PBXBuildFile; fileRef = 1320FC7E1C01C1230084B152 /* Grade.m */; settings = {ASSET_TAGS = (); }; };
 		1320FC831C020B6F0084B152 /* GradeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1320FC811C020B6F0084B152 /* GradeTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		1320FC841C020B6F0084B152 /* GradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1320FC821C020B6F0084B152 /* GradeTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		132226F61C0564550093826C /* ClassSemesterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132226F51C0564550093826C /* ClassSemesterTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		132226F91C056C4D0093826C /* ClassSemesterButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 132226F81C056C4D0093826C /* ClassSemesterButton.m */; settings = {ASSET_TAGS = (); }; };
 		1326F7D41C02DB5E0016B88E /* PublicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1326F7D31C02DB5E0016B88E /* PublicViewController.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC671BCA257500BC0F23 /* ClassCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC6D1BCA258300BC0F23 /* ClassHeaderView.m */; settings = {ASSET_TAGS = (); }; };
@@ -111,6 +113,10 @@
 		1320FC801C020B6F0084B152 /* GradeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeTableViewCell.h; sourceTree = "<group>"; };
 		1320FC811C020B6F0084B152 /* GradeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeTableViewCell.m; sourceTree = "<group>"; };
 		1320FC821C020B6F0084B152 /* GradeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GradeTableViewCell.xib; sourceTree = "<group>"; };
+		132226F41C0564550093826C /* ClassSemesterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassSemesterTableViewController.h; sourceTree = "<group>"; };
+		132226F51C0564550093826C /* ClassSemesterTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassSemesterTableViewController.m; sourceTree = "<group>"; };
+		132226F71C056C4D0093826C /* ClassSemesterButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassSemesterButton.h; sourceTree = "<group>"; };
+		132226F81C056C4D0093826C /* ClassSemesterButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassSemesterButton.m; sourceTree = "<group>"; };
 		1326F7D21C02DB5E0016B88E /* PublicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicViewController.h; sourceTree = "<group>"; };
 		1326F7D31C02DB5E0016B88E /* PublicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicViewController.m; sourceTree = "<group>"; };
 		1335FC661BCA257500BC0F23 /* ClassCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewCell.h; sourceTree = "<group>"; };
@@ -347,6 +353,25 @@
 			name = GradeTableViewCell;
 			sourceTree = "<group>";
 		};
+		132226F31C05643C0093826C /* ClassSemesterTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				132226FA1C056C500093826C /* ClassSemesterButton */,
+				132226F41C0564550093826C /* ClassSemesterTableViewController.h */,
+				132226F51C0564550093826C /* ClassSemesterTableViewController.m */,
+			);
+			name = ClassSemesterTableViewController;
+			sourceTree = "<group>";
+		};
+		132226FA1C056C500093826C /* ClassSemesterButton */ = {
+			isa = PBXGroup;
+			children = (
+				132226F71C056C4D0093826C /* ClassSemesterButton.h */,
+				132226F81C056C4D0093826C /* ClassSemesterButton.m */,
+			);
+			name = ClassSemesterButton;
+			sourceTree = "<group>";
+		};
 		1326F7D11C02D9F20016B88E /* PublicTableViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -402,6 +427,7 @@
 				1335FC651BCA255C00BC0F23 /* ClassView */,
 				1335FC641BCA255600BC0F23 /* ClassCell */,
 				131951CD1BCB47C9004EE13A /* ClassLayout */,
+				132226F31C05643C0093826C /* ClassSemesterTableViewController */,
 				134530891BC8AE0C0018C15E /* ClassViewController.h */,
 				1345308A1BC8AE0C0018C15E /* ClassViewController.m */,
 			);
@@ -694,6 +720,7 @@
 				13C707241BC7DE55003061A4 /* Framework */,
 				13D8E2C21BD71C430051617C /* Model */,
 				13C707161BC7DE10003061A4 /* Main.storyboard */,
+				13C4C3471BCC0D1A0003E703 /* SettingTableViewController */,
 				13C4C3431BCC07650003E703 /* SemesterTableViewController */,
 				13C707261BC81FBE003061A4 /* LoginViewController */,
 				134530881BC8AD250018C15E /* ClassViewController */,
@@ -701,7 +728,6 @@
 				136A27C81C04366E00B45460 /* ExamTableViewController */,
 				1320FC781C01BF2A0084B152 /* GradeTableViewController */,
 				13DBA09B1BD247B400FC0682 /* DetailViewController */,
-				13C4C3471BCC0D1A0003E703 /* SettingTableViewController */,
 				13C7070D1BC7DE10003061A4 /* Supporting Files */,
 			);
 			path = stuclass;
@@ -1027,6 +1053,7 @@
 				131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */,
 				13766B0F1BDA3FF600322371 /* NoteLabel.m in Sources */,
 				131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */,
+				132226F91C056C4D0093826C /* ClassSemesterButton.m in Sources */,
 				134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */,
 				13DBA09E1BD247DA00FC0682 /* DetailViewController.m in Sources */,
 				1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */,
@@ -1064,6 +1091,7 @@
 				13ED2C921BD8BC3F00E250A2 /* Course+CoreDataProperties.m in Sources */,
 				1366D6741BD4BAE000B69C04 /* HomeworkViewController.m in Sources */,
 				136A27CF1C043C6300B45460 /* Exam.m in Sources */,
+				132226F61C0564550093826C /* ClassSemesterTableViewController.m in Sources */,
 				13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */,
 				137C8C2C1BDA956900236C79 /* Note.m in Sources */,
 				134AB7D81C01840E00D8E816 /* MoreView.m in Sources */,

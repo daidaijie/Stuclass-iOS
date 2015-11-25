@@ -194,7 +194,10 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     Homework *homework = _homeworkData[indexPath.section];
     
-    cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 发布的作业信息:", homework.publisher];
+    cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 发布的作业信息:", homework.nickname];
+    
+//    cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 发布的作业信息:", [homework.nickname isEqual:[NSNull null]] ? homework.publisher : homework.nickname];
+    
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:homework.pub_time];
     cell.contentLabel.text = homework.content;
     cell.homework_id = homework.homework_id;
@@ -453,6 +456,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             Homework *homework = [[Homework alloc] init];
             
             homework.publisher = h[@"publisher"];
+            
+            homework.nickname = h[@"publisher_nickname"];
             
             homework.pub_time = [h[@"pub_time"] longLongValue];
             

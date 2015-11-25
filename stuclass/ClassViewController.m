@@ -24,6 +24,8 @@
 #import "MoreView.h"
 #import "GradeTableViewController.h"
 #import "ExamTableViewController.h"
+#import "ClassSemesterButton.h"
+#import "ClassSemesterTableViewController.h"
 
 static NSString *login_url = @"/syllabus";
 
@@ -31,11 +33,12 @@ static NSString *exam_url = @"/exam";
 
 static NSString *grade_url = @"/grade";
 
-@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, SettingLogOutDelegate>
+@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, SettingLogOutDelegate, ClassSemesterDelegate>
 
 @property (strong, nonatomic) ClassHeaderView *classHeaderView;
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIImageView *bgImageView;
+@property (strong, nonatomic) ClassSemesterButton *semesterButton;
 
 @property (strong, nonatomic) MoreView * moreView;
 
@@ -60,6 +63,7 @@ static NSString *grade_url = @"/grade";
     [self initMoreView];
     [self initClassHeaderView];
     [self initCollectionView];
+    [self initSemesterButton];
     
     // Notification
     [self initNotification];
@@ -192,6 +196,49 @@ static NSString *grade_url = @"/grade";
     [_collectionView registerClass:[ClassNumberCollectionReusableView class] forSupplementaryViewOfKind:@"ClassNumber" withReuseIdentifier:@"ClassSupplementary"];
 }
 
+
+- (void)initSemesterButton
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+    
+    NSInteger semester = [dict[@"semester"] integerValue];
+    
+    NSString *semesterStr = @"";
+    
+    switch (semester) {
+            
+        case 1:
+            semesterStr = @"秋季学期";
+            break;
+        case 2:
+            semesterStr = @"春季学期";
+            break;
+        case 3:
+            semesterStr = @"夏季学期";
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    CGFloat btnWidth = 27;
+    CGFloat btnHeight = 88;
+    CGFloat yOffset = 176;
+    
+    _semesterButton = [[ClassSemesterButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - btnWidth, [UIScreen mainScreen].bounds.size.height - yOffset, btnWidth, btnHeight)];
+    
+    [_semesterButton setTitle:semesterStr forState:UIControlStateNormal];
+    
+    [_semesterButton addTarget:self action:@selector(semesterButtonPress) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:_semesterButton];
+}
+
+
+
 // Notification
 - (void)initNotification
 {
@@ -209,6 +256,9 @@ static NSString *grade_url = @"/grade";
 // 返回坐标给Layout
 - (NSArray *)collectionView:(UICollectionView *)collectionView coordinateForCollectionViewLayout:(ClassCollectionViewLayout *)collectionViewLayout indexPath:(NSIndexPath *)indexPath
 {
+//    if (indexPath.row >= _boxData.count)
+//        return nil;
+    
     ClassBox *box = _boxData[indexPath.row];
     return @[[NSNumber numberWithInteger:box.box_x], [NSNumber numberWithInteger:box.box_y], [NSNumber numberWithInteger:box.box_length]];
 }
@@ -382,6 +432,59 @@ static NSString *grade_url = @"/grade";
 }
 
 
+- (void)semesterButtonPress
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ClassSemesterTableViewController *cstvc = [sb instantiateViewControllerWithIdentifier:@"classSemesterVC"];
+    
+    cstvc.delegate = self;
+    
+//    [cstvc setupSelectedYear:_year semester:_semester];
+    UINavigationController *nvc = [[UINavigationController alloc] init];
+    nvc.viewControllers = @[cstvc];
+    
+    [self presentViewController:nvc animated:YES completion:nil];
+}
+
+#pragma mark - ClassSemesterDelegate
+
+- (void)semesterDelegateLogout
+{
+    [self logutClearData];
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
+- (void)semesterDelegateSemesterChanged:(NSArray *)boxData semester:(NSInteger)semester
+{
+    NSString *semesterStr = @"";
+    
+    switch (semester) {
+            
+        case 1:
+            semesterStr = @"秋季学期";
+            break;
+        case 2:
+            semesterStr = @"春季学期";
+            break;
+        case 3:
+            semesterStr = @"夏季学期";
+            break;
+            
+        default:
+            break;
+    }
+    
+    [_semesterButton setTitle:semesterStr forState:UIControlStateNormal];
+    
+    _boxData = boxData;
+    
+    [_collectionView reloadData];
+    
+    [_collectionView setContentOffset:CGPointZero animated:NO];
+}
+
+
 
 #pragma mark - SettingDelegate
 
@@ -391,7 +494,6 @@ static NSString *grade_url = @"/grade";
     [self logutClearData];
     self.navigationController.navigationBarHidden = YES;
     [self.navigationController popViewControllerAnimated:NO];
-    
 }
 
 - (void)logutClearData
@@ -528,25 +630,30 @@ static NSString *grade_url = @"/grade";
         // 生成DisplayData
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
         
+//         testing
+//        NSMutableArray *array = [NSMutableArray arrayWithArray:boxData];
+        
+//        [array removeLastObject];
+//        [array removeLastObject];
+        
+        
+//        [array addObject:[array lastObject]];
+//        [array addObject:[array lastObject]];
+//        [array addObject:[array lastObject]];
+//        [array addObject:[array lastObject]];
+//        [array addObject:[array lastObject]];
+//         ------
+        
         // token
         NSString *token = responseObject[@"token"];
         [ud setValue:token forKey:@"USER_TOKEN"];
         
         _boxData = boxData;
         
-        [_collectionView.collectionViewLayout invalidateLayout];
-        
-        ClassCollectionViewLayout *layout = [[ClassCollectionViewLayout alloc] init];
-        
-        layout.layoutDelegate = self;
-        
-        [_collectionView setCollectionViewLayout:layout animated:YES];
-        
         [_collectionView reloadData];
         
-        [_collectionView setContentOffset:CGPointZero animated:YES];
-        
         [KVNProgress showSuccessWithStatus:@"同步课表成功" completion:^{
+            [_collectionView setContentOffset:CGPointZero animated:YES];
             [_popover dismiss];
         }];
     }
@@ -732,6 +839,10 @@ static NSString *grade_url = @"/grade";
         [self performSegueWithIdentifier:@"ShowGrade" sender:gradeData];
     }
 }
+
+
+
+
 
 
 

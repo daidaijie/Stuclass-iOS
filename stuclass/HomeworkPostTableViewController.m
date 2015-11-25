@@ -151,7 +151,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     } else {
         [_textView resignFirstResponder];
         [_textField resignFirstResponder];
-        [KVNProgress showWithStatus:@"发布中"];
+        [KVNProgress showWithStatus:@"正在发布"];
         [self sendRequest:YES];
     }
 }
@@ -221,9 +221,10 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         
         if ([errorStr isEqualToString:@"wrong token"]) {
             
-            [KVNProgress showErrorWithStatus:@"该账号曾在别处登录，请重新登录" completion:^{
-                [self logout];
-            }];
+            [KVNProgress showErrorWithStatus:@"该账号曾在别处登录，请重新登录"];
+                
+            [self logout];
+            
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             
         } else if ([errorStr isEqualToString:@"no such class"]) {

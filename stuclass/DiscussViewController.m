@@ -196,7 +196,9 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     Discuss *discuss = _discussData[indexPath.section];
     
-    cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 说:", discuss.publisher];
+//    cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 说:", [discuss.nickname isEqual:[NSNull null]] ? discuss.publisher : discuss.nickname];
+    cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 说:", discuss.nickname];
+    
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:discuss.pub_time];
     cell.contentLabel.text = discuss.content;
     cell.discuss_id = discuss.discuss_id;
@@ -446,17 +448,19 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         
         for (NSDictionary *d in data) {
             
-            Discuss *dicuss = [[Discuss alloc] init];
+            Discuss *discuss = [[Discuss alloc] init];
             
-            dicuss.publisher = d[@"publisher"];
+            discuss.publisher = d[@"publisher"];
             
-            dicuss.pub_time = [d[@"time"] longLongValue];
+            discuss.nickname = d[@"publisher_nickname"];
             
-            dicuss.content = d[@"content"];
+            discuss.pub_time = [d[@"time"] longLongValue];
             
-            dicuss.discuss_id = [d[@"id"] integerValue];
+            discuss.content = d[@"content"];
             
-            [discussData addObject:dicuss];
+            discuss.discuss_id = [d[@"id"] integerValue];
+            
+            [discussData addObject:discuss];
         }
         
         _discussData = discussData;

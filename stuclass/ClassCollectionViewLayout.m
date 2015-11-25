@@ -74,6 +74,7 @@ static const NSInteger kAmountOfClasses = 13;
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [attributes addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
+//        NSLog(@"------------%@", attributes);
     }
     
     
@@ -91,6 +92,8 @@ static const NSInteger kAmountOfClasses = 13;
     NSInteger x = [coordinate[0] integerValue];
     NSInteger y = [coordinate[1] integerValue];
     NSInteger length = [coordinate[2] integerValue];
+    
+//    NSLog(@"row - %d  x - %d y - %d length - %d", indexPath.row, x, y, length);
     
     att.frame = CGRectMake(self.numWidth + self.cellWidth * x, self.cellWidth * y, self.cellWidth, self.cellWidth * length);
     

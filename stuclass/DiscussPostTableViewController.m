@@ -233,9 +233,10 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         
         if ([errorStr isEqualToString:@"wrong token"]) {
             
-            [KVNProgress showErrorWithStatus:@"该账号曾在别处登录，请重新登录" completion:^{
-                [self logout];
-            }];
+            [self logout];
+            
+            [KVNProgress showErrorWithStatus:@"该账号曾在别处登录，请重新登录"];
+            
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             
         } else if ([errorStr isEqualToString:@"no such class"]) {

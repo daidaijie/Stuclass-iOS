@@ -248,7 +248,7 @@ static NSString *login_url = @"/syllabus";
     
     
     // KVN
-    [KVNProgress showWithStatus:@"登录中"];
+    [KVNProgress showWithStatus:@"正在登录"];
     
     // ActivityIndicator
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];

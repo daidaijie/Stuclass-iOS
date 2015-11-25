@@ -63,13 +63,13 @@ static const NSInteger kHeightForCellRow = 46.0;
     
     switch (semester) {
             
-        case 0:
+        case 1:
             semesterStr = @"秋季学期";
             break;
-        case 1:
+        case 2:
             semesterStr = @"春季学期";
             break;
-        case 2:
+        case 3:
             semesterStr = @"夏季学期";
             break;
             
@@ -99,7 +99,7 @@ static const NSInteger kHeightForCellRow = 46.0;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section == 0 ? 1 : 5;
+    return section == 0 ? 1 : 6;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -141,18 +141,22 @@ static const NSInteger kHeightForCellRow = 46.0;
                 contentStr = exam.name;
                 break;
             case 1:
-                nameStr = @"地点、考号";
-                contentStr = [NSString stringWithFormat:@"%@, %@", exam.location, exam.position];
+                nameStr = @"地点";
+                contentStr = exam.location;
                 break;
             case 2:
+                nameStr = @"座位号";
+                contentStr = exam.position;
+                break;
+            case 3:
                 nameStr = @"主考、监考";
                 contentStr = [NSString stringWithFormat:@"%@, %@", exam.teacher, exam.invigilator];
                 break;
-            case 3:
+            case 4:
                 nameStr = @"时间";
                 contentStr = exam.time;
                 break;
-            case 4:
+            case 5:
                 nameStr = @"备注";
                 contentStr = exam.comment;
                 break;
