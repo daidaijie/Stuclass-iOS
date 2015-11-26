@@ -203,7 +203,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"发布作业 - 连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
             [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -223,7 +223,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
             
             [KVNProgress showErrorWithStatus:@"该账号曾在别处登录，请重新登录"];
                 
-            [self logout];
+            [self performSelector:@selector(logout) withObject:nil afterDelay:0.3];
             
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             
@@ -235,12 +235,14 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
                 
             } else {
                 NSLog(@"发生未知错误");
-                [KVNProgress showErrorWithStatus:@"连接服务器失败"];
+                [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试"  completion:^{
+                    [_textView becomeFirstResponder];
+                }];
             }
             
         } else {
             NSLog(@"发生未知错误");
-            [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+            [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
                 [_textView becomeFirstResponder];
             }];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -273,7 +275,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         
     } else {
         NSLog(@"发生未知错误");
-        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
             [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -323,7 +325,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"作业 - 添加课程 - 连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
             [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -338,7 +340,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     
     if (errorStr) {
         
-        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
             [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

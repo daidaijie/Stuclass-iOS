@@ -54,7 +54,6 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 - (void)setupTextView
 {
     _textView.placeholder.text = @"你可以吹180个字...";
-    [_textView becomeFirstResponder];
 }
 
 
@@ -62,7 +61,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 {
     [super viewDidAppear:animated];
     
-//    [_textView becomeFirstResponder];
+    [_textView becomeFirstResponder];
 }
 
 #pragma mark - TableView Delegate
@@ -216,7 +215,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"发布讨论 - 连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
             [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -234,9 +233,9 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         
         if ([errorStr isEqualToString:@"wrong token"]) {
             
-            [self logout];
-            
             [KVNProgress showErrorWithStatus:@"该账号曾在别处登录，请重新登录"];
+            
+            [self performSelector:@selector(logout) withObject:nil afterDelay:0.3];
             
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             
@@ -248,12 +247,14 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
                 
             } else {
                 NSLog(@"发生未知错误");
-                [KVNProgress showErrorWithStatus:@"连接服务器失败"];
+                [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试"  completion:^{
+                    [_textView becomeFirstResponder];
+                }];
             }
             
         } else {
             NSLog(@"发生未知错误");
-            [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+            [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
                 [_textView becomeFirstResponder];
             }];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -284,7 +285,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         
     } else {
         NSLog(@"发生未知错误");
-        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试，" completion:^{
             [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -334,7 +335,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"讨论 - 添加课程 - 连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
             [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -349,7 +350,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     
     if (errorStr) {
         
-        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
             [_textView becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

@@ -165,11 +165,9 @@ static const NSInteger kHeightForCellRow = 56.0;
 {
     if ([responseObject[@"ERROR"] isEqualToString:@"the password is wrong"] || [responseObject[@"ERROR"] isEqualToString:@"account not exist or not allowed"]) {
         // 账号或密码错误
-        [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
-            [self logoutClearData];
-            self.navigationController.navigationBarHidden = YES;
-            [self.navigationController popViewControllerAnimated:NO];
-        }];
+        [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录"];
+        
+        [self performSelector:@selector(logout) withObject:nil afterDelay:0.3];
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
         // 学分制崩溃了
@@ -191,6 +189,14 @@ static const NSInteger kHeightForCellRow = 56.0;
             [self.tableView setContentOffset:CGPointMake(0, -58) animated:YES];
         }];
     }
+}
+
+
+- (void)logout
+{
+    [self logoutClearData];
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 

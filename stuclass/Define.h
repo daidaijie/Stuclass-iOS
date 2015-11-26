@@ -16,7 +16,7 @@
 
 #define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.961 alpha:1.000]
 
-static const NSTimeInterval global_timeout = 5.0;
+static const NSTimeInterval global_timeout = 6.0;
 
 static const NSTimeInterval global_hud_delay = 1.0;
 

@@ -241,7 +241,7 @@ static NSString *login_url = @"/syllabus";
         } else {
             // 其他异常情况
             NSLog(@"发生未知错误");
-            [KVNProgress showErrorWithStatus:@"连接服务器失败"];
+            [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试"];
         }
     } else {
         // 成功

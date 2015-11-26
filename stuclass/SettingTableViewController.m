@@ -10,7 +10,7 @@
 #import <KVNProgress/KVNProgress.h>
 #import "NicknameTableViewController.h"
 
-@interface SettingTableViewController ()
+@interface SettingTableViewController () <NicknameChangedDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yearAndSemesterLabel;
@@ -99,19 +99,24 @@
     if (section == 1) {
         
         if (row == 1) {
-            
             [self performSegueWithIdentifier:@"ShowNickname" sender:nil];
             
         }
+        
     } else if (section == 2) {
+        
         if (row == 0) {
             [self performSegueWithIdentifier:@"BackgroundVC" sender:nil];
         }
+        
     } else if (section == 3) {
+        
         if (row == 0) {
             [self performSegueWithIdentifier:@"ShowAboutUs" sender:nil];
         }
+        
     } else if (section == 4) {
+        
         if (row == 0) {
             [KVNProgress showSuccessWithStatus:@"登出成功"];
             [self performSelector:@selector(logout) withObject:nil afterDelay:0.3];
@@ -119,6 +124,15 @@
     }
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ShowNickname"]) {
+        
+        NicknameTableViewController *ntvc = segue.destinationViewController;
+        
+        ntvc.delegate = self;
+    }
+}
 
 - (void)logout
 {
@@ -126,6 +140,12 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
+#pragma mark - Nickname Delegate
+
+- (void)nicknameChangedTo:(NSString *)nickname
+{
+    _nicknameLabel.text = nickname;
+}
 
 - (IBAction)backButtonPress:(id)sender
 {

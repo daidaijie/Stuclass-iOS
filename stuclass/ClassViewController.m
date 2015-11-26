@@ -447,7 +447,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     UINavigationController *nvc = [[UINavigationController alloc] init];
     nvc.viewControllers = @[cstvc];
     
-    nvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    nvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     [self presentViewController:nvc animated:YES completion:nil];
 }
@@ -799,7 +799,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败" completion:^{
+        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
             [_popover dismiss];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

@@ -226,8 +226,10 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     Discuss *d = _discussData[section];
     NSString *cellUsername = d.publisher;
     
-    if (([cellUsername isEqualToString:username] || [username isEqualToString:@"14jhwang"] || [username isEqualToString:@"14xfdeng"]) && !_isLoading) {
-        UIActionSheet *actionSheet1 = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:@"复制", nil];
+    BOOL isRoot = [username isEqualToString:@"14xfdeng"] || [username isEqualToString:@"14jhwang"];
+    
+    if (([cellUsername isEqualToString:username] || isRoot) && !_isLoading) {
+        UIActionSheet *actionSheet1 = [[UIActionSheet alloc] initWithTitle:(isRoot ? cellUsername : nil) delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:@"复制", nil];
         actionSheet1.tag = 1;
         
         _delete_id = d.discuss_id;
@@ -313,7 +315,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"删除讨论 - 连接服务器 - 失败 - %@", error);
-        [self showHUDWithText:@"连接服务器失败" andHideDelay:global_hud_delay];
+        [self showHUDWithText:@"连接服务器失败，请重试" andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
@@ -416,7 +418,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"讨论 - 连接服务器 - 失败 - %@", error);
-        [self showHUDWithText:@"连接服务器失败" andHideDelay:global_hud_delay];
+        [self showHUDWithText:@"连接服务器失败，请重试" andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         _isLoading = NO;
         [_refreshControl endRefreshing];
