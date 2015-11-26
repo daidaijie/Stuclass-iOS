@@ -230,7 +230,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     BOOL isRoot = [username isEqualToString:@"14xfdeng"] || [username isEqualToString:@"14jhwang"];
     
     if (([cellUsername isEqualToString:username] || isRoot) && !_isLoading) {
-        UIActionSheet *actionSheet1 = [[UIActionSheet alloc] initWithTitle:(isRoot ? cellUsername : nil) delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:@"复制", nil];
+        UIActionSheet *actionSheet1 = [[UIActionSheet alloc] initWithTitle:cellUsername delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:@"复制", nil];
         actionSheet1.tag = 1;
         
         _delete_id = h.homework_id;
