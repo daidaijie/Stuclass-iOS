@@ -73,6 +73,7 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
 }
 
 - (UIImage *)imageToCrop{
+    
     return self.imageView.image;
 }
 
@@ -103,12 +104,25 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
     
     //transform visible rect to image orientation
     CGAffineTransform rectTransform = [self _orientationTransformedRectOfImage:self.imageToCrop];
+    
     visibleRect = CGRectApplyAffineTransform(visibleRect, rectTransform);
+    
+//    CGFloat max = (visibleRect.size.width > visibleRect.size.height) ? visibleRect.size.width : visibleRect.size.height;
+    CGFloat maxHeight = self.imageToCrop.size.height;
+    CGFloat k = visibleRect.size.width / visibleRect.size.height;
+    
+    visibleRect = CGRectMake(visibleRect.origin.x, visibleRect.origin.y, maxHeight * k, maxHeight);
     
     //finally crop image
     CGImageRef imageRef = CGImageCreateWithImageInRect([self.imageToCrop CGImage], visibleRect);
+    
     UIImage *result = [UIImage imageWithCGImage:imageRef scale:self.imageToCrop.scale orientation:self.imageToCrop.imageOrientation];
     CGImageRelease(imageRef);
+    
+//    NSLog(@"visibleRect  %f    %f", visibleRect.size.width, visibleRect.size.height);
+//    NSLog(@"imageToCrop  %f    %f", self.imageToCrop.size.width, self.imageToCrop.size.height);
+//    NSLog(@"result       %f    %f", result.size.width, result.size.height);
+    
     return result;
 }
 
@@ -130,7 +144,7 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
     CGFloat scaleWidth = self.imageToCrop.size.width / self.cropSize.width;
     CGFloat scaleHeight = self.imageToCrop.size.height / self.cropSize.height;
     CGFloat scale = 0.0f;
-    
+//    CGFloat scale = MAX(scaleWidth, scaleHeight);
     if (self.cropSize.width > self.cropSize.height) {
         scale = (self.imageToCrop.size.width < self.imageToCrop.size.height ?
                  MAX(scaleWidth, scaleHeight) :

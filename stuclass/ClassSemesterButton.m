@@ -33,10 +33,6 @@
         
         self.titleLabel.numberOfLines = 0;
         
-//        self.layer.cornerRadius = 8.0;
-        
-//        self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-        
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.bounds byRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft cornerRadii:CGSizeMake(6.0, 6.0)];
         CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
         maskLayer.frame = self.bounds;

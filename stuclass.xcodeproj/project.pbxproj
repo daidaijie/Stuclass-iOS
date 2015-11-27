@@ -10,6 +10,7 @@
 		131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */; settings = {ASSET_TAGS = (); }; };
 		131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D21BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m */; settings = {ASSET_TAGS = (); }; };
 		131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D81BCB8676004EE13A /* ClassNumberCollectionReusableView.m */; settings = {ASSET_TAGS = (); }; };
+		131984101C072F62003C17E0 /* DocumentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1319840F1C072F62003C17E0 /* DocumentTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		131EF3511BD7DAEA007ECFE8 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 131EF3501BD7DAEA007ECFE8 /* CoreDataManager.m */; settings = {ASSET_TAGS = (); }; };
 		131EF3551BD7DD95007ECFE8 /* ClassBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 131EF3541BD7DD95007ECFE8 /* ClassBox.m */; settings = {ASSET_TAGS = (); }; };
 		1320FC7B1C01BF500084B152 /* GradeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1320FC7A1C01BF500084B152 /* GradeTableViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -103,6 +104,8 @@
 		131951D21BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassBackgroundCollectionReusableView.m; sourceTree = "<group>"; };
 		131951D71BCB8676004EE13A /* ClassNumberCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassNumberCollectionReusableView.h; sourceTree = "<group>"; };
 		131951D81BCB8676004EE13A /* ClassNumberCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassNumberCollectionReusableView.m; sourceTree = "<group>"; };
+		1319840E1C072F62003C17E0 /* DocumentTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentTableViewController.h; sourceTree = "<group>"; };
+		1319840F1C072F62003C17E0 /* DocumentTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentTableViewController.m; sourceTree = "<group>"; };
 		131EF34F1BD7DAEA007ECFE8 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		131EF3501BD7DAEA007ECFE8 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		131EF3531BD7DD95007ECFE8 /* ClassBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassBox.h; sourceTree = "<group>"; };
@@ -307,6 +310,15 @@
 				131951D81BCB8676004EE13A /* ClassNumberCollectionReusableView.m */,
 			);
 			name = SupplementaryView;
+			sourceTree = "<group>";
+		};
+		1319840D1C072EAE003C17E0 /* DocumentTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1319840E1C072F62003C17E0 /* DocumentTableViewController.h */,
+				1319840F1C072F62003C17E0 /* DocumentTableViewController.m */,
+			);
+			name = DocumentTableViewController;
 			sourceTree = "<group>";
 		};
 		131EF34E1BD7DAC7007ECFE8 /* CoreDataManager */ = {
@@ -737,6 +749,7 @@
 				13C4C3431BCC07650003E703 /* SemesterTableViewController */,
 				13C707261BC81FBE003061A4 /* LoginViewController */,
 				134530881BC8AD250018C15E /* ClassViewController */,
+				1319840D1C072EAE003C17E0 /* DocumentTableViewController */,
 				1326F7D11C02D9F20016B88E /* PublicTableViewController */,
 				136A27C81C04366E00B45460 /* ExamTableViewController */,
 				1320FC781C01BF2A0084B152 /* GradeTableViewController */,
@@ -1096,6 +1109,7 @@
 				1366D6821BD4F19000B69C04 /* ClassNoteTableViewCell.m in Sources */,
 				1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */,
 				1366D6711BD4BAD500B69C04 /* DiscussViewController.m in Sources */,
+				131984101C072F62003C17E0 /* DocumentTableViewController.m in Sources */,
 				13C4C37B1BCCEE2B0003E703 /* GKCropBorderView.m in Sources */,
 				13766B121BDA456300322371 /* NoteTableViewController.m in Sources */,
 				136A27D41C043F8500B45460 /* ExamTableViewCell.m in Sources */,
