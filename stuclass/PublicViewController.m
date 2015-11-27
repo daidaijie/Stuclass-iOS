@@ -214,7 +214,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         
         [actionSheet1 showInView:self.view];
     } else {
-        UIActionSheet *actionSheet2 = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"复制", nil];
+        UIActionSheet *actionSheet2 = [[UIActionSheet alloc] initWithTitle:cellUsername delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"复制", nil];
         actionSheet2.tag = 2;
         
         _copy_section = section;
