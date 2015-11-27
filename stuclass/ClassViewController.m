@@ -26,12 +26,8 @@
 #import "ExamTableViewController.h"
 #import "ClassSemesterButton.h"
 #import "ClassSemesterTableViewController.h"
+#import "DocumentTableViewController.h"
 
-static NSString *login_url = @"/syllabus";
-
-static NSString *exam_url = @"/exam";
-
-static NSString *grade_url = @"/grade";
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
@@ -160,6 +156,9 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     UIButton *gradeBtn = _moreView.itemsArray[2];
     [gradeBtn addTarget:self action:@selector(moreGradePress) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *oaBtn = _moreView.itemsArray[3];
+    [oaBtn addTarget:self action:@selector(moreOaPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -386,6 +385,15 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         NSMutableArray *examData = sender;
         
         etvc.examData = examData;
+        
+    } else if ([segue.identifier isEqualToString:@"ShowDocument"]) {
+        
+        
+        DocumentTableViewController *dtvc = segue.destinationViewController;
+        
+        NSMutableArray *documentData = sender;
+        
+        dtvc.documentData = documentData;
     }
 }
 
@@ -418,6 +426,10 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [self grade];
 }
 
+- (void)moreOaPress
+{
+    [self oa];
+}
 
 - (void)publicItemPress
 {
@@ -756,7 +768,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 }
 
 
-#pragma mark - My Grade
+#pragma mark - Grade
 
 - (void)grade
 {
@@ -845,6 +857,93 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 
 
+#pragma mark - OA
+
+- (void)oa
+{
+    // KVN
+    [KVNProgress showWithStatus:@"正在获取办公自动化信息"];
+    
+    // ActivityIndicator
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    // Request
+    [self sendOaRequest];
+}
+
+- (void)sendOaRequest
+{
+    // ud
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *username = [ud valueForKey:@"USERNAME"];
+    NSString *token = [ud valueForKey:@"USER_TOKEN"];
+    
+    // post data
+    NSDictionary *postData = @{
+                               @"username": username,
+                               @"token": token,
+                               @"pageindex": @"0",
+                               };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, oa_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
+        NSLog(@"连接服务器 - 成功");
+        [self parseOaResponseObject:responseObject];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"连接服务器 - 失败 - %@", error);
+        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
+            [_popover dismiss];
+        }];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
+
+- (void)parseOaResponseObject:(id)responseObject
+{
+    if ([responseObject[@"ERROR"] isEqualToString:@"wrong token"]) {
+        // wrong token
+        [KVNProgress showErrorWithStatus:global_connection_wrong_token];
+        
+        [self performSelector:@selector(logout) withObject:nil afterDelay:0.3];
+        
+        [_popover dismiss];
+        
+    } else if ([responseObject[@"ERROR"] isEqualToString:@"invalid input"]) {
+        // 未知错误
+        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
+            [_popover dismiss];
+        }];
+        
+    } else {
+        // 成功
+        
+        NSMutableArray *documentData = [[ClassParser sharedInstance] parseDocumentData:responseObject];
+        
+//        NSLog(@"%@", documentData);
+        
+        [KVNProgress dismiss];
+        [_popover dismiss];
+        
+        [self performSegueWithIdentifier:@"ShowDocument" sender:documentData];
+    }
+}
+
+
+
+
+
+
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -884,6 +983,18 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         }
     }
 }
+
+
+
+// Log Out
+- (void)logout
+{
+    [self logoutClearData];
+    self.navigationController.navigationBarHidden = YES;
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+}
+
 
 
 

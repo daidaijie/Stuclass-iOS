@@ -28,7 +28,8 @@ static NSString *global_connection_credit_broken = @"天哪！学分制系统崩
 
 #define BOTTOM_LINE_COLOR [UIColor colorWithRed:0.867 green:0.878 blue:0.886 alpha:1.000]
 
-#define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.961 alpha:1.000]
+//#define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.961 alpha:1.000]
+#define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.925 alpha:1.000]
 
 static const NSTimeInterval global_timeout = 6.0;
 
@@ -44,11 +45,38 @@ static const CGFloat global_textView_RowHeightFor6 = 298;
 
 static const CGFloat global_textView_RowHeightFor6p = 354;
 
+
+// url
+
 //static NSString *global_host = @"http://hjsmallfly.wicp.net/";
 
 static NSString *global_host = @"http://10.22.27.65";
 
 //static NSString *global_host = @"http://172.18.58.113:5000";
+
+static NSString *login_url = @"/syllabus";
+
+static NSString *exam_url = @"/exam";
+
+static NSString *grade_url = @"/grade";
+
+static NSString *oa_url = @"/oa";
+
+static NSString *discuss_post_url = @"/api/v1.0/discuss";
+
+static NSString *course_url = @"/api/course";
+
+static NSString *homework_post_url = @"/api/v1.0/homework";
+
+static NSString *homework_url = @"/api/course_info/0"; // homework - 0
+
+static NSString *homework_delete_url = @"/api/v1.0/delete/0";
+
+static NSString *discuss_url = @"/api/course_info/1"; // discuss - 1
+
+static NSString *discuss_delete_url = @"/api/v1.0/delete/1";
+
+static NSString *nickname_url = @"/api/v1.0/modify_user";
 
 // class colors
 

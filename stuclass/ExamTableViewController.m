@@ -14,8 +14,6 @@
 #import <AFNetworking/AFNetworking.h>
 #import "Define.h"
 
-static NSString *exam_url = @"/exam";
-
 static NSString *cell_id = @"ExamTableViewCell";
 static NSString *header_cell_id = @"HeaderExamTableViewCell";
 

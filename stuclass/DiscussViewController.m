@@ -21,10 +21,6 @@
 
 static NSString *cell_id = @"DiscussTableViewCell";
 
-static NSString *discuss_url = @"/api/course_info/1"; // discuss - 1
-
-static NSString *discuss_delete_url = @"/api/v1.0/delete/1";
-
 static const CGFloat kHeightForPostButton = 52;
 
 static const CGFloat kHeightForSectionHeader = 8.0;

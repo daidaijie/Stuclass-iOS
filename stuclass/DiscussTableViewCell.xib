@@ -11,13 +11,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vRj-Xi-drl" id="Gkn-F2-QGc">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="131.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wqs-jV-KIX">
-                        <rect key="frame" x="8" y="0.0" width="304" height="132"/>
+                        <rect key="frame" x="8" y="0.0" width="304" height="131"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14jhwang说:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Bom-y1-drS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14jhwang 说:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="Bom-y1-drS">
                                 <rect key="frame" x="8" y="5" width="222" height="24"/>
                                 <animations/>
                                 <constraints>
@@ -28,7 +28,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天离散作业没做啊哈哈哈啊哈哈哈今天离散作业没做啊哈哈哈啊哈哈哈今天离散作业没做啊哈哈哈啊哈哈哈" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="cGC-KG-joi">
-                                <rect key="frame" x="8" y="32" width="288" height="92"/>
+                                <rect key="frame" x="8" y="32" width="288" height="91"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="highlightedColor"/>
@@ -50,13 +50,13 @@
                         <constraints>
                             <constraint firstItem="Bom-y1-drS" firstAttribute="leading" secondItem="wqs-jV-KIX" secondAttribute="leading" constant="8" id="2PY-FO-2pn"/>
                             <constraint firstAttribute="trailing" secondItem="wgv-L5-Wn2" secondAttribute="trailing" constant="8" id="2Ws-sG-H9r"/>
-                            <constraint firstAttribute="bottom" secondItem="cGC-KG-joi" secondAttribute="bottom" constant="8" id="2XN-aa-UF6"/>
-                            <constraint firstAttribute="trailing" secondItem="cGC-KG-joi" secondAttribute="trailing" constant="8" id="9ym-Xk-Uyn"/>
                             <constraint firstItem="Bom-y1-drS" firstAttribute="top" secondItem="wqs-jV-KIX" secondAttribute="top" constant="5" id="AmW-6h-PkM"/>
-                            <constraint firstItem="cGC-KG-joi" firstAttribute="leading" secondItem="wqs-jV-KIX" secondAttribute="leading" constant="8" id="CMB-Uy-PmV"/>
-                            <constraint firstItem="cGC-KG-joi" firstAttribute="top" secondItem="wgv-L5-Wn2" secondAttribute="bottom" constant="3" id="NDN-pT-cLP"/>
+                            <constraint firstItem="cGC-KG-joi" firstAttribute="leading" secondItem="wqs-jV-KIX" secondAttribute="leading" constant="8" id="CPA-P9-ogF"/>
+                            <constraint firstAttribute="bottom" secondItem="cGC-KG-joi" secondAttribute="bottom" constant="8" id="Emm-Ru-Ls1"/>
+                            <constraint firstItem="cGC-KG-joi" firstAttribute="top" secondItem="wgv-L5-Wn2" secondAttribute="bottom" constant="3" id="YLO-6g-LfR"/>
                             <constraint firstItem="wgv-L5-Wn2" firstAttribute="leading" secondItem="Bom-y1-drS" secondAttribute="trailing" constant="1" id="f2G-Pd-zhW"/>
                             <constraint firstItem="wgv-L5-Wn2" firstAttribute="top" secondItem="wqs-jV-KIX" secondAttribute="top" constant="5" id="lon-jW-m0j"/>
+                            <constraint firstAttribute="trailing" secondItem="cGC-KG-joi" secondAttribute="trailing" constant="8" id="qIR-CU-FqB"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -69,7 +69,7 @@
                 </constraints>
             </tableViewCellContentView>
             <animations/>
-            <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="contentLabel" destination="cGC-KG-joi" id="eXe-HG-kuZ"/>
                 <outlet property="dateLabel" destination="wgv-L5-Wn2" id="Qzs-eV-jCe"/>

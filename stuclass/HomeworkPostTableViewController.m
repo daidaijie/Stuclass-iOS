@@ -18,10 +18,6 @@
 #import "PlaceholderTextView.h"
 #import "HomeworkTextField.h"
 
-static NSString *homework_post_url = @"/api/v1.0/homework";
-
-static NSString *course_url = @"/api/course";
-
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 static const NSInteger kNumberOfSections = 1;

@@ -18,8 +18,6 @@
 #import "ClassParser.h"
 #import "CoreDataManager.h"
 
-static NSString *login_url = @"/syllabus";
-
 @interface LoginViewController () <UITextFieldDelegate, SemesterDelegate>
 
 @property (weak, nonatomic) IBOutlet InputView *inputView;

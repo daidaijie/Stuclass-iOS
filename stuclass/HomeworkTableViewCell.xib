@@ -11,11 +11,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="131.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ouU-HF-WRx">
-                        <rect key="frame" x="8" y="0.0" width="304" height="132"/>
+                        <rect key="frame" x="8" y="0.0" width="304" height="131"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14jhwang发布的作业信息:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="wqC-Z8-zCZ">
                                 <rect key="frame" x="8" y="5" width="222" height="24"/>
@@ -45,7 +45,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="截止时间: 无" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="qDy-ns-aR1">
-                                <rect key="frame" x="8" y="107" width="288" height="24"/>
+                                <rect key="frame" x="8" y="106" width="288" height="24"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="kzF-4q-F36"/>
@@ -58,19 +58,19 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="qDy-ns-aR1" firstAttribute="top" secondItem="PbK-TV-wEn" secondAttribute="bottom" constant="1" id="192-bE-0Rf"/>
+                            <constraint firstAttribute="trailing" secondItem="PbK-TV-wEn" secondAttribute="trailing" constant="8" id="0SS-6H-Szx"/>
                             <constraint firstAttribute="trailing" secondItem="nlj-Ub-vMK" secondAttribute="trailing" constant="8" id="8Ef-a7-mJk"/>
                             <constraint firstAttribute="bottom" secondItem="qDy-ns-aR1" secondAttribute="bottom" constant="1" id="G8q-6w-AXW"/>
-                            <constraint firstAttribute="trailing" secondItem="PbK-TV-wEn" secondAttribute="trailing" constant="8" id="Ku0-fg-eLO"/>
-                            <constraint firstItem="PbK-TV-wEn" firstAttribute="top" secondItem="nlj-Ub-vMK" secondAttribute="bottom" constant="3" id="LLa-ed-aYe"/>
+                            <constraint firstItem="PbK-TV-wEn" firstAttribute="top" secondItem="nlj-Ub-vMK" secondAttribute="bottom" constant="3" id="Rm9-76-YId"/>
                             <constraint firstItem="wqC-Z8-zCZ" firstAttribute="leading" secondItem="ouU-HF-WRx" secondAttribute="leading" constant="8" id="SiA-fl-dKS"/>
                             <constraint firstItem="wqC-Z8-zCZ" firstAttribute="top" secondItem="ouU-HF-WRx" secondAttribute="top" constant="5" id="UC0-te-5td"/>
                             <constraint firstAttribute="trailing" secondItem="qDy-ns-aR1" secondAttribute="trailing" constant="8" id="Ww6-gg-cOz"/>
-                            <constraint firstItem="PbK-TV-wEn" firstAttribute="leading" secondItem="ouU-HF-WRx" secondAttribute="leading" constant="8" id="XMD-mB-3kj"/>
                             <constraint firstItem="nlj-Ub-vMK" firstAttribute="leading" secondItem="wqC-Z8-zCZ" secondAttribute="trailing" constant="1" id="but-cH-LH7"/>
                             <constraint firstItem="nlj-Ub-vMK" firstAttribute="top" secondItem="ouU-HF-WRx" secondAttribute="top" constant="5" id="cGD-Me-UXp"/>
                             <constraint firstItem="qDy-ns-aR1" firstAttribute="leading" secondItem="ouU-HF-WRx" secondAttribute="leading" constant="8" id="eoB-2I-cT0"/>
+                            <constraint firstItem="qDy-ns-aR1" firstAttribute="top" secondItem="PbK-TV-wEn" secondAttribute="bottom" id="fVF-8n-yzY"/>
                             <constraint firstItem="qDy-ns-aR1" firstAttribute="top" secondItem="PbK-TV-wEn" secondAttribute="bottom" constant="-1" id="fvW-1S-YGk"/>
+                            <constraint firstItem="PbK-TV-wEn" firstAttribute="leading" secondItem="ouU-HF-WRx" secondAttribute="leading" constant="8" id="vTT-vP-95M"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -88,7 +88,7 @@
                 </constraints>
             </tableViewCellContentView>
             <animations/>
-            <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="contentLabel" destination="PbK-TV-wEn" id="iAw-K3-UbE"/>
                 <outlet property="dateLabel" destination="nlj-Ub-vMK" id="orr-np-pNq"/>

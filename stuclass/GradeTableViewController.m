@@ -14,8 +14,6 @@
 #import <AFNetworking/AFNetworking.h>
 #import "Define.h"
 
-static NSString *grade_url = @"/grade";
-
 static NSString *cell_id = @"GradeTableViewCell";
 static NSString *gpa_cell_id = @"GPAGradeTableViewCell";
 

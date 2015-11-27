@@ -12,7 +12,6 @@
 #import <AFNetworking/AFNetworking.h>
 #import "MBProgressHUD.h"
 
-static NSString *nickname_url = @"/api/v1.0/modify_user";
 
 @interface NicknameTableViewController ()
 

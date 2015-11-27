@@ -17,10 +17,6 @@
 #import "JHDater.h"
 #import "PlaceholderTextView.h"
 
-static NSString *discuss_post_url = @"/api/v1.0/discuss";
-
-static NSString *course_url = @"/api/course";
-
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 static const NSInteger kNumberOfSections = 1;
@@ -370,7 +366,6 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     [self logoutClearData];
     self.navigationController.navigationBarHidden = YES;
     [self.navigationController popToRootViewControllerAnimated:YES];
-    
 }
 
 - (void)logoutClearData

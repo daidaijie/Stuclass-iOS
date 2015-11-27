@@ -190,7 +190,7 @@
         success = [fileManager removeItemAtPath:imageFilePath error:&error];
     }
     // 缩放图片
-    UIImage *scaleImage;
+//    UIImage *scaleImage;
     
 //    if (SCREEN_WIDTH == 414.0) {
 //        NSLog(@"Scale - iPhone 6 plus");

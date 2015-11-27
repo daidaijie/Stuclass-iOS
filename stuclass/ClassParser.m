@@ -11,6 +11,7 @@
 #import "ClassBox.h"
 #import "Grade.h"
 #import "Exam.h"
+#import "Document.h"
 #import "Define.h"
 
 @interface ClassParser ()
@@ -365,6 +366,31 @@
     
     return examArray;
 }
+
+
+#pragma mark - OA Parser
+
+- (NSMutableArray *)parseDocumentData:(NSDictionary *)documentData
+{
+    // parse
+    
+    NSMutableArray *documentArray = [NSMutableArray array];
+    
+    for (NSDictionary *dict in documentData[@"DOCUMENTS"]) {
+        
+        Document *document = [[Document alloc] init];
+        
+        document.title = dict[@"title"];
+        document.date = dict[@"date"];
+        document.url = dict[@"url"];
+        document.department = dict[@"department"];
+        
+        [documentArray addObject:document];
+    }
+    
+    return documentArray;
+}
+
 
 @end
 

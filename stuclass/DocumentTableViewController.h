@@ -10,4 +10,6 @@
 
 @interface DocumentTableViewController : UITableViewController
 
+@property (strong, nonatomic) NSMutableArray *documentData;
+
 @end

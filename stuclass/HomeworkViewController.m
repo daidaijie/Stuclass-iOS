@@ -21,10 +21,6 @@
 
 static NSString *cell_id = @"HomeworkTableViewCell";
 
-static NSString *homework_url = @"/api/course_info/0"; // homework - 0
-
-static NSString *homework_delete_url = @"/api/v1.0/delete/0";
-
 static const CGFloat kHeightForPostButton = 52;
 
 static const CGFloat kHeightForSectionHeader = 8.0;

@@ -13,10 +13,6 @@
 #import "CoreDataManager.h"
 #import "ClassParser.h"
 
-
-static NSString *login_url = @"/syllabus";
-
-
 @interface ClassSemesterTableViewController ()
 
 @property (strong, nonatomic) NSMutableArray *semesterData;

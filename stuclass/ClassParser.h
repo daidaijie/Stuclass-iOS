@@ -21,4 +21,6 @@
 
 - (NSMutableArray *)parseExamData:(NSDictionary *)examData;
 
+- (NSMutableArray *)parseDocumentData:(NSDictionary *)documentData;
+
 @end
