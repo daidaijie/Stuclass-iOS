@@ -155,7 +155,7 @@ static const NSInteger kHeightForCellRow = 56.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试"];
+        [KVNProgress showErrorWithStatus:global_connection_failed];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
@@ -165,16 +165,16 @@ static const NSInteger kHeightForCellRow = 56.0;
 {
     if ([responseObject[@"ERROR"] isEqualToString:@"the password is wrong"] || [responseObject[@"ERROR"] isEqualToString:@"account not exist or not allowed"]) {
         // 账号或密码错误
-        [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录"];
+        [KVNProgress showErrorWithStatus:global_connection_wrong_user_password];
         
         [self performSelector:@selector(logout) withObject:nil afterDelay:0.3];
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
         // 学分制崩溃了
-        [KVNProgress showErrorWithStatus:@"天哪！学分制系统崩溃了！"];
+        [KVNProgress showErrorWithStatus:global_connection_credit_broken];
     } else if ([responseObject[@"ERROR"] isEqualToString:@"there is no information about grade"]) {
         // 没有成绩
-        [KVNProgress showErrorWithStatus:@"你都还没考试呢！哪有成绩！"];
+        [KVNProgress showErrorWithStatus:@"暂时没有成绩信息"];
     } else {
         // 成功
         

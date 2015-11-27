@@ -7,6 +7,20 @@
 //
 
 
+static NSString *global_connection_failed = @"连接服务器失败，请重试";
+
+static NSString *global_connection_wrong_token = @"该账号曾在别处登录，请重新登录";
+
+static NSString *global_connection_wrong_user_password = @"账号或密码有误，请重新登录";
+
+static NSString *global_connection_credit_broken = @"天哪！学分制系统崩溃了！";
+
+
+
+
+
+
+
 
 #define MAIN_COLOR [UIColor colorWithRed:0.745 green:0.298 blue:0.235 alpha:1.000]
 

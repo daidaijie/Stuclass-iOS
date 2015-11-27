@@ -141,7 +141,7 @@ static NSString *nickname_url = @"/api/v1.0/modify_user";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
+        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
             [_nicknameTextField becomeFirstResponder];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -153,7 +153,7 @@ static NSString *nickname_url = @"/api/v1.0/modify_user";
 {
     if ([responseObject[@"ERROR"] isEqualToString:@"wrong token"] || [responseObject[@"ERROR"] isEqualToString:@"no such user"]) {
         // wrong token
-        [KVNProgress showErrorWithStatus:@"该账号曾在别处登录，请重新登录" completion:^{
+        [KVNProgress showErrorWithStatus:global_connection_wrong_token completion:^{
             
             [self logoutClearData];
             self.navigationController.navigationBarHidden = YES;

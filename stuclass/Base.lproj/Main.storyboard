@@ -737,7 +737,7 @@
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="hT5-Mp-7SC" rowHeight="50" style="IBUITableViewCellStyleDefault" id="zq8-dA-dkN">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="hT5-Mp-7SC" rowHeight="50" style="IBUITableViewCellStyleDefault" id="zq8-dA-dkN">
                                         <rect key="frame" x="0.0" y="409" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zq8-dA-dkN" id="m4B-RK-MVU">

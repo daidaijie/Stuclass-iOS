@@ -10,7 +10,7 @@
 #import <KVNProgress/KVNProgress.h>
 #import "NicknameTableViewController.h"
 
-@interface SettingTableViewController () <NicknameChangedDelegate>
+@interface SettingTableViewController () <NicknameChangedDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yearAndSemesterLabel;
@@ -113,6 +113,8 @@
         
         if (row == 0) {
             [self performSegueWithIdentifier:@"ShowAboutUs" sender:nil];
+        } else if (row == 1) {
+            [self share];
         }
         
     } else if (section == 4) {
@@ -151,6 +153,28 @@
 {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+#pragma mark - Share
+
+- (void)share
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"分享给朋友" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"微信好友", @"微信朋友圈", @"QQ好友", @"QQ说说", nil];
+    [actionSheet showInView:self.view];
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+}
+
 
 @end
 

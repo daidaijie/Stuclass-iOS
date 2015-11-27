@@ -315,7 +315,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"删除讨论 - 连接服务器 - 失败 - %@", error);
-        [self showHUDWithText:@"连接服务器失败，请重试" andHideDelay:global_hud_delay];
+        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
@@ -332,7 +332,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         if ([errorStr isEqualToString:@"not authorized: wrong token"]) {
             
             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-            [self showHUDWithText:@"该账号曾在别处登录，请重新登录" andHideDelay:1.6];
+            [self showHUDWithText:global_connection_wrong_token andHideDelay:1.6];
             [self performSelector:@selector(logout) withObject:nil afterDelay:1.6];
             
         } else {
@@ -418,7 +418,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"讨论 - 连接服务器 - 失败 - %@", error);
-        [self showHUDWithText:@"连接服务器失败，请重试" andHideDelay:global_hud_delay];
+        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         _isLoading = NO;
         [_refreshControl endRefreshing];

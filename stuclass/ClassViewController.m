@@ -588,7 +588,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
+        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
             [_popover dismiss];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -600,7 +600,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     if ([responseObject[@"ERROR"] isEqualToString:@"the password is wrong"] || [responseObject[@"ERROR"] isEqualToString:@"account not exist or not allowed"]) {
         // 账号或密码错误
-        [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
+        [KVNProgress showErrorWithStatus:global_connection_wrong_user_password completion:^{
             [_popover dismiss];
             [self logoutClearData];
             self.navigationController.navigationBarHidden = YES;
@@ -609,7 +609,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
         // 学分制崩溃了
-        [KVNProgress showErrorWithStatus:@"天哪！学分制系统崩溃了！" completion:^{
+        [KVNProgress showErrorWithStatus:global_connection_credit_broken completion:^{
             [_popover dismiss];
         }];
     } else {
@@ -711,7 +711,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
+        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
             [_popover dismiss];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -723,7 +723,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     if ([responseObject[@"ERROR"] isEqualToString:@"the password is wrong"] || [responseObject[@"ERROR"] isEqualToString:@"account not exist or not allowed"]) {
         // 账号或密码错误
-        [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
+        [KVNProgress showErrorWithStatus:global_connection_wrong_user_password completion:^{
             [_popover dismiss];
             [self logoutClearData];
             self.navigationController.navigationBarHidden = YES;
@@ -732,7 +732,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
         // 学分制崩溃了
-        [KVNProgress showErrorWithStatus:@"天哪！学分制系统崩溃了！" completion:^{
+        [KVNProgress showErrorWithStatus:global_connection_credit_broken completion:^{
             [_popover dismiss];
         }];
         
@@ -799,7 +799,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试" completion:^{
+        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
             [_popover dismiss];
         }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -811,7 +811,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     if ([responseObject[@"ERROR"] isEqualToString:@"the password is wrong"] || [responseObject[@"ERROR"] isEqualToString:@"account not exist or not allowed"]) {
         // 账号或密码错误
-        [KVNProgress showErrorWithStatus:@"账号或密码有误，请重新登录" completion:^{
+        [KVNProgress showErrorWithStatus:global_connection_wrong_user_password completion:^{
             [_popover dismiss];
             [self logoutClearData];
             self.navigationController.navigationBarHidden = YES;
@@ -820,13 +820,13 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
         // 学分制崩溃了
-        [KVNProgress showErrorWithStatus:@"天哪！学分制系统崩溃了！" completion:^{
+        [KVNProgress showErrorWithStatus:global_connection_credit_broken completion:^{
             [_popover dismiss];
         }];
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"there is no information about grade"]) {
         // 没有成绩
-        [KVNProgress showErrorWithStatus:@"你都还没考试呢！哪有成绩！" completion:^{
+        [KVNProgress showErrorWithStatus:@"暂时没有成绩信息" completion:^{
             [_popover dismiss];
         }];
     } else {

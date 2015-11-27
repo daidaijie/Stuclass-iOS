@@ -286,7 +286,7 @@ static NSString *login_url = @"/syllabus";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试"];
+        [KVNProgress showErrorWithStatus:global_connection_failed];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
     
@@ -302,14 +302,14 @@ static NSString *login_url = @"/syllabus";
             [KVNProgress showErrorWithStatus:@"账号或密码有误"];
         } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
             // 学分制崩溃了
-            [KVNProgress showErrorWithStatus:@"天哪！学分制系统崩溃了！"];
+            [KVNProgress showErrorWithStatus:global_connection_credit_broken];
         } else if ([responseObject[@"ERROR"] isEqualToString:@"No classes"]) {
             // 没有这个课表
             [KVNProgress showErrorWithStatus:@"暂时没有该课表信息"];
         } else {
             // 其他异常情况
             NSLog(@"发生未知错误");
-            [KVNProgress showErrorWithStatus:@"连接服务器失败，请重试"];
+            [KVNProgress showErrorWithStatus:global_connection_failed];
         }
     } else {
         // 成功
