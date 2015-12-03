@@ -7,6 +7,13 @@
 //
 
 #import "DiscussTableViewCell.h"
+#import "Define.h"
+
+@interface DiscussTableViewCell ()
+
+@property (strong, nonatomic) UIView *bottomLine;
+
+@end
 
 @implementation DiscussTableViewCell
 
@@ -26,6 +33,17 @@
 //    _discussView.layer.shadowOffset = CGSizeMake(-0.1, 0.1);
 //    _discussView.layer.shadowColor = [UIColor grayColor].CGColor;
     
+    // lineView
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat lineWidth = 0.5;
+    
+    UIView *topLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, lineWidth)];
+    topLine.backgroundColor = [UIColor colorWithWhite:0.843 alpha:1.000];
+    [_discussView addSubview:topLine];
+    
+    _bottomLine = [[UIView alloc] init];
+    _bottomLine.backgroundColor = [UIColor colorWithWhite:0.843 alpha:1.000];
+    [_discussView addSubview:_bottomLine];
     
     // Gesture
     UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
@@ -43,23 +61,19 @@
     }
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    _bottomLine.frame = CGRectMake(0, self.frame.size.height, width, 0.5);
+}
+
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
     // Configure the view for the selected state
 }
-
-
-
-
-
-
-
-
-
-
-
 
 @end
 
