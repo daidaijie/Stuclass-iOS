@@ -52,7 +52,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="汕大课程表©2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nqh-ue-ptD">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="junhaow, xiaofud©2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nqh-ue-ptD">
                                 <rect key="frame" x="77" y="545" width="166" height="15"/>
                                 <animations/>
                                 <constraints>
@@ -63,7 +63,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="kbd-0i-ZVt">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="kbd-0i-ZVt">
                                 <rect key="frame" x="120" y="53" width="80" height="80"/>
                                 <animations/>
                                 <constraints>
@@ -1003,7 +1003,7 @@
         <scene sceneID="ouH-wT-ZPe">
             <objects>
                 <tableViewController id="8Lp-Df-7PC" customClass="DocumentTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="wUl-qA-81j">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="132" sectionHeaderHeight="28" sectionFooterHeight="28" id="wUl-qA-81j">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
@@ -1029,7 +1029,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天离散作业没做啊哈哈哈啊哈哈哈今天离散作业没做啊哈哈哈啊哈哈哈今天离散作业没做啊哈哈哈啊哈哈哈" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="288" translatesAutoresizingMaskIntoConstraints="NO" id="wrp-Tt-lpo">
-                                                    <rect key="frame" x="8" y="32" width="288" height="91"/>
+                                                    <rect key="frame" x="8" y="32" width="288" height="93"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
@@ -1053,7 +1053,7 @@
                                                 <constraint firstItem="wrp-Tt-lpo" firstAttribute="top" secondItem="XPE-Ls-vyi" secondAttribute="bottom" constant="3" id="FwX-wh-IXZ"/>
                                                 <constraint firstItem="xLy-Ha-pUb" firstAttribute="leading" secondItem="XPE-Ls-vyi" secondAttribute="trailing" constant="8" id="JW7-cI-OFd"/>
                                                 <constraint firstItem="XPE-Ls-vyi" firstAttribute="top" secondItem="9Sj-jJ-vGI" secondAttribute="top" constant="5" id="NMr-yt-SHx"/>
-                                                <constraint firstAttribute="bottom" secondItem="wrp-Tt-lpo" secondAttribute="bottom" constant="9" id="SUr-Lo-73C"/>
+                                                <constraint firstAttribute="bottom" secondItem="wrp-Tt-lpo" secondAttribute="bottom" constant="7" id="SUr-Lo-73C"/>
                                                 <constraint firstItem="wrp-Tt-lpo" firstAttribute="leading" secondItem="9Sj-jJ-vGI" secondAttribute="leading" constant="8" id="VWz-5c-JkJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="xLy-Ha-pUb" secondAttribute="trailing" constant="9" id="aeP-5r-gEZ"/>
                                                 <constraint firstItem="XPE-Ls-vyi" firstAttribute="leading" secondItem="9Sj-jJ-vGI" secondAttribute="leading" constant="8" id="tqN-fL-c28"/>
@@ -1474,7 +1474,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="512" height="512"/>
+        <image name="LaunchLogo" width="512" height="512"/>
         <image name="toolbar-sync" width="23" height="23"/>
     </resources>
 </document>

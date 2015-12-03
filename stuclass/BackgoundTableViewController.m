@@ -187,7 +187,7 @@
     // 检测是否已存在
     success = [fileManager fileExistsAtPath:imageFilePath];
     if (success) {
-        success = [fileManager removeItemAtPath:imageFilePath error:&error];
+        [fileManager removeItemAtPath:imageFilePath error:&error];
     }
     // 缩放图片
 //    UIImage *scaleImage;

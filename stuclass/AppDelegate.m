@@ -47,7 +47,7 @@
     [UINavigationBar appearance].titleTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:19.0], NSForegroundColorAttributeName:[UIColor whiteColor]};
     
     // 启动等待时间
-    [NSThread sleepForTimeInterval:0.6];
+    [NSThread sleepForTimeInterval:0.7];
     
     NSLog(@"当前用户 - TOKEN - %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"USER_TOKEN"]);
     

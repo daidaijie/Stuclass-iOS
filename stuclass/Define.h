@@ -31,7 +31,7 @@ static NSString *global_connection_credit_broken = @"天哪！学分制系统崩
 //#define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.961 alpha:1.000]
 #define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.925 alpha:1.000]
 
-static const NSTimeInterval global_timeout = 6.0;
+static const NSTimeInterval global_timeout = 8.0;
 
 static const NSTimeInterval global_hud_delay = 1.0;
 
@@ -51,6 +51,8 @@ static const CGFloat global_textView_RowHeightFor6p = 354;
 //static NSString *global_host = @"http://hjsmallfly.wicp.net/";
 
 static NSString *global_host = @"http://10.22.27.65";
+
+//static NSString *global_host = @"http://10.28.31.15";
 
 //static NSString *global_host = @"http://172.18.58.113:5000";
 

@@ -87,8 +87,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     emptyLabel.text = @"暂时没有作业，点我刷新";
     [_emptyView addSubview:emptyLabel];
     
-    UIImageView *emptyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
-    emptyImageView.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 - 40);
+    UIImageView *emptyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 92, 92)];
+    emptyImageView.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 - 43);
     emptyImageView.image = [UIImage imageNamed:@"icon-empty-homework"];
     [_emptyView addSubview:emptyImageView];
     

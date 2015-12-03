@@ -9,8 +9,9 @@
 #import "SettingTableViewController.h"
 #import <KVNProgress/KVNProgress.h>
 #import "NicknameTableViewController.h"
+#import "MBProgressHUD.h"
 
-@interface SettingTableViewController () <NicknameChangedDelegate, UIActionSheetDelegate>
+@interface SettingTableViewController () <NicknameChangedDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yearAndSemesterLabel;
@@ -159,20 +160,34 @@
 
 - (void)share
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"分享给朋友" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"微信好友", @"微信朋友圈", @"QQ好友", @"QQ说说", nil];
-    [actionSheet showInView:self.view];
-}
-
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    pasteBoard.string = @"http://xxx.com";
     
+    [self showHUDWithText:@"下载链接已添加到剪贴板" andHideDelay:1.6];
+    
+    [self performSelector:@selector(diselectCell) withObject:nil afterDelay:1.6];
 }
 
 
-- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex
+- (void)diselectCell
 {
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+}
+
+
+- (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {
+    
+    [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
+    
+    if (self.navigationController.view) {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = string;
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:delay];
+    }
 }
 
 

@@ -120,7 +120,8 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     if (_textView.text.length > 0) {
         
         // date
-        NSDate *date = [self getCurrentZoneDate:[NSDate date]];
+//        NSDate *date = [self getCurrentZoneDate:[NSDate date]];
+        NSDate *date = [NSDate date];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateStyle = NSDateFormatterFullStyle;
         formatter.dateFormat = @"yyyy年MM月dd日HH时mm分ss秒";

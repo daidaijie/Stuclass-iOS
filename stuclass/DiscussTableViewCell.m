@@ -21,7 +21,7 @@
     // postView
 //    _discussView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
 //    _discussView.layer.shouldRasterize = YES;
-    _discussView.layer.cornerRadius = 4.0;
+//    _discussView.layer.cornerRadius = 4.0;
 //    _discussView.layer.shadowOpacity = 0.25;
 //    _discussView.layer.shadowOffset = CGSizeMake(-0.1, 0.1);
 //    _discussView.layer.shadowColor = [UIColor grayColor].CGColor;

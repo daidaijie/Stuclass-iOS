@@ -90,8 +90,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     emptyLabel.text = @"目测都在潜水，点我刷新";
     [_emptyView addSubview:emptyLabel];
     
-    UIImageView *emptyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
-    emptyImageView.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 - 40);
+    UIImageView *emptyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 88, 88)];
+    emptyImageView.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 - 41);
     emptyImageView.image = [UIImage imageNamed:@"icon-empty-discuss"];
     [_emptyView addSubview:emptyImageView];
     
