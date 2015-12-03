@@ -17,6 +17,8 @@
 #import "Define.h"
 #import "ClassParser.h"
 #import "CoreDataManager.h"
+#import "MobClick.h"
+
 
 @interface LoginViewController () <UITextFieldDelegate, SemesterDelegate>
 
@@ -339,7 +341,7 @@
         [ud setValue:nickname forKey:@"NICKNAME"];
         
         [KVNProgress showSuccessWithStatus:@"登录成功" completion:^{
-            
+            [MobClick event:@"Login_Login" attributes:@{@"Username": _inputView.usernameTextField.text}];
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             ClassViewController *cvc = [sb instantiateViewControllerWithIdentifier:@"cvc"];
             

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		130243AC1C10470600AA4A0E /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 130243A91C10470600AA4A0E /* libMobClickLibrary.a */; settings = {ASSET_TAGS = (); }; };
+		130243AE1C10472F00AA4A0E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 130243AD1C10472F00AA4A0E /* libz.tbd */; };
 		131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */; settings = {ASSET_TAGS = (); }; };
 		131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D21BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m */; settings = {ASSET_TAGS = (); }; };
 		131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D81BCB8676004EE13A /* ClassNumberCollectionReusableView.m */; settings = {ASSET_TAGS = (); }; };
@@ -102,6 +104,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		130243A91C10470600AA4A0E /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		130243AA1C10470600AA4A0E /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		130243AD1C10472F00AA4A0E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		131951CE1BCB47E2004EE13A /* ClassCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewLayout.h; sourceTree = "<group>"; };
 		131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewLayout.m; sourceTree = "<group>"; };
 		131951D11BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassBackgroundCollectionReusableView.h; sourceTree = "<group>"; };
@@ -277,13 +282,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				130243AE1C10472F00AA4A0E /* libz.tbd in Frameworks */,
 				660EBFD65F761DCD78A2A149 /* libPods.a in Frameworks */,
+				130243AC1C10470600AA4A0E /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		130243A81C10470600AA4A0E /* UmengSDK */ = {
+			isa = PBXGroup;
+			children = (
+				130243A91C10470600AA4A0E /* libMobClickLibrary.a */,
+				130243AA1C10470600AA4A0E /* MobClick.h */,
+			);
+			path = UmengSDK;
+			sourceTree = "<group>";
+		};
 		131951CD1BCB47C9004EE13A /* ClassLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,6 +828,7 @@
 		13C707241BC7DE55003061A4 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				130243A81C10470600AA4A0E /* UmengSDK */,
 				13CB2C771BDFD2A700460BE4 /* PlaceholderTextView */,
 				137C8C2D1BDB149100236C79 /* UITableView+FDTemplateLayoutCell */,
 				13D8E2BE1BD625180051617C /* MBProgressHUD */,
@@ -965,6 +982,7 @@
 		811F232ECC62EF514EDB4522 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				130243AD1C10472F00AA4A0E /* libz.tbd */,
 				1CDAE8FDECF67EC10DA22294 /* libPods.a */,
 			);
 			name = Frameworks;
@@ -1293,6 +1311,10 @@
 				INFOPLIST_FILE = stuclass/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/stuclass/UmengSDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cillbox.stuclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1307,6 +1329,10 @@
 				INFOPLIST_FILE = stuclass/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/stuclass/UmengSDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cillbox.stuclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

@@ -13,6 +13,7 @@
 #import <KVNProgress/KVNProgress.h>
 #import <AFNetworking/AFNetworking.h>
 #import "Define.h"
+#import "MobClick.h"
 
 static NSString *cell_id = @"GradeTableViewCell";
 static NSString *gpa_cell_id = @"GPAGradeTableViewCell";
@@ -109,6 +110,7 @@ static const NSInteger kHeightForCellRow = 56.0;
 - (IBAction)syncItemPress:(id)sender
 {
     [self grade];
+    [MobClick event:@"More_Grade"];
 }
 
 

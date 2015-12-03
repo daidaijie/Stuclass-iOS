@@ -27,6 +27,7 @@
 #import "ClassSemesterButton.h"
 #import "ClassSemesterTableViewController.h"
 #import "DocumentTableViewController.h"
+#import "MobClick.h"
 
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
@@ -354,6 +355,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     NSLog(@"cell - %d", tag);
     
     [self performSegueWithIdentifier:@"ShowDetail" sender:_boxData[tag]];
+    
+    [MobClick event:@"Main_ShowDetail"];
 }
 
 
@@ -400,6 +403,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)moreItemPress
 {
     [self more];
+    [MobClick event:@"More_Selected"];
 }
 
 
@@ -414,21 +418,25 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)moreSyncPress
 {
     [self sync];
+    [MobClick event:@"More_Sync"];
 }
 
 - (void)moreExamPress
 {
     [self exam];
+    [MobClick event:@"More_Exam"];
 }
 
 - (void)moreGradePress
 {
     [self grade];
+    [MobClick event:@"More_Grade"];
 }
 
 - (void)moreOaPress
 {
     [self oa];
+    [MobClick event:@"More_OA"];
 }
 
 - (void)publicItemPress
@@ -445,6 +453,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     UINavigationController *nvc = [[UINavigationController alloc] init];
     nvc.viewControllers = @[stvc];
     [self presentViewController:nvc animated:YES completion:nil];
+    
+    [MobClick event:@"Main_Settings"];
 }
 
 
@@ -462,6 +472,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 //    nvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     [self presentViewController:nvc animated:YES completion:nil];
+    
+    [MobClick event:@"Main_Semester"];
 }
 
 #pragma mark - ClassSemesterDelegate

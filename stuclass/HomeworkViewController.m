@@ -18,6 +18,7 @@
 #import "DetailViewController.h"
 #import "ClassBox.h"
 #import <KVNProgress/KVNProgress.h>
+#import "MobClick.h"
 
 static NSString *cell_id = @"HomeworkTableViewCell";
 
@@ -349,6 +350,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         [_tableView deleteSections:[NSIndexSet indexSetWithIndex:homework_section] withRowAnimation:UITableViewRowAnimationFade];
         [_tableView endUpdates];
         
+        [MobClick event:@"Detail_Delete_Homework"];
     }
 }
 
@@ -378,6 +380,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         
         _hasLoadedFirstly = YES;
     }
+    
+    [MobClick event:@"Detail_Get_Homework"];
 }
 
 - (void)sendRequest
@@ -532,6 +536,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     [_homeworkData insertObject:homework atIndex:0];
     
     [_tableView reloadData];
+    
+    [MobClick event:@"Detail_Post_Homework"];
 }
 
 

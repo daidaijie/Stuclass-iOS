@@ -13,6 +13,7 @@
 #import <KVNProgress/KVNProgress.h>
 #import <AFNetworking/AFNetworking.h>
 #import "Define.h"
+#import "MobClick.h"
 
 static NSString *cell_id = @"ExamTableViewCell";
 static NSString *header_cell_id = @"HeaderExamTableViewCell";
@@ -175,6 +176,7 @@ static const NSInteger kHeightForCellRow = 46.0;
 - (IBAction)syncItemPress:(id)sender
 {
     [self exam];
+    [MobClick event:@"More_Exam"];
 }
 
 

@@ -14,6 +14,7 @@
 #import "Define.h"
 #import "CoreDataManager.h"
 #import "DetailViewController.h"
+#import "MobClick.h"
 
 static NSString *info_cell_id = @"ClassInfoTableViewCell";
 
@@ -231,6 +232,8 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     _timeStr = timeStr;
     
     [_tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+    
+    [MobClick event:@"Detail_Save_Note"];
 }
 
 

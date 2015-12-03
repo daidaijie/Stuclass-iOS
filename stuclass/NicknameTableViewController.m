@@ -11,7 +11,7 @@
 #import <KVNProgress/KVNProgress.h>
 #import <AFNetworking/AFNetworking.h>
 #import "MBProgressHUD.h"
-
+#import "MobClick.h"
 
 @interface NicknameTableViewController ()
 
@@ -202,6 +202,8 @@
         [KVNProgress showSuccessWithStatus:@"保存新昵称成功" completion:^{
             
             [self.navigationController popViewControllerAnimated:YES];
+            
+            [MobClick event:@"Setting_Nickname"];
         }];
     }
 }

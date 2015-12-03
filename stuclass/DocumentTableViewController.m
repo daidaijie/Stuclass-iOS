@@ -17,6 +17,7 @@
 #import "DocumentFooterView.h"
 #import "ClassParser.h"
 #import "DocumentDetailViewController.h"
+#import "MobClick.h"
 
 static NSString *cell_id = @"DocumentTableViewCell";
 
@@ -165,6 +166,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 - (void)refreshControlDidPull
 {
     [self oa];
+    [MobClick event:@"More_OA"];
 }
 
 - (void)oa

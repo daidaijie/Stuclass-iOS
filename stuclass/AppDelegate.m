@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import <KVNProgress/KVNProgress.h>
 #import "Define.h"
-
+#import "MobClick.h"
 
 @interface AppDelegate ()
 
@@ -24,6 +24,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    
+    // Umeng
+//    [MobClick startWithAppkey:@"565fd3d1e0f55adf58000149" reportPolicy:BATCH channelId:@"App Store"];
+    
+    // version标识
+//    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+//    [MobClick setAppVersion:version];
+    
     
     // KVN Configuration
     KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
@@ -47,7 +56,7 @@
     [UINavigationBar appearance].titleTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:19.0], NSForegroundColorAttributeName:[UIColor whiteColor]};
     
     // 启动等待时间
-    [NSThread sleepForTimeInterval:0.7];
+    [NSThread sleepForTimeInterval:0.6];
     
     NSLog(@"当前用户 - TOKEN - %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"USER_TOKEN"]);
     

@@ -10,6 +10,7 @@
 #import <KVNProgress/KVNProgress.h>
 #import "NicknameTableViewController.h"
 #import "MBProgressHUD.h"
+#import "MobClick.h"
 
 @interface SettingTableViewController () <NicknameChangedDelegate>
 
@@ -108,14 +109,17 @@
         
         if (row == 0) {
             [self performSegueWithIdentifier:@"BackgroundVC" sender:nil];
+            [MobClick event:@"Setting_Background"];
         }
         
     } else if (section == 3) {
         
         if (row == 0) {
             [self performSegueWithIdentifier:@"ShowAboutUs" sender:nil];
+            [MobClick event:@"Setting_Aboutus"];
         } else if (row == 1) {
             [self share];
+            [MobClick event:@"Setting_Share"];
         }
         
     } else if (section == 4) {
@@ -123,6 +127,7 @@
         if (row == 0) {
             [KVNProgress showSuccessWithStatus:@"登出成功"];
             [self performSelector:@selector(logout) withObject:nil afterDelay:0.3];
+            [MobClick event:@"Setting_Logout"];
         }
     }
 }

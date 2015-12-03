@@ -10,6 +10,7 @@
 #import "GKImagePickerController.h"
 #import "GKImagePicker.h"
 #import <KVNProgress/KVNProgress.h>
+#import "MobClick.h"
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -135,6 +136,7 @@
     } else if (section == 2) {
         if (row == 0) {
             // 从相册中选择
+            [MobClick event:@"Setting_Background_Custom"];
             
             if (!_imagePicker) {
                 [self setupImagePicker];

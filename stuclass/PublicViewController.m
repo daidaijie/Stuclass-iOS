@@ -18,6 +18,7 @@
 #import "DetailViewController.h"
 #import "ClassBox.h"
 #import <KVNProgress/KVNProgress.h>
+#import "MobClick.h"
 
 static NSString *cell_id = @"DiscussTableViewCell";
 
@@ -326,6 +327,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         [_tableView deleteSections:[NSIndexSet indexSetWithIndex:discuss_section] withRowAnimation:UITableViewRowAnimationFade];
         [_tableView endUpdates];
         
+        [MobClick event:@"Global_Delete_Discuss"];
     }
 }
 
@@ -348,6 +350,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 - (void)getDiscussData
 {
+    [MobClick event:@"Global_Get_Discuss"];
+    
     if (!_hasLoadedFirstly) {
         
         // Request
@@ -499,6 +503,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     [_discussData insertObject:discuss atIndex:0];
     
     [_tableView reloadData];
+    
+    [MobClick event:@"Global_Post_Discuss"];
 }
 
 
