@@ -215,7 +215,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [self showHUDWithText:global_connection_failed andHideDelay:1.0];
+        [self showHUDWithText:[NSString stringWithFormat:@"%@(连接外网)", global_connection_failed] andHideDelay:1.0];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         _isLoading = NO;
         [self.refreshControl endRefreshing];
@@ -308,7 +308,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [self showHUDWithText:global_connection_failed andHideDelay:1.0];
+        [self showHUDWithText:[NSString stringWithFormat:@"%@(连接外网)", global_connection_failed] andHideDelay:1.0];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self restoreState];
     }];

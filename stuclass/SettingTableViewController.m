@@ -11,6 +11,7 @@
 #import "NicknameTableViewController.h"
 #import "MBProgressHUD.h"
 #import "MobClick.h"
+#import "Define.h"
 
 @interface SettingTableViewController () <NicknameChangedDelegate>
 
@@ -166,7 +167,7 @@
 - (void)share
 {
     UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-    pasteBoard.string = @"http://xxx.com";
+    pasteBoard.string = global_host;
     
     [self showHUDWithText:@"下载链接已添加到剪贴板" andHideDelay:1.6];
     
