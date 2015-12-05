@@ -260,9 +260,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 // 返回坐标给Layout
 - (NSArray *)collectionView:(UICollectionView *)collectionView coordinateForCollectionViewLayout:(ClassCollectionViewLayout *)collectionViewLayout indexPath:(NSIndexPath *)indexPath
 {
-//    if (indexPath.row >= _boxData.count)
-//        return nil;
-    
     ClassBox *box = _boxData[indexPath.row];
     return @[[NSNumber numberWithInteger:box.box_x], [NSNumber numberWithInteger:box.box_y], [NSNumber numberWithInteger:box.box_length]];
 }
@@ -297,7 +294,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
         NSString *className = [self shrinkName:box.box_name];
         
-        [cell setBtnDescription:[NSString stringWithFormat:@"%@@%@%@", className, box.box_room, box.box_weekType.length == 0 ? @"" : [NSString stringWithFormat:@"(%@周)", box.box_weekType]]];
+        cell.label.text = [NSString stringWithFormat:@"%@@%@%@", className, box.box_room, box.box_weekType.length == 0 ? @"" : [NSString stringWithFormat:@"(%@周)", box.box_weekType]];
+        
         [cell setBtnColor:box.box_color];
         
         cell.tag = row;

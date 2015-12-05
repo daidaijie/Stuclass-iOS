@@ -21,10 +21,9 @@
 
 @property (strong, nonatomic) ClassButton *btn;
 
+@property (strong, nonatomic) UILabel *label;
+
 @property (weak, nonatomic) id<ClassCollectionViewCellDelegate>delegate;
-
-
-- (void)setBtnDescription:(NSString *)str;
 
 - (void)setBtnColor:(UIColor *)color;
 

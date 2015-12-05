@@ -167,7 +167,7 @@
 - (void)share
 {
     UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-    pasteBoard.string = global_host;
+    pasteBoard.string = [NSString stringWithFormat:@"%@app/", global_host];
     
     [self showHUDWithText:@"下载链接已添加到剪贴板" andHideDelay:1.6];
     

@@ -10,6 +10,4 @@
 
 @interface ClassButton : UIButton
 
-- (void)setupBtnTitle:(NSString *)str;
-
 @end
