@@ -57,6 +57,7 @@
 		137C8C3A1BDB1A4900236C79 /* HomeworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 137C8C381BDB1A4900236C79 /* HomeworkTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		137C8C3D1BDB2C5200236C79 /* HomeworkPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		137F4EA11C06155200A6DC0E /* NicknameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */; settings = {ASSET_TAGS = (); }; };
+		13A41B5D1C12901A00444D06 /* class_bg_0_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13A41B5C1C12901A00444D06 /* class_bg_0_3.jpg */; settings = {ASSET_TAGS = (); }; };
 		13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C33A1BCBEEE60003E703 /* NSMutableArray+Shuffle.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C3461BCC07840003E703 /* SemesterTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C3451BCC07840003E703 /* SemesterTableViewController.m */; settings = {ASSET_TAGS = (); }; };
 		13C4C34A1BCC0D300003E703 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C4C3491BCC0D300003E703 /* SettingTableViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -95,7 +96,6 @@
 		13DE7B4A1BDC682E003AFF93 /* DiscussTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DE7B481BDC682E003AFF93 /* DiscussTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		13DE7B4B1BDC682E003AFF93 /* DiscussTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13DE7B491BDC682E003AFF93 /* DiscussTableViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		13DE7B4F1BDC6AAC003AFF93 /* Discuss.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DE7B4E1BDC6AAC003AFF93 /* Discuss.m */; settings = {ASSET_TAGS = (); }; };
-		13EC9B701C11F03900AA3F2F /* class_bg_0_3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13EC9B6F1C11F03900AA3F2F /* class_bg_0_3.jpg */; settings = {ASSET_TAGS = (); }; };
 		13EC9B741C11FA1A00AA3F2F /* AboutusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13EC9B731C11FA1A00AA3F2F /* AboutusViewController.m */; settings = {ASSET_TAGS = (); }; };
 		13ED2C861BD88AB500E250A2 /* CourseTable+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C831BD88AB500E250A2 /* CourseTable+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
 		13ED2C871BD88AB500E250A2 /* CourseTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C851BD88AB500E250A2 /* CourseTable.m */; settings = {ASSET_TAGS = (); }; };
@@ -199,6 +199,7 @@
 		137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeworkPostTableViewController.m; sourceTree = "<group>"; };
 		137F4E9F1C06155200A6DC0E /* NicknameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NicknameTableViewController.h; sourceTree = "<group>"; };
 		137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NicknameTableViewController.m; sourceTree = "<group>"; };
+		13A41B5C1C12901A00444D06 /* class_bg_0_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = class_bg_0_3.jpg; sourceTree = "<group>"; };
 		13C4C3391BCBEEE60003E703 /* NSMutableArray+Shuffle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Shuffle.h"; sourceTree = "<group>"; };
 		13C4C33A1BCBEEE60003E703 /* NSMutableArray+Shuffle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Shuffle.m"; sourceTree = "<group>"; };
 		13C4C3441BCC07840003E703 /* SemesterTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SemesterTableViewController.h; sourceTree = "<group>"; };
@@ -263,7 +264,6 @@
 		13DE7B491BDC682E003AFF93 /* DiscussTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussTableViewCell.xib; sourceTree = "<group>"; };
 		13DE7B4D1BDC6AAC003AFF93 /* Discuss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Discuss.h; sourceTree = "<group>"; };
 		13DE7B4E1BDC6AAC003AFF93 /* Discuss.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Discuss.m; sourceTree = "<group>"; };
-		13EC9B6F1C11F03900AA3F2F /* class_bg_0_3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = class_bg_0_3.jpg; sourceTree = "<group>"; };
 		13EC9B721C11FA1A00AA3F2F /* AboutusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutusViewController.h; sourceTree = "<group>"; };
 		13EC9B731C11FA1A00AA3F2F /* AboutusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutusViewController.m; sourceTree = "<group>"; };
 		13ED2C821BD88AB500E250A2 /* CourseTable+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CourseTable+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -717,7 +717,7 @@
 				13C4C3901BCDE9360003E703 /* class_bg_0_0.jpg */,
 				13C4C3911BCDE9360003E703 /* class_bg_0_1.jpg */,
 				13C4C3921BCDE9360003E703 /* class_bg_0_2.jpg */,
-				13EC9B6F1C11F03900AA3F2F /* class_bg_0_3.jpg */,
+				13A41B5C1C12901A00444D06 /* class_bg_0_3.jpg */,
 				13C4C3931BCDE9360003E703 /* class_bg_1_0.jpg */,
 				13C4C3941BCDE9360003E703 /* class_bg_1_1.jpg */,
 				13C4C3951BCDE9360003E703 /* class_bg_1_2.jpg */,
@@ -1060,7 +1060,7 @@
 				13C7071A1BC7DE10003061A4 /* Assets.xcassets in Resources */,
 				13C4C39A1BCDE9360003E703 /* class_bg_0_1.jpg in Resources */,
 				13C4C39B1BCDE9360003E703 /* class_bg_0_2.jpg in Resources */,
-				13EC9B701C11F03900AA3F2F /* class_bg_0_3.jpg in Resources */,
+				13A41B5D1C12901A00444D06 /* class_bg_0_3.jpg in Resources */,
 				13C4C39D1BCDE9360003E703 /* class_bg_1_1.jpg in Resources */,
 				1366D6831BD4F19000B69C04 /* ClassNoteTableViewCell.xib in Resources */,
 				13C4C39F1BCDE9360003E703 /* class_bg_1_3.jpg in Resources */,

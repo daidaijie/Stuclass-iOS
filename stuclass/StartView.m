@@ -1,6 +1,6 @@
 //
 //  StartView.m
-//  stuget
+//  stuclass
 //
 //  Created by JunhaoWang on 7/19/15.
 //  Copyright (c) 2015 JunhaoWang. All rights reserved.
@@ -8,7 +8,6 @@
 
 #import "StartView.h"
 #import "Define.h"
-#import "UIView+BorderCategory.h"
 
 #define LINE_WIDTH 0.4
 
