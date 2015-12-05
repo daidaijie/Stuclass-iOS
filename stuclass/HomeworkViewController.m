@@ -193,8 +193,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 发布的作业信息:", homework.nickname];
     
-//    cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 发布的作业信息:", [homework.nickname isEqual:[NSNull null]] ? homework.publisher : homework.nickname];
-    
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:homework.pub_time];
     cell.contentLabel.text = homework.content;
     cell.homework_id = homework.homework_id;
@@ -308,7 +306,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, homework_delete_url] parameters:deleteData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"删除作业 - 连接服务器 - 成功 - %@", responseObject);
-        //        NSLog(@"删除讨论 - 连接服务器 - 成功");
         [self parseDeleteResponseObject:responseObject homeworkID:homework_id Section:homework_section];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
@@ -415,7 +412,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     [manager GET:[NSString stringWithFormat:@"%@%@", global_host, homework_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-//        NSLog(@"作业 - 连接服务器 - 成功 - %@", responseObject);
         NSLog(@"作业 - 连接服务器 - 成功");
         [self parseResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

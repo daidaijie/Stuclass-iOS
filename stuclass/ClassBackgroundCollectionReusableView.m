@@ -46,8 +46,6 @@
         // --
         CGContextMoveToPoint(context,  w * (i) - l, height - LINE_WIDTH / 2);
         CGContextAddLineToPoint(context, w * (i) + l - LINE_WIDTH / 2, height - LINE_WIDTH / 2);
-//        CGContextMoveToPoint(context,  0, height - LINE_WIDTH / 2);
-//        CGContextAddLineToPoint(context, 600, height - LINE_WIDTH / 2);
         CGContextStrokePath(context);
         
         // |

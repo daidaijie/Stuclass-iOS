@@ -111,11 +111,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         NSString *originStr = textView.text;
         NSString *lastTwoChar = [originStr substringWithRange:NSMakeRange(originStr.length - 2, 2)];
         
-        //    NSLog(@"lastTwoChar - %@", [lastTwoChar isEqualToString:@"\n\n"] ? @"换行" : lastTwoChar);
-        //    NSLog(@"newText - %@", [text isEqualToString:@"\n"] ? @"换行" : text);
-        
         if ([lastTwoChar isEqualToString:@"\n\n"] && [text isEqualToString:@"\n"]) {
-//            NSLog(@"---------------不能连续换两行以上");
             return NO;
         }
     }
@@ -205,7 +201,6 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, discuss_post_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"发布讨论 - 连接服务器 - 成功 - %@", responseObject);
-//        NSLog(@"发布讨论 - 连接服务器 - 成功");
         [self parseResponseObject:responseObject firstTry:firstTry];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -325,7 +320,6 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, course_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"讨论 - 添加课程 - 连接服务器 - 成功 - %@", responseObject);
-//        NSLog(@"添加课程 - 连接服务器 - 成功");
         [self parseClassInfoResponseObject:responseObject];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -31,8 +31,6 @@
         
         self.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
         
-//        self.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-        
         self.contentEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 0);
         
         self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;

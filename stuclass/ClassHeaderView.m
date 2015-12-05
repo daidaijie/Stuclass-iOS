@@ -9,7 +9,6 @@
 #import "ClassHeaderView.h"
 #import "StartView.h"
 #import "WeekView.h"
-#import "UIView+BorderCategory.h"
 #import "JHDater.h"
 #import "Define.h"
 

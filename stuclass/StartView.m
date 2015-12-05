@@ -20,8 +20,6 @@
     
     if (self) {
         self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2];
-//        self.backgroundColor = RGB(208, 228, 251);
-//        self.backgroundColor = [UIColor clearColor];
     }
     
     return self;

@@ -7,7 +7,6 @@
 //
 
 #import "WeekView.h"
-#import "UIView+BorderCategory.h"
 #import "Define.h"
 
 #define LINE_WIDTH 0.4
@@ -21,8 +20,8 @@
     self = [super initWithFrame:frame];
     
     if (self) {
+        
         self.opaque = YES;
-//        self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
         
         _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height/2.0)];
         _dateLabel.textAlignment = NSTextAlignmentCenter;

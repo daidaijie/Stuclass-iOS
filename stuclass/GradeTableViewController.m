@@ -147,7 +147,6 @@ static const NSInteger kHeightForCellRow = 56.0;
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, grade_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"连接服务器 - 成功");
         [self parseGradeResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

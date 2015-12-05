@@ -7,7 +7,6 @@
 //
 
 #import "ClassCollectionViewCell.h"
-#import "UIView+BorderCategory.h"
 #import "ClassButton.h"
 #import "Define.h"
 

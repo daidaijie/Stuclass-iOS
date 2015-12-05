@@ -191,16 +191,6 @@
     if (success) {
         [fileManager removeItemAtPath:imageFilePath error:&error];
     }
-    // 缩放图片
-//    UIImage *scaleImage;
-    
-//    if (SCREEN_WIDTH == 414.0) {
-//        NSLog(@"Scale - iPhone 6 plus");
-//        scaleImage = [self scaleFromImage:image toSize:CGSizeMake(SCREEN_WIDTH, (SCREEN_HEIGHT - 64))];
-//    } else {
-//        NSLog(@"Scale - iPhone 4 5 5s 6");
-//        scaleImage = [self scaleFromImage:image toSize:CGSizeMake(SCREEN_WIDTH, (SCREEN_HEIGHT - 64))];
-//    }
     
     [UIImageJPEGRepresentation(image, 1.0f) writeToFile:imageFilePath atomically:YES];
     

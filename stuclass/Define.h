@@ -6,7 +6,17 @@
 //  Copyright © 2015 JunhaoWang. All rights reserved.
 //
 
+// Theme Color
+#define MAIN_COLOR [UIColor colorWithRed:0.745 green:0.298 blue:0.235 alpha:1.000]
 
+#define MAIN_COLOR_BAR [UIColor colorWithRed:0.706 green:0.184 blue:0.114 alpha:1.000]
+
+#define BOTTOM_LINE_COLOR [UIColor colorWithRed:0.867 green:0.878 blue:0.886 alpha:1.000]
+
+#define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.925 alpha:1.000]
+
+
+// Notice Title
 static NSString *global_connection_failed = @"连接服务器失败，请重试";
 
 static NSString *global_connection_wrong_token = @"该账号曾在别处登录，请重新登录";
@@ -15,22 +25,7 @@ static NSString *global_connection_wrong_user_password = @"账号或密码有误
 
 static NSString *global_connection_credit_broken = @"天哪！学分制系统崩溃了！";
 
-
-
-
-
-
-
-
-#define MAIN_COLOR [UIColor colorWithRed:0.745 green:0.298 blue:0.235 alpha:1.000]
-
-#define MAIN_COLOR_BAR [UIColor colorWithRed:0.706 green:0.184 blue:0.114 alpha:1.000]
-
-#define BOTTOM_LINE_COLOR [UIColor colorWithRed:0.867 green:0.878 blue:0.886 alpha:1.000]
-
-//#define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.961 alpha:1.000]
-#define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.925 alpha:1.000]
-
+// Constant
 static const NSTimeInterval global_timeout = 8.0;
 
 static const NSTimeInterval global_hud_delay = 1.0;
@@ -47,14 +42,7 @@ static const CGFloat global_textView_RowHeightFor6p = 354;
 
 
 // url
-
 static NSString *global_host = @"http://hjsmallfly.wicp.net/";
-
-//static NSString *global_host = @"http://10.22.27.65";
-
-//static NSString *global_host = @"http://10.28.31.32";
-
-//static NSString *global_host = @"http://172.18.58.113:5000";
 
 static NSString *login_url = @"/syllabus";
 
@@ -80,8 +68,7 @@ static NSString *discuss_delete_url = @"/api/v1.0/delete/1";
 
 static NSString *nickname_url = @"/api/v1.0/modify_user";
 
-// class colors
-
+// Cell Color
 #define COLOR_0 [UIColor colorWithRed:0.275 green:0.729 blue:0.902 alpha:1.000]
 #define COLOR_1 [UIColor colorWithRed:0.365 green:0.749 blue:0.655 alpha:1.000]
 #define COLOR_2 [UIColor colorWithRed:0.424 green:0.851 blue:0.573 alpha:1.000]
@@ -98,8 +85,6 @@ static NSString *nickname_url = @"/api/v1.0/modify_user";
 #define COLOR_13 [UIColor colorWithRed:0.431 green:0.600 blue:0.918 alpha:1.000]
 #define COLOR_14 [UIColor colorWithRed:0.342 green:0.811 blue:0.332 alpha:1.000]
 #define COLOR_15 [UIColor colorWithRed:1.000 green:0.584 blue:0.749 alpha:1.000]
-
-
 
 #define COLOR_ARRAY @[COLOR_0, COLOR_1, COLOR_2, COLOR_3, COLOR_4, COLOR_5, COLOR_6, COLOR_7, COLOR_8, COLOR_9, COLOR_10, COLOR_11, COLOR_12, COLOR_13, COLOR_14, COLOR_15]
 

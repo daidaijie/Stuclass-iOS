@@ -8,9 +8,6 @@
 
 #import "MoreView.h"
 #import "MoreButton.h"
-//#import "Define.h"
-
-//static const CGFloat kOffset = 0.5;
 
 static const CGFloat kGap = 0.5;
 

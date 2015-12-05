@@ -30,7 +30,6 @@
 		1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC6D1BCA258300BC0F23 /* ClassHeaderView.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC711BCA259700BC0F23 /* StartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC701BCA259700BC0F23 /* StartView.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC741BCA25A100BC0F23 /* WeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC731BCA25A100BC0F23 /* WeekView.m */; settings = {ASSET_TAGS = (); }; };
-		1335FC771BCA25EE00BC0F23 /* UIView+BorderCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC761BCA25EE00BC0F23 /* UIView+BorderCategory.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC7C1BCA274900BC0F23 /* JHDater.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC7A1BCA274900BC0F23 /* JHDater.m */; settings = {ASSET_TAGS = (); }; };
 		1335FC7F1BCA343100BC0F23 /* ClassButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC7E1BCA343100BC0F23 /* ClassButton.m */; settings = {ASSET_TAGS = (); }; };
 		1345308B1BC8AE0C0018C15E /* ClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1345308A1BC8AE0C0018C15E /* ClassViewController.m */; settings = {ASSET_TAGS = (); }; };
@@ -150,8 +149,6 @@
 		1335FC701BCA259700BC0F23 /* StartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartView.m; sourceTree = "<group>"; };
 		1335FC721BCA25A100BC0F23 /* WeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeekView.h; sourceTree = "<group>"; };
 		1335FC731BCA25A100BC0F23 /* WeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeekView.m; sourceTree = "<group>"; };
-		1335FC751BCA25EE00BC0F23 /* UIView+BorderCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BorderCategory.h"; sourceTree = "<group>"; };
-		1335FC761BCA25EE00BC0F23 /* UIView+BorderCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BorderCategory.m"; sourceTree = "<group>"; };
 		1335FC7A1BCA274900BC0F23 /* JHDater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JHDater.m; sourceTree = "<group>"; };
 		1335FC7B1BCA274900BC0F23 /* JHDater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHDater.h; sourceTree = "<group>"; };
 		1335FC7D1BCA343100BC0F23 /* ClassButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassButton.h; sourceTree = "<group>"; };
@@ -472,15 +469,6 @@
 				131951D61BCB85F8004EE13A /* SupplementaryView */,
 			);
 			name = ClassView;
-			sourceTree = "<group>";
-		};
-		1335FC781BCA25F200BC0F23 /* UIView+BoarderCategory */ = {
-			isa = PBXGroup;
-			children = (
-				1335FC751BCA25EE00BC0F23 /* UIView+BorderCategory.h */,
-				1335FC761BCA25EE00BC0F23 /* UIView+BorderCategory.m */,
-			);
-			name = "UIView+BoarderCategory";
 			sourceTree = "<group>";
 		};
 		1335FC791BCA273900BC0F23 /* JHDater */ = {
@@ -842,7 +830,6 @@
 				13C4C36C1BCCEE2B0003E703 /* GKImagePicker */,
 				13C4C3381BCBEECA0003E703 /* NSMutableArray+Shuffle */,
 				1335FC791BCA273900BC0F23 /* JHDater */,
-				1335FC781BCA25F200BC0F23 /* UIView+BoarderCategory */,
 				13C4C3A21BCE0C250003E703 /* ClassParser */,
 				131EF34E1BD7DAC7007ECFE8 /* CoreDataManager */,
 			);
@@ -1172,7 +1159,6 @@
 				137C8C301BDB149100236C79 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				13C4C35E1BCCDC980003E703 /* BackgoundTableViewController.m in Sources */,
 				13EC9B741C11FA1A00AA3F2F /* AboutusViewController.m in Sources */,
-				1335FC771BCA25EE00BC0F23 /* UIView+BorderCategory.m in Sources */,
 				13C4C3801BCCEE2B0003E703 /* GKImagePickerController.m in Sources */,
 				13242F0E1C086815008D46F2 /* DocumentFooterView.m in Sources */,
 				13C4C37E1BCCEE2B0003E703 /* GKImageCropViewController.m in Sources */,

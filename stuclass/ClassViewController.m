@@ -13,7 +13,6 @@
 #import "ClassNumberCollectionReusableView.h"
 #import "SettingTableViewController.h"
 #import "Define.h"
-//#import "KGModal.h"
 #import <KVNProgress/KVNProgress.h>
 #import "ClassParser.h"
 #import "CoreDataManager.h"
@@ -463,11 +462,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     cstvc.delegate = self;
     
-//    [cstvc setupSelectedYear:_year semester:_semester];
     UINavigationController *nvc = [[UINavigationController alloc] init];
     nvc.viewControllers = @[cstvc];
-    
-//    nvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     
     [self presentViewController:nvc animated:YES completion:nil];
     
@@ -602,7 +598,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, login_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-//        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"连接服务器 - 成功");
         [self parseResponseObject:responseObject withYear:year semester:semester];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -650,20 +645,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
         // 生成DisplayData
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
-        
-//         testing
-//        NSMutableArray *array = [NSMutableArray arrayWithArray:boxData];
-        
-//        [array removeLastObject];
-//        [array removeLastObject];
-        
-        
-//        [array addObject:[array lastObject]];
-//        [array addObject:[array lastObject]];
-//        [array addObject:[array lastObject]];
-//        [array addObject:[array lastObject]];
-//        [array addObject:[array lastObject]];
-//         ------
         
         // token
         NSString *token = responseObject[@"token"];
@@ -725,7 +706,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, exam_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"连接服务器 - 成功");
         [self parseExamResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -767,8 +747,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         // 成功
         
         NSMutableArray *examData = [[ClassParser sharedInstance] parseExamData:responseObject];
-        
-//        NSLog(@"%@", examData);
         
         [KVNProgress dismiss];
         [_popover dismiss];
@@ -813,7 +791,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, grade_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"连接服务器 - 成功");
         [self parseGradeResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -855,8 +832,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         // 成功
         
         NSDictionary *gradeData = [[ClassParser sharedInstance] parseGradeData:responseObject];
-        
-//        NSLog(@"%@", gradeData);
         
         [KVNProgress dismiss];
         [_popover dismiss];
@@ -903,7 +878,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, oa_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"连接服务器 - 成功");
         [self parseOaResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -939,8 +913,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         // 成功
         
         NSMutableArray *documentData = [[ClassParser sharedInstance] parseDocumentData:responseObject];
-        
-//        NSLog(@"%@", documentData);
         
         [KVNProgress dismiss];
         [_popover dismiss];

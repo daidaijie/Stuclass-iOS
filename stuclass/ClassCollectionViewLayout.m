@@ -74,7 +74,6 @@ static const NSInteger kAmountOfClasses = 13;
         
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         [attributes addObject:[self layoutAttributesForItemAtIndexPath:indexPath]];
-//        NSLog(@"------------%@", attributes);
     }
     
     
@@ -93,11 +92,7 @@ static const NSInteger kAmountOfClasses = 13;
     NSInteger y = [coordinate[1] integerValue];
     NSInteger length = [coordinate[2] integerValue];
     
-//    NSLog(@"row - %d  x - %d y - %d length - %d", indexPath.row, x, y, length);
-    
     att.frame = CGRectMake(self.numWidth + self.cellWidth * x, self.cellWidth * y, self.cellWidth, self.cellWidth * length);
-    
-//    [self printRect:att.frame andIndex:indexPath.row];
     
     return att;
 }
@@ -115,8 +110,6 @@ static const NSInteger kAmountOfClasses = 13;
     
     att.zIndex = -1;
     
-//    [self printRect:f andIndex:indexPath.row];
-    
     return att;
 }
 
@@ -130,8 +123,6 @@ static const NSInteger kAmountOfClasses = 13;
     f.origin.y = indexPath.row * f.size.height;
     
     att.frame = f;
-    
-//    [self printRect:f andIndex:indexPath.row];
     
     return att;
 }

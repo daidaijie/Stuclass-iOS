@@ -54,12 +54,6 @@
 // 写入课表到数据库
 - (void)writeClassTableToCoreDataWithClassesArray:(NSMutableArray *)data withYear:(NSInteger)year semester:(NSInteger)semester username:(NSString *)username
 {
-//     testing
-//    data = [NSMutableArray arrayWithArray:data];
-//    [data addObject:@{@"class_id":@"diao ni hi", @"name":@"lao mu", @"room":@"hell", @"duration":@"1-16"}];
-//    [data addObject:@{@"class_id":@"diao ni hi c", @"name":@"lao mu c", @"room":@"hell", @"duration":@"1-16"}];
-//    [data addObject:@{@"class_id":@"diao ni hi b", @"name":@"lao mu b", @"room":@"hell", @"duration":@"1-16"}];
-    
     
     // 判断是否存在
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CourseTable"];

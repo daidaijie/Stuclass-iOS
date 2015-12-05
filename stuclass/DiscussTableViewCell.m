@@ -22,17 +22,6 @@
     
     [super awakeFromNib];
     
-    //    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    //    _contentLabel.preferredMaxLayoutWidth = width - 36.0; // 36.0 is the margin
-    
-    // postView
-//    _discussView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
-//    _discussView.layer.shouldRasterize = YES;
-//    _discussView.layer.cornerRadius = 4.0;
-//    _discussView.layer.shadowOpacity = 0.25;
-//    _discussView.layer.shadowOffset = CGSizeMake(-0.1, 0.1);
-//    _discussView.layer.shadowColor = [UIColor grayColor].CGColor;
-    
     // lineView
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat lineWidth = 0.5;

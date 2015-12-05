@@ -222,7 +222,7 @@
     [stvc setupSelectedYear:_year semester:_semester];
     UINavigationController *nvc = [[UINavigationController alloc] init];
     nvc.viewControllers = @[stvc];
-//    nvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    
     [self presentViewController:nvc animated:YES completion:nil];
 }
 

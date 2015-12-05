@@ -173,7 +173,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     Discuss *discuss = _discussData[indexPath.section];
     
-//    cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 说:", [discuss.nickname isEqual:[NSNull null]] ? discuss.publisher : discuss.nickname];
     cell.publisherLabel.text = [NSString stringWithFormat:@"%@ 说:", discuss.nickname];
     
     cell.dateLabel.text = [[JHDater sharedInstance] getTimeStrWithTimeFrom1970:discuss.pub_time];
@@ -285,7 +284,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, discuss_delete_url] parameters:deleteData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"删除讨论 - 连接服务器 - 成功 - %@", responseObject);
-        //        NSLog(@"删除讨论 - 连接服务器 - 成功");
         [self parseDeleteResponseObject:responseObject discussID:discuss_id Section:discuss_section];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
@@ -340,7 +338,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     DiscussPostTableViewController *dptvc = [sb instantiateViewControllerWithIdentifier:@"DiscussPostTVC"];
     
-//    dptvc.dvc = _dvc;
     dptvc.isPublic = YES;
     
     dptvc.delegate = self;
@@ -384,7 +381,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     [manager GET:[NSString stringWithFormat:@"%@%@", global_host, discuss_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        //                NSLog(@"讨论 - 连接服务器 - 成功 - %@", responseObject);
         NSLog(@"讨论 - 连接服务器 - 成功");
         [self parseResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

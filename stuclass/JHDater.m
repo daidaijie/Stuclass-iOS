@@ -46,19 +46,6 @@
 }
 
 
-//- (instancetype)init
-//{
-//    self = [super init];
-//    if (self) {
-//        _flags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday;
-//        _formatter = [[NSDateFormatter alloc] init];
-//        [_formatter setDateStyle:NSDateFormatterFullStyle];
-//        [_formatter setDateFormat:@"yyyy/MM/dd"];
-//    }
-//    return self;
-//}
-
-
 #pragma mark - Date Method
 
 - (long long)getNowSecondFrom1970

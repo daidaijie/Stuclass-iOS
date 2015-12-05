@@ -140,8 +140,6 @@
     _selectedSemester = semester;
     
     [tableView reloadData];
-    
-//    [_semesterDelegate semesterTableViewControllerDidSelectYear:year semester:semester];
 }
 
 
@@ -203,7 +201,6 @@
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, login_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-//        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"连接服务器 - 成功");
         [self parseResponseObject:responseObject withYear:_selectedYear semester:_selectedSemester];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

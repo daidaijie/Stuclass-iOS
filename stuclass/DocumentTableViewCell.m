@@ -13,12 +13,7 @@
 - (void)awakeFromNib {
     // Initialization code
     
-//    _documentView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
-//    _documentView.layer.shouldRasterize = YES;
     _documentView.layer.cornerRadius = 4.0;
-//    _documentView.layer.shadowOpacity = 0.25;
-//    _documentView.layer.shadowOffset = CGSizeMake(-0.1, 0.1);
-//    _documentView.layer.shadowColor = [UIColor grayColor].CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
