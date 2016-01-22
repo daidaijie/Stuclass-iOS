@@ -242,9 +242,6 @@
 //        [self showHUDWithText:@"请选择学期" andHideDelay:global_hud_delay];
         [self semesterPress:nil];
         return;
-    } else if (password.length < 5) {
-        [self showHUDWithText:@"请输入5位或5位以上的密码" andHideDelay:global_hud_delay];
-        return;
     }
     
     

@@ -25,7 +25,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    
     // Umeng
 //    [MobClick startWithAppkey:@"565fd3d1e0f55adf58000149" reportPolicy:BATCH channelId:@"App Store"];
     
@@ -94,8 +93,6 @@
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
-    //    NSURL* modelURL=[[NSBundle mainBundle] URLForResource:@"CoreDataExample" withExtension:@"momd"];
-    //    _managedObjectModel=[[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
     
     return _managedObjectModel;
@@ -123,15 +120,7 @@
     if (_persistentStoreCoordinator != nil) {
         return _persistentStoreCoordinator;
     }
-    //    NSURL* storeURL=[[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"CoreaDataExample.CDBStore"];
-    //    NSFileManager* fileManager=[NSFileManager defaultManager];
-    //    if(![fileManager fileExistsAtPath:[storeURL path]])
-    //    {
-    //        NSURL* defaultStoreURL=[[NSBundle mainBundle] URLForResource:@"CoreDataExample" withExtension:@"CDBStore"];
-    //        if (defaultStoreURL) {
-    //            [fileManager copyItemAtURL:defaultStoreURL toURL:storeURL error:NULL];
-    //        }
-    //    }
+    
     NSString *doc = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)lastObject];
     NSURL *storeURL = [NSURL fileURLWithPath:[doc stringByAppendingPathComponent:@"CoreDataCourse.sqlite"]];
     
