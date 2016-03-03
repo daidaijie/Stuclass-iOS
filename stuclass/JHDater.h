@@ -45,4 +45,10 @@
 // 返回当前距离1970的秒数
 - (long long)getNowSecondFrom1970;
 
+// 返回两天间的天数
+- (NSInteger)getDaysFrom:(NSDate *)startDate To:(NSDate *)endDate;
+
+// 根据字符串返回日期
+- (NSDate *)dateFromString:(NSString *)string;
+
 @end

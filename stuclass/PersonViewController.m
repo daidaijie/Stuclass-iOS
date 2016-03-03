@@ -185,7 +185,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
                 content = _dvc.classBox.box_credit;
                 break;
             case 5:
-                content = _dvc.classBox.box_span;
+                content = [NSString stringWithFormat:@"%d-%d", [_dvc.classBox.box_span[0] integerValue], [_dvc.classBox.box_span[1] integerValue]];
                 break;
                 
             default:

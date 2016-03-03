@@ -87,7 +87,7 @@ static const NSInteger kHeightForCellRow = 56.0;
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:gpa_cell_id forIndexPath:indexPath];
         
-        cell.textLabel.text = @"GPA（平均绩点）";
+        cell.textLabel.text = @"GPA（仅供参考）";
         cell.detailTextLabel.text = _gradeDict[@"gpa"];
         
         return cell;

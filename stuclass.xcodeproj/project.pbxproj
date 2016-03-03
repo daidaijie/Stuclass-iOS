@@ -57,6 +57,7 @@
 		137C8C3A1BDB1A4900236C79 /* HomeworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 137C8C381BDB1A4900236C79 /* HomeworkTableViewCell.xib */; };
 		137C8C3D1BDB2C5200236C79 /* HomeworkPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */; };
 		137F4EA11C06155200A6DC0E /* NicknameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */; };
+		139509B41C873838008CA07B /* ClassWeekTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139509B31C873837008CA07B /* ClassWeekTableViewController.m */; };
 		13A41B651C12A06F00444D06 /* class_bg_0_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13A41B5E1C12A06F00444D06 /* class_bg_0_0.jpg */; };
 		13A41B661C12A06F00444D06 /* class_bg_0_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13A41B5F1C12A06F00444D06 /* class_bg_0_1.jpg */; };
 		13A41B671C12A06F00444D06 /* class_bg_0_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13A41B601C12A06F00444D06 /* class_bg_0_2.jpg */; };
@@ -103,6 +104,7 @@
 		13ED2C871BD88AB500E250A2 /* CourseTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C851BD88AB500E250A2 /* CourseTable.m */; };
 		13ED2C921BD8BC3F00E250A2 /* Course+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C8F1BD8BC3F00E250A2 /* Course+CoreDataProperties.m */; };
 		13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C911BD8BC3F00E250A2 /* Course.m */; };
+		13F9F4C11C87C3F0004BE5A0 /* ClassWeekTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F9F4C01C87C3F0004BE5A0 /* ClassWeekTableViewCell.m */; };
 		660EBFD65F761DCD78A2A149 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CDAE8FDECF67EC10DA22294 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -201,6 +203,8 @@
 		137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeworkPostTableViewController.m; sourceTree = "<group>"; };
 		137F4E9F1C06155200A6DC0E /* NicknameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NicknameTableViewController.h; sourceTree = "<group>"; };
 		137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NicknameTableViewController.m; sourceTree = "<group>"; };
+		139509B21C873837008CA07B /* ClassWeekTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassWeekTableViewController.h; sourceTree = "<group>"; };
+		139509B31C873837008CA07B /* ClassWeekTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassWeekTableViewController.m; sourceTree = "<group>"; };
 		13A41B5E1C12A06F00444D06 /* class_bg_0_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = class_bg_0_0.jpg; sourceTree = "<group>"; };
 		13A41B5F1C12A06F00444D06 /* class_bg_0_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = class_bg_0_1.jpg; sourceTree = "<group>"; };
 		13A41B601C12A06F00444D06 /* class_bg_0_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = class_bg_0_2.jpg; sourceTree = "<group>"; };
@@ -278,6 +282,8 @@
 		13ED2C8F1BD8BC3F00E250A2 /* Course+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Course+CoreDataProperties.m"; sourceTree = "<group>"; };
 		13ED2C901BD8BC3F00E250A2 /* Course.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Course.h; sourceTree = "<group>"; };
 		13ED2C911BD8BC3F00E250A2 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
+		13F9F4BF1C87C3F0004BE5A0 /* ClassWeekTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassWeekTableViewCell.h; sourceTree = "<group>"; };
+		13F9F4C01C87C3F0004BE5A0 /* ClassWeekTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassWeekTableViewCell.m; sourceTree = "<group>"; };
 		18AA49715D5B46A2BDCFB111 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		1CDAE8FDECF67EC10DA22294 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5EFF85BB7901886C1A0AA66 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -491,6 +497,7 @@
 				1335FC641BCA255600BC0F23 /* ClassCell */,
 				131951CD1BCB47C9004EE13A /* ClassLayout */,
 				132226F31C05643C0093826C /* ClassSemesterTableViewController */,
+				139509B11C873820008CA07B /* ClassWeekTableViewController */,
 				134530891BC8AE0C0018C15E /* ClassViewController.h */,
 				1345308A1BC8AE0C0018C15E /* ClassViewController.m */,
 			);
@@ -683,6 +690,17 @@
 				137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */,
 			);
 			name = NicknameTableViewController;
+			sourceTree = "<group>";
+		};
+		139509B11C873820008CA07B /* ClassWeekTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				13F9F4BF1C87C3F0004BE5A0 /* ClassWeekTableViewCell.h */,
+				13F9F4C01C87C3F0004BE5A0 /* ClassWeekTableViewCell.m */,
+				139509B21C873837008CA07B /* ClassWeekTableViewController.h */,
+				139509B31C873837008CA07B /* ClassWeekTableViewController.m */,
+			);
+			name = ClassWeekTableViewController;
 			sourceTree = "<group>";
 		};
 		13C4C3381BCBEECA0003E703 /* NSMutableArray+Shuffle */ = {
@@ -1196,6 +1214,7 @@
 				13DE7B4A1BDC682E003AFF93 /* DiscussTableViewCell.m in Sources */,
 				1326F7D41C02DB5E0016B88E /* PublicViewController.m in Sources */,
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,
+				13F9F4C11C87C3F0004BE5A0 /* ClassWeekTableViewCell.m in Sources */,
 				137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */,
 				1366D67B1BD4EAA300B69C04 /* ClassInfoTableViewCell.m in Sources */,
 				137F4EA11C06155200A6DC0E /* NicknameTableViewController.m in Sources */,
@@ -1207,6 +1226,7 @@
 				13242F111C089731008D46F2 /* DocumentDetailViewController.m in Sources */,
 				13CB2C7E1BDFDC1B00460BE4 /* HomeworkTextField.m in Sources */,
 				13C4C3461BCC07840003E703 /* SemesterTableViewController.m in Sources */,
+				139509B41C873838008CA07B /* ClassWeekTableViewController.m in Sources */,
 				137C8C341BDB178400236C79 /* Homework.m in Sources */,
 				131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */,
 				13C4C37F1BCCEE2B0003E703 /* GKImagePicker.m in Sources */,
@@ -1271,7 +1291,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1308,7 +1328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -1323,7 +1343,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = stuclass/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1342,7 +1362,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = stuclass/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

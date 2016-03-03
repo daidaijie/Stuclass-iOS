@@ -45,6 +45,9 @@
         
         // 星期标签
         CGFloat weekViewWidth = 42.5 * k;
+        
+        _weekViewArray = [NSMutableArray array];
+        
         for (NSUInteger i = 0; i < 7; i++) {
             WeekView *weekView = [[WeekView alloc] initWithFrame:CGRectMake(startViewWidth + i * weekViewWidth, 0, weekViewWidth-0.4, frame.size.height-0.4)];
             
@@ -109,7 +112,7 @@
     NSDate *todayDate = [NSDate date];
     NSInteger todayWeek = [[JHDater sharedInstance] weekForDate:todayDate];
     
-    return todayWeek == i ? [UIColor colorWithWhite:1.0 alpha:0.45] : [UIColor colorWithWhite:1.0 alpha:0.2];
+    return (todayWeek == i) ? [UIColor colorWithWhite:1.0 alpha:0.45] : [UIColor colorWithWhite:1.0 alpha:0.2];
 }
 
 

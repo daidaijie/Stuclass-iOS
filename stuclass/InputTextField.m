@@ -22,7 +22,7 @@
         self.alpha = 0.6;
     }
     
-    return self;
+    return self; 
 }
 
 @end

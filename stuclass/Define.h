@@ -42,7 +42,8 @@ static const CGFloat global_textView_RowHeightFor6p = 354;
 
 
 // url
-static NSString *global_host = @"http://hjsmallfly.wicp.net/";
+//static NSString *global_host = @"http://hjsmallfly.wicp.net/";
+static NSString *global_host = @"http://121.42.175.83:8084/";
 
 static NSString *login_url = @"/syllabus";
 

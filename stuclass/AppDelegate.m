@@ -10,6 +10,7 @@
 #import <KVNProgress/KVNProgress.h>
 #import "Define.h"
 #import "MobClick.h"
+#import "JHDater.h"
 
 @interface AppDelegate ()
 
@@ -32,6 +33,18 @@
 //    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 //    [MobClick setAppVersion:version];
     
+    
+    // Week Configuration
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSDictionary *weekData = [ud objectForKey:@"WEEK_DATA"];
+    
+    if (!weekData) {
+//        NSDate *date = [[JHDater sharedInstance] getCurrentZoneDate:[NSDate date]];
+        NSDate *date = [NSDate date];
+        NSLog(@"更新第一天时间 - %@", date);
+        weekData = @{@"week":@1, @"date":date};
+        [ud setObject:weekData forKey:@"WEEK_DATA"];
+    }
     
     // KVN Configuration
     KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];

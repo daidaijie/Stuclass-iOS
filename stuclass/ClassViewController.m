@@ -27,22 +27,28 @@
 #import "ClassSemesterTableViewController.h"
 #import "DocumentTableViewController.h"
 #import "MobClick.h"
+#import "JHDater.h"
+#import "ClassWeekTableViewController.h"
 
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
-@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, SettingLogOutDelegate, ClassSemesterDelegate, UIScrollViewDelegate>
+@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, SettingLogOutDelegate, ClassSemesterDelegate, UIScrollViewDelegate, ClassWeekDelegate>
 
 @property (strong, nonatomic) ClassHeaderView *classHeaderView;
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) UIImageView *bgImageView;
 @property (strong, nonatomic) ClassSemesterButton *semesterButton;
 
-@property (strong, nonatomic) MoreView * moreView;
+@property (strong, nonatomic) MoreView *moreView;
 
 @property (strong, nonatomic) DXPopover *popover;
 
 @property (assign, nonatomic) BOOL isSemesterButtonHidden;
+
+@property (weak, nonatomic) IBOutlet UIButton *weekButton;
+
+@property (nonatomic) NSInteger currentWeek;
 
 @end
 
@@ -61,6 +67,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [self initBgImageView];
     [self initPopover];
     [self initMoreView];
+    [self initWeekView];
     [self initClassHeaderView];
     [self initCollectionView];
     [self initSemesterButton];
@@ -76,6 +83,14 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     // 更新顶部日期
     [_classHeaderView updateCurrentDateOnClassHeaderView];
+    
+    // Week
+    BOOL hasChanged = [self getCurrentWeek];
+    
+    if (hasChanged) {
+        [_weekButton setTitle:[NSString stringWithFormat:@"第 %d 周", _currentWeek] forState:UIControlStateNormal];
+        [self.collectionView reloadData];
+    }
 }
 
 
@@ -161,6 +176,12 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [oaBtn addTarget:self action:@selector(moreOaPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
+- (void)initWeekView
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    _currentWeek = [[ud objectForKey:@"WEEK_DATA"][@"week"] integerValue];
+    [_weekButton setTitle:[NSString stringWithFormat:@"第 %d 周", _currentWeek] forState:UIControlStateNormal];
+}
 
 - (void)initClassHeaderView
 {
@@ -288,17 +309,41 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     ClassBox *box = _boxData[row];
     
     if (box) {
+        NSLog(@"%d - %d  -  %d", row, box.box_x, box.box_y);
+        // 在周数区间
+        NSInteger startWeek = [box.box_span[0] integerValue];
+        NSInteger endWeek = [box.box_span[1] integerValue];
         
-        // shrinkName
-        
-        NSString *className = [self shrinkName:box.box_name];
-        
-        cell.label.text = [NSString stringWithFormat:@"%@@%@%@", className, box.box_room, box.box_weekType.length == 0 ? @"" : [NSString stringWithFormat:@"(%@周)", box.box_weekType]];
-        
-        [cell setBtnColor:box.box_color];
-        
-        cell.tag = row;
-        cell.delegate = self;
+        if (_currentWeek >= startWeek && _currentWeek <= endWeek) {
+            
+            NSInteger flag = 2;
+            
+            if ([box.box_weekType isEqualToString:@"单"]) {
+                flag = 1;
+            } else if ([box.box_weekType isEqualToString:@"双"]) {
+                flag = 0;
+            }
+            
+            // 判断单双周
+            if (box.box_weekType.length == 0 || _currentWeek % 2 == flag) {
+                
+                // shrinkName
+                
+                NSString *className = [self shrinkName:box.box_name];
+                
+                cell.label.text = [NSString stringWithFormat:@"%@@%@%@", className, box.box_room, box.box_weekType.length == 0 ? @"" : [NSString stringWithFormat:@"(%@周)", box.box_weekType]];
+                
+                [cell setBtnColor:box.box_color];
+                
+                cell.tag = row;
+                cell.delegate = self;
+                cell.hidden = NO;
+            } else {
+                cell.hidden = YES;
+            }
+        } else {
+            cell.hidden = YES;
+        }
     }
     
     return cell;
@@ -508,7 +553,34 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [_collectionView setContentOffset:CGPointZero animated:NO];
 }
 
+#pragma mark - WeekDelegate
 
+- (IBAction)weekButtonPress:(id)sender
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ClassWeekTableViewController *cwtvc = [sb instantiateViewControllerWithIdentifier:@"ClassWeekTVC"];
+    
+    cwtvc.delegate = self;
+    
+    UINavigationController *nvc = [[UINavigationController alloc] init];
+    nvc.viewControllers = @[cwtvc];
+    
+    [self presentViewController:nvc animated:YES completion:nil];
+    
+    [MobClick event:@"Main_Week"];
+}
+
+- (void)weekDelegateWeekChanged:(NSInteger)week
+{
+    if (week != _currentWeek) {
+        
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        NSDate *date = [NSDate date];
+        NSLog(@"更新第一天时间 - %@", date);
+        NSDictionary *weekData = @{@"week":[NSNumber numberWithInteger:week], @"date":date};
+        [ud setObject:weekData forKey:@"WEEK_DATA"];
+    }
+}
 
 #pragma mark - SettingDelegate
 
@@ -977,6 +1049,34 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
 }
 
+#pragma mark - Week Update & Get
+
+- (BOOL)getCurrentWeek
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSDictionary *weekData = [ud objectForKey:@"WEEK_DATA"];
+    
+    NSInteger week = [weekData[@"week"] integerValue];
+    NSDate *startDate = weekData[@"date"];
+    
+    NSInteger days = [[JHDater sharedInstance] getDaysFrom:startDate To:[NSDate date]];
+    NSLog(@"%@", startDate);
+    NSLog(@"%@", [NSDate date]);
+    NSLog(@"days = %d", days);
+    NSLog(@"startWeek = 星期%d", [[JHDater sharedInstance] weekForDate:startDate] + 1);
+    NSInteger offset = (days + [[JHDater sharedInstance] weekForDate:startDate]) / 7;
+    
+    NSInteger newWeek = week + offset;
+    
+    if (newWeek <= 16 && newWeek >= 1) {
+        BOOL hasChanged = (_currentWeek != newWeek);
+        _currentWeek = newWeek;
+        
+        return hasChanged;
+    } else {
+        return NO;
+    }
+}
 
 
 

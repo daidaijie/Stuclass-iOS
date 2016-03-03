@@ -63,6 +63,11 @@
     
     NSMutableArray *boxData = [NSMutableArray array];
     
+    classData = [NSMutableArray arrayWithArray:classData];
+    
+//    classData[0][@"days"] = @{@"w0":[NSNull null], @"w1":[NSNull null], @"w2":[NSNull null], @"w3":@"3467", @"w4":[NSNull null], @"w5":[NSNull null], @"w6":[NSNull null]};
+//    NSLog(@"%@",classData);
+    
     for (NSDictionary *class in classData) {
         
         NSDictionary *days = class[@"days"];
@@ -86,15 +91,21 @@
                 box.box_number = class[@"id"];
                 box.box_name = class[@"name"];
                 box.box_room = class[@"room"];
-                box.box_span = [class[@"duration"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+                
+                // Span
+                NSString *spanStr = [class[@"duration"] stringByReplacingOccurrencesOfString:@" " withString:@""];
+                NSArray *spanArray = [spanStr componentsSeparatedByString:@"-"];
+                NSInteger start = [spanArray[0] integerValue];
+                NSInteger end = [spanArray[1] integerValue];
+                NSArray *spanData = @[[NSNumber numberWithInt:start], [NSNumber numberWithInt:end]];
+                box.box_span = spanData;
+                
                 box.box_teacher = class[@"teacher"];
                 box.box_credit = class[@"credit"];
                 box.box_color = color;
                 
-                
                 NSString *weekStr = key;
                 box.box_x = [self generateCoordinateX:weekStr];
-                
                 
                 NSString *numStr = days[key];
                 
@@ -106,20 +117,19 @@
                     weekType = @"双";
                 }
                 box.box_weekType = weekType;
-                
+                    
                 NSArray *yAndLengthArray = [self generateCoordinateYAndLengthArray:numStr];
                 
                 for (NSArray *yAndLength in yAndLengthArray) {
-                    
-                    box.box_y = [yAndLength[0] integerValue];
-                    box.box_length = [yAndLength[1] integerValue];
-                    
-                    [boxData addObject:box];
+                    ClassBox *newBox = [box copyClassBox];
+                    newBox.box_y = [yAndLength[0] integerValue];
+                    newBox.box_length = [yAndLength[1] integerValue];
+                    [boxData addObject:newBox];
                 }
-//                NSLog(@"%@ - %@", box.box_name, yAndLengthArray);
             }
         }
     }
+    
     
     return boxData;
 }
@@ -152,7 +162,7 @@
 
 - (NSMutableArray *)generateCoordinateYAndLengthArray:(NSString *)numStr
 {
-    // 去掉中文开头
+    // 去掉中文开头 // 3467
     if ([numStr hasPrefix:@"单"] || [numStr hasPrefix:@"双"]) {
         numStr = [numStr substringWithRange:NSMakeRange(1, numStr.length-1)];
     }

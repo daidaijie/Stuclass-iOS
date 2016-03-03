@@ -180,6 +180,8 @@
 // 返回星期 周一-0 周日-6
 - (NSInteger)weekForDate:(NSDate *)date
 {
+//    date = [self getCurrentZoneDate:date];
+    
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSInteger week = [calendar components:NSCalendarUnitWeekday fromDate:date].weekday;
     return week == 1 ? 6 : (week-=2);
@@ -198,6 +200,26 @@
     NSDate *dateAfterDay = [calendar dateByAddingComponents:componentsToAdd toDate:[NSDate date] options:0];
     
     return dateAfterDay;
+}
+
+
+- (NSInteger)getDaysFrom:(NSDate *)startDate To:(NSDate *)endDate
+{
+    NSTimeInterval interval1 = [[self getCurrentZoneDate:startDate] timeIntervalSince1970];
+    NSTimeInterval interval2 = [[self getCurrentZoneDate:endDate] timeIntervalSince1970];
+    NSInteger daySeconds = 24 * 60 * 60;
+    NSInteger days1 = interval1 / daySeconds;
+    NSInteger days2 = interval2 / daySeconds;
+    return days2 - days1;
+}
+
+- (NSDate *)dateFromString:(NSString *)string
+{
+    NSDateFormatter *inputFormatter= [[NSDateFormatter alloc] init];
+    
+    [inputFormatter setDateFormat:@"yyyy/MM/dd/HH"];
+    
+    return [self getCurrentZoneDate:[inputFormatter dateFromString:string]];
 }
 
 

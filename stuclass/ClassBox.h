@@ -14,7 +14,7 @@
 @property (strong, nonatomic) NSString *box_number;
 @property (strong, nonatomic) NSString *box_name;
 @property (strong, nonatomic) NSString *box_room;
-@property (strong, nonatomic) NSString *box_span;
+@property (strong, nonatomic) NSArray *box_span;
 @property (strong, nonatomic) NSString *box_teacher;
 @property (strong, nonatomic) NSString *box_credit;
 @property (strong, nonatomic) UIColor *box_color;
@@ -22,5 +22,7 @@
 @property (assign, nonatomic) NSInteger box_y;
 @property (assign, nonatomic) NSInteger box_length;
 @property (strong, nonatomic) NSString *box_weekType;
+
+- (ClassBox *)copyClassBox;
 
 @end
