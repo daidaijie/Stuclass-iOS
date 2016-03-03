@@ -74,6 +74,9 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     // Notification
     [self initNotification];
+    
+    // Show Annoucement
+    [self showAnnoucement];
 }
 
 #pragma mark - View Delegate
@@ -560,6 +563,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     ClassWeekTableViewController *cwtvc = [sb instantiateViewControllerWithIdentifier:@"ClassWeekTVC"];
     
     cwtvc.delegate = self;
+    cwtvc.selectedWeek = _currentWeek;
     
     UINavigationController *nvc = [[UINavigationController alloc] init];
     nvc.viewControllers = @[cwtvc];
@@ -571,14 +575,11 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)weekDelegateWeekChanged:(NSInteger)week
 {
-    if (week != _currentWeek) {
-        
-        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-        NSDate *date = [NSDate date];
-        NSLog(@"更新第一天时间 - %@", date);
-        NSDictionary *weekData = @{@"week":[NSNumber numberWithInteger:week], @"date":date};
-        [ud setObject:weekData forKey:@"WEEK_DATA"];
-    }
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSDate *date = [NSDate date];
+    NSLog(@"更新第一天时间 - %@", date);
+    NSDictionary *weekData = @{@"week":[NSNumber numberWithInteger:week], @"date":date};
+    [ud setObject:weekData forKey:@"WEEK_DATA"];
 }
 
 #pragma mark - SettingDelegate
@@ -1073,10 +1074,31 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
         return hasChanged;
     } else {
-        return NO;
+        _currentWeek = (newWeek > 16) ? 16 : 1;
+        return YES;
     }
 }
 
+#pragma mark - Show Annoucement
+
+- (void)showAnnoucement
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    NSString *localVersion = [ud stringForKey:@"LOCAL_VERSION"];
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    
+    NSLog(@"当前版本 - %@", appVersion);
+    
+    if (![localVersion isEqualToString:appVersion]) {
+        // 显示更新内容
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"更新内容 v%@", appVersion] message:@"1. 点击导航标题可以设置周数，\n同时周数会自动增加;\n2. 取消了用户密码的长度限制;\n3. 访问服务器更加快速、稳定;\n4. 解决了显示错误等一大堆Bugs!\n\n目前用户量已达2000多人，谢谢大家!" delegate:nil cancelButtonTitle:@"立即体验 喵:)" otherButtonTitles:nil];
+        [alertView show];
+        [ud setObject:appVersion forKey:@"LOCAL_VERSION"];
+    }
+}
 
 
 - (void)didReceiveMemoryWarning {

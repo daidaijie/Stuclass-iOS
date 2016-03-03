@@ -14,8 +14,6 @@ static NSInteger kNumberOfWeeks = 16;
 
 @interface ClassWeekTableViewController ()
 
-@property (assign, nonatomic) NSInteger selectedWeek;
-
 @end
 
 @implementation ClassWeekTableViewController
@@ -26,29 +24,10 @@ static NSInteger kNumberOfWeeks = 16;
 {
     [super viewDidLoad];
     
-    [self setupData];
-    
     [self setupTableView];
 }
 
 #pragma mark - Setup Method
-
-- (void)setupSelectedWeek:(NSInteger)week
-{
-    _selectedWeek = week;
-}
-
-- (void)setupData
-{
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    
-    NSDictionary *weekData = [ud valueForKey:@"WEEK_DATA"];
-    
-    NSInteger week = [weekData[@"week"] integerValue];
-    
-    [self setupSelectedWeek:week];
-}
-
 
 - (void)setupTableView
 {

@@ -21,5 +21,7 @@
 
 @property (weak, nonatomic) id<ClassWeekDelegate> delegate;
 
+@property (assign, nonatomic) NSInteger selectedWeek;
+
 @end
 

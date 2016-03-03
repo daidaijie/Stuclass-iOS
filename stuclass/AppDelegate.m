@@ -27,11 +27,11 @@
     // Override point for customization after application launch.
     
     // Umeng
-//    [MobClick startWithAppkey:@"565fd3d1e0f55adf58000149" reportPolicy:BATCH channelId:@"App Store"];
+    [MobClick startWithAppkey:@"565fd3d1e0f55adf58000149" reportPolicy:BATCH channelId:@"App Store"];
     
     // version标识
-//    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-//    [MobClick setAppVersion:version];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
     
     
     // Week Configuration
@@ -39,7 +39,6 @@
     NSDictionary *weekData = [ud objectForKey:@"WEEK_DATA"];
     
     if (!weekData) {
-//        NSDate *date = [[JHDater sharedInstance] getCurrentZoneDate:[NSDate date]];
         NSDate *date = [NSDate date];
         NSLog(@"更新第一天时间 - %@", date);
         weekData = @{@"week":@1, @"date":date};
