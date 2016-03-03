@@ -1459,7 +1459,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ClassWeekCell" rowHeight="50" id="YKQ-xD-Pas" customClass="ClassWeekTableViewCell">
                                 <rect key="frame" x="0.0" y="113.5" width="320" height="50"/>
@@ -1487,6 +1487,7 @@
                                 <constraints>
                                     <constraint firstItem="tus-m4-32d" firstAttribute="centerX" secondItem="YKQ-xD-Pas" secondAttribute="centerX" id="2hB-Vj-w3N"/>
                                 </constraints>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="weekLabel" destination="tus-m4-32d" id="ALH-dO-g8A"/>
                                 </connections>

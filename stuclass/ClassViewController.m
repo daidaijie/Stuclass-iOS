@@ -309,7 +309,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     ClassBox *box = _boxData[row];
     
     if (box) {
-        NSLog(@"%d - %d  -  %d", row, box.box_x, box.box_y);
         // 在周数区间
         NSInteger startWeek = [box.box_span[0] integerValue];
         NSInteger endWeek = [box.box_span[1] integerValue];
