@@ -49,7 +49,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STU©2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="166" translatesAutoresizingMaskIntoConstraints="NO" id="Nqh-ue-ptD">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="汕头大学©2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="166" translatesAutoresizingMaskIntoConstraints="NO" id="Nqh-ue-ptD">
                                 <rect key="frame" x="77" y="545" width="166" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="FUh-J6-HKo"/>
@@ -76,7 +76,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="*我们不知道您的密码" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Sc-ru-Z3Q">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我们不知道您的密码:)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Sc-ru-Z3Q">
                                 <rect key="frame" x="77" y="426" width="166" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="166" id="mBH-gs-lka"/>
@@ -371,7 +371,7 @@
             </objects>
             <point key="canvasLocation" x="1989" y="-444"/>
         </scene>
-        <!--校园吹水-->
+        <!--校园动态-->
         <scene sceneID="aEJ-s2-sEn">
             <objects>
                 <viewController id="Xlf-C9-snJ" customClass="PublicViewController" sceneMemberID="viewController">
@@ -384,7 +384,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="校园吹水" id="JlG-dR-iTp">
+                    <navigationItem key="navigationItem" title="校园动态" id="JlG-dR-iTp">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Eq-Ec-r1I">
                             <connections>
                                 <action selector="postItemPress:" destination="Xlf-C9-snJ" id="1vw-tz-stp"/>
@@ -780,7 +780,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STU©2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="166" translatesAutoresizingMaskIntoConstraints="NO" id="Psu-xp-YWu">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="汕头大学©2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="166" translatesAutoresizingMaskIntoConstraints="NO" id="Psu-xp-YWu">
                                 <rect key="frame" x="77" y="545" width="166" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="166" id="nuw-kh-imZ"/>

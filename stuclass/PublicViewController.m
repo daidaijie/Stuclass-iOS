@@ -19,6 +19,8 @@
 #import "ClassBox.h"
 #import <KVNProgress/KVNProgress.h>
 #import "MobClick.h"
+#import "HeaderCollectionReusableView.h"
+#import "UIImageView+WebCache.h"
 
 static NSString *cell_id = @"DiscussTableViewCell";
 
@@ -36,6 +38,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 @property (strong, nonatomic) NSMutableArray *discussData;
 
 @property (strong, nonatomic) UIView *sectionHeaderView;
+
+@property (strong, nonatomic) HeaderCollectionReusableView *header;
 
 @property (assign, nonatomic) BOOL hasLoadedFirstly;
 
@@ -88,7 +92,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     emptyLabel.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 + 25);
     emptyLabel.textAlignment = NSTextAlignmentCenter;
     emptyLabel.textColor = MAIN_COLOR;
-    emptyLabel.text = @"目测都在潜水，点我刷新";
+    emptyLabel.text = @"努力加载中，点我刷新";
     [_emptyView addSubview:emptyLabel];
     
     UIImageView *emptyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 88, 88)];
@@ -105,6 +109,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     _tableView = [[UITableView alloc] initWithFrame:_emptyView.frame style:UITableViewStylePlain];
     
     _tableView.fd_debugLogEnabled = NO;
+    
+    _tableView.scrollsToTop = YES;
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -133,6 +139,14 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     // sectionHeaderView
     _sectionHeaderView = [[UIView alloc] init];
     _sectionHeaderView.backgroundColor = [UIColor clearColor];
+    
+    
+    
+    // Header
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    _header = [[HeaderCollectionReusableView alloc] initWithFrame:CGRectMake(0, 0, width, width * 9.0 / 16)];
+    _tableView.tableHeaderView = _header;
+    _tableView.sectionHeaderHeight = _header.bounds.size.height;
 }
 
 #pragma mark - TableView Delegate
@@ -383,7 +397,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         // 成功
         NSLog(@"讨论 - 连接服务器 - 成功");
         [self parseResponseObject:responseObject];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
@@ -412,8 +426,71 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             [self showHUDWithText:@"获取讨论信息失败" andHideDelay:global_hud_delay];
         }
         
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
     } else {
         
+        // Picture
+        NSDictionary *latestData = responseObject[@"latest"];
+        NSArray *pictureData = latestData[@"notifications"];
+        
+        
+        NSString *urlStr1 = pictureData[0][@"url"];
+        NSString *urlStr2 = pictureData[1][@"url"];
+        NSString *urlStr3 = pictureData[2][@"url"];
+        
+        NSURL *url1 = [NSURL URLWithString:urlStr1];
+        NSURL *url2 = [NSURL URLWithString:urlStr2];
+        NSURL *url3 = [NSURL URLWithString:urlStr3];
+        
+        NSString *link1 = [NSString stringWithFormat:@"%@", pictureData[0][@"link"]];
+        NSString *link2 = [NSString stringWithFormat:@"%@", pictureData[1][@"link"]];
+        NSString *link3 = [NSString stringWithFormat:@"%@", pictureData[2][@"link"]];
+        
+        UIImage *image1;
+        UIImage *image2;
+        UIImage *image3;
+        
+        SDWebImageManager *manager = [SDWebImageManager sharedManager];
+        [manager diskImageExistsForURL:url1];
+        
+        if ([manager diskImageExistsForURL:url1]) {
+            image1 = [[manager imageCache] imageFromDiskCacheForKey:urlStr1];
+        } else {
+            image1 = [UIImage imageNamed:@"banner1.jpg"];
+        }
+        
+        if ([manager diskImageExistsForURL:url2]) {
+            image2 = [[manager imageCache] imageFromDiskCacheForKey:urlStr2];
+        } else {
+            image2 = [UIImage imageNamed:@"banner2.jpg"];
+        }
+        
+        if ([manager diskImageExistsForURL:url3]) {
+            image3 = [[manager imageCache] imageFromDiskCacheForKey:urlStr3];
+        } else {
+            image3 = [UIImage imageNamed:@"banner3.jpg"];
+        }
+        
+//        [_header.banner1 sd_setImageWithURL:url1 placeholderImage:image1];
+//        [_header.banner2 sd_setImageWithURL:url2 placeholderImage:image2];
+        [_header.banner1 sd_setImageWithURL:url1 placeholderImage:image1 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+            _header.link1 = link1;
+        }];
+        [_header.banner2 sd_setImageWithURL:url2 placeholderImage:image2 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+            _header.link2 = link2;
+        }];
+        [_header.banner3 sd_setImageWithURL:url3 placeholderImage:image3 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+            _header.link3 = link3;
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }];
+        
+        if (_hasLoadedFirstly) {
+            [_header activeHeader];
+        }
+        
+        
+        // Discuss
         NSArray *data = responseObject[@"discussions"];
         
         NSMutableArray *discussData = [NSMutableArray array];
@@ -438,12 +515,13 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         _discussData = discussData;
         
         [_tableView reloadData];
-        
     }
     
     _isLoading = NO;
     [_refreshControl endRefreshing];
 }
+
+
 
 
 - (void)tapToGetDiscuss

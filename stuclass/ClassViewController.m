@@ -1060,10 +1060,10 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     NSDate *startDate = weekData[@"date"];
     
     NSInteger days = [[JHDater sharedInstance] getDaysFrom:startDate To:[NSDate date]];
-    NSLog(@"%@", startDate);
-    NSLog(@"%@", [NSDate date]);
-    NSLog(@"days = %d", days);
-    NSLog(@"startWeek = 星期%d", [[JHDater sharedInstance] weekForDate:startDate] + 1);
+//    NSLog(@"%@", startDate);
+//    NSLog(@"%@", [NSDate date]);
+//    NSLog(@"days = %d", days);
+//    NSLog(@"startWeek = 星期%d", [[JHDater sharedInstance] weekForDate:startDate] + 1);
     NSInteger offset = (days + [[JHDater sharedInstance] weekForDate:startDate]) / 7;
     
     NSInteger newWeek = week + offset;
