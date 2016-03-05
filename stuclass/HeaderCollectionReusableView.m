@@ -7,8 +7,9 @@
 //
 
 #import "HeaderCollectionReusableView.h"
+#import "Define.h"
 
-static const NSTimeInterval kDuration = 4.5;
+static const NSTimeInterval kDuration = 4.0;
 
 
 @interface HeaderCollectionReusableView () <UIScrollViewDelegate, UIAlertViewDelegate>
@@ -46,11 +47,8 @@ static const NSTimeInterval kDuration = 4.5;
         self.pageControl.currentPage = 0;
         
         _banner1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, width * k)];
-//        _banner1.image = [UIImage imageNamed:@"banner1.jpg"];
         _banner2 = [[UIImageView alloc] initWithFrame:CGRectMake(width, 0, width, width * k)];
-//        _banner2.image = [UIImage imageNamed:@"banner2.jpg"];
         _banner3 = [[UIImageView alloc] initWithFrame:CGRectMake(width * 2, 0, width, width * k)];
-//        _banner3.image = [UIImage imageNamed:@"banner3.jpg"];
         
         _banner1.contentMode = _banner2.contentMode = _banner3.contentMode = UIViewContentModeScaleAspectFill;
         
@@ -69,6 +67,11 @@ static const NSTimeInterval kDuration = 4.5;
         // Gesture
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openLink)];
         [self addGestureRecognizer:tap];
+        
+        // line
+        UIView *bottomLine = [[UIView alloc] initWithFrame:CGRectMake(0, width * k, width, 0.5)];
+        bottomLine.backgroundColor = [UIColor colorWithWhite:0.843 alpha:1.000];
+        [self addSubview:bottomLine];
     }
     
     return self;

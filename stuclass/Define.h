@@ -28,6 +28,8 @@ static NSString *global_connection_credit_broken = @"天哪！学分制系统崩
 // Constant
 static const NSTimeInterval global_timeout = 8.0;
 
+static const NSTimeInterval login_timeout = 2.0;
+
 static const NSTimeInterval global_hud_delay = 1.0;
 
 static const CGFloat global_BarViewHeight = 43.0;
@@ -44,6 +46,8 @@ static const CGFloat global_textView_RowHeightFor6p = 354;
 // url
 //static NSString *global_host = @"http://hjsmallfly.wicp.net/";
 static NSString *global_host = @"http://121.42.175.83:8084/";
+
+static NSString *login_host = @"http://192.168.31.4:8080";
 
 static NSString *login_url = @"/syllabus";
 

@@ -29,6 +29,7 @@
 #import "MobClick.h"
 #import "JHDater.h"
 #import "ClassWeekTableViewController.h"
+#import "MBProgressHUD.h"
 
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
@@ -122,6 +123,9 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     UIBarButtonItem *publicItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-public"] style:UIBarButtonItemStylePlain target:self action:@selector(publicItemPress)];
     
+    UIBarButtonItem *settingItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-user"] style:UIBarButtonItemStylePlain target:self action:@selector(settingButtonPress)];
+    
+    self.navigationItem.leftBarButtonItem = settingItem;
     self.navigationItem.rightBarButtonItems = @[moreItem, publicItem];
 }
 
@@ -164,7 +168,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)initMoreView
 {
-    _moreView = [[MoreView alloc] initWithItems:@[@"同步课表", @"考试信息", @"我的成绩", @"办公自动化"] images:@[[UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-oa"]]];
+    _moreView = [[MoreView alloc] initWithItems:@[@"同步课表", @"考试信息", @"我的成绩", @"办公自动化", @"登录校内网"] images:@[[UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-oa"], [UIImage imageNamed:@"more-login"]]];
     
     UIButton *syncBtn = _moreView.itemsArray[0];
     [syncBtn addTarget:self action:@selector(moreSyncPress) forControlEvents:UIControlEventTouchUpInside];
@@ -177,6 +181,9 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     UIButton *oaBtn = _moreView.itemsArray[3];
     [oaBtn addTarget:self action:@selector(moreOaPress) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *loginBtn = _moreView.itemsArray[4];
+    [loginBtn addTarget:self action:@selector(moreLoginPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)initWeekView
@@ -483,13 +490,19 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [MobClick event:@"More_OA"];
 }
 
+- (void)moreLoginPress
+{
+    [self connect];
+    [MobClick event:@"More_Login"];
+}
+
 - (void)publicItemPress
 {
     [self performSegueWithIdentifier:@"ShowPublic" sender:nil];
 }
 
 
-- (IBAction)settingButtonPress:(id)sender
+- (void)settingButtonPress
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     SettingTableViewController *stvc = [sb instantiateViewControllerWithIdentifier:@"stvc"];
@@ -1094,11 +1107,75 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     if (![localVersion isEqualToString:appVersion]) {
         // 显示更新内容
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"更新内容 v%@", appVersion] message:@"1. 点击导航标题可以设置周数，\n同时周数会自动增加;\n2. 取消了用户密码的长度限制;\n3. 访问服务器更加快速、稳定;\n4. 解决了显示错误等一大堆Bugs!\n\n目前用户量已达2000多人，谢谢大家!" delegate:nil cancelButtonTitle:@"立即体验 喵:)" otherButtonTitles:nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"更新内容 v%@", appVersion] message:@"1. 点击导航标题可以设置周数，\n同时周数会自动增加;\n2. 增加了一键登录校内Wi-Fi的功能;\n3. 校园动态增加了公告栏，\n提供各种有关校内活动的信息;\n4. 访问服务器更加快速、稳定;\n5. 解决了显示错误等一大堆Bugs!\n\n目前用户量已达2000多人，谢谢大家!" delegate:nil cancelButtonTitle:@"立即体验 喵:)" otherButtonTitles:nil];
         [alertView show];
         [ud setObject:appVersion forKey:@"LOCAL_VERSION"];
     }
 }
+
+
+#pragma mark - Connect
+
+- (void)connect
+{
+    [_popover dismiss];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *username = [ud valueForKey:@"USERNAME"];
+    NSString *password = [ud valueForKey:@"PASSWORD"];
+    
+    // post data
+    NSDictionary *postData = @{
+                               @"AuthenticateUser": username,
+                               @"AuthenticatePassword": password,
+                               @"Submit": @"",
+                               };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = login_timeout;
+    
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager POST:login_host parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"一键联网 - 失败");
+        [self showHUDWithText:@"请连接STU校内网" andHideDelay:1.0];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSString *str = operation.responseString;
+        if ([str containsString:@"Used bytes"]) {
+            NSLog(@"一键联网 - 成功");
+            [self showHUDWithText:@"已成功登录校内网" andHideDelay:1.0];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        } else {
+            NSLog(@"一键联网 - 失败 - %@", error);
+            [self showHUDWithText:@"请连接STU校内网" andHideDelay:1.0];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }
+    }];
+}
+
+#pragma mark - HUD
+
+- (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {
+    
+    [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
+    
+    if (self.navigationController.view) {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = string;
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:delay];
+    }
+}
+
 
 
 - (void)didReceiveMemoryWarning {

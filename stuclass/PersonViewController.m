@@ -33,6 +33,8 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 
 @property (strong, nonatomic) NSArray *infoTitleArray;
 
+@property (strong, nonatomic) NSArray *imgArray;
+
 @property (strong, nonatomic) NSString *noteStr;
 
 @property (strong, nonatomic) NSString *timeStr;
@@ -49,7 +51,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     
     [self setupBarBackButton];
     
-    [self initInfoTitleArray];
+    [self initDataArray];
     
     [self initTableView];
     
@@ -69,9 +71,10 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 }
 
 
-- (void)initInfoTitleArray
+- (void)initDataArray
 {
     _infoTitleArray = @[@"课程", @"班号", @"教师", @"课室", @"学分", @"周数"];
+    _imgArray = @[[UIImage imageNamed:@"icon-name"], [UIImage imageNamed:@"icon-number"], [UIImage imageNamed:@"icon-teacher"], [UIImage imageNamed:@"icon-room"], [UIImage imageNamed:@"icon-credit"], [UIImage imageNamed:@"icon-week"]];
 }
 
 
@@ -193,6 +196,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
         }
         
         cell.detailLabel.text = content;
+        cell.iconImageView.image = _imgArray[row];
         
         return cell;
         

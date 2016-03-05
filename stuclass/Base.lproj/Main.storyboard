@@ -149,11 +149,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="Vtu-nX-1QD">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" title="设置" id="K5X-AP-Qqd">
-                            <connections>
-                                <action selector="settingButtonPress:" destination="f6Q-Hq-ojy" id="y3L-ck-7vJ"/>
-                            </connections>
-                        </barButtonItem>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wze-g3-obk">
                             <rect key="frame" x="123" y="4.5" width="74" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1475,7 +1470,7 @@
                                                 <constraint firstAttribute="width" constant="104" id="khF-nm-vR7"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>

@@ -472,8 +472,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             image3 = [UIImage imageNamed:@"banner3.jpg"];
         }
         
-//        [_header.banner1 sd_setImageWithURL:url1 placeholderImage:image1];
-//        [_header.banner2 sd_setImageWithURL:url2 placeholderImage:image2];
         [_header.banner1 sd_setImageWithURL:url1 placeholderImage:image1 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
             _header.link1 = link1;
         }];
@@ -484,6 +482,11 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             _header.link3 = link3;
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
+        
+//        _header.banner1.image = [UIImage imageNamed:@"banner1.jpg"];
+//        _header.banner2.image = [UIImage imageNamed:@"banner2.jpg"];
+//        _header.banner3.image = [UIImage imageNamed:@"banner3.jpg"];
+        
         
         if (_hasLoadedFirstly) {
             [_header activeHeader];
