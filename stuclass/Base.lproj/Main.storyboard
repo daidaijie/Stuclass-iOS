@@ -667,12 +667,29 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="4WX-Xe-RoK" rowHeight="50" style="IBUITableViewCellStyleDefault" id="q15-HN-hlG">
+                                        <rect key="frame" x="0.0" y="339" width="320" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q15-HN-hlG" id="pLc-dY-8ve">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="49.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="清理图片缓存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4WX-Xe-RoK">
+                                                    <rect key="frame" x="15" y="0.0" width="270" height="49.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="b9a-02-mY1">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="cSn-cJ-hDN" rowHeight="50" style="IBUITableViewCellStyleDefault" id="3pF-Fn-epz">
-                                        <rect key="frame" x="0.0" y="359" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="409" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3pF-Fn-epz" id="KRx-qD-8YY">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49.5"/>
@@ -689,7 +706,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="hT5-Mp-7SC" rowHeight="50" style="IBUITableViewCellStyleDefault" id="zq8-dA-dkN">
-                                        <rect key="frame" x="0.0" y="409" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="459" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zq8-dA-dkN" id="m4B-RK-MVU">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49.5"/>
@@ -710,7 +727,7 @@
                             <tableViewSection id="ZS0-Op-l8g">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="c8E-W2-WjW">
-                                        <rect key="frame" x="0.0" y="479" width="320" height="50"/>
+                                        <rect key="frame" x="0.0" y="529" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c8E-W2-WjW" id="CMI-os-Mc4">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>

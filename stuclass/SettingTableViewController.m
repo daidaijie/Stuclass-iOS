@@ -12,6 +12,7 @@
 #import "MBProgressHUD.h"
 #import "MobClick.h"
 #import "Define.h"
+#import "SDWebImageManager.h"
 
 @interface SettingTableViewController () <NicknameChangedDelegate>
 
@@ -113,6 +114,10 @@
             [MobClick event:@"Setting_Background"];
         }
         
+        if (row == 1) {
+            [self clearLocalData];
+        }
+        
     } else if (section == 3) {
         
         if (row == 0) {
@@ -170,6 +175,17 @@
     pasteBoard.string = [NSString stringWithFormat:@"%@app/", global_host];
     
     [self showHUDWithText:@"下载链接已添加到剪贴板" andHideDelay:1.6];
+    
+    [self performSelector:@selector(diselectCell) withObject:nil afterDelay:1.6];
+}
+
+
+#pragma mark - Clear
+
+- (void)clearLocalData
+{
+    [[SDWebImageManager sharedManager].imageCache clearDisk];
+    [self showHUDWithText:@"已成功清理图片缓存" andHideDelay:1.6];
     
     [self performSelector:@selector(diselectCell) withObject:nil afterDelay:1.6];
 }
