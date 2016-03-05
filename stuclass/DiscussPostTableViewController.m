@@ -304,7 +304,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
                                @"credit": _dvc.classBox.box_credit,
                                @"teacher": _dvc.classBox.box_teacher,
                                @"room": _dvc.classBox.box_room,
-                               @"span": _dvc.classBox.box_span,
+                               @"span": [NSString stringWithFormat:@"%d-%d", [_dvc.classBox.box_span[0] integerValue], [_dvc.classBox.box_span[1] integerValue]],
                                @"time": [NSString stringWithFormat:@"x - %d y - %d length - %d", _dvc.classBox.box_x, _dvc.classBox.box_y, _dvc.classBox.box_length],
                                @"semester": [NSString stringWithFormat:@"%d", semester],
                                @"start_year": [NSString stringWithFormat:@"%d", year],
@@ -319,12 +319,12 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, course_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        NSLog(@"讨论 - 添加课程 - 连接服务器 - 成功 - %@", responseObject);
+        NSLog(@"讨论 - 添加课程 - 连接服务器 - 成功 - %@", operation.responseObject);
         [self parseClassInfoResponseObject:responseObject];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-        NSLog(@"讨论 - 添加课程 - 连接服务器 - 失败 - %@", error);
+        NSLog(@"讨论 - 添加课程 - 连接服务器 - 失败 - %@", operation.responseObject);
         [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
             [_textView becomeFirstResponder];
         }];
