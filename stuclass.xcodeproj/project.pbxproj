@@ -113,7 +113,7 @@
 		13FD91411C8ADCD000F89806 /* banner1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13FD913E1C8ADCD000F89806 /* banner1.jpg */; };
 		13FD91421C8ADCD000F89806 /* banner2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13FD913F1C8ADCD000F89806 /* banner2.jpg */; };
 		13FD91431C8ADCD000F89806 /* banner3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13FD91401C8ADCD000F89806 /* banner3.jpg */; };
-		5A42100AD6F1DD8019498782 /* DXPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A421B1B29A8A018002709C2 /* DXPopover.m */; };
+		5A421F5763A0D4D685204EF0 /* DXPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A421BEDC9358F1AEC74ACDE /* DXPopover.m */; };
 		DD06DD0830243B8207E0FED3 /* libPods-stuclass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF74B448CC02C745908E14E0 /* libPods-stuclass.a */; };
 /* End PBXBuildFile section */
 
@@ -307,8 +307,8 @@
 		13FD913F1C8ADCD000F89806 /* banner2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner2.jpg; sourceTree = "<group>"; };
 		13FD91401C8ADCD000F89806 /* banner3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner3.jpg; sourceTree = "<group>"; };
 		2D0681CE36B96DCF3FFEA3F5 /* Pods-stuclass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stuclass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-stuclass/Pods-stuclass.debug.xcconfig"; sourceTree = "<group>"; };
-		5A421B1B29A8A018002709C2 /* DXPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXPopover.m; sourceTree = "<group>"; };
-		5A421B8A86167E8D770E8EE1 /* DXPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXPopover.h; sourceTree = "<group>"; };
+		5A42114BD80E822AFB5E7C40 /* DXPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXPopover.h; sourceTree = "<group>"; };
+		5A421BEDC9358F1AEC74ACDE /* DXPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXPopover.m; sourceTree = "<group>"; };
 		BF74B448CC02C745908E14E0 /* libPods-stuclass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-stuclass.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA76572295EC234D664C0F6 /* Pods-stuclass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stuclass.release.xcconfig"; path = "Pods/Target Support Files/Pods-stuclass/Pods-stuclass.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -874,7 +874,6 @@
 				1319840D1C072EAE003C17E0 /* DocumentTableViewController */,
 				13DBA09B1BD247B400FC0682 /* DetailViewController */,
 				13C7070D1BC7DE10003061A4 /* Supporting Files */,
-				5A4210A7AC69CBA295CD3EEF /* DXPopover */,
 			);
 			path = stuclass;
 			sourceTree = "<group>";
@@ -910,6 +909,7 @@
 				1335FC791BCA273900BC0F23 /* JHDater */,
 				13C4C3A21BCE0C250003E703 /* ClassParser */,
 				131EF34E1BD7DAC7007ECFE8 /* CoreDataManager */,
+				5A4214F24CFDF0EBA9371BD1 /* DXPopover */,
 			);
 			name = Framework;
 			sourceTree = "<group>";
@@ -1051,11 +1051,11 @@
 			name = AboutusViewController;
 			sourceTree = "<group>";
 		};
-		5A4210A7AC69CBA295CD3EEF /* DXPopover */ = {
+		5A4214F24CFDF0EBA9371BD1 /* DXPopover */ = {
 			isa = PBXGroup;
 			children = (
-				5A421B8A86167E8D770E8EE1 /* DXPopover.h */,
-				5A421B1B29A8A018002709C2 /* DXPopover.m */,
+				5A42114BD80E822AFB5E7C40 /* DXPopover.h */,
+				5A421BEDC9358F1AEC74ACDE /* DXPopover.m */,
 			);
 			path = DXPopover;
 			sourceTree = "<group>";
@@ -1349,7 +1349,7 @@
 				130299811C892BDC00E4734C /* TAPageControl.m in Sources */,
 				131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */,
 				13C4C37F1BCCEE2B0003E703 /* GKImagePicker.m in Sources */,
-				5A42100AD6F1DD8019498782 /* DXPopover.m in Sources */,
+				5A421F5763A0D4D685204EF0 /* DXPopover.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
