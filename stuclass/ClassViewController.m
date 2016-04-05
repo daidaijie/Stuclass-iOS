@@ -19,7 +19,7 @@
 #import "DetailViewController.h"
 #import "ClassBox.h"
 #import <AFNetworking/AFNetworking.h>
-#import <DXPopover/DXPopover.h>
+#import "DXPopover.h"
 #import "MoreView.h"
 #import "GradeTableViewController.h"
 #import "ExamTableViewController.h"
