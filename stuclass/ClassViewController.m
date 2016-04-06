@@ -952,7 +952,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     NSDictionary *postData = @{
                                @"username": username,
                                @"token": token,
-                               @"pageindex": @"0",
+                               @"pageindex": @"1",
                                };
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

@@ -45,6 +45,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     [self setupBarBackButton];
     
     [self setupTableView];
+
+    _pageindex = 1;
 }
 
 #pragma mark - Setup Method
@@ -196,7 +198,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     NSDictionary *postData = @{
                                @"username": username,
                                @"token": token,
-                               @"pageindex": @"0",
+                               @"pageindex": @"1",
                                };
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -240,7 +242,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         
         _documentData = documentData;
         
-        _pageindex = 0;
+        _pageindex = 1;
         
         [self.tableView reloadData];
     }
@@ -291,7 +293,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
                                @"token": token,
                                @"pageindex": [NSNumber numberWithInteger:_pageindex + 1],
                                };
-    
+    NSLog(@"---%d", _pageindex + 1);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer.timeoutInterval = global_timeout;
