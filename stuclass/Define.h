@@ -28,6 +28,8 @@ static NSString *global_connection_credit_broken = @"天哪！学分制系统崩
 // Constant
 static const NSTimeInterval global_timeout = 8.0;
 
+static const NSTimeInterval member_timeout = 4.0;
+
 static const NSTimeInterval login_timeout = 2.0;
 
 static const NSTimeInterval global_hud_delay = 1.0;
@@ -71,6 +73,8 @@ static NSString *discuss_url = @"/api/course_info/1"; // discuss - 1
 static NSString *discuss_delete_url = @"/api/v1.0/delete/1";
 
 static NSString *nickname_url = @"/api/v1.0/modify_user";
+
+static NSString *member_url = @"/api/v1.0/member";
 
 // Cell Color
 #define COLOR_0 [UIColor colorWithRed:0.275 green:0.729 blue:0.902 alpha:1.000]

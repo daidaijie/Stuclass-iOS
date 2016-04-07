@@ -12,6 +12,7 @@
 #import "HomeworkViewController.h"
 #import "DiscussViewController.h"
 #import "Define.h"
+#import "MemberTableViewController.h"
 #import "ClassBox.h"
 
 @interface DetailViewController ()
@@ -217,6 +218,15 @@
         _pvc.tableView.scrollsToTop = NO;
         _hvc.tableView.scrollsToTop = NO;
         _dvc.tableView.scrollsToTop = YES;
+    }
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ShowMember"]) {
+        MemberTableViewController *mtvc = segue.destinationViewController;
+        mtvc.classInfo = sender;
     }
 }
 

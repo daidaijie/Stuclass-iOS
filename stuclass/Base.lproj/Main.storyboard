@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -189,6 +190,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="tez-HC-VRX"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <segue destination="o4M-Tj-tN3" kind="show" identifier="ShowMember" id="gHQ-zz-IPK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcH-HX-4PX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -392,6 +396,80 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RMH-eU-ClZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1903" y="320"/>
+        </scene>
+        <!--同班同学-->
+        <scene sceneID="4Ia-O8-MEo">
+            <objects>
+                <tableViewController id="o4M-Tj-tN3" customClass="MemberTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="y3x-EO-K0n">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="20" reuseIdentifier="MemberCell" rowHeight="70" id="non-FM-hfl" customClass="MemberTableViewCell">
+                                <rect key="frame" x="0.0" y="92" width="320" height="70"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="non-FM-hfl" id="ope-Pv-ZnW">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="69.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="王俊皓" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zMC-yq-hLq">
+                                            <rect key="frame" x="20" y="6" width="111" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2014101027" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xA0-sK-NjG">
+                                            <rect key="frame" x="20" y="26" width="167" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="汕头大学校长" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mq4-QT-7jl">
+                                            <rect key="frame" x="20" y="44" width="183" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dMm-uh-0Nc">
+                                            <rect key="frame" x="252" y="10" width="48" height="48"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="48" id="OJ2-1v-9ye"/>
+                                                <constraint firstAttribute="width" constant="48" id="sFu-40-eDa"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="dMm-uh-0Nc" secondAttribute="trailing" constant="12" id="K9Z-Y5-gCm"/>
+                                        <constraint firstItem="dMm-uh-0Nc" firstAttribute="centerY" secondItem="ope-Pv-ZnW" secondAttribute="centerY" id="fdL-BB-3Fk"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="genderImageView" destination="dMm-uh-0Nc" id="9P2-W3-B0M"/>
+                                    <outlet property="majorLabel" destination="mq4-QT-7jl" id="ubC-6p-cMR"/>
+                                    <outlet property="nameLabel" destination="zMC-yq-hLq" id="egb-WI-Ycb"/>
+                                    <outlet property="numberLabel" destination="xA0-sK-NjG" id="Vpp-Kd-u40"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="o4M-Tj-tN3" id="YEx-Z0-MkY"/>
+                            <outlet property="delegate" destination="o4M-Tj-tN3" id="M2h-hw-Sdt"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="同班同学" id="nJj-RC-vHw">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="bcb-Ry-hzr">
+                            <connections>
+                                <action selector="searchButtonPress:" destination="o4M-Tj-tN3" id="wkj-Pw-CrU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cRO-wu-yME" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1006" y="1738"/>
         </scene>
         <!--新的作业信息-->
         <scene sceneID="9zj-QO-rXr">

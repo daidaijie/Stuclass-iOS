@@ -15,6 +15,8 @@
 #import "CoreDataManager.h"
 #import "DetailViewController.h"
 #import "MobClick.h"
+#import <AFNetworking/AFNetworking.h>
+#import <KVNProgress/KVNProgress.h>
 
 static NSString *info_cell_id = @"ClassInfoTableViewCell";
 
@@ -27,6 +29,8 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 static NSString *kTitleForInfoSection = @"课程信息";
 
 static NSString *kTitleForNoteSection = @"备忘笔记";
+
+static const CGFloat kHeightForPostButton = 52;
 
 
 @interface PersonViewController () <UITableViewDelegate, UITableViewDataSource, NoteTableViewControllerDelegate>
@@ -80,7 +84,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 
 - (void)initTableView
 {
-    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - 64 - global_BarViewHeight) style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - 64 - global_BarViewHeight - kHeightForPostButton) style:UITableViewStyleGrouped];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -97,6 +101,26 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     
     
     [self.view addSubview:_tableView];
+
+
+    // button
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+
+    button.frame = CGRectMake(0, _tableView.frame.size.height, self.view.frame.size.width, kHeightForPostButton);
+
+    button.titleLabel.font = [UIFont systemFontOfSize:16.0];
+
+    [button setTitle:@"瞧瞧你的同班同学" forState:UIControlStateNormal];
+
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+
+    button.backgroundColor = MAIN_COLOR;
+
+    button.alpha = 0.95;
+
+    [button addTarget:self action:@selector(buttonPress) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.view addSubview:button];
 }
 
 - (void)initNoteStr
@@ -152,7 +176,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     if (indexPath.section == 0) {
         return 44.0;
     } else {
-        return 140.0;
+        return 130.0;
     }
 }
 
@@ -247,6 +271,54 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
     [super viewWillAppear:animated];
     
     [_tableView deselectRowAtIndexPath:[_tableView indexPathForSelectedRow] animated:YES];
+}
+
+
+- (void)buttonPress
+{
+    [self sendMemberRequest];
+}
+
+
+- (void)sendMemberRequest
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [KVNProgress showWithStatus:@"正在获取同班同学信息"];
+
+    // delete data
+    NSDictionary *memberData = @{
+            @"class_id": _dvc.classBox.box_number,
+    };
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
+    manager.requestSerializer.timeoutInterval = member_timeout;
+
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+
+    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, member_url] parameters:memberData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"共同参与 - 连接服务器 - 成功");
+        [self parseMemberResponseObject:responseObject];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"共同参与 - 连接服务器 - 失败 - %@", error);
+        [KVNProgress showErrorWithStatus:global_connection_failed];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
+- (void)parseMemberResponseObject:(NSDictionary *)responseObject
+{
+    NSDictionary  *classInfo = responseObject[@"class_info"];
+    if (classInfo) {
+        [self.dvc performSegueWithIdentifier:@"ShowMember" sender:classInfo];
+        [KVNProgress dismiss];
+    } else {
+        [KVNProgress showErrorWithStatus:global_connection_failed];
+    }
 }
 
 
