@@ -6,11 +6,9 @@
 .idea/*
 
 ## Mine
-*.jpg
-*.jpeg
-*.png
 *.DS_Store
-Assets.xcassets/
+
+#Assets.xcassets/
 
 ## Build generated
 build/
