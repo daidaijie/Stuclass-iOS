@@ -15,6 +15,7 @@
 		130299801C892BDC00E4734C /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1302997B1C892BDC00E4734C /* TADotView.m */; };
 		130299811C892BDC00E4734C /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1302997D1C892BDC00E4734C /* TAPageControl.m */; };
 		130C09E51CB544F500848551 /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 130C09E41CB544F500848551 /* MemberTableViewCell.m */; };
+		130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130D14E51CB78C7A006194BB /* DocumentFavoriteTableViewController.m */; };
 		1312101F1CB4DB9000F91F10 /* MemberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1312101E1CB4DB9000F91F10 /* MemberTableViewController.m */; };
 		131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */; };
 		131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D21BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m */; };
@@ -135,6 +136,8 @@
 		1302997D1C892BDC00E4734C /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
 		130C09E31CB544F500848551 /* MemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberTableViewCell.h; sourceTree = "<group>"; };
 		130C09E41CB544F500848551 /* MemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberTableViewCell.m; sourceTree = "<group>"; };
+		130D14E41CB78C7A006194BB /* DocumentFavoriteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentFavoriteTableViewController.h; sourceTree = "<group>"; };
+		130D14E51CB78C7A006194BB /* DocumentFavoriteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentFavoriteTableViewController.m; sourceTree = "<group>"; };
 		1312101D1CB4DB9000F91F10 /* MemberTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberTableViewController.h; sourceTree = "<group>"; };
 		1312101E1CB4DB9000F91F10 /* MemberTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberTableViewController.m; sourceTree = "<group>"; };
 		131951CE1BCB47E2004EE13A /* ClassCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewLayout.h; sourceTree = "<group>"; };
@@ -377,6 +380,15 @@
 			name = MemberTableViewController;
 			sourceTree = "<group>";
 		};
+		130D14E31CB78C5F006194BB /* DocumentTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				13242F0D1C086815008D46F2 /* DocumentFooterView.h */,
+				13242F0C1C086815008D46F2 /* DocumentFooterView.m */,
+			);
+			name = DocumentTableViewCell;
+			sourceTree = "<group>";
+		};
 		131951CD1BCB47C9004EE13A /* ClassLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,11 +432,12 @@
 		1319840D1C072EAE003C17E0 /* DocumentTableViewController */ = {
 			isa = PBXGroup;
 			children = (
-				13242F0D1C086815008D46F2 /* DocumentFooterView.h */,
-				13242F0C1C086815008D46F2 /* DocumentFooterView.m */,
+				130D14E31CB78C5F006194BB /* DocumentTableViewCell */,
 				13242F061C080A40008D46F2 /* DocumentTableViewCell */,
 				1319840E1C072F62003C17E0 /* DocumentTableViewController.h */,
 				1319840F1C072F62003C17E0 /* DocumentTableViewController.m */,
+				130D14E41CB78C7A006194BB /* DocumentFavoriteTableViewController.h */,
+				130D14E51CB78C7A006194BB /* DocumentFavoriteTableViewController.m */,
 				13242F0F1C089731008D46F2 /* DocumentDetailViewController.h */,
 				13242F101C089731008D46F2 /* DocumentDetailViewController.m */,
 			);
@@ -1301,6 +1314,7 @@
 				132226F91C056C4D0093826C /* ClassSemesterButton.m in Sources */,
 				134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */,
 				13DBA09E1BD247DA00FC0682 /* DetailViewController.m in Sources */,
+				130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */,
 				1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */,
 				13C4C34A1BCC0D300003E703 /* SettingTableViewController.m in Sources */,
 				1335FC7F1BCA343100BC0F23 /* ClassButton.m in Sources */,

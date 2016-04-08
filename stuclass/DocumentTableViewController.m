@@ -25,7 +25,7 @@ static NSString *cell_id = @"DocumentTableViewCell";
 static const CGFloat kHeightForSectionHeader = 8.0;
 
 
-@interface DocumentTableViewController () <UIScrollViewDelegate>
+@interface DocumentTableViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) UIView *sectionHeaderView;
 
@@ -78,6 +78,11 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     // sectionHeaderView
     _sectionHeaderView = [[UIView alloc] init];
     _sectionHeaderView.backgroundColor = [UIColor clearColor];
+
+    // longPress
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    longPressGesture.minimumPressDuration = 0.4;
+    [self.tableView addGestureRecognizer:longPressGesture];
 }
 
 
@@ -398,6 +403,136 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         [hud hide:YES afterDelay:delay];
     }
 }
+
+
+- (void)longPress:(UILongPressGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateBegan)
+    {
+        CGPoint point = [gesture locationInView:self.tableView];
+        NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:point];
+        if (indexPath == nil) return ;
+        // 显示ActionSheet
+        NSUInteger section = indexPath.section;
+        // 检查是否存在该记录
+        Document *document = _documentData[section];
+        BOOL isExist = [self checkIfDocumentExistsByDocumentName:document.title];
+
+        NSString *title = isExist ? @"取消收藏" : @"添加收藏";
+
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:title otherButtonTitles:nil];
+
+        actionSheet.tag = (isExist ? 10000 : 0) + section;
+
+        [actionSheet showInView:self.view];
+    }
+}
+
+
+- (BOOL)checkIfDocumentExistsByDocumentName:(NSString *)documentName
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+
+    NSArray *documentArray = [ud objectForKey:@"DOCUMENTS"];
+
+    for (NSDictionary *document in documentArray) {
+        if ([documentName isEqualToString:document[@"title"]]) {
+            // 找到相同
+            return YES;
+        }
+    }
+
+    return NO;
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+
+    if (actionSheet.tag >= 10000 && buttonIndex == 0) {
+        // 取消收藏
+
+        NSUInteger section = actionSheet.tag - 10000;
+
+        Document *d = _documentData[section];
+
+        NSMutableDictionary *document = [NSMutableDictionary dictionary];
+
+        document[@"department"] = d.department;
+        document[@"title"] = d.title;
+        document[@"date"] = d.date;
+        document[@"url"] = d.url;
+
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+
+        NSMutableArray *documentArray = [NSMutableArray arrayWithArray:[ud objectForKey:@"DOCUMENTS"]];
+
+        NSInteger flag = -1;
+
+        for (NSInteger i = 0; i < documentArray.count; i++) {
+
+            if ([document[@"title"] isEqualToString:d.title]) {
+                // 找到
+                flag = i;
+                break;
+            }
+        }
+
+        if (flag != -1) {
+            [documentArray removeObjectAtIndex:flag];
+            [ud setObject:documentArray forKey:@"DOCUMENTS"];
+
+            [self showHUDWithText:@"取消成功" andHideDelay:0.8];
+        }
+
+        _documentData = documentArray;
+
+        [self.tableView reloadData];
+
+//        [self displayUD];
+
+        [self showHUDWithText:@"取消成功" andHideDelay:0.8];
+
+    } else if (actionSheet.tag < 10000 && buttonIndex == 0) {
+        // 添加收藏
+
+        NSUInteger section = actionSheet.tag;
+
+        Document *d = _documentData[section];
+
+        NSMutableDictionary *document = [NSMutableDictionary dictionary];
+
+        document[@"department"] = d.department;
+        document[@"title"] = d.title;
+        document[@"date"] = d.date;
+        document[@"url"] = d.url;
+
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+
+        NSMutableArray *documentArray = [NSMutableArray arrayWithArray:[ud objectForKey:@"DOCUMENTS"]];
+
+        [documentArray addObject:document];
+
+        [ud setObject:documentArray forKey:@"DOCUMENTS"];
+
+//        [self displayUD];
+
+        [self showHUDWithText:@"添加成功" andHideDelay:0.8];
+    }
+}
+
+
+- (void)displayUD
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+
+    NSArray *documentArray = [ud objectForKey:@"DOCUMENTS"];
+
+    for (NSDictionary *dict in documentArray) {
+        NSLog(@"<><><><><> %@", dict[@"title"]);
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
