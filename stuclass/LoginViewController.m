@@ -125,8 +125,6 @@
     if (defaultYearAndSemester) {
         NSLog(@"读取本地数据");
         // 用户已经登录了
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ClassViewController *cvc = [sb instantiateViewControllerWithIdentifier:@"cvc"];
         
         // Get From CoreData
         NSArray *classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:_year semester:_semester username:_inputView.usernameTextField.text];
@@ -134,10 +132,15 @@
         // Parse to BoxData
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];;
         
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        UITabBarController *tbc = [sb instantiateViewControllerWithIdentifier:@"tbc"];
+        UINavigationController *nvc = tbc.viewControllers[0];
+        ClassViewController *cvc = nvc.viewControllers[0];
+        
         cvc.boxData = boxData;
         
-        self.navigationController.navigationBarHidden = NO;
-        [self.navigationController pushViewController:cvc animated:NO];
+        [self.navigationController pushViewController:tbc animated:NO];
     }
 }
 
@@ -339,13 +342,16 @@
         
         [KVNProgress showSuccessWithStatus:@"登录成功" completion:^{
             [MobClick event:@"Login_Login" attributes:@{@"Username": _inputView.usernameTextField.text}];
+            
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            ClassViewController *cvc = [sb instantiateViewControllerWithIdentifier:@"cvc"];
+            
+            UITabBarController *tbc = [sb instantiateViewControllerWithIdentifier:@"tbc"];
+            UINavigationController *nvc = tbc.viewControllers[0];
+            ClassViewController *cvc = nvc.viewControllers[0];
             
             cvc.boxData = boxData;
             
-            self.navigationController.navigationBarHidden = NO;
-            [self.navigationController pushViewController:cvc animated:YES];
+            [self.navigationController pushViewController:tbc animated:YES];
         }];
     }
 }

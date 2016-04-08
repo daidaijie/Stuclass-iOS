@@ -84,7 +84,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 - (void)initTableView
 {
     // emptyView
-    _emptyView = [[UIButton alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - 64)];
+    _emptyView = [[UIButton alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - 64 - 49)];
     
     _emptyView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
     

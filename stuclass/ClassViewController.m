@@ -11,7 +11,6 @@
 #import "ClassCollectionViewCell.h"
 #import "ClassCollectionViewLayout.h"
 #import "ClassNumberCollectionReusableView.h"
-#import "SettingTableViewController.h"
 #import "Define.h"
 #import <KVNProgress/KVNProgress.h>
 #import "ClassParser.h"
@@ -30,11 +29,12 @@
 #import "JHDater.h"
 #import "ClassWeekTableViewController.h"
 #import "MBProgressHUD.h"
+#import "BackgoundTableViewController.h"
 
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
-@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, SettingLogOutDelegate, ClassSemesterDelegate, UIScrollViewDelegate, ClassWeekDelegate>
+@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, ClassSemesterDelegate, UIScrollViewDelegate, ClassWeekDelegate>
 
 @property (strong, nonatomic) ClassHeaderView *classHeaderView;
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -121,19 +121,19 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreItemPress)];
     
-    UIBarButtonItem *publicItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-public"] style:UIBarButtonItemStylePlain target:self action:@selector(publicItemPress)];
+//    UIBarButtonItem *publicItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-public"] style:UIBarButtonItemStylePlain target:self action:@selector(publicItemPress)];
     
-    UIBarButtonItem *settingItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-user"] style:UIBarButtonItemStylePlain target:self action:@selector(settingButtonPress)];
+    UIBarButtonItem *backgroundItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-background"] style:UIBarButtonItemStylePlain target:self action:@selector(backgroundButtonPress)];
     
-    self.navigationItem.leftBarButtonItem = settingItem;
-    self.navigationItem.rightBarButtonItems = @[moreItem, publicItem];
+    self.navigationItem.leftBarButtonItem = backgroundItem;
+    self.navigationItem.rightBarButtonItems = @[moreItem];
 }
 
 
 // View
 - (void)initBgImageView
 {
-    _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 64)];
+    _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 64 - 49)];
     
     _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     
@@ -211,7 +211,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     layout.layoutDelegate = self;
     
     // collectionView
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64+_classHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - _classHeaderView.bounds.size.height - 64) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64+_classHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - _classHeaderView.bounds.size.height - 64 - 49) collectionViewLayout:layout];
     
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.showsVerticalScrollIndicator = NO;
@@ -502,16 +502,16 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 }
 
 
-- (void)settingButtonPress
+- (void)backgroundButtonPress
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    SettingTableViewController *stvc = [sb instantiateViewControllerWithIdentifier:@"stvc"];
-    stvc.delegate = self;
+    BackgoundTableViewController *btvc = [sb instantiateViewControllerWithIdentifier:@"btvc"];
+//    btvc.delegate = self;
     UINavigationController *nvc = [[UINavigationController alloc] init];
-    nvc.viewControllers = @[stvc];
+    nvc.viewControllers = @[btvc];
     [self presentViewController:nvc animated:YES completion:nil];
     
-    [MobClick event:@"Main_Settings"];
+    [MobClick event:@"Background_Setting"];
 }
 
 

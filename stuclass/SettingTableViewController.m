@@ -110,11 +110,6 @@
     } else if (section == 2) {
         
         if (row == 0) {
-            [self performSegueWithIdentifier:@"BackgroundVC" sender:nil];
-            [MobClick event:@"Setting_Background"];
-        }
-        
-        if (row == 1) {
             [self clearLocalData];
         }
         

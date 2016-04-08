@@ -335,10 +335,14 @@
             year = gradeDict[@"years"];
             semester = gradeDict[@"semester"];
             
-            [gradeArray addObject:grade];
+            if (grade.name) {
+                [gradeArray addObject:grade];
+            }
         }
         
-        [semesterArray addObject:@{@"year": year, @"semester": semester, @"grades": gradeArray}];
+        if (gradeArray.count > 0) {
+            [semesterArray addObject:@{@"year": year, @"semester": semester, @"grades": gradeArray}];
+        }
     }
     
     NSDictionary *resultData = @{@"gpa": gpa, @"semesters": semesterArray};

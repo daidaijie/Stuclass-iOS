@@ -793,7 +793,6 @@
 			children = (
 				13C4C3481BCC0D300003E703 /* SettingTableViewController.h */,
 				13C4C3491BCC0D300003E703 /* SettingTableViewController.m */,
-				13C4C35F1BCCDC9B0003E703 /* BackgroundTableViewController */,
 				137F4E9E1C0614ED00A6DC0E /* NicknameTableViewController */,
 				13EC9B711C11FA0400AA3F2F /* AboutusViewController */,
 			);
@@ -883,6 +882,7 @@
 				13D8E2C21BD71C430051617C /* Model */,
 				13C707161BC7DE10003061A4 /* Main.storyboard */,
 				13C4C3471BCC0D1A0003E703 /* SettingTableViewController */,
+				13C4C35F1BCCDC9B0003E703 /* BackgroundTableViewController */,
 				13C4C3431BCC07650003E703 /* SemesterTableViewController */,
 				13C707261BC81FBE003061A4 /* LoginViewController */,
 				134530881BC8AD250018C15E /* ClassViewController */,

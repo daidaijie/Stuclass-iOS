@@ -52,6 +52,14 @@
     
     configuration.backgroundTintColor = [[UIColor whiteColor] colorWithAlphaComponent:0.1f];
     
+    configuration.minimumErrorDisplayTime = 1.0;
+    
+    configuration.minimumSuccessDisplayTime = 1.0;
+    
+    configuration.circleStrokeForegroundColor = [UIColor colorWithWhite:0.25 alpha:1.0];
+    
+    configuration.statusColor = [UIColor colorWithWhite:0.25 alpha:1.0];
+    
     [KVNProgress setConfiguration:configuration];
     
     // UIApplication
@@ -65,6 +73,8 @@
     
     [UINavigationBar appearance].barTintColor = MAIN_COLOR_BAR;
     [UINavigationBar appearance].titleTextAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:19.0], NSForegroundColorAttributeName:[UIColor whiteColor]};
+    
+    [UITabBar appearance].tintColor = MAIN_COLOR;
     
     // 启动等待时间
     [NSThread sleepForTimeInterval:0.3];

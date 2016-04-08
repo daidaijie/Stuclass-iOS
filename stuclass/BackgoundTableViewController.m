@@ -129,7 +129,9 @@
         
         [self postNotification];
         
-        [KVNProgress showSuccessWithStatus:@"设置成功"];
+        [KVNProgress showSuccessWithStatus:@"设置成功" completion:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
         
         [tableView reloadData];
         
@@ -201,7 +203,9 @@
     
     [_imagePicker.imagePickerController dismissViewControllerAnimated:YES completion:nil];
     
-    [KVNProgress showSuccessWithStatus:@"设置成功"];
+    [KVNProgress showSuccessWithStatus:@"设置成功" completion:^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 
@@ -216,6 +220,11 @@
     NSLog(@"图片尺寸 - %f x %f", size.width, size.height);
     
     return newImage;
+}
+
+- (IBAction)back:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
