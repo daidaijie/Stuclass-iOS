@@ -260,7 +260,17 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     CGFloat btnWidth = 27;
     CGFloat btnHeight = 88;
-    CGFloat yOffset = 176;
+    CGFloat yOffset = 219;
+
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+
+    if (height == 480) {
+        yOffset = 216;
+    } else if (height == 667) {
+        yOffset = 218;
+    } else if (height == 736) {
+        yOffset = 223;
+    }
     
     _semesterButton = [[ClassSemesterButton alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - btnWidth, [UIScreen mainScreen].bounds.size.height - yOffset, btnWidth, btnHeight)];
     
