@@ -433,19 +433,36 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         // Picture
         NSDictionary *latestData = responseObject[@"latest"];
         NSArray *pictureData = latestData[@"notifications"];
-        
-        
-        NSString *urlStr1 = pictureData[0][@"url"];
-        NSString *urlStr2 = pictureData[1][@"url"];
-        NSString *urlStr3 = pictureData[2][@"url"];
-        
-        NSURL *url1 = [NSURL URLWithString:urlStr1];
-        NSURL *url2 = [NSURL URLWithString:urlStr2];
-        NSURL *url3 = [NSURL URLWithString:urlStr3];
-        
-        NSString *link1 = [NSString stringWithFormat:@"%@", pictureData[0][@"link"]];
-        NSString *link2 = [NSString stringWithFormat:@"%@", pictureData[1][@"link"]];
-        NSString *link3 = [NSString stringWithFormat:@"%@", pictureData[2][@"link"]];
+
+        NSString *urlStr1;
+        NSString *urlStr2;
+        NSString *urlStr3;
+
+        NSURL *url1;
+        NSURL *url2;
+        NSURL *url3;
+
+        NSString *link1;
+        NSString *link2;
+        NSString *link3;
+
+        if (pictureData.count > 0) {
+            urlStr1 = pictureData[0][@"url"];
+            url1 = [NSURL URLWithString:urlStr1];
+            link1 = [NSString stringWithFormat:@"%@", pictureData[0][@"link"]];
+        }
+
+        if (pictureData.count > 1) {
+            urlStr2 = pictureData[1][@"url"];
+            url2 = [NSURL URLWithString:urlStr2];
+            link2 = [NSString stringWithFormat:@"%@", pictureData[1][@"link"]];
+        }
+
+        if (pictureData.count > 2) {
+            urlStr3 = pictureData[2][@"url"];
+            url3 = [NSURL URLWithString:urlStr3];
+            link3 = [NSString stringWithFormat:@"%@", pictureData[2][@"link"]];
+        }
         
         UIImage *image1;
         UIImage *image2;
@@ -482,11 +499,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
             _header.link3 = link3;
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }];
-        
-//        _header.banner1.image = [UIImage imageNamed:@"banner1.jpg"];
-//        _header.banner2.image = [UIImage imageNamed:@"banner2.jpg"];
-//        _header.banner3.image = [UIImage imageNamed:@"banner3.jpg"];
-        
         
         if (_hasLoadedFirstly) {
             [_header activeHeader];

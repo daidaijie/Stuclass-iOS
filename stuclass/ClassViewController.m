@@ -120,10 +120,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)setupItems
 {
     UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreItemPress)];
-    
-//    UIBarButtonItem *publicItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon-public"] style:UIBarButtonItemStylePlain target:self action:@selector(publicItemPress)];
-    
-    UIBarButtonItem *backgroundItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-background"] style:UIBarButtonItemStylePlain target:self action:@selector(backgroundButtonPress)];
+//    UIBarButtonItem *backgroundItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-background"] style:UIBarButtonItemStylePlain target:self action:@selector(backgroundButtonPress)];
+    UIBarButtonItem  *backgroundItem = [[UIBarButtonItem alloc] initWithTitle:@"背景" style:UIBarButtonItemStylePlain target:self action:@selector(backgroundButtonPress)];
     
     self.navigationItem.leftBarButtonItem = backgroundItem;
     self.navigationItem.rightBarButtonItems = @[moreItem];
