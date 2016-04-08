@@ -39,7 +39,7 @@
         _flags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond | NSCalendarUnitWeekday;
         _formatter = [[NSDateFormatter alloc] init];
         [_formatter setDateStyle:NSDateFormatterFullStyle];
-        [_formatter setDateFormat:@"yyyy/M/dd"];
+        [_formatter setDateFormat:@"yyyy/MM/dd"];
     }
     
     return self;

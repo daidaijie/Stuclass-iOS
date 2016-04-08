@@ -103,7 +103,7 @@
     NSInteger todayWeek = [[JHDater sharedInstance] weekForDate:todayDate];
     NSDate *weekDate = [[JHDater sharedInstance] dateAfterDay:i - todayWeek];
     
-    return [[JHDater sharedInstance] dateStringForDate:weekDate withFormate:@"MM-dd"];
+    return [[JHDater sharedInstance] dateStringForDate:weekDate withFormate:@"M-d"];
 }
 
 
