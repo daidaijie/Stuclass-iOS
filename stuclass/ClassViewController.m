@@ -260,14 +260,14 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     CGFloat btnWidth = 27;
     CGFloat btnHeight = 88;
-    CGFloat yOffset = 219;
+    CGFloat yOffset = 218;
 
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
 
     if (height == 480) {
         yOffset = 216;
     } else if (height == 667) {
-        yOffset = 218;
+        yOffset = 219;
     } else if (height == 736) {
         yOffset = 223;
     }
@@ -1146,7 +1146,9 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSString *str = operation.responseString;
-        if ([str containsString:@"Used bytes"]) {
+
+        NSRange range = [str rangeOfString:@"Used bytes"];
+        if (range.location != NSNotFound) {
             NSLog(@"一键联网 - 成功");
             [self showHUDWithText:@"已成功登录校内网" andHideDelay:1.0];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
