@@ -1148,9 +1148,10 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         NSString *str = operation.responseString;
 
         NSRange range = [str rangeOfString:@"Used bytes"];
-        if (range.location != NSNotFound) {
+        if (range.location != NSNotFound && str) {
             NSLog(@"一键联网 - 成功");
-            [self showHUDWithText:@"已成功登录校内网" andHideDelay:1.0];
+            NSUInteger MB = [self getMbFromString:str];
+            [self showHUDWithText:[NSString stringWithFormat:@"已使用流量 %dMB", MB] andHideDelay:1.5];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         } else {
             NSLog(@"一键联网 - 失败 - %@", error);
@@ -1158,6 +1159,31 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }
     }];
+}
+
+- (NSUInteger)getMbFromString:(NSString *)responseStr
+{
+    NSUInteger mb = 0;
+
+    NSError *error = NULL;
+    NSString *pattern = @"<tr id=\"ubr\" style=\"line-height: 180%;font-size:12px\">\\s*<td><strong>Used bytes: </strong></td>\\s*<td class=\"text3\" id=\"ub\">(.*?)</td>\\s*</tr>";
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:&error];
+
+    NSArray *matchedArray = [regex matchesInString:responseStr options:0 range:NSMakeRange(0, responseStr.length)];
+    if (matchedArray.count > 0) {
+
+        NSTextCheckingResult *result = [matchedArray firstObject];
+
+        NSString *str = [responseStr substringWithRange:[result rangeAtIndex:1]];
+
+        NSString *numStr = [str stringByReplacingOccurrencesOfString:@"," withString:@""];
+
+        mb = [numStr integerValue] / 1024 / 1024;
+
+        return mb;
+    } else {
+        return 0;
+    }
 }
 
 #pragma mark - HUD
