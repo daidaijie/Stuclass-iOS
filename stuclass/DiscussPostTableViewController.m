@@ -358,8 +358,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 - (void)logout
 {
     [self logoutClearData];
-    self.navigationController.navigationBarHidden = YES;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController.tabBarController.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)logoutClearData

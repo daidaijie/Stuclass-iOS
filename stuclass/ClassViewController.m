@@ -535,8 +535,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)semesterDelegateLogout
 {
     [self logoutClearData];
-    self.navigationController.navigationBarHidden = YES;
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController.tabBarController.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)semesterDelegateSemesterChanged:(NSArray *)boxData semester:(NSInteger)semester
@@ -598,12 +597,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 #pragma mark - SettingDelegate
 
 // Log Out
-- (void)settingTableViewControllerLogOut
-{
-    [self logoutClearData];
-    self.navigationController.navigationBarHidden = YES;
-    [self.navigationController popViewControllerAnimated:NO];
-}
 
 - (void)logoutClearData
 {
@@ -705,8 +698,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         [KVNProgress showErrorWithStatus:global_connection_wrong_user_password completion:^{
             [_popover dismiss];
             [self logoutClearData];
-            self.navigationController.navigationBarHidden = YES;
-            [self.navigationController popViewControllerAnimated:NO];
+            [self.navigationController.tabBarController.navigationController popViewControllerAnimated:NO];
         }];
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
@@ -813,8 +805,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         [KVNProgress showErrorWithStatus:global_connection_wrong_user_password completion:^{
             [_popover dismiss];
             [self logoutClearData];
-            self.navigationController.navigationBarHidden = YES;
-            [self.navigationController popViewControllerAnimated:NO];
+            [self.navigationController.tabBarController.navigationController popViewControllerAnimated:NO];
         }];
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
@@ -898,8 +889,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         [KVNProgress showErrorWithStatus:global_connection_wrong_user_password completion:^{
             [_popover dismiss];
             [self logoutClearData];
-            self.navigationController.navigationBarHidden = YES;
-            [self.navigationController popViewControllerAnimated:NO];
+            [self.navigationController.tabBarController.navigationController popViewControllerAnimated:NO];
         }];
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
@@ -1057,8 +1047,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)logout
 {
     [self logoutClearData];
-    self.navigationController.navigationBarHidden = YES;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController.tabBarController.navigationController popToRootViewControllerAnimated:YES];
     
 }
 

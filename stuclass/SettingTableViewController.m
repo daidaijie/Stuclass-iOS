@@ -126,8 +126,9 @@
     } else if (section == 4) {
         
         if (row == 0) {
-            [KVNProgress showSuccessWithStatus:@"登出成功"];
-            [self performSelector:@selector(logout) withObject:nil afterDelay:0.3];
+            [KVNProgress showSuccessWithStatus:@"登出成功" completion:^{
+                [self logout];
+            }];
             [MobClick event:@"Setting_Logout"];
         }
     }
@@ -145,8 +146,18 @@
 
 - (void)logout
 {
-    [_delegate settingTableViewControllerLogOut];
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self logoutClearData];
+    [self.navigationController.tabBarController.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)logoutClearData
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    // ud
+    [ud setValue:nil forKey:@"USER_TOKEN"];
+    [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
+    [ud setValue:nil forKey:@"NICKNAME"];
 }
 
 #pragma mark - Nickname Delegate

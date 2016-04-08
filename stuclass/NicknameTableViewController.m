@@ -155,8 +155,7 @@
         [KVNProgress showErrorWithStatus:global_connection_wrong_token completion:^{
             
             [self logoutClearData];
-            self.navigationController.navigationBarHidden = YES;
-            [self.navigationController popViewControllerAnimated:NO];
+            [self logout];
         }];
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"empty name"]) {
@@ -214,8 +213,7 @@
 - (void)logout
 {
     [self logoutClearData];
-    self.navigationController.navigationBarHidden = YES;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController.tabBarController.navigationController popToRootViewControllerAnimated:YES];
     
 }
 

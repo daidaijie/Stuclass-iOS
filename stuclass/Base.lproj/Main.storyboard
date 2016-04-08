@@ -855,7 +855,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="汕大课程表 v1.1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="174" translatesAutoresizingMaskIntoConstraints="NO" id="9xM-DL-nmj">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.89999997615814209" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="汕大课程表 v1.2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="174" translatesAutoresizingMaskIntoConstraints="NO" id="9xM-DL-nmj">
                                 <rect key="frame" x="73" y="219" width="174" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="IVo-QO-qvX"/>
@@ -909,6 +909,7 @@
                             <constraint firstItem="Opk-56-oOd" firstAttribute="centerX" secondItem="hHb-XF-Xut" secondAttribute="centerX" id="Hkl-zH-Dna"/>
                             <constraint firstItem="Psu-xp-YWu" firstAttribute="top" secondItem="fxH-uC-BcX" secondAttribute="bottom" constant="15" id="ME2-hu-WeA"/>
                             <constraint firstItem="9xM-DL-nmj" firstAttribute="centerX" secondItem="hHb-XF-Xut" secondAttribute="centerX" id="OzD-gp-57R"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="Psu-xp-YWu" secondAttribute="bottom" constant="8" id="Pdn-2B-jlw"/>
                             <constraint firstItem="fxH-uC-BcX" firstAttribute="top" secondItem="Opk-56-oOd" secondAttribute="bottom" constant="24" id="TrC-I4-X2O"/>
                             <constraint firstItem="MyO-kQ-fY1" firstAttribute="centerX" secondItem="hHb-XF-Xut" secondAttribute="centerX" id="UWj-3U-Nsa"/>
                             <constraint firstItem="fxH-uC-BcX" firstAttribute="centerX" secondItem="hHb-XF-Xut" secondAttribute="centerX" id="Xy6-Re-c0s"/>
@@ -916,9 +917,14 @@
                             <constraint firstItem="Psu-xp-YWu" firstAttribute="centerX" secondItem="hHb-XF-Xut" secondAttribute="centerX" id="h8F-PT-szk"/>
                             <constraint firstItem="0g8-z8-OSQ" firstAttribute="top" secondItem="Psu-xp-YWu" secondAttribute="bottom" constant="8" id="wEM-3i-XtP"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="wEM-3i-XtP"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="关于我们" id="foz-lr-CGn"/>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -929,13 +935,13 @@
         <!--我的昵称-->
         <scene sceneID="yAF-1g-riM">
             <objects>
-                <tableViewController id="Mea-rx-FAo" customClass="NicknameTableViewController" sceneMemberID="viewController">
+                <tableViewController hidesBottomBarWhenPushed="YES" id="Mea-rx-FAo" customClass="NicknameTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="50" sectionHeaderHeight="18" sectionFooterHeight="18" id="ehN-vJ-ls7">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection footerTitle="注意名字内容是否得当 (可以使用😘🌚🎺哟)" id="WYz-VD-PF9">
+                            <tableViewSection footerTitle="注意名字内容是否得当 (可以使用🙄哟)" id="WYz-VD-PF9">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="v0R-vH-E0i">
                                         <rect key="frame" x="0.0" y="99" width="320" height="50"/>
@@ -983,6 +989,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="nicknameTextField" destination="D6y-2p-xFR" id="bgb-mF-4sT"/>

@@ -485,8 +485,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 - (void)logout
 {
     [self logoutClearData];
-    self.navigationController.navigationBarHidden = YES;
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController.tabBarController.navigationController popToRootViewControllerAnimated:YES];
     
 }
 
