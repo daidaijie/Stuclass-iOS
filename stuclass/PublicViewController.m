@@ -602,6 +602,13 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 }
 
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [_header resetHeader];
+}
+
+
 @end
 
 
