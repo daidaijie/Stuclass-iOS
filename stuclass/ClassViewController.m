@@ -34,7 +34,7 @@
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
-@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, ClassSemesterDelegate, UIScrollViewDelegate, ClassWeekDelegate>
+@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, ClassSemesterDelegate, UIScrollViewDelegate, ClassWeekDelegate, UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) ClassHeaderView *classHeaderView;
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -123,11 +123,27 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)setupItems
 {
     UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreItemPress)];
+
     UIBarButtonItem *noteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-note"] style:UIBarButtonItemStylePlain target:self action:@selector(noteItemPress)];
     
     UIBarButtonItem *backgroundItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-background"] style:UIBarButtonItemStylePlain target:self action:@selector(backgroundButtonPress)];
-    
-    self.navigationItem.leftBarButtonItem = backgroundItem;
+
+
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *username = [ud objectForKey:@"USERNAME"];
+    if ([username isEqualToString:@"15sxwang"]) {
+        // For Sixue
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        btn.showsTouchWhenHighlighted = YES;
+        [btn setImage:[UIImage imageNamed:@"toolbar-sixue"] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(connect) forControlEvents:UIControlEventTouchUpInside];
+        UIBarButtonItem *connectItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+        self.navigationItem.leftBarButtonItems = @[backgroundItem, connectItem];
+    } else {
+        // Others
+        self.navigationItem.leftBarButtonItem = backgroundItem;
+    }
+
     self.navigationItem.rightBarButtonItems = @[moreItem, noteItem];
 }
 
@@ -1191,6 +1207,17 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     }
 }
 
+
+#pragma mark - NoteItem
+- (void)noteItemPress
+{
+
+}
+
+
+
+
+
 #pragma mark - HUD
 
 - (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {
@@ -1207,7 +1234,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         [hud hide:YES afterDelay:delay];
     }
 }
-
 
 
 - (void)didReceiveMemoryWarning {

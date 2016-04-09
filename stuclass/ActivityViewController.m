@@ -36,7 +36,7 @@
     
     [self.view addSubview:_webView];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://chuckwo.com"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://github.com/chuckwong"]];
     
     [_webView loadRequest:request];
 }
@@ -44,7 +44,7 @@
 - (IBAction)refresh:(id)sender
 {
     [_webView stopLoading];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://chuckwo.com"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://github.com/chuckwong"]];
     [_webView loadRequest:request];
 }
 
