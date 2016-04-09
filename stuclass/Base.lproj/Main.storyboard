@@ -383,6 +383,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="校园动态" id="JlG-dR-iTp">
+                        <barButtonItem key="leftBarButtonItem" title="树洞" id="bPu-1b-dmP">
+                            <connections>
+                                <segue destination="Unl-jU-xUT" kind="show" identifier="ShowTreehole" id="0XS-ag-Nfa"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1Eq-Ec-r1I">
                             <connections>
                                 <action selector="postItemPress:" destination="Xlf-C9-snJ" id="1vw-tz-stp"/>
@@ -395,6 +400,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RMH-eU-ClZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3135" y="1320"/>
+        </scene>
+        <!--汕大树洞-->
+        <scene sceneID="StZ-sz-wUF">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="Unl-jU-xUT" customClass="TreeholeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ryE-wW-ZSm"/>
+                        <viewControllerLayoutGuide type="bottom" id="efi-1h-HcK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FOA-9l-W7k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="汕大树洞" id="UBx-z7-a1e">
+                        <barButtonItem key="rightBarButtonItem" systemItem="reply" id="fD6-WR-LCn">
+                            <connections>
+                                <action selector="goBackPress:" destination="Unl-jU-xUT" id="bjA-tO-R6P"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bII-Tv-Z1F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3541" y="1320"/>
         </scene>
         <!--同班同学-->
         <scene sceneID="4Ia-O8-MEo">

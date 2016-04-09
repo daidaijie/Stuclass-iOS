@@ -89,14 +89,14 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     _emptyView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
     
     UILabel *emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _emptyView.frame.size.width, 50)];
-    emptyLabel.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 + 25);
+    emptyLabel.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 + 31);
     emptyLabel.textAlignment = NSTextAlignmentCenter;
     emptyLabel.textColor = MAIN_COLOR;
     emptyLabel.text = @"努力加载中，点我刷新";
     [_emptyView addSubview:emptyLabel];
     
     UIImageView *emptyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 88, 88)];
-    emptyImageView.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 - 41);
+    emptyImageView.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 - 35);
     emptyImageView.image = [UIImage imageNamed:@"icon-empty-discuss"];
     [_emptyView addSubview:emptyImageView];
     
