@@ -92,7 +92,10 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     BOOL hasChanged = [self getCurrentWeek];
     
     if (hasChanged) {
-        [_weekButton setTitle:[NSString stringWithFormat:@"第 %d 周", _currentWeek] forState:UIControlStateNormal];
+        [UIView performWithoutAnimation:^{
+            [_weekButton setTitle:[NSString stringWithFormat:@"第 %d 周", _currentWeek] forState:UIControlStateNormal];
+            [_weekButton layoutIfNeeded];
+        }];
         [self.collectionView reloadData];
     }
 }
@@ -120,10 +123,12 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)setupItems
 {
     UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreItemPress)];
+    UIBarButtonItem *noteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-note"] style:UIBarButtonItemStylePlain target:self action:@selector(noteItemPress)];
+    
     UIBarButtonItem *backgroundItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-background"] style:UIBarButtonItemStylePlain target:self action:@selector(backgroundButtonPress)];
     
     self.navigationItem.leftBarButtonItem = backgroundItem;
-    self.navigationItem.rightBarButtonItems = @[moreItem];
+    self.navigationItem.rightBarButtonItems = @[moreItem, noteItem];
 }
 
 
@@ -187,7 +192,10 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     _currentWeek = [[ud objectForKey:@"WEEK_DATA"][@"week"] integerValue];
-    [_weekButton setTitle:[NSString stringWithFormat:@"第 %d 周", _currentWeek] forState:UIControlStateNormal];
+    [UIView performWithoutAnimation:^{
+        [_weekButton setTitle:[NSString stringWithFormat:@"第 %d 周", _currentWeek] forState:UIControlStateNormal];
+        [_weekButton layoutIfNeeded];
+    }];
 }
 
 - (void)initClassHeaderView

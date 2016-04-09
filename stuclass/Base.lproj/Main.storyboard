@@ -369,7 +369,7 @@
             </objects>
             <point key="canvasLocation" x="2521" y="-444"/>
         </scene>
-        <!--校园动态-->
+        <!--消息圈-->
         <scene sceneID="aEJ-s2-sEn">
             <objects>
                 <viewController id="Xlf-C9-snJ" customClass="PublicViewController" sceneMemberID="viewController">
@@ -382,7 +382,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="校园动态" id="JlG-dR-iTp">
+                    <navigationItem key="navigationItem" title="消息圈" id="JlG-dR-iTp">
                         <barButtonItem key="leftBarButtonItem" title="树洞" id="bPu-1b-dmP">
                             <connections>
                                 <segue destination="Unl-jU-xUT" kind="show" identifier="ShowTreehole" id="0XS-ag-Nfa"/>
@@ -399,7 +399,33 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RMH-eU-ClZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3135" y="1320"/>
+            <point key="canvasLocation" x="3667" y="1320"/>
+        </scene>
+        <!--校园动态-->
+        <scene sceneID="bMz-sc-Z1F">
+            <objects>
+                <viewController id="eSg-58-dSn" customClass="ActivityViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="X3P-nS-Uhj"/>
+                        <viewControllerLayoutGuide type="bottom" id="LJs-h9-sSz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eu8-Ku-ga6">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="校园动态" id="4v0-lO-sd3">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-sync" id="Rf6-5w-l7P">
+                            <connections>
+                                <action selector="refresh:" destination="eSg-58-dSn" id="j3M-0t-rpt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qx2-tG-hL9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2349" y="1713"/>
         </scene>
         <!--汕大树洞-->
         <scene sceneID="StZ-sz-wUF">
@@ -427,7 +453,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bII-Tv-Z1F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3541" y="1320"/>
+            <point key="canvasLocation" x="4073" y="1320"/>
         </scene>
         <!--同班同学-->
         <scene sceneID="4Ia-O8-MEo">
@@ -1625,6 +1651,7 @@
                     <connections>
                         <segue destination="PyN-wx-c7E" kind="relationship" relationship="viewControllers" id="FbR-f1-aLK"/>
                         <segue destination="amZ-Re-zSi" kind="relationship" relationship="viewControllers" id="1m0-dM-WjU"/>
+                        <segue destination="mCq-rs-weH" kind="relationship" relationship="viewControllers" id="rZS-78-vpk"/>
                         <segue destination="ldQ-ds-fJS" kind="relationship" relationship="viewControllers" id="Jxg-vW-WDR"/>
                     </connections>
                 </tabBarController>
@@ -1670,11 +1697,11 @@
             </objects>
             <point key="canvasLocation" x="625" y="202"/>
         </scene>
-        <!--校园动态-->
+        <!--消息圈-->
         <scene sceneID="LqB-fZ-4br">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="amZ-Re-zSi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="校园动态" image="tabbar-public" id="vWt-Ap-IfJ"/>
+                    <tabBarItem key="tabBarItem" title="消息圈" image="tabbar-public" id="vWt-Ap-IfJ"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="i1h-k7-7kp">
@@ -1688,7 +1715,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FV7-VB-pSh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2695" y="1320"/>
+            <point key="canvasLocation" x="3227" y="1320"/>
         </scene>
         <!--我-->
         <scene sceneID="EeY-fh-OhO">
@@ -1802,9 +1829,29 @@
             </objects>
             <point key="canvasLocation" x="3627" y="-691"/>
         </scene>
+        <!--校园动态-->
+        <scene sceneID="o5D-bV-gg5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mCq-rs-weH" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="校园动态" image="tabbar-activity" id="hXH-by-EPL"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WgN-kz-o8P">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="eSg-58-dSn" kind="relationship" relationship="rootViewController" id="gHv-uv-Oz6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3be-lc-Jx9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1897" y="1695"/>
+        </scene>
     </scenes>
     <resources>
         <image name="LaunchLogo" width="512" height="512"/>
+        <image name="tabbar-activity" width="32" height="32"/>
         <image name="tabbar-class" width="32" height="32"/>
         <image name="tabbar-public" width="32" height="32"/>
         <image name="tabbar-user" width="32" height="32"/>

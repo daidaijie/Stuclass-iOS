@@ -26,7 +26,7 @@
         _dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height/2.0)];
         _dateLabel.textAlignment = NSTextAlignmentCenter;
         _dateLabel.textColor = MAIN_COLOR;
-        _dateLabel.font = [UIFont systemFontOfSize:11.0];
+        _dateLabel.font = [UIFont systemFontOfSize:10.0];
         
         _weekLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, frame.size.height/2.3, frame.size.width, frame.size.height/2.0)];
         _weekLabel.textAlignment = NSTextAlignmentCenter;

@@ -18,6 +18,7 @@
 		130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130D14E51CB78C7A006194BB /* DocumentFavoriteTableViewController.m */; };
 		1312101F1CB4DB9000F91F10 /* MemberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1312101E1CB4DB9000F91F10 /* MemberTableViewController.m */; };
 		131287841CB805EF0089D8D7 /* TreeholeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287831CB805EF0089D8D7 /* TreeholeViewController.m */; };
+		131287881CB89EE30089D8D7 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287871CB89EE30089D8D7 /* ActivityViewController.m */; };
 		131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */; };
 		131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D21BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m */; };
 		131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D81BCB8676004EE13A /* ClassNumberCollectionReusableView.m */; };
@@ -143,6 +144,8 @@
 		1312101E1CB4DB9000F91F10 /* MemberTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberTableViewController.m; sourceTree = "<group>"; };
 		131287821CB805EF0089D8D7 /* TreeholeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeholeViewController.h; sourceTree = "<group>"; };
 		131287831CB805EF0089D8D7 /* TreeholeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TreeholeViewController.m; sourceTree = "<group>"; };
+		131287861CB89EE30089D8D7 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
+		131287871CB89EE30089D8D7 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
 		131951CE1BCB47E2004EE13A /* ClassCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewLayout.h; sourceTree = "<group>"; };
 		131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewLayout.m; sourceTree = "<group>"; };
 		131951D11BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassBackgroundCollectionReusableView.h; sourceTree = "<group>"; };
@@ -390,6 +393,15 @@
 				13242F0C1C086815008D46F2 /* DocumentFooterView.m */,
 			);
 			name = DocumentTableViewCell;
+			sourceTree = "<group>";
+		};
+		131287851CB89ECA0089D8D7 /* ActivityViewController */ = {
+			isa = PBXGroup;
+			children = (
+				131287861CB89EE30089D8D7 /* ActivityViewController.h */,
+				131287871CB89EE30089D8D7 /* ActivityViewController.m */,
+			);
+			name = ActivityViewController;
 			sourceTree = "<group>";
 		};
 		131951CD1BCB47C9004EE13A /* ClassLayout */ = {
@@ -904,6 +916,7 @@
 				13C4C3431BCC07650003E703 /* SemesterTableViewController */,
 				13C707261BC81FBE003061A4 /* LoginViewController */,
 				134530881BC8AD250018C15E /* ClassViewController */,
+				131287851CB89ECA0089D8D7 /* ActivityViewController */,
 				1326F7D11C02D9F20016B88E /* PublicTableViewController */,
 				136A27C81C04366E00B45460 /* ExamTableViewController */,
 				1320FC781C01BF2A0084B152 /* GradeTableViewController */,
@@ -1350,6 +1363,7 @@
 				137C8C2B1BDA956900236C79 /* Note+CoreDataProperties.m in Sources */,
 				13D8E2C11BD625180051617C /* MBProgressHUD.m in Sources */,
 				1366D6821BD4F19000B69C04 /* ClassNoteTableViewCell.m in Sources */,
+				131287881CB89EE30089D8D7 /* ActivityViewController.m in Sources */,
 				1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */,
 				13242F051C0805D4008D46F2 /* Document.m in Sources */,
 				1366D6711BD4BAD500B69C04 /* DiscussViewController.m in Sources */,
