@@ -66,6 +66,8 @@
 		137C8C3A1BDB1A4900236C79 /* HomeworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 137C8C381BDB1A4900236C79 /* HomeworkTableViewCell.xib */; };
 		137C8C3D1BDB2C5200236C79 /* HomeworkPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */; };
 		137F4EA11C06155200A6DC0E /* NicknameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */; };
+		139249F51CB9190B00A23041 /* BookResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139249F41CB9190B00A23041 /* BookResultTableViewController.m */; };
+		139249F81CB9196100A23041 /* LibraryFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 139249F71CB9196100A23041 /* LibraryFooterView.m */; };
 		139509B41C873838008CA07B /* ClassWeekTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139509B31C873837008CA07B /* ClassWeekTableViewController.m */; };
 		13A41B651C12A06F00444D06 /* class_bg_0_0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13A41B5E1C12A06F00444D06 /* class_bg_0_0.jpg */; };
 		13A41B661C12A06F00444D06 /* class_bg_0_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13A41B5F1C12A06F00444D06 /* class_bg_0_1.jpg */; };
@@ -118,6 +120,9 @@
 		13FD91411C8ADCD000F89806 /* banner1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13FD913E1C8ADCD000F89806 /* banner1.jpg */; };
 		13FD91421C8ADCD000F89806 /* banner2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13FD913F1C8ADCD000F89806 /* banner2.jpg */; };
 		13FD91431C8ADCD000F89806 /* banner3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13FD91401C8ADCD000F89806 /* banner3.jpg */; };
+		13FEE6431CB90A73000C72BC /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FEE6421CB90A73000C72BC /* LibraryViewController.m */; };
+		5A4210DC741070C328BA0EC3 /* LibraryTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A421E4DFE540F65ECECDFCE /* LibraryTextField.m */; };
+		5A4213466C534654C06DB449 /* LibraryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A421151D7EAF0499243014F /* LibraryTableViewCell.m */; };
 		5A421F5763A0D4D685204EF0 /* DXPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A421BEDC9358F1AEC74ACDE /* DXPopover.m */; };
 		DD06DD0830243B8207E0FED3 /* libPods-stuclass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF74B448CC02C745908E14E0 /* libPods-stuclass.a */; };
 /* End PBXBuildFile section */
@@ -236,6 +241,10 @@
 		137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeworkPostTableViewController.m; sourceTree = "<group>"; };
 		137F4E9F1C06155200A6DC0E /* NicknameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NicknameTableViewController.h; sourceTree = "<group>"; };
 		137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NicknameTableViewController.m; sourceTree = "<group>"; };
+		139249F31CB9190B00A23041 /* BookResultTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookResultTableViewController.h; sourceTree = "<group>"; };
+		139249F41CB9190B00A23041 /* BookResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookResultTableViewController.m; sourceTree = "<group>"; };
+		139249F61CB9196100A23041 /* LibraryFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryFooterView.h; sourceTree = "<group>"; };
+		139249F71CB9196100A23041 /* LibraryFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryFooterView.m; sourceTree = "<group>"; };
 		139509B21C873837008CA07B /* ClassWeekTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassWeekTableViewController.h; sourceTree = "<group>"; };
 		139509B31C873837008CA07B /* ClassWeekTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassWeekTableViewController.m; sourceTree = "<group>"; };
 		13A41B5E1C12A06F00444D06 /* class_bg_0_0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = class_bg_0_0.jpg; sourceTree = "<group>"; };
@@ -321,9 +330,15 @@
 		13FD913E1C8ADCD000F89806 /* banner1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner1.jpg; sourceTree = "<group>"; };
 		13FD913F1C8ADCD000F89806 /* banner2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner2.jpg; sourceTree = "<group>"; };
 		13FD91401C8ADCD000F89806 /* banner3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner3.jpg; sourceTree = "<group>"; };
+		13FEE6411CB90A73000C72BC /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
+		13FEE6421CB90A73000C72BC /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
 		2D0681CE36B96DCF3FFEA3F5 /* Pods-stuclass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stuclass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-stuclass/Pods-stuclass.debug.xcconfig"; sourceTree = "<group>"; };
 		5A42114BD80E822AFB5E7C40 /* DXPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXPopover.h; sourceTree = "<group>"; };
+		5A421151D7EAF0499243014F /* LibraryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryTableViewCell.m; sourceTree = "<group>"; };
+		5A4215F4ED4B61BE9E004103 /* LibraryTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryTextField.h; sourceTree = "<group>"; };
 		5A421BEDC9358F1AEC74ACDE /* DXPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXPopover.m; sourceTree = "<group>"; };
+		5A421D53D4D1EC443DD7B766 /* LibraryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryTableViewCell.h; sourceTree = "<group>"; };
+		5A421E4DFE540F65ECECDFCE /* LibraryTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryTextField.m; sourceTree = "<group>"; };
 		BF74B448CC02C745908E14E0 /* libPods-stuclass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-stuclass.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA76572295EC234D664C0F6 /* Pods-stuclass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stuclass.release.xcconfig"; path = "Pods/Target Support Files/Pods-stuclass/Pods-stuclass.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -917,6 +932,7 @@
 				13C707261BC81FBE003061A4 /* LoginViewController */,
 				134530881BC8AD250018C15E /* ClassViewController */,
 				131287851CB89ECA0089D8D7 /* ActivityViewController */,
+				13FEE6401CB90A48000C72BC /* LibraryViewController */,
 				1326F7D11C02D9F20016B88E /* PublicTableViewController */,
 				136A27C81C04366E00B45460 /* ExamTableViewController */,
 				1320FC781C01BF2A0084B152 /* GradeTableViewController */,
@@ -1098,6 +1114,23 @@
 				13EC9B731C11FA1A00AA3F2F /* AboutusViewController.m */,
 			);
 			name = AboutusViewController;
+			sourceTree = "<group>";
+		};
+		13FEE6401CB90A48000C72BC /* LibraryViewController */ = {
+			isa = PBXGroup;
+			children = (
+				13FEE6411CB90A73000C72BC /* LibraryViewController.h */,
+				13FEE6421CB90A73000C72BC /* LibraryViewController.m */,
+				5A421151D7EAF0499243014F /* LibraryTableViewCell.m */,
+				5A421D53D4D1EC443DD7B766 /* LibraryTableViewCell.h */,
+				5A4215F4ED4B61BE9E004103 /* LibraryTextField.h */,
+				5A421E4DFE540F65ECECDFCE /* LibraryTextField.m */,
+				139249F31CB9190B00A23041 /* BookResultTableViewController.h */,
+				139249F41CB9190B00A23041 /* BookResultTableViewController.m */,
+				139249F61CB9196100A23041 /* LibraryFooterView.h */,
+				139249F71CB9196100A23041 /* LibraryFooterView.m */,
+			);
+			name = LibraryViewController;
 			sourceTree = "<group>";
 		};
 		5A4214F24CFDF0EBA9371BD1 /* DXPopover */ = {
@@ -1330,6 +1363,7 @@
 				13766B0F1BDA3FF600322371 /* NoteLabel.m in Sources */,
 				131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */,
 				132226F91C056C4D0093826C /* ClassSemesterButton.m in Sources */,
+				13FEE6431CB90A73000C72BC /* LibraryViewController.m in Sources */,
 				134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */,
 				13DBA09E1BD247DA00FC0682 /* DetailViewController.m in Sources */,
 				130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */,
@@ -1350,6 +1384,8 @@
 				1320FC7F1C01C1230084B152 /* Grade.m in Sources */,
 				1320FC831C020B6F0084B152 /* GradeTableViewCell.m in Sources */,
 				131EF3511BD7DAEA007ECFE8 /* CoreDataManager.m in Sources */,
+				139249F51CB9190B00A23041 /* BookResultTableViewController.m in Sources */,
+				139249F81CB9196100A23041 /* LibraryFooterView.m in Sources */,
 				13D8E2DA1BD7252C0051617C /* Model.xcdatamodeld in Sources */,
 				137C8C301BDB149100236C79 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				130299801C892BDC00E4734C /* TADotView.m in Sources */,
@@ -1404,6 +1440,8 @@
 				131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */,
 				13C4C37F1BCCEE2B0003E703 /* GKImagePicker.m in Sources */,
 				5A421F5763A0D4D685204EF0 /* DXPopover.m in Sources */,
+				5A4210DC741070C328BA0EC3 /* LibraryTextField.m in Sources */,
+				5A4213466C534654C06DB449 /* LibraryTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

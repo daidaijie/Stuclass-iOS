@@ -155,6 +155,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     
+    _bgImageView.clipsToBounds = YES;
+    
     // 读取背景图片
     BOOL isBgImageExisted = NO;
     
@@ -186,7 +188,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)initMoreView
 {
-    _moreView = [[MoreView alloc] initWithItems:@[@"同步课表", @"考试信息", @"我的成绩", @"办公自动化", @"登录校内网"] images:@[[UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-oa"], [UIImage imageNamed:@"more-login"]]];
+    _moreView = [[MoreView alloc] initWithItems:@[@"同步课表", @"考试信息", @"我的成绩", @"图书检索", @"办公自动化", @"登录校内网"] images:@[[UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-oa"], [UIImage imageNamed:@"more-login"]]];
     
     UIButton *syncBtn = _moreView.itemsArray[0];
     [syncBtn addTarget:self action:@selector(moreSyncPress) forControlEvents:UIControlEventTouchUpInside];
@@ -196,11 +198,14 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     UIButton *gradeBtn = _moreView.itemsArray[2];
     [gradeBtn addTarget:self action:@selector(moreGradePress) forControlEvents:UIControlEventTouchUpInside];
+
+    UIButton *libraryBtn = _moreView.itemsArray[3];
+    [libraryBtn addTarget:self action:@selector(moreLibraryPress) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *oaBtn = _moreView.itemsArray[3];
+    UIButton *oaBtn = _moreView.itemsArray[4];
     [oaBtn addTarget:self action:@selector(moreOaPress) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *loginBtn = _moreView.itemsArray[4];
+    UIButton *loginBtn = _moreView.itemsArray[5];
     [loginBtn addTarget:self action:@selector(moreLoginPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -513,6 +518,12 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     [self grade];
     [MobClick event:@"More_Grade"];
+}
+
+- (void)moreLibraryPress
+{
+    [self book];
+    [MobClick event:@"More_Book"];
 }
 
 - (void)moreOaPress
@@ -1205,6 +1216,12 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     } else {
         return 0;
     }
+}
+
+- (void)book
+{
+    [_popover dismiss];
+    [self performSegueWithIdentifier:@"ShowLibrary" sender:nil];
 }
 
 

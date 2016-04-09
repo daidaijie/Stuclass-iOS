@@ -135,6 +135,7 @@
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         
         UITabBarController *tbc = [sb instantiateViewControllerWithIdentifier:@"tbc"];
+        
         UINavigationController *nvc = tbc.viewControllers[0];
         ClassViewController *cvc = nvc.viewControllers[0];
         
