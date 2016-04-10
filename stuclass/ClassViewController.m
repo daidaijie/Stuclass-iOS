@@ -188,7 +188,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)initMoreView
 {
-    _moreView = [[MoreView alloc] initWithItems:@[@"同步课表", @"考试信息", @"我的成绩", @"图书检索", @"办公自动化", @"登录校内网"] images:@[[UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-oa"], [UIImage imageNamed:@"more-login"]]];
+    _moreView = [[MoreView alloc] initWithItems:@[@"同步课表", @"考试信息", @"我的成绩", @"图书检索", @"办公自动化", @"登录校内网"] images:@[[UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-oa"], [UIImage imageNamed:@"more-login"]]];
     
     UIButton *syncBtn = _moreView.itemsArray[0];
     [syncBtn addTarget:self action:@selector(moreSyncPress) forControlEvents:UIControlEventTouchUpInside];

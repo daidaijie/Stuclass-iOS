@@ -15,7 +15,7 @@
 
 #define LIBRARY_URL @"http://202.192.155.48:83/opac/searchresult.aspx"
 
-@interface LibraryViewController ()
+@interface LibraryViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *libraryImageView;
 @property (weak, nonatomic) IBOutlet LibraryTextField *textField;
@@ -81,7 +81,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (textField.text.length > 0) {
-        // 保存历史记录
         [self.textField resignFirstResponder];
         [self sendRequestWithText:textField.text];
         return YES;
@@ -90,27 +89,45 @@
     }
 }
 
+
+- (NSString *)decodeFromPercentEscapeString:(NSString *)input
+{
+    
+    NSMutableString *outputStr = [NSMutableString stringWithString:input];
+    [outputStr replaceOccurrencesOfString:@"+"
+                               withString:@" "
+                                  options:NSLiteralSearch
+                                    range:NSMakeRange(0, outputStr.length)];
+    return [outputStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
 - (void)sendRequestWithText:(NSString *)text
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [KVNProgress showWithStatus:@"正在获取图书信息"];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
-    manager.requestSerializer.stringEncoding = enc;
-    manager.requestSerializer.timeoutInterval = global_timeout;
-    NSDictionary *parameters = @{@"ANYWORDS": text};
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manager GET:LIBRARY_URL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        NSString *responseHtml = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"成功");
-        [self getResultNumWithResponseHtml:responseHtml];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        NSLog(@"失败 - %@", error);
-        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
-            [self.textField becomeFirstResponder];
-        }];
+    [KVNProgress showWithStatus:@"正在检索图书信息"];
+    
+    NSString *encodeStr = [NSString stringWithFormat:@"%@", CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)text, (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]", NULL, kCFStringEncodingGB_18030_2000)];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@?ANYWORDS=%@", LIBRARY_URL, encodeStr];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        if (!connectionError) {
+            
+            NSLog(@"图书 - 成功");
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            NSString *responseStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            [self getResultNumWithResponseHtml:responseStr];
+        } else {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            NSLog(@"图书 - 失败 - %@", connectionError);
+            [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
+                [self.textField becomeFirstResponder];
+            }];
+        }
+        
     }];
 }
 
@@ -202,15 +219,6 @@
         }];
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 

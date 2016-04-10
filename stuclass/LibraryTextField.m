@@ -24,17 +24,10 @@
     CGContextSetLineCap(context, kCGLineCapSquare);
     CGContextSetLineWidth(context, LINE_WIDTH);
     
-    CGContextMoveToPoint(context, 0, self.bounds.size.height-LINE_WIDTH/2);
-    CGContextAddLineToPoint(context, self.bounds.size.width, self.bounds.size.height-LINE_WIDTH/2);
+    CGContextMoveToPoint(context, 0, self.bounds.size.height - LINE_WIDTH/2);
+    CGContextAddLineToPoint(context, self.bounds.size.width, self.bounds.size.height - LINE_WIDTH/2);
     CGContextStrokePath(context);
 }
-
-
-
-
-
-
-
 
 
 

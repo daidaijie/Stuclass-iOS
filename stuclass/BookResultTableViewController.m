@@ -10,8 +10,8 @@
 #import "LibraryTableViewCell.h"
 #import "LibraryFooterView.h"
 #import <AFNetworking/AFNetworking.h>
-#import <KVNProgress/KVNProgress.h>
 #import "Define.h"
+#import "MBProgressHUD.h"
 
 #define LIBRARY_URL @"http://202.192.155.48:83/opac/searchresult.aspx"
 
@@ -90,7 +90,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return [NSString stringWithFormat:@"%lu条结果", (unsigned long)_resultNum];
+        return [NSString stringWithFormat:@"与 %@ 有关的%lu条结果", _anywords, (unsigned long)_resultNum];
     } else {
         return @"0条";
     }
@@ -127,34 +127,36 @@
 // 发送新的请求
 - (void)getNewBooks
 {
+    
     _isLoading = YES;
     [(LibraryFooterView *)self.tableView.tableFooterView showLoading];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding (kCFStringEncodingGB_18030_2000);
-    manager.requestSerializer.stringEncoding = enc;
-    manager.requestSerializer.timeoutInterval = 7.0;
-    // 获取页数
+    NSString *encodeStr = [NSString stringWithFormat:@"%@", CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)_anywords, (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]", NULL, kCFStringEncodingGB_18030_2000)];
+    
     NSInteger page = _bookData.count / 20 + 1;
-    NSLog(@"page - %ld", (long)page);
-    NSDictionary *parameters = @{@"ANYWORDS": _anywords, @"page": [NSString stringWithFormat:@"%ld", (long)page]};
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manager GET:LIBRARY_URL parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        NSString *responseHtml = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"成功");
-        [self dealWithHtml:responseHtml];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        NSLog(@"失败 - %@", error);
-        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
+    NSString *urlStr = [NSString stringWithFormat:@"%@?ANYWORDS=%@&PAGE=%d", LIBRARY_URL, encodeStr, page];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        if (!connectionError) {
+            
+            NSLog(@"图书 - 成功");
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            NSString *responseStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            [self dealWithHtml:responseStr];
+        } else {
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+            NSLog(@"图书 - 失败 - %@", connectionError);
+            [self showHUDWithText:global_connection_failed andHideDelay:0.8];
             [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height-self.tableView.frame.size.height-self.tableView.tableFooterView.frame.size.height) animated:NO];
             [(LibraryFooterView *)self.tableView.tableFooterView hideLoading];
             _isLoading = NO;
-        }];
+        }
+        
     }];
-    
 }
 
 // 解析新的请求
@@ -183,11 +185,10 @@
     } else {
         NSLog(@"没有匹配");
         // 一般不会发生 - 未知错误 - 网页被修改了
-        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
-            [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height-self.tableView.frame.size.height-self.tableView.tableFooterView.frame.size.height) animated:NO];
-            [(LibraryFooterView *)self.tableView.tableFooterView hideLoading];
-            _isLoading = NO;
-        }];
+        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+        [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height-self.tableView.frame.size.height-self.tableView.tableFooterView.frame.size.height) animated:NO];
+        [(LibraryFooterView *)self.tableView.tableFooterView hideLoading];
+        _isLoading = NO;
     }
 }
 
@@ -204,6 +205,24 @@
         self.tableView.tableFooterView = endFooterView;
     }
     _isLoading = NO;
+}
+
+
+#pragma mark - HUD
+
+- (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {
+    
+    [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
+    
+    if (self.navigationController.view) {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = string;
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:delay];
+    }
 }
 
 @end

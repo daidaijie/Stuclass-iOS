@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -1819,7 +1818,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="收藏" id="LBV-w5-UfU">
-                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="trash" id="L7b-4b-tNY">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="L7b-4b-tNY">
                             <connections>
                                 <action selector="trashPress:" destination="tER-yV-SWc" id="Tv8-TO-9iL"/>
                             </connections>
@@ -1887,7 +1886,7 @@
                                     <constraint firstAttribute="width" secondItem="lyy-2P-FOz" secondAttribute="height" multiplier="36:23" id="8QQ-JQ-hMd"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入任意字段关键字" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ulX-SO-U57" customClass="LibraryTextField">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入任意关键字" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ulX-SO-U57" customClass="LibraryTextField">
                                 <rect key="frame" x="26" y="256" width="269" height="38"/>
                                 <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -1896,6 +1895,9 @@
                                 <color key="textColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="c2l-aT-URn" id="A9g-EX-mij"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="数据来源于www.lib.stu.edu.cn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8B-8H-5aK">
                                 <rect key="frame" x="40" y="543" width="241" height="17"/>
@@ -1967,66 +1969,84 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="剑桥雅思最新真题题源详解 [专著]·阅读(学术类)啊啊啊啊啊" lineBreakMode="tailTruncation" numberOfLines="3" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="uQT-NZ-eY5">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="剑桥雅思最新真题题源详解 [专著]·阅读(学术类)啊啊啊啊啊" lineBreakMode="tailTruncation" numberOfLines="3" minimumFontSize="14" preferredMaxLayoutWidth="135" translatesAutoresizingMaskIntoConstraints="NO" id="uQT-NZ-eY5">
                                             <rect key="frame" x="8" y="0.0" width="135" height="67"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="uQT-NZ-eY5" secondAttribute="height" multiplier="2:1" constant="1" id="2vx-TY-Kmg"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="2vx-TY-Kmg"/>
+                                                </mask>
+                                            </variation>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(英) Raffaele Cecco著；徐鹏飞译" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Dh-ks-D52">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(英) Raffaele Cecco著；徐鹏飞译" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" preferredMaxLayoutWidth="146" translatesAutoresizingMaskIntoConstraints="NO" id="6Dh-ks-D52">
                                             <rect key="frame" x="145" y="1" width="146" height="23"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="23" id="1YU-bC-PB3"/>
+                                                <constraint firstAttribute="height" constant="23" id="R50-sR-sBN"/>
+                                                <constraint firstAttribute="width" constant="146" id="ctL-xC-mBf"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="汕头大学出版社" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qrs-au-Jut">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="汕头大学出版社" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" preferredMaxLayoutWidth="146" translatesAutoresizingMaskIntoConstraints="NO" id="Qrs-au-Jut">
                                             <rect key="frame" x="145" y="22" width="146" height="23"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="146" id="NWw-gc-4fW"/>
+                                                <constraint firstAttribute="height" constant="23" id="xQ8-6b-mqG"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="uPl-cj-fEv">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" preferredMaxLayoutWidth="21" translatesAutoresizingMaskIntoConstraints="NO" id="uPl-cj-fEv">
                                             <rect key="frame" x="299" y="0.0" width="21" height="67"/>
                                             <color key="backgroundColor" red="0.57254901960000004" green="0.76862745099999996" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="21" id="9jA-8H-fSX"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="H319.4/201007D" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ijg-NJ-NFC">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="H319.4/201007D" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" preferredMaxLayoutWidth="132" translatesAutoresizingMaskIntoConstraints="NO" id="Ijg-NJ-NFC">
                                             <rect key="frame" x="159" y="46" width="132" height="18"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <color key="textColor" red="0.57254901960000004" green="0.76862745099999996" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="132" id="b8d-Tz-eKr"/>
+                                                <constraint firstAttribute="height" constant="18" id="wJX-lk-UBN"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                            <color key="textColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Ijg-NJ-NFC" secondAttribute="bottom" constant="-5" id="16v-7t-PtO"/>
-                                        <constraint firstItem="uQT-NZ-eY5" firstAttribute="leading" secondItem="FgK-vB-vid" secondAttribute="leadingMargin" id="1ia-6c-g2R"/>
-                                        <constraint firstItem="uPl-cj-fEv" firstAttribute="leading" secondItem="Ijg-NJ-NFC" secondAttribute="trailing" constant="8" id="1sh-3G-TLW"/>
+                                        <constraint firstItem="6Dh-ks-D52" firstAttribute="leading" secondItem="uQT-NZ-eY5" secondAttribute="trailing" constant="2" id="1WV-KL-yEB"/>
+                                        <constraint firstItem="Qrs-au-Jut" firstAttribute="centerY" secondItem="FgK-vB-vid" secondAttribute="centerY" id="2lR-KP-Ytb"/>
                                         <constraint firstAttribute="trailing" secondItem="uPl-cj-fEv" secondAttribute="trailing" id="40B-Rh-GxC"/>
-                                        <constraint firstItem="6Dh-ks-D52" firstAttribute="leading" secondItem="Qrs-au-Jut" secondAttribute="leading" id="59g-5d-rUB"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="uQT-NZ-eY5" secondAttribute="bottom" constant="-8" id="AQd-iT-9fP"/>
-                                        <constraint firstItem="Qrs-au-Jut" firstAttribute="top" secondItem="FgK-vB-vid" secondAttribute="topMargin" constant="14" id="GcQ-DQ-H7v"/>
-                                        <constraint firstItem="6Dh-ks-D52" firstAttribute="firstBaseline" secondItem="uQT-NZ-eY5" secondAttribute="firstBaseline" id="JGM-Kb-c3G"/>
-                                        <constraint firstItem="Ijg-NJ-NFC" firstAttribute="top" secondItem="Qrs-au-Jut" secondAttribute="bottom" constant="1" id="Txi-Vs-JYT"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Ijg-NJ-NFC" secondAttribute="bottom" constant="-4.5" id="G5D-Yr-iPT"/>
+                                        <constraint firstItem="uPl-cj-fEv" firstAttribute="leading" secondItem="6Dh-ks-D52" secondAttribute="trailing" constant="8" id="Whh-sd-lmw"/>
                                         <constraint firstItem="Ijg-NJ-NFC" firstAttribute="leading" secondItem="uQT-NZ-eY5" secondAttribute="trailing" constant="16" id="Wp9-n7-RyO"/>
-                                        <constraint firstItem="uQT-NZ-eY5" firstAttribute="top" secondItem="FgK-vB-vid" secondAttribute="topMargin" constant="-8" id="fbY-NS-si9"/>
-                                        <constraint firstItem="uPl-cj-fEv" firstAttribute="leading" secondItem="6Dh-ks-D52" secondAttribute="trailing" constant="8" symbolic="YES" id="o3u-Qm-5ge"/>
-                                        <constraint firstItem="uPl-cj-fEv" firstAttribute="leading" secondItem="Qrs-au-Jut" secondAttribute="trailing" constant="8" symbolic="YES" id="s7v-FW-ooe"/>
+                                        <constraint firstItem="uQT-NZ-eY5" firstAttribute="top" secondItem="FgK-vB-vid" secondAttribute="top" id="af2-Qf-ssk"/>
+                                        <constraint firstItem="uPl-cj-fEv" firstAttribute="leading" secondItem="Ijg-NJ-NFC" secondAttribute="trailing" constant="8" id="bPc-D4-gIL"/>
+                                        <constraint firstAttribute="bottom" secondItem="uQT-NZ-eY5" secondAttribute="bottom" id="gm6-bL-Efc"/>
+                                        <constraint firstItem="uQT-NZ-eY5" firstAttribute="leading" secondItem="FgK-vB-vid" secondAttribute="leading" constant="8" id="jSj-EI-J0L"/>
+                                        <constraint firstItem="6Dh-ks-D52" firstAttribute="top" secondItem="FgK-vB-vid" secondAttribute="topMargin" constant="-7" id="nDu-qr-AdB"/>
+                                        <constraint firstItem="uPl-cj-fEv" firstAttribute="leading" secondItem="Qrs-au-Jut" secondAttribute="trailing" constant="8" id="ntb-FU-T2L"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="uPl-cj-fEv" secondAttribute="bottom" constant="-8" id="wS2-f9-uaj"/>
-                                        <constraint firstItem="6Dh-ks-D52" firstAttribute="leading" secondItem="uQT-NZ-eY5" secondAttribute="trailing" constant="2" id="wUD-rL-dbz"/>
                                         <constraint firstItem="Qrs-au-Jut" firstAttribute="centerY" secondItem="uQT-NZ-eY5" secondAttribute="centerY" id="xuB-nx-tBS"/>
                                         <constraint firstItem="uPl-cj-fEv" firstAttribute="top" secondItem="FgK-vB-vid" secondAttribute="topMargin" constant="-8" id="zkc-zB-aD7"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="xuB-nx-tBS"/>
+                                            <exclude reference="Wp9-n7-RyO"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="authorLabel" destination="6Dh-ks-D52" id="tqv-i9-rfa"/>
