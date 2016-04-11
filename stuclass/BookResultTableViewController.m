@@ -137,7 +137,7 @@
     NSInteger page = _bookData.count / 20 + 1;
     NSString *urlStr = [NSString stringWithFormat:@"%@?ANYWORDS=%@&PAGE=%d", LIBRARY_URL, encodeStr, page];
     NSURL *url = [NSURL URLWithString:urlStr];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:global_timeout];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         
