@@ -9,6 +9,7 @@
 #import "ActivityViewController.h"
 #import "MBProgressHUD.h"
 #import "Define.h"
+#import "MobClick.h"
 
 @interface ActivityViewController () <UIWebViewDelegate>
 
@@ -22,6 +23,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupWebView];
+    
+    [MobClick event:@"Tabbar_Activity"];
 }
 
 - (void)setupWebView

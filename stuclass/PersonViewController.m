@@ -276,6 +276,7 @@ static const CGFloat kHeightForPostButton = 52;
 
 - (void)buttonPress
 {
+    [MobClick event:@"Detail_Member"];
     [self sendMemberRequest];
 }
 

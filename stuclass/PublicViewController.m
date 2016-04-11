@@ -67,6 +67,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     [self initTableView];
     
     [self getDiscussData];
+    
+    [MobClick event:@"Tabbar_Public"];
 }
 
 

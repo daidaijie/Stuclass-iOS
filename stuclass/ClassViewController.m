@@ -133,6 +133,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     NSString *username = [ud objectForKey:@"USERNAME"];
     if ([username isEqualToString:@"15sxwang"]) {
         // For Sixue
+        [MobClick event:@"Sixue_Connect"];
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         btn.showsTouchWhenHighlighted = YES;
         [btn setImage:[UIImage imageNamed:@"toolbar-sixue"] forState:UIControlStateNormal];
@@ -523,7 +524,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)moreLibraryPress
 {
     [self book];
-    [MobClick event:@"More_Book"];
+    [MobClick event:@"More_Library"];
 }
 
 - (void)moreOaPress
@@ -538,11 +539,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [MobClick event:@"More_Login"];
 }
 
-- (void)publicItemPress
-{
-    [self performSegueWithIdentifier:@"ShowPublic" sender:nil];
-}
-
 
 - (void)backgroundButtonPress
 {
@@ -553,7 +549,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     nvc.viewControllers = @[btvc];
     [self presentViewController:nvc animated:YES completion:nil];
     
-    [MobClick event:@"Background_Setting"];
+    [MobClick event:@"Setting_Background"];
 }
 
 
@@ -1104,10 +1100,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     NSDate *startDate = weekData[@"date"];
     
     NSInteger days = [[JHDater sharedInstance] getDaysFrom:startDate To:[NSDate date]];
-//    NSLog(@"%@", startDate);
-//    NSLog(@"%@", [NSDate date]);
-//    NSLog(@"days = %d", days);
-//    NSLog(@"startWeek = 星期%d", [[JHDater sharedInstance] weekForDate:startDate] + 1);
+
     NSInteger offset = (days + [[JHDater sharedInstance] weekForDate:startDate]) / 7;
     
     NSInteger newWeek = week + offset;
@@ -1228,6 +1221,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 #pragma mark - NoteItem
 - (void)noteItemPress
 {
+    [MobClick event:@"Show_TaskList"];
     [self performSegueWithIdentifier:@"ShowTaskList" sender:nil];
 }
 

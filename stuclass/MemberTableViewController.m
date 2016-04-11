@@ -9,6 +9,7 @@
 #import "MemberTableViewController.h"
 #import "MemberTableViewCell.h"
 #import "Define.h"
+#import "MobClick.h"
 
 @interface MemberTableViewController () <UISearchDisplayDelegate, UISearchBarDelegate>
 
@@ -122,6 +123,7 @@
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
 {
     NSLog(@"进入搜索模式");
+    [MobClick event:@"Detail_Member_Search"];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:YES];
     self.navigationController.view.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
 }

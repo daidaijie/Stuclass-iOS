@@ -15,6 +15,7 @@
 #import "DocumentFooterView.h"
 #import "MBProgressHUD.h"
 #import "DetailViewController.h"
+#import "MobClick.h"
 
 static const CGFloat kHeightForSectionHeader = 8.0;
 
@@ -39,6 +40,8 @@ static NSString *cell_id = @"DocumentTableViewCell";
     [self setupBackBarButton];
     [self setupOfficeData];
     [self setupTableView];
+    
+    [MobClick event:@"Document_Favorite"];
 }
 
 - (void)setupBackBarButton

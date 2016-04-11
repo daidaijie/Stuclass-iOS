@@ -8,6 +8,7 @@
 
 #import "TreeholeViewController.h"
 #import "MBProgressHUD.h"
+#import "MobClick.h"
 
 @interface TreeholeViewController () <UIWebViewDelegate, UIAlertViewDelegate>
 @property (strong, nonatomic)  UIWebView *webView;
@@ -21,7 +22,7 @@
     // Do any additional setup after loading the view.
     _firstLoad = YES;
     [self setupWebView];
-
+    [MobClick event:@"Public_Treehole"];
 }
 
 - (void)setupWebView

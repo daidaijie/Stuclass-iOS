@@ -32,6 +32,8 @@
     [self setupBarBackButton];
     [self setupInfo];
     [self setupTableView];
+    
+    [MobClick event:@"Tabbar_Setting"];
 }
 
 

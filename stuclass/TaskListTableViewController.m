@@ -13,6 +13,7 @@
 #import "Task.h"
 #import "StatusView.h"
 #import "TaskAddTableViewController.h"
+#import "MobClick.h"
 
 @interface TaskListTableViewController () <MGSwipeTableCellDelegate, TaskAddDelegate>
 
@@ -234,11 +235,13 @@
                 [_doingData removeObjectAtIndex:path.row];
                 [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView endUpdates];
+                [MobClick event:@"TaskList_Giveup"];
             } else {
                 [self.tableView beginUpdates];
                 [_doneData removeObjectAtIndex:path.row];
                 [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView endUpdates];
+                [MobClick event:@"TaskList_Delete"];
             }
         } else {
             if (path.section == 0) {
@@ -250,6 +253,7 @@
                 [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView endUpdates];
+                [MobClick event:@"TaskList_Done"];
             } else {
                 // redo
                 [self.tableView beginUpdates];
@@ -259,6 +263,7 @@
                 [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:_doingData.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
                 [self.tableView endUpdates];
+                [MobClick event:@"TaskList_Redo"];
             }
         }
     } else {
@@ -275,6 +280,13 @@
             task.level = [NSNumber numberWithInteger:index];
             [self.tableView reloadRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationFade];
             [self.tableView endUpdates];
+        }
+        if (index == 0) {
+            [MobClick event:@"TaskList_Level_0"];
+        } else if (index == 1) {
+            [MobClick event:@"TaskList_Level_1"];
+        } else {
+            [MobClick event:@"TaskList_Level_2"];
         }
     }
     

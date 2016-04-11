@@ -10,6 +10,7 @@
 #import "MBProgressHUD.h"
 #import "Define.h"
 #import "PlaceholderTextView.h"
+#import "MobClick.h"
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
@@ -132,6 +133,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         [self showHUDWithText:@"限制40字以内" andHideDelay:1.0];
     } else {
         // add
+        [MobClick event:@"TaskList_Add"];
         [_textView resignFirstResponder];
         [_delegate taskDidAddWithTitle:_textView.text];
         [self.navigationController popViewControllerAnimated:YES];
