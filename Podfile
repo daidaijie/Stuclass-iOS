@@ -4,4 +4,5 @@ target 'stuclass' do
 pod 'KVNProgress'
 pod 'AFNetworking', '~> 2.5'
 pod 'SDWebImage'
+pod 'MGSwipeTableCell'
 end

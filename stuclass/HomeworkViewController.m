@@ -79,7 +79,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     // emptyView
     _emptyView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, [UIScreen mainScreen].bounds.size.height - 64 - global_BarViewHeight - kHeightForPostButton)];
     
-    _emptyView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
+    _emptyView.backgroundColor = [UIColor clearColor];
     
     UILabel *emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _emptyView.frame.size.width, 50)];
     emptyLabel.center = CGPointMake(_emptyView.frame.size.width / 2, _emptyView.frame.size.height / 2 + 25);

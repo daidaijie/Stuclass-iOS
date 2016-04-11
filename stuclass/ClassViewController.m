@@ -1228,7 +1228,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 #pragma mark - NoteItem
 - (void)noteItemPress
 {
-
+    [self performSegueWithIdentifier:@"ShowTaskList" sender:nil];
 }
 
 

@@ -14,6 +14,8 @@
 		1302997F1C892BDC00E4734C /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 130299791C892BDC00E4734C /* TAAnimatedDotView.m */; };
 		130299801C892BDC00E4734C /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1302997B1C892BDC00E4734C /* TADotView.m */; };
 		130299811C892BDC00E4734C /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1302997D1C892BDC00E4734C /* TAPageControl.m */; };
+		130A6D501CBA32CC00A36F9C /* TaskListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A6D4F1CBA32CC00A36F9C /* TaskListTableViewController.m */; };
+		130A6D531CBA35FF00A36F9C /* TaskListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A6D521CBA35FF00A36F9C /* TaskListTableViewCell.m */; };
 		130C09E51CB544F500848551 /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 130C09E41CB544F500848551 /* MemberTableViewCell.m */; };
 		130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130D14E51CB78C7A006194BB /* DocumentFavoriteTableViewController.m */; };
 		1312101F1CB4DB9000F91F10 /* MemberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1312101E1CB4DB9000F91F10 /* MemberTableViewController.m */; };
@@ -116,6 +118,9 @@
 		13ED2C921BD8BC3F00E250A2 /* Course+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C8F1BD8BC3F00E250A2 /* Course+CoreDataProperties.m */; };
 		13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C911BD8BC3F00E250A2 /* Course.m */; };
 		13F9F4C11C87C3F0004BE5A0 /* ClassWeekTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F9F4C01C87C3F0004BE5A0 /* ClassWeekTableViewCell.m */; };
+		13FA797B1CBB436100E8865A /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FA797A1CBB436100E8865A /* Task.m */; };
+		13FA797E1CBB6A1C00E8865A /* StatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FA797D1CBB6A1C00E8865A /* StatusView.m */; };
+		13FA79821CBB88EC00E8865A /* TaskAddTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FA79811CBB88EC00E8865A /* TaskAddTableViewController.m */; };
 		13FD91371C8A790500F89806 /* ClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FD91361C8A790500F89806 /* ClassViewController.m */; };
 		13FD91411C8ADCD000F89806 /* banner1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13FD913E1C8ADCD000F89806 /* banner1.jpg */; };
 		13FD91421C8ADCD000F89806 /* banner2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13FD913F1C8ADCD000F89806 /* banner2.jpg */; };
@@ -141,6 +146,10 @@
 		1302997B1C892BDC00E4734C /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
 		1302997C1C892BDC00E4734C /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
 		1302997D1C892BDC00E4734C /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
+		130A6D4E1CBA32CC00A36F9C /* TaskListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskListTableViewController.h; sourceTree = "<group>"; };
+		130A6D4F1CBA32CC00A36F9C /* TaskListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListTableViewController.m; sourceTree = "<group>"; };
+		130A6D511CBA35FF00A36F9C /* TaskListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskListTableViewCell.h; sourceTree = "<group>"; };
+		130A6D521CBA35FF00A36F9C /* TaskListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListTableViewCell.m; sourceTree = "<group>"; };
 		130C09E31CB544F500848551 /* MemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberTableViewCell.h; sourceTree = "<group>"; };
 		130C09E41CB544F500848551 /* MemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberTableViewCell.m; sourceTree = "<group>"; };
 		130D14E41CB78C7A006194BB /* DocumentFavoriteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentFavoriteTableViewController.h; sourceTree = "<group>"; };
@@ -326,6 +335,12 @@
 		13ED2C911BD8BC3F00E250A2 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		13F9F4BF1C87C3F0004BE5A0 /* ClassWeekTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassWeekTableViewCell.h; sourceTree = "<group>"; };
 		13F9F4C01C87C3F0004BE5A0 /* ClassWeekTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassWeekTableViewCell.m; sourceTree = "<group>"; };
+		13FA79791CBB436100E8865A /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		13FA797A1CBB436100E8865A /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
+		13FA797C1CBB6A1C00E8865A /* StatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusView.h; sourceTree = "<group>"; };
+		13FA797D1CBB6A1C00E8865A /* StatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusView.m; sourceTree = "<group>"; };
+		13FA79801CBB88EC00E8865A /* TaskAddTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskAddTableViewController.h; sourceTree = "<group>"; };
+		13FA79811CBB88EC00E8865A /* TaskAddTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskAddTableViewController.m; sourceTree = "<group>"; };
 		13FD91361C8A790500F89806 /* ClassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassViewController.m; sourceTree = "<group>"; };
 		13FD913E1C8ADCD000F89806 /* banner1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner1.jpg; sourceTree = "<group>"; };
 		13FD913F1C8ADCD000F89806 /* banner2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner2.jpg; sourceTree = "<group>"; };
@@ -931,6 +946,7 @@
 				13C4C3431BCC07650003E703 /* SemesterTableViewController */,
 				13C707261BC81FBE003061A4 /* LoginViewController */,
 				134530881BC8AD250018C15E /* ClassViewController */,
+				5A421B153599CE926F9064AD /* TaskListTableViewController */,
 				131287851CB89ECA0089D8D7 /* ActivityViewController */,
 				13FEE6401CB90A48000C72BC /* LibraryViewController */,
 				1326F7D11C02D9F20016B88E /* PublicTableViewController */,
@@ -1030,6 +1046,7 @@
 		13D8E2C21BD71C430051617C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				13FA79761CBB3CED00E8865A /* Task */,
 				13242F021C0805C1008D46F2 /* Document */,
 				136A27CC1C043C5800B45460 /* Exam */,
 				1320FC7C1C01C1130084B152 /* Grade */,
@@ -1116,13 +1133,32 @@
 			name = AboutusViewController;
 			sourceTree = "<group>";
 		};
+		13FA79761CBB3CED00E8865A /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				13FA79791CBB436100E8865A /* Task.h */,
+				13FA797A1CBB436100E8865A /* Task.m */,
+			);
+			name = Task;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		13FA797F1CBB88D600E8865A /* TaskListCell */ = {
+			isa = PBXGroup;
+			children = (
+				130A6D511CBA35FF00A36F9C /* TaskListTableViewCell.h */,
+				130A6D521CBA35FF00A36F9C /* TaskListTableViewCell.m */,
+			);
+			name = TaskListCell;
+			sourceTree = "<group>";
+		};
 		13FEE6401CB90A48000C72BC /* LibraryViewController */ = {
 			isa = PBXGroup;
 			children = (
 				13FEE6411CB90A73000C72BC /* LibraryViewController.h */,
 				13FEE6421CB90A73000C72BC /* LibraryViewController.m */,
-				5A421151D7EAF0499243014F /* LibraryTableViewCell.m */,
 				5A421D53D4D1EC443DD7B766 /* LibraryTableViewCell.h */,
+				5A421151D7EAF0499243014F /* LibraryTableViewCell.m */,
 				5A4215F4ED4B61BE9E004103 /* LibraryTextField.h */,
 				5A421E4DFE540F65ECECDFCE /* LibraryTextField.m */,
 				139249F31CB9190B00A23041 /* BookResultTableViewController.h */,
@@ -1140,6 +1176,20 @@
 				5A421BEDC9358F1AEC74ACDE /* DXPopover.m */,
 			);
 			path = DXPopover;
+			sourceTree = "<group>";
+		};
+		5A421B153599CE926F9064AD /* TaskListTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				13FA797F1CBB88D600E8865A /* TaskListCell */,
+				130A6D4E1CBA32CC00A36F9C /* TaskListTableViewController.h */,
+				130A6D4F1CBA32CC00A36F9C /* TaskListTableViewController.m */,
+				13FA797C1CBB6A1C00E8865A /* StatusView.h */,
+				13FA797D1CBB6A1C00E8865A /* StatusView.m */,
+				13FA79801CBB88EC00E8865A /* TaskAddTableViewController.h */,
+				13FA79811CBB88EC00E8865A /* TaskAddTableViewController.m */,
+			);
+			name = TaskListTableViewController;
 			sourceTree = "<group>";
 		};
 		811F232ECC62EF514EDB4522 /* Frameworks */ = {
@@ -1167,6 +1217,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13C707211BC7DE10003061A4 /* Build configuration list for PBXNativeTarget "stuclass" */;
 			buildPhases = (
+				A7C61B1E0EF69F4052AAB2F1 /* 📦 Check Pods Manifest.lock */,
 				6E6394C5A63F6651606EFBDC /* uD83DuDCE6 Check Pods Manifest.lock */,
 				3BF2B6298BDC199C30CFD273 /* uD83DuDCE6 Check Pods Manifest.lock */,
 				13C707061BC7DE10003061A4 /* Sources */,
@@ -1176,6 +1227,8 @@
 				3B62FD651F74D0DDE8F02E0C /* uD83DuDCE6 Copy Pods Resources */,
 				74EFD2FE2A1D29A48AA08C60 /* uD83DuDCE6 Embed Pods Frameworks */,
 				BA6E1FD9536374CF7F89177A /* uD83DuDCE6 Copy Pods Resources */,
+				33A71CEE9DDD0121D87DBCDB /* 📦 Embed Pods Frameworks */,
+				550C1AB033E91E9B9AB1BE38 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1254,6 +1307,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		33A71CEE9DDD0121D87DBCDB /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-stuclass/Pods-stuclass-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3B62FD651F74D0DDE8F02E0C /* uD83DuDCE6 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1284,6 +1352,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		550C1AB033E91E9B9AB1BE38 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-stuclass/Pods-stuclass-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6E6394C5A63F6651606EFBDC /* uD83DuDCE6 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1312,6 +1395,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-stuclass/Pods-stuclass-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7C61B1E0EF69F4052AAB2F1 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		BA6E1FD9536374CF7F89177A /* uD83DuDCE6 Copy Pods Resources */ = {
@@ -1369,6 +1467,7 @@
 				130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */,
 				1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */,
 				131287841CB805EF0089D8D7 /* TreeholeViewController.m in Sources */,
+				130A6D501CBA32CC00A36F9C /* TaskListTableViewController.m in Sources */,
 				13C4C34A1BCC0D300003E703 /* SettingTableViewController.m in Sources */,
 				1335FC7F1BCA343100BC0F23 /* ClassButton.m in Sources */,
 				13C707151BC7DE10003061A4 /* LoginViewController.m in Sources */,
@@ -1420,6 +1519,7 @@
 				13CB2C7A1BDFD2BA00460BE4 /* PlaceholderTextView.m in Sources */,
 				13DE7B4A1BDC682E003AFF93 /* DiscussTableViewCell.m in Sources */,
 				1326F7D41C02DB5E0016B88E /* PublicViewController.m in Sources */,
+				13FA797B1CBB436100E8865A /* Task.m in Sources */,
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,
 				13F9F4C11C87C3F0004BE5A0 /* ClassWeekTableViewCell.m in Sources */,
 				137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */,
@@ -1436,9 +1536,12 @@
 				139509B41C873838008CA07B /* ClassWeekTableViewController.m in Sources */,
 				1302997F1C892BDC00E4734C /* TAAnimatedDotView.m in Sources */,
 				137C8C341BDB178400236C79 /* Homework.m in Sources */,
+				13FA797E1CBB6A1C00E8865A /* StatusView.m in Sources */,
 				130299811C892BDC00E4734C /* TAPageControl.m in Sources */,
 				131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */,
+				13FA79821CBB88EC00E8865A /* TaskAddTableViewController.m in Sources */,
 				13C4C37F1BCCEE2B0003E703 /* GKImagePicker.m in Sources */,
+				130A6D531CBA35FF00A36F9C /* TaskListTableViewCell.m in Sources */,
 				5A421F5763A0D4D685204EF0 /* DXPopover.m in Sources */,
 				5A4210DC741070C328BA0EC3 /* LibraryTextField.m in Sources */,
 				5A4213466C534654C06DB449 /* LibraryTableViewCell.m in Sources */,

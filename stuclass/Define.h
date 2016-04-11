@@ -15,6 +15,17 @@
 
 #define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.925 alpha:1.000]
 
+#define TASKLIST_LEVEL_0_COLOR [UIColor colorWithRed:0.318 green:0.729 blue:0.949 alpha:1.000]
+
+#define TASKLIST_LEVEL_1_COLOR [UIColor colorWithRed:0.957 green:0.804 blue:0.337 alpha:1.000]
+
+#define TASKLIST_LEVEL_2_COLOR [UIColor colorWithRed:0.992 green:0.392 blue:0.380 alpha:1.000]
+
+#define TASKLIST_DONE [UIColor colorWithRed:0.443 green:0.792 blue:0.345 alpha:1.000]
+
+#define TASKLIST_DELETE [UIColor colorWithRed:0.992 green:0.392 blue:0.380 alpha:1.000]
+
+#define TASKLIST_REDO [UIColor colorWithRed:0.969 green:0.651 blue:0.314 alpha:1.000]
 
 // Notice Title
 static NSString *global_connection_failed = @"连接服务器失败，请重试";
