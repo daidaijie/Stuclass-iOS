@@ -16,12 +16,13 @@
 #import "MBProgressHUD.h"
 #import "DetailViewController.h"
 #import "MobClick.h"
+#import <SIAlertView/SIAlertView.h>
 
 static const CGFloat kHeightForSectionHeader = 8.0;
 
 static NSString *cell_id = @"DocumentTableViewCell";
 
-@interface DocumentFavoriteTableViewController () <UIActionSheetDelegate, UIAlertViewDelegate>
+@interface DocumentFavoriteTableViewController () <UIActionSheetDelegate>
 
 @property (strong, nonatomic) NSMutableArray *documentData;
 
@@ -298,20 +299,23 @@ static NSString *cell_id = @"DocumentTableViewCell";
 
 - (IBAction)trashPress:(id)sender
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"确认清空收藏?" message:nil delegate:self cancelButtonTitle:@"放弃" otherButtonTitles:@"确认", nil];
     
-    [alertView show];
-}
-
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"警告" andMessage:@"确认清空收藏?"];
+    
+    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+    
+    [alertView addButtonWithTitle:@"不忍心" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
+        
+    }];
+    
+    [alertView addButtonWithTitle:@"删了" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         [ud setObject:nil forKey:@"DOCUMENTS"];
         _documentData = nil;
         [self.tableView reloadData];
-    }
+    }];
+    
+    [alertView show];
 }
 
 

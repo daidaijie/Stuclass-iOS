@@ -125,6 +125,7 @@
 		13FD91411C8ADCD000F89806 /* banner1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13FD913E1C8ADCD000F89806 /* banner1.jpg */; };
 		13FD91421C8ADCD000F89806 /* banner2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13FD913F1C8ADCD000F89806 /* banner2.jpg */; };
 		13FD91431C8ADCD000F89806 /* banner3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 13FD91401C8ADCD000F89806 /* banner3.jpg */; };
+		13FE7A721CBC7AB400C89EF3 /* MainTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FE7A711CBC7AB400C89EF3 /* MainTabViewController.m */; };
 		13FEE6431CB90A73000C72BC /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FEE6421CB90A73000C72BC /* LibraryViewController.m */; };
 		5A4210DC741070C328BA0EC3 /* LibraryTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A421E4DFE540F65ECECDFCE /* LibraryTextField.m */; };
 		5A4213466C534654C06DB449 /* LibraryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A421151D7EAF0499243014F /* LibraryTableViewCell.m */; };
@@ -345,6 +346,8 @@
 		13FD913E1C8ADCD000F89806 /* banner1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner1.jpg; sourceTree = "<group>"; };
 		13FD913F1C8ADCD000F89806 /* banner2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner2.jpg; sourceTree = "<group>"; };
 		13FD91401C8ADCD000F89806 /* banner3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = banner3.jpg; sourceTree = "<group>"; };
+		13FE7A701CBC7AB400C89EF3 /* MainTabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabViewController.h; sourceTree = "<group>"; };
+		13FE7A711CBC7AB400C89EF3 /* MainTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabViewController.m; sourceTree = "<group>"; };
 		13FEE6411CB90A73000C72BC /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
 		13FEE6421CB90A73000C72BC /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
 		2D0681CE36B96DCF3FFEA3F5 /* Pods-stuclass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stuclass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-stuclass/Pods-stuclass.debug.xcconfig"; sourceTree = "<group>"; };
@@ -955,6 +958,8 @@
 				1319840D1C072EAE003C17E0 /* DocumentTableViewController */,
 				13DBA09B1BD247B400FC0682 /* DetailViewController */,
 				13C7070D1BC7DE10003061A4 /* Supporting Files */,
+				13FE7A701CBC7AB400C89EF3 /* MainTabViewController.h */,
+				13FE7A711CBC7AB400C89EF3 /* MainTabViewController.m */,
 			);
 			path = stuclass;
 			sourceTree = "<group>";
@@ -1514,6 +1519,7 @@
 				136A27CF1C043C6300B45460 /* Exam.m in Sources */,
 				132226F61C0564550093826C /* ClassSemesterTableViewController.m in Sources */,
 				13C4C33B1BCBEEE60003E703 /* NSMutableArray+Shuffle.m in Sources */,
+				13FE7A721CBC7AB400C89EF3 /* MainTabViewController.m in Sources */,
 				137C8C2C1BDA956900236C79 /* Note.m in Sources */,
 				134AB7D81C01840E00D8E816 /* MoreView.m in Sources */,
 				13CB2C7A1BDFD2BA00460BE4 /* PlaceholderTextView.m in Sources */,

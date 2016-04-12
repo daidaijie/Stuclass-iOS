@@ -9,8 +9,9 @@
 #import "TreeholeViewController.h"
 #import "MBProgressHUD.h"
 #import "MobClick.h"
+#import <SIAlertView/SIAlertView.h>
 
-@interface TreeholeViewController () <UIWebViewDelegate, UIAlertViewDelegate>
+@interface TreeholeViewController () <UIWebViewDelegate>
 @property (strong, nonatomic)  UIWebView *webView;
 @property (nonatomic) BOOL firstLoad;
 @end
@@ -58,21 +59,24 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 
     if (_firstLoad) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"加载失败" delegate:self cancelButtonTitle:@"不去了" otherButtonTitles:@"再试一次", nil];
-        alertView.delegate = self;
+        
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"错误" andMessage:@"加载失败"];
+        
+        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+        
+        [alertView addButtonWithTitle:@"不去了" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        
+        [alertView addButtonWithTitle:@"再试一次" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.openstu.com/"]];
+            [_webView loadRequest:request];
+        }];
+        
         [alertView show];
+        
     } else {
         [self showHUDWithText:@"加载失败，请重试" andHideDelay:0.8];
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.openstu.com/"]];
-        [_webView loadRequest:request];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

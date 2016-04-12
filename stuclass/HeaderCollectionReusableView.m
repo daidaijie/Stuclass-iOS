@@ -8,11 +8,12 @@
 
 #import "HeaderCollectionReusableView.h"
 #import "Define.h"
+#import <SIAlertView/SIAlertView.h>
 
 static const NSTimeInterval kDuration = 4.0;
 
 
-@interface HeaderCollectionReusableView () <UIScrollViewDelegate, UIAlertViewDelegate>
+@interface HeaderCollectionReusableView () <UIScrollViewDelegate>
 @property (strong, nonatomic) NSTimer *timer;
 @end
 
@@ -130,37 +131,51 @@ static const NSTimeInterval kDuration = 4.0;
     
     if (index == 0) {
         if (_link1.length > 0) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"了解更多" message:_link1 delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"访问", nil];
-            alertView.tag = 1;
+            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"了解更多" andMessage:_link1];
+            
+            alertView.transitionStyle = SIAlertViewTransitionStyleFade;
+            
+            [alertView addButtonWithTitle:@"算了" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
+                
+            }];
+            
+            [alertView addButtonWithTitle:@"访问" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_link1]];
+            }];
+            
             [alertView show];
         }
     } else if (index == 1) {
         if (_link2.length > 0) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"了解更多" message:_link2 delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"访问", nil];
-            alertView.tag = 2;
+            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"了解更多" andMessage:_link2];
+            
+            alertView.transitionStyle = SIAlertViewTransitionStyleFade;
+            
+            [alertView addButtonWithTitle:@"算了" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
+                
+            }];
+            
+            [alertView addButtonWithTitle:@"访问" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_link2]];
+            }];
+            
             [alertView show];
         }
     } else if (index == 2) {
         if (_link3.length > 0) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"了解更多" message:_link3 delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"访问", nil];
-            alertView.tag = 3;
+            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"了解更多" andMessage:_link3];
+            
+            alertView.transitionStyle = SIAlertViewTransitionStyleFade;
+            
+            [alertView addButtonWithTitle:@"不去了" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
+                
+            }];
+            
+            [alertView addButtonWithTitle:@"访问" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_link3]];
+            }];
+            
             [alertView show];
-        }
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSInteger tag = alertView.tag;
-    
-    if (buttonIndex == 1) {
-    
-        if (tag == 1) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_link1]];
-        } else if (tag == 2) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_link2]];
-        } else if (tag == 3) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_link3]];
         }
     }
 }

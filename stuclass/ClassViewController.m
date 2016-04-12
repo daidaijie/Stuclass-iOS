@@ -30,6 +30,7 @@
 #import "ClassWeekTableViewController.h"
 #import "MBProgressHUD.h"
 #import "BackgoundTableViewController.h"
+#import <SIAlertView/SIAlertView.h>
 
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
@@ -1129,11 +1130,17 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     NSLog(@"当前版本 - %@", appVersion);
     
-    if (![localVersion isEqualToString:appVersion]) {
+    if ([localVersion isEqualToString:appVersion]) {
         // 显示更新内容
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"更新内容 v%@", appVersion] message:@"1. 点击导航标题可以设置周数，\n同时周数会自动增加;\n2. 增加了一键登录校内Wi-Fi的功能;\n3. 校园动态增加了公告栏，\n提供各种有关校内活动的信息;\n4. 访问服务器更加快速、稳定;\n5. 解决了显示错误等一大堆Bugs!\n\n目前用户量已达2000多人，谢谢大家!" delegate:nil cancelButtonTitle:@"立即体验 喵:)" otherButtonTitles:nil];
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"更新内容 v%@", appVersion] andMessage:@"1. 点击导航标题可以设置周数，\n同时周数会自动增加;\n2. 增加了一键登录校内Wi-Fi的功能;\n3. 校园动态增加了公告栏，\n提供各种有关校内活动的信息;\n4. 访问服务器更加快速、稳定;\n5. 解决了显示错误等一大堆Bugs!\n\n目前用户量已达2000多人，谢谢大家!"];
+        
+        alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+        
+        [alertView addButtonWithTitle:@"立即体验 喵:)" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+            [ud setObject:appVersion forKey:@"LOCAL_VERSION"];
+        }];
+        
         [alertView show];
-        [ud setObject:appVersion forKey:@"LOCAL_VERSION"];
     }
 }
 

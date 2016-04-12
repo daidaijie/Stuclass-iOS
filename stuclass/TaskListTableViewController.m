@@ -143,8 +143,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    _doingView.statusLabel.text = [NSString stringWithFormat:@"进行中(%d)", _doingData.count];
-    _doneView.statusLabel.text = [NSString stringWithFormat:@"已完成(%d)", _doneData.count];
+    _doingView.statusLabel.text = [NSString stringWithFormat:@"进行中(%d件事)", _doingData.count];
+    _doneView.statusLabel.text = [NSString stringWithFormat:@"已完成(%d件事)", _doneData.count];
     if (section == 0) {
         return _doingData.count;
     } else {

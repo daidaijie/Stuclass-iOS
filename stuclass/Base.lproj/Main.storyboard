@@ -1641,10 +1641,10 @@
             </objects>
             <point key="canvasLocation" x="231" y="1611"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab View Controller-->
         <scene sceneID="J8v-IC-PWY">
             <objects>
-                <tabBarController storyboardIdentifier="tbc" automaticallyAdjustsScrollViewInsets="NO" id="exU-gN-ahX" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tbc" automaticallyAdjustsScrollViewInsets="NO" id="exU-gN-ahX" customClass="MainTabViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="KSb-Dx-0nv">
