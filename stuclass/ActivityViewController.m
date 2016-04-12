@@ -39,7 +39,8 @@
     
     [self.view addSubview:_webView];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://github.com/chuckwong"]];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://github.com/chuckwong"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:global_timeout];
     
     [_webView loadRequest:request];
 }

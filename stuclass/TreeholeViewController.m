@@ -9,6 +9,7 @@
 #import "TreeholeViewController.h"
 #import "MBProgressHUD.h"
 #import "MobClick.h"
+#import "Define.h"
 #import <SIAlertView/SIAlertView.h>
 
 @interface TreeholeViewController () <UIWebViewDelegate>
@@ -38,8 +39,8 @@
 
     [self.view addSubview:_webView];
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.openstu.com/"]];
-
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.openstu.com/"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:global_timeout];
+    
     [_webView loadRequest:request];
 }
 
@@ -60,18 +61,18 @@
 
     if (_firstLoad) {
         
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"错误" andMessage:@"加载失败"];
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"错误" andMessage:@"加载失败，请重试"];
         
         alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
         
-        [alertView addButtonWithTitle:@"不去了" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
+        [alertView addButtonWithTitle:@"好的" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
             [self.navigationController popViewControllerAnimated:YES];
         }];
         
-        [alertView addButtonWithTitle:@"再试一次" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
-            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.openstu.com/"]];
-            [_webView loadRequest:request];
-        }];
+//        [alertView addButtonWithTitle:@"再试一次" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+//            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.openstu.com/"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:global_timeout];
+//            [_webView loadRequest:request];
+//        }];
         
         [alertView show];
         
@@ -105,6 +106,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [_webView stopLoading];
 }
 
 - (void)didReceiveMemoryWarning {
