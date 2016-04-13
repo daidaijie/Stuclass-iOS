@@ -90,11 +90,11 @@
     if (!secondTime) {
         // Init
         Task *task1 = [[Task alloc] initWithTitle:@"早上写完英语作业" level:@0];
-        Task *task2 = [[Task alloc] initWithTitle:@"中午去下载汕大课程表" level:@1];
-        Task *task3 = [[Task alloc] initWithTitle:@"下午吃阿吉米" level:@2];
+        Task *task2 = [[Task alloc] initWithTitle:@"中午去安利汕大课程表" level:@1];
+        Task *task3 = [[Task alloc] initWithTitle:@"下午吃阿吉米的咖喱牛腩盖饭" level:@2];
         
-        Task *task4 = [[Task alloc] initWithTitle:@"晚上睡大觉" level:@0];
-        Task *task5 = [[Task alloc] initWithTitle:@"周末去桑浦山喝矿泉水" level:@1];
+        Task *task4 = [[Task alloc] initWithTitle:@"晚上好好地睡一次有意义的大觉" level:@0];
+        Task *task5 = [[Task alloc] initWithTitle:@"周末去桑浦山上喝支矿泉水" level:@1];
         
         
         _doingData = [NSMutableArray arrayWithArray:@[task1, task2, task3]];

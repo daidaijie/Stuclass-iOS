@@ -13,6 +13,7 @@
 #import "MobClick.h"
 #import "Define.h"
 #import "SDWebImageManager.h"
+#import <SIAlertView/SIAlertView.h>
 
 @interface SettingTableViewController () <NicknameChangedDelegate>
 
@@ -123,6 +124,8 @@
         } else if (row == 1) {
             [self share];
             [MobClick event:@"Setting_Share"];
+        } else if (row == 2) {
+            [self showUpdateInfo];
         }
         
     } else if (section == 4) {
@@ -218,6 +221,22 @@
         hud.removeFromSuperViewOnHide = YES;
         [hud hide:YES afterDelay:delay];
     }
+}
+
+- (void)showUpdateInfo
+{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"更新内容 v%@", appVersion] andMessage:@"1. 新增图书检索、待办事项清单、\n汕大树洞以及瞧瞧同班同学等功能;\n2. 办公自动化新增收藏功能，\n校园网连接可显示剩余流量;\n3. 新增校园动态页面(敬请期待);\n4. 界面设计更新，满足审美超高的你;\n5. 修复了一些bugs如办公自动化条目\n重复、iOS7.1连接校园网崩溃等。"];
+    
+    alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
+    
+    [alertView addButtonWithTitle:@"立即体验 🙄:)" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+        [self performSelector:@selector(diselectCell) withObject:nil afterDelay:0];
+    }];
+    
+    [alertView show];
 }
 
 

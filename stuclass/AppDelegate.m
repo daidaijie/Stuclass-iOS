@@ -77,7 +77,7 @@
     [UITabBar appearance].tintColor = MAIN_COLOR;
     
     // 启动等待时间
-    [NSThread sleepForTimeInterval:0.3];
+    [NSThread sleepForTimeInterval:0.2];
     
     NSLog(@"当前用户 - TOKEN - %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"USER_TOKEN"]);
     

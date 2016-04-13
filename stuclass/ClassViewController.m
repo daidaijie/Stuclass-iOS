@@ -132,13 +132,19 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud objectForKey:@"USERNAME"];
-    if ([username isEqualToString:@"15sxwang"]) {
+    if ([username isEqualToString:@"15sxwang"] || [username isEqualToString:@"14jhwang"]) {
         // For Sixue
         [MobClick event:@"Sixue_Connect"];
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         btn.showsTouchWhenHighlighted = YES;
         [btn setImage:[UIImage imageNamed:@"toolbar-sixue"] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(connect) forControlEvents:UIControlEventTouchUpInside];
+        
+        // longPress
+        UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showHello:)];
+        gesture.minimumPressDuration = 6.0;
+        [btn addGestureRecognizer:gesture];
+        
         UIBarButtonItem *connectItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
         self.navigationItem.leftBarButtonItems = @[backgroundItem, connectItem];
     } else {
@@ -147,6 +153,16 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     }
 
     self.navigationItem.rightBarButtonItems = @[moreItem, noteItem];
+}
+
+- (void)showHello:(UILongPressGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateBegan) {
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"嘻嘻" andMessage:@"思学小盆友，你好啊！\n谢谢你的生日礼物嗷！"];
+        [alertView addButtonWithTitle:@"俊皓，你好棒！(偷笑)" type:SIAlertViewButtonTypeCancel handler:nil];
+        alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
+        [alertView show];
+    }
 }
 
 
@@ -1130,13 +1146,13 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     NSLog(@"当前版本 - %@", appVersion);
     
-    if ([localVersion isEqualToString:appVersion]) {
+    if (![localVersion isEqualToString:appVersion]) {
         // 显示更新内容
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"更新内容 v%@", appVersion] andMessage:@"1. 点击导航标题可以设置周数，\n同时周数会自动增加;\n2. 增加了一键登录校内Wi-Fi的功能;\n3. 校园动态增加了公告栏，\n提供各种有关校内活动的信息;\n4. 访问服务器更加快速、稳定;\n5. 解决了显示错误等一大堆Bugs!\n\n目前用户量已达2000多人，谢谢大家!"];
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"更新内容 v%@", appVersion] andMessage:@"1. 新增图书检索、待办事项清单、\n汕大树洞以及瞧瞧同班同学等功能;\n2. 办公自动化新增收藏功能，\n校园网连接可显示剩余流量;\n3. 新增校园动态页面(敬请期待);\n4. 界面设计更新，满足审美超高的你;\n5. 修复了一些bugs如办公自动化条目\n重复、iOS7.1连接校园网崩溃等。"];
         
         alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
         
-        [alertView addButtonWithTitle:@"立即体验 喵:)" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+        [alertView addButtonWithTitle:@"立即体验 🙄:)" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
             [ud setObject:appVersion forKey:@"LOCAL_VERSION"];
         }];
         
