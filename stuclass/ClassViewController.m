@@ -126,30 +126,29 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreItemPress)];
 
     UIBarButtonItem *noteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-note"] style:UIBarButtonItemStylePlain target:self action:@selector(noteItemPress)];
-    
-    UIBarButtonItem *backgroundItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-background"] style:UIBarButtonItemStylePlain target:self action:@selector(backgroundButtonPress)];
 
+    UIBarButtonItem *connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-thunder"] style:UIBarButtonItemStylePlain target:self action:@selector(connectItemPress)];
 
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud objectForKey:@"USERNAME"];
-    if ([username isEqualToString:@"15sxwang"] || [username isEqualToString:@"14jhwang"]) {
+    if ([username isEqualToString:@"15sxwang"] || ![username isEqualToString:@"14jhwang"]) {
         // For Sixue
         [MobClick event:@"Sixue_Connect"];
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         btn.showsTouchWhenHighlighted = YES;
         [btn setImage:[UIImage imageNamed:@"toolbar-sixue"] forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(connect) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(sixuePress) forControlEvents:UIControlEventTouchUpInside];
         
         // longPress
         UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showHello:)];
         gesture.minimumPressDuration = 6.0;
         [btn addGestureRecognizer:gesture];
         
-        UIBarButtonItem *connectItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-        self.navigationItem.leftBarButtonItems = @[backgroundItem, connectItem];
+        UIBarButtonItem *sixueItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+        self.navigationItem.leftBarButtonItems = @[connectItem, sixueItem];
     } else {
         // Others
-        self.navigationItem.leftBarButtonItem = backgroundItem;
+        self.navigationItem.leftBarButtonItem = connectItem;
     }
 
     self.navigationItem.rightBarButtonItems = @[moreItem, noteItem];
@@ -206,7 +205,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)initMoreView
 {
-    _moreView = [[MoreView alloc] initWithItems:@[@"同步课表", @"考试信息", @"我的成绩", @"图书检索", @"办公自动化", @"登录校内网"] images:@[[UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-oa"], [UIImage imageNamed:@"more-login"]]];
+    _moreView = [[MoreView alloc] initWithItems:@[@"同步课表", @"考试信息", @"我的成绩", @"图书检索", @"办公自动化"] images:@[[UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-oa"]]];
     
     UIButton *syncBtn = _moreView.itemsArray[0];
     [syncBtn addTarget:self action:@selector(moreSyncPress) forControlEvents:UIControlEventTouchUpInside];
@@ -222,9 +221,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     UIButton *oaBtn = _moreView.itemsArray[4];
     [oaBtn addTarget:self action:@selector(moreOaPress) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *loginBtn = _moreView.itemsArray[5];
-    [loginBtn addTarget:self action:@selector(moreLoginPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)initWeekView
@@ -550,25 +546,11 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [MobClick event:@"More_OA"];
 }
 
-- (void)moreLoginPress
+- (void)connectItemPress
 {
     [self connect];
     [MobClick event:@"More_Login"];
 }
-
-
-- (void)backgroundButtonPress
-{
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    BackgoundTableViewController *btvc = [sb instantiateViewControllerWithIdentifier:@"btvc"];
-//    btvc.delegate = self;
-    UINavigationController *nvc = [[UINavigationController alloc] init];
-    nvc.viewControllers = @[btvc];
-    [self presentViewController:nvc animated:YES completion:nil];
-    
-    [MobClick event:@"Setting_Background"];
-}
-
 
 - (void)semesterButtonPress
 {
@@ -1268,6 +1250,13 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         [hud hide:YES afterDelay:delay];
     }
 }
+
+
+- (void)sixuePress
+{
+    [self moreOaPress];
+}
+
 
 
 - (void)didReceiveMemoryWarning {

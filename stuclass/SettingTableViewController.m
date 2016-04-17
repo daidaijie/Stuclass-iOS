@@ -14,6 +14,7 @@
 #import "Define.h"
 #import "SDWebImageManager.h"
 #import <SIAlertView/SIAlertView.h>
+#import "BackgoundTableViewController.h"
 
 @interface SettingTableViewController () <NicknameChangedDelegate>
 
@@ -113,6 +114,9 @@
     } else if (section == 2) {
         
         if (row == 0) {
+            [self performSegueWithIdentifier:@"ShowBackground" sender:nil];
+            [MobClick event:@"Setting_Background"];
+        } else if (row == 1) {
             [self clearLocalData];
         }
         
