@@ -33,9 +33,9 @@
 - (void)setAvailableLabelColor:(NSInteger)availableNum
 {
     if (availableNum == 0) {
-        self.availableLabel.backgroundColor = RGB(255, 84, 73);
+        self.availableLabel.backgroundColor = MAIN_COLOR;
     } else {
-        self.availableLabel.backgroundColor = RGB(146, 196, 89);
+        self.availableLabel.backgroundColor = [UIColor colorWithRed:0.333 green:0.596 blue:0.263 alpha:1.000];
     }
 }
 
