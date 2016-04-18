@@ -59,7 +59,11 @@ static const CGFloat global_textView_RowHeightFor6p = 354;
 // url
 static NSString *global_host = @"http://121.42.175.83:8084/";
 
+static NSString *global80_host = @"http://121.42.175.83/";
+
 static NSString *login_host = @"http://192.168.31.4:8080";
+
+static NSString *activity_url = @"/activity";
 
 static NSString *login_url = @"/syllabus";
 
@@ -86,6 +90,8 @@ static NSString *discuss_delete_url = @"/api/v1.0/delete/1";
 static NSString *nickname_url = @"/api/v1.0/modify_user";
 
 static NSString *member_url = @"/api/v1.0/member";
+
+#define UPDATE_CONTENT @"1. 新增图书检索、待办事项清单、\n汕大树洞以及瞧瞧同班同学等功能;\n2. 办公自动化新增收藏功能，\n校园网连接可显示剩余流量;\n3. 新增校园动态页面(敬请期待);\n4. 界面设计更新，满足审美超高的你;\n5. 修复了一些bugs如办公自动化条目\n重复、iOS7.1连接校园网崩溃等。"
 
 // Cell Color
 #define COLOR_0 [UIColor colorWithRed:0.275 green:0.729 blue:0.902 alpha:1.000]

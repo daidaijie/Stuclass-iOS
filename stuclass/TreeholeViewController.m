@@ -69,11 +69,6 @@
             [self.navigationController popViewControllerAnimated:YES];
         }];
         
-//        [alertView addButtonWithTitle:@"再试一次" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
-//            NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.openstu.com/"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:global_timeout];
-//            [_webView loadRequest:request];
-//        }];
-        
         [alertView show];
         
     } else {
