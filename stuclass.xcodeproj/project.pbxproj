@@ -44,6 +44,7 @@
 		1335FC741BCA25A100BC0F23 /* WeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC731BCA25A100BC0F23 /* WeekView.m */; };
 		1335FC7C1BCA274900BC0F23 /* JHDater.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC7A1BCA274900BC0F23 /* JHDater.m */; };
 		1335FC7F1BCA343100BC0F23 /* ClassButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC7E1BCA343100BC0F23 /* ClassButton.m */; };
+		13391F7E1CC722BD00FA4807 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 13391F7D1CC722BD00FA4807 /* Task.m */; };
 		134AB7D81C01840E00D8E816 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7D71C01840E00D8E816 /* MoreView.m */; };
 		134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7DA1C0184AE00D8E816 /* MoreButton.m */; };
 		1366D6681BD3E42600B69C04 /* BarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D6671BD3E42600B69C04 /* BarView.m */; };
@@ -118,7 +119,6 @@
 		13ED2C921BD8BC3F00E250A2 /* Course+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C8F1BD8BC3F00E250A2 /* Course+CoreDataProperties.m */; };
 		13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C911BD8BC3F00E250A2 /* Course.m */; };
 		13F9F4C11C87C3F0004BE5A0 /* ClassWeekTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F9F4C01C87C3F0004BE5A0 /* ClassWeekTableViewCell.m */; };
-		13FA797B1CBB436100E8865A /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FA797A1CBB436100E8865A /* Task.m */; };
 		13FA797E1CBB6A1C00E8865A /* StatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FA797D1CBB6A1C00E8865A /* StatusView.m */; };
 		13FA79821CBB88EC00E8865A /* TaskAddTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FA79811CBB88EC00E8865A /* TaskAddTableViewController.m */; };
 		13FD91371C8A790500F89806 /* ClassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FD91361C8A790500F89806 /* ClassViewController.m */; };
@@ -206,6 +206,8 @@
 		1335FC7B1BCA274900BC0F23 /* JHDater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHDater.h; sourceTree = "<group>"; };
 		1335FC7D1BCA343100BC0F23 /* ClassButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassButton.h; sourceTree = "<group>"; };
 		1335FC7E1BCA343100BC0F23 /* ClassButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassButton.m; sourceTree = "<group>"; };
+		13391F7C1CC722BD00FA4807 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Task.h; path = stuclass/Task.h; sourceTree = "<group>"; };
+		13391F7D1CC722BD00FA4807 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Task.m; path = stuclass/Task.m; sourceTree = "<group>"; };
 		134530891BC8AE0C0018C15E /* ClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassViewController.h; sourceTree = "<group>"; };
 		134AB7D61C01840E00D8E816 /* MoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreView.h; sourceTree = "<group>"; };
 		134AB7D71C01840E00D8E816 /* MoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreView.m; sourceTree = "<group>"; };
@@ -336,8 +338,6 @@
 		13ED2C911BD8BC3F00E250A2 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		13F9F4BF1C87C3F0004BE5A0 /* ClassWeekTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassWeekTableViewCell.h; sourceTree = "<group>"; };
 		13F9F4C01C87C3F0004BE5A0 /* ClassWeekTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassWeekTableViewCell.m; sourceTree = "<group>"; };
-		13FA79791CBB436100E8865A /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
-		13FA797A1CBB436100E8865A /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 		13FA797C1CBB6A1C00E8865A /* StatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusView.h; sourceTree = "<group>"; };
 		13FA797D1CBB6A1C00E8865A /* StatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusView.m; sourceTree = "<group>"; };
 		13FA79801CBB88EC00E8865A /* TaskAddTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskAddTableViewController.h; sourceTree = "<group>"; };
@@ -1141,8 +1141,8 @@
 		13FA79761CBB3CED00E8865A /* Task */ = {
 			isa = PBXGroup;
 			children = (
-				13FA79791CBB436100E8865A /* Task.h */,
-				13FA797A1CBB436100E8865A /* Task.m */,
+				13391F7C1CC722BD00FA4807 /* Task.h */,
+				13391F7D1CC722BD00FA4807 /* Task.m */,
 			);
 			name = Task;
 			path = ..;
@@ -1496,6 +1496,7 @@
 				13C4C35E1BCCDC980003E703 /* BackgoundTableViewController.m in Sources */,
 				13EC9B741C11FA1A00AA3F2F /* AboutusViewController.m in Sources */,
 				13C4C3801BCCEE2B0003E703 /* GKImagePickerController.m in Sources */,
+				13391F7E1CC722BD00FA4807 /* Task.m in Sources */,
 				13242F0E1C086815008D46F2 /* DocumentFooterView.m in Sources */,
 				13C4C37E1BCCEE2B0003E703 /* GKImageCropViewController.m in Sources */,
 				137C8C3D1BDB2C5200236C79 /* HomeworkPostTableViewController.m in Sources */,
@@ -1525,7 +1526,6 @@
 				13CB2C7A1BDFD2BA00460BE4 /* PlaceholderTextView.m in Sources */,
 				13DE7B4A1BDC682E003AFF93 /* DiscussTableViewCell.m in Sources */,
 				1326F7D41C02DB5E0016B88E /* PublicViewController.m in Sources */,
-				13FA797B1CBB436100E8865A /* Task.m in Sources */,
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,
 				13F9F4C11C87C3F0004BE5A0 /* ClassWeekTableViewCell.m in Sources */,
 				137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */,
