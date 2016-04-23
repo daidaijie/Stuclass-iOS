@@ -185,7 +185,7 @@
 - (void)getResultBookWithResponseHtml:(NSString *)responseHtml resultNum:(NSUInteger)resultNum
 {
     // 获取检索信息
-    NSString *pattern = [NSString stringWithFormat:@"<td><input type=\"checkbox\" name=\"searchresult_cb\" value=\".*?\" onclick=\"savethis\\(this\\);\"/>.*?</td>\\s*<td><span class=\"title\"><a href=\".*?\" target=\"_blank\">(.*?)</a></span></td>\\s*<td>(.*?)</td>\\s*<td>(.*?)</td>\\s*<td>.*?</td>\\s*<td class=\"tbr\">(.*?)</td>\\s*<td class=\"tbr\">.*?</td>\\s*<td class=\"tbr\">(.*?)</td>"];
+    NSString *pattern = [NSString stringWithFormat:@"<td><input type=\"checkbox\" name=\"searchresult_cb\" value=\".*?\" onclick=\"savethis\\(this\\);\"/>.*?</td>\\s*<td><span class=\"title\"><a href=\"(.*?)\" target=\"_blank\">(.*?)</a></span></td>\\s*<td>(.*?)</td>\\s*<td>(.*?)</td>\\s*<td>.*?</td>\\s*<td class=\"tbr\">(.*?)</td>\\s*<td class=\"tbr\">.*?</td>\\s*<td class=\"tbr\">(.*?)</td>"];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators error:NULL];
     
     NSArray *matchedArray = [regex matchesInString:responseHtml options:0 range:NSMakeRange(0, responseHtml.length)];
@@ -194,11 +194,12 @@
         NSMutableArray *bookData = [NSMutableArray array];
         for (NSTextCheckingResult *result in matchedArray) {
             NSDictionary *book = @{
-                                   @"name": [responseHtml substringWithRange:[result rangeAtIndex:1]],
-                                   @"author": [responseHtml substringWithRange:[result rangeAtIndex:2]],
-                                   @"publisher": [responseHtml substringWithRange:[result rangeAtIndex:3]],
-                                   @"index": [responseHtml substringWithRange:[result rangeAtIndex:4]],
-                                   @"available": [responseHtml substringWithRange:[result rangeAtIndex:5]]
+                                   @"link": [responseHtml substringWithRange:[result rangeAtIndex:1]],
+                                   @"name": [responseHtml substringWithRange:[result rangeAtIndex:2]],
+                                   @"author": [responseHtml substringWithRange:[result rangeAtIndex:3]],
+                                   @"publisher": [responseHtml substringWithRange:[result rangeAtIndex:4]],
+                                   @"index": [responseHtml substringWithRange:[result rangeAtIndex:5]],
+                                   @"available": [responseHtml substringWithRange:[result rangeAtIndex:6]]
                                    };
             [bookData addObject:book];
         }

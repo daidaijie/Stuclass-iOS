@@ -12,8 +12,11 @@
 #import <AFNetworking/AFNetworking.h>
 #import "Define.h"
 #import "MBProgressHUD.h"
+#import "BookDetailViewController.h"
 
 #define LIBRARY_URL @"http://202.192.155.48:83/opac/searchresult.aspx"
+
+#define LIBRARY_BOOK_URL @"http://202.192.155.48:83/opac/"
 
 @interface BookResultTableViewController () <UITableViewDelegate>
 @property (nonatomic) BOOL isLoading;
@@ -57,6 +60,10 @@
     self.tableView.sectionHeaderHeight = 24.0;
     self.tableView.rowHeight = 68.0;
     self.tableView.tableFooterView = footerView;
+
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
+    longPressGesture.minimumPressDuration = 0.4;
+    [self.tableView addGestureRecognizer:longPressGesture];
 }
 
 
@@ -163,7 +170,7 @@
 - (void)dealWithHtml:(NSString *)responseHtml
 {
     // 获取检索信息
-    NSString *pattern = [NSString stringWithFormat:@"<td><input type=\"checkbox\" name=\"searchresult_cb\" value=\".*?\" onclick=\"savethis\\(this\\);\"/>.*?</td>\\s*<td><span class=\"title\"><a href=\".*?\" target=\"_blank\">(.*?)</a></span></td>\\s*<td>(.*?)</td>\\s*<td>(.*?)</td>\\s*<td>.*?</td>\\s*<td class=\"tbr\">(.*?)</td>\\s*<td class=\"tbr\">.*?</td>\\s*<td class=\"tbr\">(.*?)</td>"];
+    NSString *pattern = [NSString stringWithFormat:@"<td><input type=\"checkbox\" name=\"searchresult_cb\" value=\".*?\" onclick=\"savethis\\(this\\);\"/>.*?</td>\\s*<td><span class=\"title\"><a href=\"(.*?)\" target=\"_blank\">(.*?)</a></span></td>\\s*<td>(.*?)</td>\\s*<td>(.*?)</td>\\s*<td>.*?</td>\\s*<td class=\"tbr\">(.*?)</td>\\s*<td class=\"tbr\">.*?</td>\\s*<td class=\"tbr\">(.*?)</td>"];
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators error:NULL];
     
     NSArray *matchedArray = [regex matchesInString:responseHtml options:0 range:NSMakeRange(0, responseHtml.length)];
@@ -173,11 +180,12 @@
         for (NSTextCheckingResult *result in matchedArray) {
             
             NSDictionary *book = @{
-                                   @"name": [responseHtml substringWithRange:[result rangeAtIndex:1]],
-                                   @"author": [responseHtml substringWithRange:[result rangeAtIndex:2]],
-                                   @"publisher": [responseHtml substringWithRange:[result rangeAtIndex:3]],
-                                   @"index": [responseHtml substringWithRange:[result rangeAtIndex:4]],
-                                   @"available": [responseHtml substringWithRange:[result rangeAtIndex:5]]
+                                   @"link": [responseHtml substringWithRange:[result rangeAtIndex:1]],
+                                   @"name": [responseHtml substringWithRange:[result rangeAtIndex:2]],
+                                   @"author": [responseHtml substringWithRange:[result rangeAtIndex:3]],
+                                   @"publisher": [responseHtml substringWithRange:[result rangeAtIndex:4]],
+                                   @"index": [responseHtml substringWithRange:[result rangeAtIndex:5]],
+                                   @"available": [responseHtml substringWithRange:[result rangeAtIndex:6]]
                                    };
             [bookData addObject:book];
         }
@@ -213,16 +221,93 @@
 - (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {
     
     [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
-    
+
     if (self.navigationController.view) {
-        
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = string;
-        hud.margin = 10.f;
-        hud.removeFromSuperViewOnHide = YES;
-        [hud hide:YES afterDelay:delay];
+
+        if (delay == 0) {
+
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = string;
+            hud.margin = 10.f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud show:YES];
+
+        } else {
+
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = string;
+            hud.margin = 10.f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:delay];
+        }
     }
 }
+
+
+- (void)longPress:(UILongPressGestureRecognizer *)gesture
+{
+    if (gesture.state == UIGestureRecognizerStateBegan)
+    {
+        CGPoint point = [gesture locationInView:self.tableView];
+        NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:point];
+        if (indexPath == nil) return;
+
+        NSUInteger row = indexPath.row;
+
+        NSString *bookURLStr = _bookData[row][@"link"];
+
+        if (bookURLStr) {
+
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            
+            BookDetailViewController *bdvc = [sb instantiateViewControllerWithIdentifier:@"bdvc"];
+            
+            bdvc.url = [NSString stringWithFormat:@"%@%@", LIBRARY_BOOK_URL, bookURLStr];
+            
+            UINavigationController *nvc = [[UINavigationController alloc] init];
+            
+            nvc.viewControllers = @[bdvc];
+            
+            [self presentViewController:nvc animated:YES completion:nil];
+        }
+    }
+}
+
+// 解析
+- (void)dealBookWithHtml:(NSString *)responseHtml
+{
+    // 获取检索信息
+    NSString *pattern = [NSString stringWithFormat:@"<td><input type=\"checkbox\" name=\"searchresult_cb\" value=\".*?\" onclick=\"savethis\\(this\\);\"/>.*?</td>\\s*<td><span class=\"title\"><a href=\"(.*?)\" target=\"_blank\">(.*?)</a></span></td>\\s*<td>(.*?)</td>\\s*<td>(.*?)</td>\\s*<td>.*?</td>\\s*<td class=\"tbr\">(.*?)</td>\\s*<td class=\"tbr\">.*?</td>\\s*<td class=\"tbr\">(.*?)</td>"];
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:NSRegularExpressionCaseInsensitive | NSRegularExpressionDotMatchesLineSeparators error:NULL];
+
+    NSArray *matchedArray = [regex matchesInString:responseHtml options:0 range:NSMakeRange(0, responseHtml.length)];
+    if (matchedArray.count > 0) {
+        // 匹配成功
+        NSMutableArray *bookData = [NSMutableArray array];
+        for (NSTextCheckingResult *result in matchedArray) {
+
+            NSDictionary *book = @{
+                    @"link": [responseHtml substringWithRange:[result rangeAtIndex:1]],
+                    @"name": [responseHtml substringWithRange:[result rangeAtIndex:2]],
+                    @"author": [responseHtml substringWithRange:[result rangeAtIndex:3]],
+                    @"publisher": [responseHtml substringWithRange:[result rangeAtIndex:4]],
+                    @"index": [responseHtml substringWithRange:[result rangeAtIndex:5]],
+                    @"available": [responseHtml substringWithRange:[result rangeAtIndex:6]]
+            };
+            [bookData addObject:book];
+        }
+        [self addNewBooksWith:bookData];
+    } else {
+        NSLog(@"没有匹配");
+        // 一般不会发生 - 未知错误 - 网页被修改了
+        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+        [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height-self.tableView.frame.size.height-self.tableView.tableFooterView.frame.size.height) animated:NO];
+        [(LibraryFooterView *)self.tableView.tableFooterView hideLoading];
+        _isLoading = NO;
+    }
+}
+
 
 @end
