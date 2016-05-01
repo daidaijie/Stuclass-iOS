@@ -51,10 +51,35 @@
 
 
 #pragma mark - Class
-// 写入课表到数据库
-- (void)writeClassTableToCoreDataWithClassesArray:(NSMutableArray *)data withYear:(NSInteger)year semester:(NSInteger)semester username:(NSString *)username
+
+- (BOOL)isClassTableExistedWithYear:(NSInteger)year semester:(NSInteger)semester username:(NSString *)username
 {
+    // 判断是否存在
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CourseTable"];
     
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"year==%d AND semester==%d AND username==%@", year, semester, username];
+    
+    request.predicate = predicate;
+    
+    NSError *error = nil;
+    NSArray *obj = [_appDelagate.managedObjectContext executeFetchRequest:request error:&error];
+    
+    CourseTable *table = [obj firstObject];
+    
+    if (error) {
+        NSLog(@"课程 - 查询错误 - %@", error);
+    }
+    
+    if (table) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+// 写入课表到数据库
+- (void)writeSyncClassTableToCoreDataWithClassesArray:(NSMutableArray *)data withYear:(NSInteger)year semester:(NSInteger)semester username:(NSString *)username
+{
     // 判断是否存在
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CourseTable"];
     
@@ -73,155 +98,56 @@
     }
     
     if (table) {
-        // 覆盖
+        // 存在 要删掉现在的
+        NSLog(@"删掉课程表 %@ - %@ - %@", table.username, table.year, table.semester);
         
-        NSLog(@"更新课程表 %@ - %@ - %@", table.username, table.year, table.semester);
+        [_appDelagate.managedObjectContext deleteObject:table];
+    }
+    
+    // 新建课程表
+    CourseTable *newTable = [NSEntityDescription insertNewObjectForEntityForName:@"CourseTable" inManagedObjectContext:_appDelagate.managedObjectContext];
+    
+    newTable.year = [NSNumber numberWithInteger:year];
+    newTable.semester = [NSNumber numberWithInteger:semester];
+    newTable.username = username;
+    
+    NSLog(@"新建课程表 %@ - %@ - %@", newTable.username, newTable.year, newTable.semester);
+    
+    NSInteger order = 0;
+    
+    for (NSDictionary *class in data) {
         
-        // 该课表本地所有课程
-        NSSet *courses = table.course;
+        order++;
         
-        NSInteger order = 0;
+        NSString *course_id = class[@"class_id"] ? class[@"class_id"] : @"";
+        NSString *course_number = class[@"id"] ? class[@"id"] : @"";
+        NSString *course_name = class[@"name"] ? class[@"name"] : @"";
+        NSString *course_room = class[@"room"] ? class[@"room"] : @"";
+        NSString *course_span = class[@"duration"] ? class[@"duration"] : @"";
+        NSString *course_teacher = class[@"teacher"] ? class[@"teacher"] : @"";
+        NSString *course_credit = class[@"credit"] ? class[@"credit"] : @"";
+        NSDictionary *course_time = class[@"days"] ? class[@"days"] : [NSDictionary dictionary];
         
-        // 添加及更新
-        for (NSDictionary *class in data) {
-            
-            order++;
-            
-            NSString *course_id = class[@"class_id"] ? class[@"class_id"] : @"";
-            NSString *course_number = class[@"id"] ? class[@"id"] : @"";
-            NSString *course_name = class[@"name"] ? class[@"name"] : @"";
-            NSString *course_room = class[@"room"] ? class[@"room"] : @"";
-            NSString *course_span = class[@"duration"] ? class[@"duration"] : @"";
-            NSString *course_teacher = class[@"teacher"] ? class[@"teacher"] : @"";
-            NSString *course_credit = class[@"credit"] ? class[@"credit"] : @"";
-            NSDictionary *course_time = class[@"days"] ? class[@"days"] : [NSDictionary dictionary];
-            
-            BOOL newCourse = YES;
-            
-            for (Course *c in courses) {
-                if ([c.course_id isEqualToString:course_id]) {
-                    // 找到该课程 - 找不到说明是新的
-                    // 更新数据
-                    NSLog(@"更新本地存在的课程 %@ - %@", course_name, course_id);
-                    c.course_id = course_id;
-                    c.course_number = course_number;
-                    c.course_name = course_name;
-                    c.course_room = course_room;
-                    c.course_span = course_span;
-                    c.course_teacher = course_teacher;
-                    c.course_credit = course_credit;
-                    c.course_time = course_time;
-                    c.course_order = [NSNumber numberWithInteger:order];
-                    
-                    newCourse = NO;
-                }
-            }
-            
-            // 添加本地不存在的新课程
-            if (newCourse) {
-                
-                Course *course = [NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:_appDelagate.managedObjectContext];
-                NSLog(@"添加本地不存在的课程 %@ - %@", course_name, course_id);
-                course.course_id = course_id;
-                course.course_number = course_number;
-                course.course_name = course_name;
-                course.course_room = course_room;
-                course.course_span = course_span;
-                course.course_teacher = course_teacher;
-                course.course_credit = course_credit;
-                course.course_time = course_time;
-                course.course_order = [NSNumber numberWithInteger:order];
-                
-                [table addCourseObject:course];
-            }
-        }
+        Course *course = [NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:_appDelagate.managedObjectContext];
         
-        // 删掉服务器没有的课程
+        course.course_id = course_id;
+        course.course_number = course_number;
+        course.course_name = course_name;
+        course.course_room = course_room;
+        course.course_span = course_span;
+        course.course_teacher = course_teacher;
+        course.course_credit = course_credit;
+        course.course_time = course_time;
+        course.course_order = [NSNumber numberWithInteger:order];
         
-        BOOL shouldDelete = NO;
-        
-        NSMutableSet *classes_should_be_deleted = [NSMutableSet set];
-        
-        for (Course *c in courses) {
-            
-            BOOL notFoundInData = YES;
-            
-            for (NSDictionary *class in data) {
-                if ([c.course_id isEqualToString:class[@"class_id"]]) {
-                    // Found
-                    notFoundInData = NO;
-                    break;
-                }
-            }
-            
-            if (notFoundInData) {
-                shouldDelete = YES;
-                [classes_should_be_deleted addObject:c];
-            }
-        }
-        
-        if (shouldDelete) {
-            NSLog(@"删除服务器不存在的课程 %@", classes_should_be_deleted);
-            [table removeCourse:classes_should_be_deleted];
-        }
-        
-        NSError *error = nil;
-        
-        [_appDelagate.managedObjectContext save:&error];
-        
-        if (error) {
-            NSLog(@"课程 - 存在时添加错误 - %@", error);
-            return;
-        }
-        
-    } else {
-        // 新增
-        CourseTable *newTable = [NSEntityDescription insertNewObjectForEntityForName:@"CourseTable" inManagedObjectContext:_appDelagate.managedObjectContext];
-        
-        newTable.year = [NSNumber numberWithInteger:year];
-        newTable.semester = [NSNumber numberWithInteger:semester];
-        newTable.username = username;
-        
-        NSLog(@"新建课程表 %@ - %@ - %@", newTable.username, newTable.year, newTable.semester);
-        
-        NSInteger order = 0;
-        
-        for (NSDictionary *class in data) {
-            
-            order++;
-            
-            NSString *course_id = class[@"class_id"] ? class[@"class_id"] : @"";
-            NSString *course_number = class[@"id"] ? class[@"id"] : @"";
-            NSString *course_name = class[@"name"] ? class[@"name"] : @"";
-            NSString *course_room = class[@"room"] ? class[@"room"] : @"";
-            NSString *course_span = class[@"duration"] ? class[@"duration"] : @"";
-            NSString *course_teacher = class[@"teacher"] ? class[@"teacher"] : @"";
-            NSString *course_credit = class[@"credit"] ? class[@"credit"] : @"";
-            NSDictionary *course_time = class[@"days"] ? class[@"days"] : [NSDictionary dictionary];
-            
-            Course *course = [NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:_appDelagate.managedObjectContext];
-            
-            course.course_id = course_id;
-            course.course_number = course_number;
-            course.course_name = course_name;
-            course.course_room = course_room;
-            course.course_span = course_span;
-            course.course_teacher = course_teacher;
-            course.course_credit = course_credit;
-            course.course_time = course_time;
-            course.course_order = [NSNumber numberWithInteger:order];
-            
-            [newTable addCourseObject:course];
-        }
-        
-        NSError *error = nil;
-        
-        [_appDelagate.managedObjectContext save:&error];
-        
-        if (error) {
-            NSLog(@"课程 - 不存在时添加错误 - %@", error);
-            return;
-        }
+        [newTable addCourseObject:course];
+    }
+    
+    [_appDelagate.managedObjectContext save:&error];
+    
+    if (error) {
+        NSLog(@"课程 - 不存在时添加错误 - %@", error);
+        return;
     }
 }
 

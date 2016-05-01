@@ -166,14 +166,35 @@
         
     } else {
         
-        // KVN
-        [KVNProgress showWithStatus:@"正在获取该学期课表"];
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         
-        // ActivityIndicator
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        NSString *username = [ud valueForKey:@"USERNAME"];
         
-        // Request
-        [self sendRequest];
+        if ([[CoreDataManager sharedInstance] isClassTableExistedWithYear:_selectedYear semester:_selectedSemester username:username]) {
+            
+            // 设置学期
+            [ud setValue:@{@"year":[NSNumber numberWithInteger:_selectedYear], @"semester":[NSNumber numberWithInteger:_selectedSemester]} forKey:@"YEAR_AND_SEMESTER"];
+            
+            // 添加class_id
+            NSArray *classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:_selectedYear semester:_selectedSemester username:username];
+            
+            // 生成DisplayData
+            NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
+            
+            [_delegate semesterDelegateSemesterChanged:boxData semester:_selectedSemester];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+        } else {
+            // KVN
+            [KVNProgress showWithStatus:@"正在获取该学期课表"];
+            
+            // ActivityIndicator
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+            
+            // Request
+            [self sendRequest];
+        }
     }
 }
 
@@ -250,7 +271,7 @@
         NSArray *classData = [[ClassParser sharedInstance] generateClassIDForOriginalData:originData withYear:year semester:semester];
         
         // 写入本地CoreData
-        [[CoreDataManager sharedInstance] writeClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:[ud valueForKey:@"USERNAME"]];
+        [[CoreDataManager sharedInstance] writeSyncClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:[ud valueForKey:@"USERNAME"]];
         
         // 生成DisplayData
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];

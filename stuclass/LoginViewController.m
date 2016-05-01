@@ -321,14 +321,24 @@
         [ud setValue:_inputView.passwordTextField.text forKey:@"PASSWORD"];
         [ud setValue:@{@"year":[NSNumber numberWithInteger:year], @"semester":[NSNumber numberWithInteger:semester]} forKey:@"YEAR_AND_SEMESTER"];
         
-        // 得到原始数据
-        NSMutableArray *originData = [NSMutableArray arrayWithArray:responseObject[@"classes"]];
+        NSArray *classData;
         
-        // 添加class_id
-        NSArray *classData = [[ClassParser sharedInstance] generateClassIDForOriginalData:originData withYear:year semester:semester];
-        
-        // 写入本地CoreData
-        [[CoreDataManager sharedInstance] writeClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:_inputView.usernameTextField.text];
+        if ([[CoreDataManager sharedInstance] isClassTableExistedWithYear:year semester:semester username:_inputView.usernameTextField.text]) {
+            // 存在本地数据
+            NSLog(@"登录获取课表 - 本地存在");
+            classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:_inputView.usernameTextField.text];
+        } else {
+            // 不存在
+            // 得到原始数据
+            NSLog(@"登录获取课表 - 本地不存在");
+            NSMutableArray *originData = [NSMutableArray arrayWithArray:responseObject[@"classes"]];
+            
+            // 添加class_id
+            classData = [[ClassParser sharedInstance] generateClassIDForOriginalData:originData withYear:year semester:semester];
+            
+            // 写入本地CoreData
+            [[CoreDataManager sharedInstance] writeSyncClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:_inputView.usernameTextField.text];
+        }
         
         // 生成DisplayData
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];

@@ -15,7 +15,10 @@
 
 
 #pragma mark - Class
-- (void)writeClassTableToCoreDataWithClassesArray:(NSArray *)data withYear:(NSInteger)year semester:(NSInteger)semester username:(NSString *)username;
+
+- (BOOL)isClassTableExistedWithYear:(NSInteger)year semester:(NSInteger)semester username:(NSString *)username;
+
+- (void)writeSyncClassTableToCoreDataWithClassesArray:(NSArray *)data withYear:(NSInteger)year semester:(NSInteger)semester username:(NSString *)username;
 
 - (NSArray *)getClassDataFromCoreDataWithYear:(NSInteger)year semester:(NSInteger)semester username:(NSString *)username;
 

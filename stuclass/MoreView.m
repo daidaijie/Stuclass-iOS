@@ -34,7 +34,7 @@ static const CGFloat kButtonHeight = 42.0;
             [btn setImage:images[i] forState:UIControlStateNormal];
             
             // for 同步课表图标偏大
-            if (i == 0) {
+            if (i == 1) {
                 btn.contentEdgeInsets = UIEdgeInsetsMake(0, 11, 0, 0);
                 btn.titleEdgeInsets = UIEdgeInsetsMake(0, 9, 0, 0);
             }

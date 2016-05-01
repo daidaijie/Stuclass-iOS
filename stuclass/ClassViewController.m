@@ -207,21 +207,24 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)initMoreView
 {
-    _moreView = [[MoreView alloc] initWithItems:@[@"同步课表", @"考试信息", @"我的成绩", @"图书检索", @"办公自动化"] images:@[[UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-oa"]]];
+    _moreView = [[MoreView alloc] initWithItems:@[@"添加格子", @"同步课表", @"考试信息", @"我的成绩", @"图书检索", @"办公自动化"] images:@[[UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-oa"]]];
     
-    UIButton *syncBtn = _moreView.itemsArray[0];
+    UIButton *addBtn = _moreView.itemsArray[0];
+    [addBtn addTarget:self action:@selector(moreAddPress) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *syncBtn = _moreView.itemsArray[1];
     [syncBtn addTarget:self action:@selector(moreSyncPress) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *examBtn = _moreView.itemsArray[1];
+    UIButton *examBtn = _moreView.itemsArray[2];
     [examBtn addTarget:self action:@selector(moreExamPress) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *gradeBtn = _moreView.itemsArray[2];
+    UIButton *gradeBtn = _moreView.itemsArray[3];
     [gradeBtn addTarget:self action:@selector(moreGradePress) forControlEvents:UIControlEventTouchUpInside];
 
-    UIButton *libraryBtn = _moreView.itemsArray[3];
+    UIButton *libraryBtn = _moreView.itemsArray[4];
     [libraryBtn addTarget:self action:@selector(moreLibraryPress) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *oaBtn = _moreView.itemsArray[4];
+    UIButton *oaBtn = _moreView.itemsArray[5];
     [oaBtn addTarget:self action:@selector(moreOaPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -518,6 +521,12 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [_popover showAtPoint:CGPointMake(width - (width == 414 ? 31 : 28), 67) popoverPostion:DXPopoverPositionDown withContentView:_moreView inView:self.navigationController.view];
 }
 
+- (void)moreAddPress
+{
+    [self add];
+    
+}
+
 - (void)moreSyncPress
 {
     [self sync];
@@ -677,14 +686,23 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)sync {
     
-    // KVN
-    [KVNProgress showWithStatus:@"正在获取最新课表信息"];
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"警告" andMessage:@"同步课表将抹掉自行添加的格子，确定吗？"];
+    [alertView addButtonWithTitle:@"取消" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView){
+        [_popover dismiss];
+    }];
     
-    // ActivityIndicator
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [alertView addButtonWithTitle:@"同步" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView){
+        // KVN
+        [KVNProgress showWithStatus:@"正在获取最新课表信息"];
+        
+        // ActivityIndicator
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        
+        // Request
+        [self sendSyncRequest];
+    }];
     
-    // Request
-    [self sendSyncRequest];
+    [alertView show];
 }
 
 - (void)sendSyncRequest
@@ -757,7 +775,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         NSArray *classData = [[ClassParser sharedInstance] generateClassIDForOriginalData:originData withYear:year semester:semester];
         
         // 写入本地CoreData
-        [[CoreDataManager sharedInstance] writeClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:username];
+        [[CoreDataManager sharedInstance] writeSyncClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:username];
         
         // 生成DisplayData
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
@@ -1257,6 +1275,12 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)sixuePress
 {
     [self moreOaPress];
+}
+
+
+- (void)add
+{
+    
 }
 
 
