@@ -225,6 +225,107 @@
 }
 
 
+- (void)writeOneClassToCoreDataWithClassName:(NSString *)name classID:(NSString *)classID week:(NSUInteger)week start:(NSUInteger)start span:(NSUInteger)span startWeek:(NSUInteger)startWeek endWeek:(NSUInteger)endWeek weekType:(NSString *)weekType withYear:(NSUInteger)year semester:(NSUInteger)semester username:(NSString *)username
+{
+    // 判断是否存在
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CourseTable"];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"year==%d AND semester==%d AND username==%@", year, semester, username];
+    
+    request.predicate = predicate;
+    
+    NSError *error = nil;
+    NSArray *obj = [_appDelagate.managedObjectContext executeFetchRequest:request error:&error];
+    
+    CourseTable *table = [obj firstObject];
+    
+    if (error) {
+        NSLog(@"课程 - 查询错误 - %@", error);
+        return;
+    }
+    
+    if (table) {
+        // 排序取最大order
+        NSArray *sortDescription = @[[[NSSortDescriptor alloc] initWithKey:@"course_order" ascending:YES]];
+        NSArray *sortedArray = [table.course sortedArrayUsingDescriptors:sortDescription];
+        
+        Course *lastCourse = [sortedArray lastObject];
+        
+        NSUInteger order = [lastCourse.course_order integerValue] + 1;
+        
+        // 插入课程吧
+        Course *course = [NSEntityDescription insertNewObjectForEntityForName:@"Course" inManagedObjectContext:_appDelagate.managedObjectContext];
+        
+        course.course_id = classID;
+        course.course_number = @"";
+        
+        if (weekType.length == 0) {
+            course.course_name = name;
+        } else {
+            course.course_name = [NSString stringWithFormat:@"%@(%@)", name, weekType];
+        }
+        
+        course.course_room = @"";
+        course.course_span = [NSString stringWithFormat:@"%d-%d", startWeek, endWeek];
+        course.course_teacher = @"";
+        course.course_credit = @"";
+        course.course_order = [NSNumber numberWithInteger:order];
+        
+        NSMutableDictionary *time = [NSMutableDictionary dictionaryWithDictionary:@{@"w0": @"None", @"w1": @"None", @"w2": @"None", @"w3": @"None", @"w4": @"None", @"w5": @"None", @"w6": @"None"}];
+        
+        // time
+        NSMutableString *timeStr = [NSMutableString string];
+        for (NSUInteger i = 0; i < span; i++) {
+            NSUInteger time = start + i;
+            
+            NSString *timeCh = [NSString stringWithFormat:@"%d", time];
+            if (time == 10) {
+                timeCh = @"0";
+            } else if (time == 11) {
+                timeCh = @"A";
+            } else if (time == 12) {
+                timeCh = @"B";
+            } else if (time == 13) {
+                timeCh = @"C";
+            }
+            
+            [timeStr appendString:timeCh];
+        }
+        
+        if (week == 1) {
+            time[@"w1"] = timeStr;
+        } else if (week == 2) {
+            time[@"w2"] = timeStr;
+        } else if (week == 3) {
+            time[@"w3"] = timeStr;
+        } else if (week == 4) {
+            time[@"w4"] = timeStr;
+        } else if (week == 5) {
+            time[@"w5"] = timeStr;
+        } else if (week == 6) {
+            time[@"w6"] = timeStr;
+        } else if (week == 7) {
+            time[@"w0"] = timeStr;
+        }
+        
+        
+        course.course_time = time;
+        
+        [table addCourseObject:course];
+        
+        [_appDelagate.managedObjectContext save:&error];
+        
+        NSLog(@"插入课程 %@ - %@ - %@ - %@", table.username, table.year, table.semester, name);
+        
+        if (error) {
+            NSLog(@"课程 - 不存在时添加错误 - %@", error);
+            return;
+        }
+    }
+}
+
+
+
 #pragma mark - Note
 
 // 写入笔记

@@ -374,10 +374,11 @@
     }
     
     // second check
-    if ([self checkConflict]) {
-        // conflict
-    } else {
-        // ok
+    if (![self checkConflict]) {
+        // ok and update
+        [_delegate addBoxDelegateDidAdd];
+        [self.navigationController popViewControllerAnimated:YES];
+        [self showHUDWithText:@"添加成功" andHideDelay:0.8];
     }
 }
 

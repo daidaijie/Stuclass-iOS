@@ -36,7 +36,7 @@
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
-@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, ClassSemesterDelegate, UIScrollViewDelegate, ClassWeekDelegate, UIGestureRecognizerDelegate>
+@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, ClassSemesterDelegate, UIScrollViewDelegate, ClassWeekDelegate, UIGestureRecognizerDelegate, ClassAddBoxDelegate>
 
 @property (strong, nonatomic) ClassHeaderView *classHeaderView;
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -396,7 +396,13 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
                 
                 NSString *className = [self shrinkName:box.box_name];
                 
-                cell.label.text = [NSString stringWithFormat:@"%@@%@%@", className, box.box_room, box.box_weekType.length == 0 ? @"" : [NSString stringWithFormat:@"(%@周)", box.box_weekType]];
+                if (box.box_number.length == 0) {
+                    // not class
+                    cell.label.text = [NSString stringWithFormat:@"%@%@", className, box.box_weekType.length == 0 ? @"" : [NSString stringWithFormat:@"(%@周)", box.box_weekType]];
+                } else {
+                    // is class
+                    cell.label.text = [NSString stringWithFormat:@"%@@%@%@", className, box.box_room, box.box_weekType.length == 0 ? @"" : [NSString stringWithFormat:@"(%@周)", box.box_weekType]];
+                }
                 
                 [cell setBtnColor:box.box_color];
                 
@@ -461,7 +467,14 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     NSLog(@"cell - %d", tag);
     
-    [self performSegueWithIdentifier:@"ShowDetail" sender:_boxData[tag]];
+    ClassBox *box = _boxData[tag];
+    
+    if (box.box_number.length == 0) {
+        // not class
+    } else {
+        // is class
+        [self performSegueWithIdentifier:@"ShowDetail" sender:_boxData[tag]];
+    }
     
     [MobClick event:@"Main_ShowDetail"];
 }
@@ -1287,7 +1300,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     AddBoxTableViewController *abtvc = [sb instantiateViewControllerWithIdentifier:@"AddBoxTVC"];
     
-//    abtvc.delegate = self;
+    abtvc.delegate = self;
     
     abtvc.boxData = _boxData;
     
@@ -1295,6 +1308,22 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 }
 
 
+- (void)addBoxDelegateDidAdd
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *username = [ud valueForKey:@"USERNAME"];
+    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+    NSInteger year = [dict[@"year"] integerValue];
+    NSInteger semester = [dict[@"semester"] integerValue];
+    
+    NSArray *classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:username];
+    
+    _boxData = [[ClassParser sharedInstance] parseClassData:classData];
+    
+    [_collectionView reloadData];
+    
+    [_collectionView setContentOffset:CGPointZero animated:NO];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
