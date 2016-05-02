@@ -48,6 +48,7 @@
 		134775BA1CCB31A1006E1E94 /* BookDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 134775B91CCB31A1006E1E94 /* BookDetailViewController.m */; };
 		134AB7D81C01840E00D8E816 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7D71C01840E00D8E816 /* MoreView.m */; };
 		134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7DA1C0184AE00D8E816 /* MoreButton.m */; };
+		13587A1E1CD5CC64005379FC /* AddBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13587A1D1CD5CC64005379FC /* AddBoxTableViewController.m */; };
 		1366D6681BD3E42600B69C04 /* BarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D6671BD3E42600B69C04 /* BarView.m */; };
 		1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D66B1BD4B56F00B69C04 /* PersonViewController.m */; };
 		1366D6711BD4BAD500B69C04 /* DiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D6701BD4BAD500B69C04 /* DiscussViewController.m */; };
@@ -131,7 +132,7 @@
 		5A4210DC741070C328BA0EC3 /* LibraryTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A421E4DFE540F65ECECDFCE /* LibraryTextField.m */; };
 		5A4213466C534654C06DB449 /* LibraryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A421151D7EAF0499243014F /* LibraryTableViewCell.m */; };
 		5A421F5763A0D4D685204EF0 /* DXPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A421BEDC9358F1AEC74ACDE /* DXPopover.m */; };
-		DD06DD0830243B8207E0FED3 /* libPods-stuclass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF74B448CC02C745908E14E0 /* libPods-stuclass.a */; };
+		9BCEBB769D71A8FCE5035FC5 /* Pods_stuclass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EF9641D1729ED32E64253A /* Pods_stuclass.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -216,6 +217,8 @@
 		134AB7D71C01840E00D8E816 /* MoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreView.m; sourceTree = "<group>"; };
 		134AB7D91C0184AE00D8E816 /* MoreButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreButton.h; sourceTree = "<group>"; };
 		134AB7DA1C0184AE00D8E816 /* MoreButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreButton.m; sourceTree = "<group>"; };
+		13587A1C1CD5CC64005379FC /* AddBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBoxTableViewController.h; sourceTree = "<group>"; };
+		13587A1D1CD5CC64005379FC /* AddBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBoxTableViewController.m; sourceTree = "<group>"; };
 		1366D6661BD3E42600B69C04 /* BarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarView.h; sourceTree = "<group>"; };
 		1366D6671BD3E42600B69C04 /* BarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarView.m; sourceTree = "<group>"; };
 		1366D66A1BD4B56F00B69C04 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
@@ -360,8 +363,8 @@
 		5A421BEDC9358F1AEC74ACDE /* DXPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXPopover.m; sourceTree = "<group>"; };
 		5A421D53D4D1EC443DD7B766 /* LibraryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryTableViewCell.h; sourceTree = "<group>"; };
 		5A421E4DFE540F65ECECDFCE /* LibraryTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryTextField.m; sourceTree = "<group>"; };
-		BF74B448CC02C745908E14E0 /* libPods-stuclass.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-stuclass.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA76572295EC234D664C0F6 /* Pods-stuclass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stuclass.release.xcconfig"; path = "Pods/Target Support Files/Pods-stuclass/Pods-stuclass.release.xcconfig"; sourceTree = "<group>"; };
+		F4EF9641D1729ED32E64253A /* Pods_stuclass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_stuclass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,7 +374,7 @@
 			files = (
 				130243AE1C10472F00AA4A0E /* libz.tbd in Frameworks */,
 				130243AC1C10470600AA4A0E /* libMobClickLibrary.a in Frameworks */,
-				DD06DD0830243B8207E0FED3 /* libPods-stuclass.a in Frameworks */,
+				9BCEBB769D71A8FCE5035FC5 /* Pods_stuclass.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +661,15 @@
 				134AB7DA1C0184AE00D8E816 /* MoreButton.m */,
 			);
 			name = MoreView;
+			sourceTree = "<group>";
+		};
+		13587A1B1CD5CC43005379FC /* AddBoxTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				13587A1C1CD5CC64005379FC /* AddBoxTableViewController.h */,
+				13587A1D1CD5CC64005379FC /* AddBoxTableViewController.m */,
+			);
+			name = AddBoxTableViewController;
 			sourceTree = "<group>";
 		};
 		1366D6651BD3E41000B69C04 /* BarView */ = {
@@ -965,6 +977,7 @@
 				13C4C3431BCC07650003E703 /* SemesterTableViewController */,
 				13C707261BC81FBE003061A4 /* LoginViewController */,
 				134530881BC8AD250018C15E /* ClassViewController */,
+				13587A1B1CD5CC43005379FC /* AddBoxTableViewController */,
 				5A421B153599CE926F9064AD /* TaskListTableViewController */,
 				131287851CB89ECA0089D8D7 /* ActivityViewController */,
 				13FEE6401CB90A48000C72BC /* LibraryViewController */,
@@ -1214,7 +1227,7 @@
 			isa = PBXGroup;
 			children = (
 				130243AD1C10472F00AA4A0E /* libz.tbd */,
-				BF74B448CC02C745908E14E0 /* libPods-stuclass.a */,
+				F4EF9641D1729ED32E64253A /* Pods_stuclass.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1235,6 +1248,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13C707211BC7DE10003061A4 /* Build configuration list for PBXNativeTarget "stuclass" */;
 			buildPhases = (
+				291E7DC8D5CC2E9D14BF4B88 /* 📦 Check Pods Manifest.lock */,
 				A7C61B1E0EF69F4052AAB2F1 /* uD83DuDCE6 Check Pods Manifest.lock */,
 				6E6394C5A63F6651606EFBDC /* uD83DuDCE6 Check Pods Manifest.lock */,
 				3BF2B6298BDC199C30CFD273 /* uD83DuDCE6 Check Pods Manifest.lock */,
@@ -1247,6 +1261,8 @@
 				BA6E1FD9536374CF7F89177A /* uD83DuDCE6 Copy Pods Resources */,
 				33A71CEE9DDD0121D87DBCDB /* uD83DuDCE6 Embed Pods Frameworks */,
 				550C1AB033E91E9B9AB1BE38 /* uD83DuDCE6 Copy Pods Resources */,
+				1694E1721DDCCFD99910D7AD /* 📦 Embed Pods Frameworks */,
+				4C11B5DFA26663C43ACF6BFA /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1325,6 +1341,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1694E1721DDCCFD99910D7AD /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-stuclass/Pods-stuclass-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		291E7DC8D5CC2E9D14BF4B88 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		33A71CEE9DDD0121D87DBCDB /* uD83DuDCE6 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1368,6 +1414,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4C11B5DFA26663C43ACF6BFA /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-stuclass/Pods-stuclass-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		550C1AB033E91E9B9AB1BE38 /* uD83DuDCE6 Copy Pods Resources */ = {
@@ -1518,6 +1579,7 @@
 				137C8C2B1BDA956900236C79 /* Note+CoreDataProperties.m in Sources */,
 				13D8E2C11BD625180051617C /* MBProgressHUD.m in Sources */,
 				1366D6821BD4F19000B69C04 /* ClassNoteTableViewCell.m in Sources */,
+				13587A1E1CD5CC64005379FC /* AddBoxTableViewController.m in Sources */,
 				131287881CB89EE30089D8D7 /* ActivityViewController.m in Sources */,
 				1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */,
 				13242F051C0805D4008D46F2 /* Document.m in Sources */,
@@ -1678,7 +1740,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = stuclass/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1698,7 +1760,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = stuclass/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

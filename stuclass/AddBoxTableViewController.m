@@ -1,0 +1,379 @@
+//
+//  AddBoxTableViewController.m
+//  stuclass
+//
+//  Created by JunhaoWang on 5/1/16.
+//  Copyright © 2016 JunhaoWang. All rights reserved.
+//
+
+#import "AddBoxTableViewController.h"
+#import "Define.h"
+#import "MBProgressHUD.h"
+#import "PlaceholderTextView.h"
+#import <ActionSheetPicker_3_0/ActionSheetCustomPicker.h>
+
+@interface AddBoxTableViewController () <UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
+
+@property (strong, nonatomic) UIPickerView *timePickerView;
+@property (strong, nonatomic) UIPickerView *weekPickerView;
+
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
+@property (weak, nonatomic) IBOutlet UILabel *weekLabel;
+
+
+@property (weak, nonatomic) IBOutlet PlaceholderTextView *textView;
+
+@property (nonatomic) NSUInteger week;
+@property (nonatomic) NSUInteger start;
+@property (nonatomic) NSUInteger span;
+
+@property (nonatomic) NSUInteger startWeek;
+@property (nonatomic) NSUInteger endWeek;
+
+@property (nonatomic) NSUInteger weekType; // 0 1 2
+
+// data
+
+@end
+
+@implementation AddBoxTableViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self setupTableView];
+    [self setupTextView];
+    [self setupData];
+    [self setupPickerView];
+}
+
+- (void)setupTableView
+{
+    self.tableView.contentInset = UIEdgeInsetsMake(-12, 0, 0, 0);
+}
+
+- (void)setupTextView
+{
+    _textView.placeholder.text = @"可以是一节课或一件事...";
+}
+
+- (void)setupData
+{
+    _week = 1;
+    _start = 1;
+    _span = 2;
+    
+    _startWeek = 1;
+    _endWeek = 16;
+    
+    _weekType = 0;
+}
+
+- (void)setupPickerView
+{
+    _timePickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 300, 260)];
+    
+    _timePickerView.tag = 1;
+    
+    _timePickerView.delegate = self;
+    
+    _weekPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 300, 260)];
+    
+    _weekPickerView.tag = 2;
+    
+    _weekPickerView.delegate = self;
+}
+
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [_textView becomeFirstResponder];
+}
+
+#pragma mark - TextView Delegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        [_textView resignFirstResponder];
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    _textView.placeholder.hidden = (textView.text.length > 0);
+}
+
+#pragma mark - TableView Delegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger row = indexPath.row;
+    
+    if (row == 1) {
+        [self pickTime];
+    } else if (row == 2) {
+        [self pickWeek];
+    }
+}
+
+- (void)pickTime
+{
+    // set pickerView data
+    
+    [_timePickerView selectRow:(_week - 1) inComponent:0 animated:NO];
+    [_timePickerView selectRow:(_start - 1) inComponent:1 animated:NO];
+    [_timePickerView selectRow:(_span - 1) inComponent:2 animated:NO];
+    
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"选择时间\n\n\n\n\n\n\n\n\n\n\n" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert.view addSubview:_timePickerView];
+    
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    
+        NSUInteger week = [_timePickerView selectedRowInComponent:0] + 1;
+        NSUInteger start = [_timePickerView selectedRowInComponent:1] + 1;
+        NSUInteger span = [_timePickerView selectedRowInComponent:2] + 1;
+    
+        // check
+        if (start + span > 14) {
+            [self showHUDWithText:@"时间超出课表范围了" andHideDelay:0.8];
+        } else {
+            // week
+            
+            // data setting
+            _week = week;
+            _start = start;
+            _span = span;
+            
+            NSString *weekStr;
+            switch (week - 1) {
+                case 0:
+                    weekStr = @"星期一";
+                    break;
+                case 1:
+                    weekStr = @"星期二";
+                    break;
+                case 2:
+                    weekStr = @"星期三";
+                    break;
+                case 3:
+                    weekStr = @"星期四";
+                    break;
+                case 4:
+                    weekStr = @"星期五";
+                    break;
+                case 5:
+                    weekStr = @"星期六";
+                    break;
+                default:
+                    weekStr = @"星期日";
+                    break;
+            }
+            
+            // time
+            NSMutableString *timeStr = [NSMutableString string];
+            for (NSUInteger i = 0; i < span; i++) {
+                NSUInteger time = start + i;
+                
+                NSString *timeCh = [NSString stringWithFormat:@"%d", time];
+                if (time == 10) {
+                    timeCh = @"0";
+                } else if (time == 11) {
+                    timeCh = @"A";
+                } else if (time == 12) {
+                    timeCh = @"B";
+                } else if (time == 13) {
+                    timeCh = @"C";
+                }
+                
+                [timeStr appendString:timeCh];
+            }
+            
+            _timeLabel.text = [NSString stringWithFormat:@"%@ %@", weekStr, timeStr];
+            
+            NSLog(@"设置时间 - %@", _timeLabel.text);
+        }
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    
+    [alert addAction:confirm];
+    
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:^{ }];
+}
+
+- (void)pickWeek
+{
+    // set pickerView data
+    
+    [_weekPickerView selectRow:(_startWeek - 1) inComponent:0 animated:NO];
+    [_weekPickerView selectRow:(_endWeek - 1) inComponent:2 animated:NO];
+    
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"选择周数\n\n\n\n\n\n\n\n\n\n\n" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert.view addSubview:_weekPickerView];
+    
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        NSUInteger startWeek = [_weekPickerView selectedRowInComponent:0] + 1;
+        NSUInteger endWeek = [_weekPickerView selectedRowInComponent:2] + 1;
+        
+        // check
+        if (startWeek > endWeek) {
+            [self showHUDWithText:@"周数选择有误" andHideDelay:0.8];
+        } else {
+            // week
+            
+            // data setting
+            _startWeek = startWeek;
+            _endWeek = endWeek;
+            
+            _weekLabel.text = (startWeek == endWeek) ? [NSString stringWithFormat:@"%d", startWeek] : [NSString stringWithFormat:@"%d-%d", startWeek, endWeek];
+        }
+        NSLog(@"设置周数 %d-%d", _startWeek, _endWeek);
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+    }];
+    
+    [alert addAction:confirm];
+    
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:^{ }];
+}
+
+
+#pragma mark - Picker Delegate
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    if (pickerView.tag == 1) {
+        if (component == 0) {
+            return 7;
+        } else if (component == 1) {
+            return 13;
+        } else {
+            return 13;
+        }
+    } else {
+        if (component == 1) {
+            return 1;
+        } else {
+            return 16;
+        }
+    }
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    if (pickerView.tag == 1) {
+        if (component == 0) {
+            NSString *weekStr;
+            switch (row) {
+                case 0:
+                    weekStr = @"星期一";
+                    break;
+                case 1:
+                    weekStr = @"星期二";
+                    break;
+                case 2:
+                    weekStr = @"星期三";
+                    break;
+                case 3:
+                    weekStr = @"星期四";
+                    break;
+                case 4:
+                    weekStr = @"星期五";
+                    break;
+                case 5:
+                    weekStr = @"星期六";
+                    break;
+                default:
+                    weekStr = @"星期日";
+                    break;
+            }
+            return weekStr;
+        } else if (component == 1) {
+            NSUInteger start = row + 1;
+            NSString *startStr = [NSString stringWithFormat:@"%d", start];
+            if (start == 10) {
+                startStr = @"0";
+            } else if (start == 11) {
+                startStr = @"A";
+            } else if (start == 12) {
+                startStr = @"B";
+            } else if (start == 13) {
+                startStr = @"C";
+            }
+            return startStr;
+        } else {
+            return [NSString stringWithFormat:@"共%d节", row + 1];
+        }
+    } else {
+        if (component == 1) {
+            return @"-";
+        } else {
+            return [NSString stringWithFormat:@"%d", row + 1];
+        }
+    }
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    if (pickerView.tag == 1) {
+        return 3;
+    } else {
+        return 3;
+    }
+}
+
+- (IBAction)weekTypeValueChanged:(UISegmentedControl *)sender
+{
+    _weekType = sender.selectedSegmentIndex;
+    NSLog(@"设置weekType - %d", _weekType);
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+#pragma mark - HUD
+
+- (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {
+    
+    [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
+    
+    if (self.navigationController.view) {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = string;
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:delay];
+    }
+}
+
+
+@end
+
+
+
+
+
