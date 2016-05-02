@@ -65,9 +65,6 @@
     
     classData = [NSMutableArray arrayWithArray:classData];
     
-//    classData[0][@"days"] = @{@"w0":[NSNull null], @"w1":[NSNull null], @"w2":[NSNull null], @"w3":@"3467", @"w4":[NSNull null], @"w5":[NSNull null], @"w6":[NSNull null]};
-//    NSLog(@"%@",classData);
-    
     for (NSDictionary *class in classData) {
         
         NSDictionary *days = class[@"days"];

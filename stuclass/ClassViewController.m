@@ -132,7 +132,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud objectForKey:@"USERNAME"];
-    if ([username isEqualToString:@"15sxwang"] || [username isEqualToString:@"14jhwang"]) {
+    if ([username isEqualToString:@"15sxwang"] || ![username isEqualToString:@"14jhwang"]) {
         // For Sixue
         [MobClick event:@"Sixue_Connect"];
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -802,11 +802,9 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         NSString *nickname = responseObject[@"nickname"];
         [ud setValue:nickname forKey:@"NICKNAME"];
         
-        _boxData = boxData;
-        
-        [_collectionView reloadData];
-        
         [KVNProgress showSuccessWithStatus:@"同步课表成功" completion:^{
+            _boxData = boxData;
+            [_collectionView reloadData];
             [_collectionView setContentOffset:CGPointZero animated:YES];
             [_popover dismiss];
         }];
@@ -1308,17 +1306,9 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 }
 
 
-- (void)addBoxDelegateDidAdd
+- (void)addBoxDelegateDidAdd:(NSArray *)boxData
 {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *username = [ud valueForKey:@"USERNAME"];
-    NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
-    NSInteger year = [dict[@"year"] integerValue];
-    NSInteger semester = [dict[@"semester"] integerValue];
-    
-    NSArray *classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:username];
-    
-    _boxData = [[ClassParser sharedInstance] parseClassData:classData];
+    _boxData = boxData;
     
     [_collectionView reloadData];
     

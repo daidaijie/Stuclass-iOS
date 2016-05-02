@@ -11,6 +11,8 @@
 #import "MBProgressHUD.h"
 #import "PlaceholderTextView.h"
 #import "ClassBox.h"
+#import "CoreDataManager.h"
+#import "ClassParser.h"
 
 
 @interface AddBoxTableViewController () <UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
@@ -367,16 +369,31 @@
     // first check
     if (_textView.text.length == 0) {
         [self showHUDWithText:@"格子名称不能为空" andHideDelay:0.8];
+        return;
     }
     
     if (_textView.text.length > 40) {
         [self showHUDWithText:@"格子名称太长了(最多40个字符)" andHideDelay:0.8];
+        return;
     }
     
     // second check
     if (![self checkConflict]) {
         // ok and update
-        [_delegate addBoxDelegateDidAdd];
+        
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        NSString *username = [ud valueForKey:@"USERNAME"];
+        NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
+        NSInteger year = [dict[@"year"] integerValue];
+        NSInteger semester = [dict[@"semester"] integerValue];
+        
+        [[CoreDataManager sharedInstance] writeOneClassToCoreDataWithClassName:_textView.text classID:@"" week:_week start:_start span:_span startWeek:_startWeek endWeek:_endWeek weekType:_weekType withYear:year semester:semester username:username];
+        
+        NSArray *classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:username];
+        
+        NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
+        
+        [_delegate addBoxDelegateDidAdd:boxData];
         [self.navigationController popViewControllerAnimated:YES];
         [self showHUDWithText:@"添加成功" andHideDelay:0.8];
     }

@@ -10,7 +10,7 @@
 
 @protocol ClassAddBoxDelegate <NSObject>
 
-- (void)addBoxDelegateDidAdd;
+- (void)addBoxDelegateDidAdd:(NSArray *)boxData;
 
 @end
 
