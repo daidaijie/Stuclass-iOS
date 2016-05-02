@@ -687,7 +687,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)sync {
     
-    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"警告" andMessage:@"同步课表将抹掉自行添加的格子，\n确定同步吗？"];
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"警告" andMessage:@"同步课表将抹掉你添加的格子，\n确定同步吗？"];
     [alertView addButtonWithTitle:@"取消" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView){
         [_popover dismiss];
     }];
@@ -1288,6 +1288,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     AddBoxTableViewController *abtvc = [sb instantiateViewControllerWithIdentifier:@"AddBoxTVC"];
     
 //    abtvc.delegate = self;
+    
+    abtvc.boxData = _boxData;
     
     [self.navigationController pushViewController:abtvc animated:YES];
 }

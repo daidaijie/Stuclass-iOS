@@ -23,6 +23,8 @@
 @property (assign, nonatomic) NSInteger box_length;
 @property (strong, nonatomic) NSString *box_weekType;
 
+@property (assign, nonatomic) NSInteger box_boxType; // 0 - isClass   1 - isNotClass
+
 - (ClassBox *)copyClassBox;
 
 @end

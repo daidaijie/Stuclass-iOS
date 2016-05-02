@@ -10,7 +10,8 @@
 #import "Define.h"
 #import "MBProgressHUD.h"
 #import "PlaceholderTextView.h"
-#import <ActionSheetPicker_3_0/ActionSheetCustomPicker.h>
+#import "ClassBox.h"
+
 
 @interface AddBoxTableViewController () <UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -31,7 +32,7 @@
 @property (nonatomic) NSUInteger startWeek;
 @property (nonatomic) NSUInteger endWeek;
 
-@property (nonatomic) NSUInteger weekType; // 0 1 2
+@property (nonatomic) NSString *weekType;
 
 // data
 
@@ -67,7 +68,7 @@
     _startWeek = 1;
     _endWeek = 16;
     
-    _weekType = 0;
+    _weekType = @"";
 }
 
 - (void)setupPickerView
@@ -343,15 +344,94 @@
 
 - (IBAction)weekTypeValueChanged:(UISegmentedControl *)sender
 {
-    _weekType = sender.selectedSegmentIndex;
-    NSLog(@"设置weekType - %d", _weekType);
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+            _weekType = @"";
+            break;
+        case 1:
+            _weekType = @"单";
+            break;
+        case 2:
+            _weekType = @"双";
+            break;
+            
+        default:
+            break;
+    }
+    NSLog(@"设置weekType - %@", _weekType);
 }
+
+
+- (IBAction)confirm:(id)sender
+{
+    // first check
+    if (_textView.text.length == 0) {
+        [self showHUDWithText:@"格子名称不能为空" andHideDelay:0.8];
+    }
+    
+    if (_textView.text.length > 40) {
+        [self showHUDWithText:@"格子名称太长了(最多40个字符)" andHideDelay:0.8];
+    }
+    
+    // second check
+    if ([self checkConflict]) {
+        // conflict
+    } else {
+        // ok
+    }
+}
+
+
+- (BOOL)checkConflict
+{
+    BOOL conflict = NO;
+    
+    for (ClassBox *box in _boxData) {
+//        NSLog(@"- %@", box.box_name);
+//        NSLog(@"x - %d y - %d", box.box_x, box.box_y);
+//        NSLog(@"span - %@", box.box_span);
+//        NSLog(@"type -  %@\n", box.box_weekType);
+        
+        NSUInteger startWeek = [box.box_span[0] integerValue];
+        NSUInteger endWeek = [box.box_span[1] integerValue];
+        
+        if (_week == box.box_x + 1) {
+            // 星期冲突
+            NSUInteger box_start = box.box_y + 1;
+            NSUInteger box_end = box_start + box.box_length - 1;
+            
+            NSUInteger start = _start;
+            NSUInteger end = _start + _span - 1;
+            
+            if (!(start > box_end || box_start > end)) {
+                // 时间冲突 - 然后检查是否满足周数 满足就冲突了
+                if (!(_startWeek > endWeek || startWeek > _endWeek)) {
+                    // 在范围之内
+                    if (_weekType.length == 0) {
+                        conflict = YES;
+                        [self showHUDWithText:[NSString stringWithFormat:@"与 %@ 冲突", box.box_name] andHideDelay:0.8];
+                        break;
+                    } else {
+                        if ([_weekType isEqualToString:box.box_weekType]) {
+                            conflict = YES;
+                            [self showHUDWithText:[NSString stringWithFormat:@"与 %@ 冲突", box.box_name] andHideDelay:0.8];
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    return conflict;
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 #pragma mark - HUD
 

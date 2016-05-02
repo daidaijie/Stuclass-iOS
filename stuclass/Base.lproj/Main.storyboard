@@ -2399,7 +2399,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="添加格子" id="O05-LQ-q2N">
-                        <barButtonItem key="rightBarButtonItem" title="确认" id="d1V-6F-3b4"/>
+                        <barButtonItem key="rightBarButtonItem" title="确认" id="d1V-6F-3b4">
+                            <connections>
+                                <action selector="confirm:" destination="nq2-sZ-dAg" id="QzP-9i-3NZ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

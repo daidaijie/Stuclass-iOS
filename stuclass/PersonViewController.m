@@ -212,7 +212,7 @@ static const CGFloat kHeightForPostButton = 52;
                 content = _dvc.classBox.box_credit;
                 break;
             case 5:
-                content = [NSString stringWithFormat:@"%d-%d", [_dvc.classBox.box_span[0] integerValue], [_dvc.classBox.box_span[1] integerValue]];
+                content = ([_dvc.classBox.box_span[0] integerValue] == [_dvc.classBox.box_span[1] integerValue]) ? [NSString stringWithFormat:@"%d", [_dvc.classBox.box_span[0] integerValue]] : [NSString stringWithFormat:@"%d-%d", [_dvc.classBox.box_span[0] integerValue], [_dvc.classBox.box_span[1] integerValue]];
                 break;
                 
             default:

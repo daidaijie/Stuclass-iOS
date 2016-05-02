@@ -10,4 +10,6 @@
 
 @interface AddBoxTableViewController : UITableViewController
 
+@property (strong, nonatomic) NSArray *boxData;
+
 @end

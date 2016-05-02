@@ -458,6 +458,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	label.textColor = self.labelColor;
 	label.font = self.labelFont;
 	label.text = self.labelText;
+    label.lineBreakMode = NSLineBreakByTruncatingMiddle;
 	[self addSubview:label];
 	
 	detailsLabel = [[UILabel alloc] initWithFrame:self.bounds];
