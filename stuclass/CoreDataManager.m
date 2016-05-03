@@ -189,6 +189,7 @@
                                    @"teacher": class.course_teacher,
                                    @"credit": class.course_credit,
                                    @"days": class.course_time,
+                                   @"order": class.course_order,
                                    };
             
             [classData addObject:dict];
@@ -222,6 +223,52 @@
     [_appDelagate.managedObjectContext deleteObject:table];
     
     [_appDelagate.managedObjectContext save:&error];
+}
+
+- (void)deleteClassWithClassID:(NSString *)classID withYear:(NSUInteger)year semester:(NSUInteger)semester username:(NSString *)username
+{
+    // 判断是否存在
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CourseTable"];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"year==%d AND semester==%d AND username==%@", year, semester, username];
+    
+    request.predicate = predicate;
+    
+    NSError *error = nil;
+    NSArray *obj = [_appDelagate.managedObjectContext executeFetchRequest:request error:&error];
+    
+    CourseTable *table = [obj firstObject];
+    
+    if (error) {
+        NSLog(@"课程 - 查询错误 - %@", error);
+        return;
+    }
+    
+    if (table) {
+        // 获取课表
+        
+        Course *toDelete;
+        
+        for (Course *course in table.course) {
+            if ([course.course_id isEqualToString:classID]) {
+                toDelete = course;
+                break;
+            }
+        }
+        
+        if (toDelete) {
+            [table removeCourseObject:toDelete];
+            
+            [_appDelagate.managedObjectContext save:&error];
+            
+            NSLog(@"删除课程 %@ - %@ - %@ - %@", table.username, table.year, table.semester, toDelete.course_id);
+            
+            if (error) {
+                NSLog(@"课程 - 删除课程错误 - %@", error);
+                return;
+            }
+        }
+    }
 }
 
 
@@ -259,12 +306,7 @@
         course.course_id = classID;
         course.course_number = @"";
         
-        if (weekType.length == 0) {
-            course.course_name = name;
-        } else {
-            course.course_name = [NSString stringWithFormat:@"%@(%@)", name, weekType];
-        }
-        
+        course.course_name = name;
         course.course_room = @"";
         course.course_span = [NSString stringWithFormat:@"%d-%d", startWeek, endWeek];
         course.course_teacher = @"";
@@ -292,6 +334,10 @@
             [timeStr appendString:timeCh];
         }
         
+        if (weekType.length != 0) {
+            timeStr = [NSMutableString stringWithFormat:@"%@%@", weekType, timeStr];
+        }
+        
         if (week == 1) {
             time[@"w1"] = timeStr;
         } else if (week == 2) {
@@ -308,7 +354,6 @@
             time[@"w0"] = timeStr;
         }
         
-        
         course.course_time = time;
         
         [table addCourseObject:course];
@@ -318,7 +363,7 @@
         NSLog(@"插入课程 %@ - %@ - %@ - %@", table.username, table.year, table.semester, name);
         
         if (error) {
-            NSLog(@"课程 - 不存在时添加错误 - %@", error);
+            NSLog(@"课程 - 插入课程错误 - %@", error);
             return;
         }
     }

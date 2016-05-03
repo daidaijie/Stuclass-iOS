@@ -22,6 +22,8 @@
 
 - (void)writeOneClassToCoreDataWithClassName:(NSString *)name classID:(NSString *)classID week:(NSUInteger)week start:(NSUInteger)start span:(NSUInteger)span startWeek:(NSUInteger)startWeek endWeek:(NSUInteger)endWeek weekType:(NSString *)weekType withYear:(NSUInteger)year semester:(NSUInteger)semester username:(NSString *)username;
 
+- (void)deleteClassWithClassID:(NSString *)classID withYear:(NSUInteger)year semester:(NSUInteger)semester username:(NSString *)username;
+
 - (NSArray *)getClassDataFromCoreDataWithYear:(NSInteger)year semester:(NSInteger)semester username:(NSString *)username;
 
 - (void)deleteClassTableWithYear:(NSInteger)year semester:(NSInteger)semester;

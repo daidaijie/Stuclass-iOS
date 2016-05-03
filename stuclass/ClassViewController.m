@@ -32,11 +32,12 @@
 #import "BackgoundTableViewController.h"
 #import <SIAlertView/SIAlertView.h>
 #import "AddBoxTableViewController.h"
+#import "BoxInfoViewController.h"
 
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
-@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, ClassSemesterDelegate, UIScrollViewDelegate, ClassWeekDelegate, UIGestureRecognizerDelegate, ClassAddBoxDelegate>
+@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, ClassSemesterDelegate, UIScrollViewDelegate, ClassWeekDelegate, UIGestureRecognizerDelegate, ClassAddBoxDelegate, BoxInfoDelegate>
 
 @property (strong, nonatomic) ClassHeaderView *classHeaderView;
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -381,7 +382,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
         if (_currentWeek >= startWeek && _currentWeek <= endWeek) {
             
-            NSInteger flag = 2;
+            NSUInteger flag = 2;
             
             if ([box.box_weekType isEqualToString:@"单"]) {
                 flag = 1;
@@ -389,8 +390,10 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
                 flag = 0;
             }
             
+            NSLog(@"%@ - type %@   flag %d", [self shrinkName:box.box_name], box.box_weekType, flag);
+            
             // 判断单双周
-            if (box.box_weekType.length == 0 || _currentWeek % 2 == flag) {
+            if (flag == 2 || _currentWeek % 2 == flag) {
                 
                 // shrinkName
                 
@@ -471,6 +474,19 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     if (box.box_number.length == 0) {
         // not class
+        BoxInfoViewController *bivc = [[BoxInfoViewController alloc] init];
+        
+        bivc.hidesBottomBarWhenPushed = YES;
+        
+        bivc.title = box.box_name;
+        
+        bivc.classBox = box;
+        
+        bivc.delegate = self;
+        
+        [self.navigationController pushViewController:bivc animated:YES];
+        
+        
     } else {
         // is class
         [self performSegueWithIdentifier:@"ShowDetail" sender:_boxData[tag]];
@@ -1305,15 +1321,24 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [self.navigationController pushViewController:abtvc animated:YES];
 }
 
+#pragma mark - AddBoxDelegate
 
 - (void)addBoxDelegateDidAdd:(NSArray *)boxData
 {
     _boxData = boxData;
     
     [_collectionView reloadData];
-    
-    [_collectionView setContentOffset:CGPointZero animated:NO];
 }
+
+#pragma mark - BoxInfoDelegate
+
+- (void)boxInfoDelegateDidChanged:(NSArray *)boxData
+{
+    _boxData = boxData;
+    
+    [_collectionView reloadData];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

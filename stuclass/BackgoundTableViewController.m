@@ -84,7 +84,7 @@
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     
-    if (section == 0 || section == 1) {
+    if (section == 1 || section == 2) {
         
         if (section == _bgSection && row == _bgIndex) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -106,7 +106,7 @@
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     
-    if (section == 0 || section == 1) {
+    if (section == 1 || section == 2) {
         
         // 自带背景
         _bgSection = section;
@@ -135,7 +135,7 @@
         
         [tableView reloadData];
         
-    } else if (section == 2) {
+    } else if (section == 0) {
         if (row == 0) {
             // 从相册中选择
             [MobClick event:@"Setting_Background_Custom"];

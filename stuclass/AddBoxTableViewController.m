@@ -13,6 +13,7 @@
 #import "ClassBox.h"
 #import "CoreDataManager.h"
 #import "ClassParser.h"
+#import "JHDater.h"
 
 
 @interface AddBoxTableViewController () <UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
@@ -387,7 +388,9 @@
         NSInteger year = [dict[@"year"] integerValue];
         NSInteger semester = [dict[@"semester"] integerValue];
         
-        [[CoreDataManager sharedInstance] writeOneClassToCoreDataWithClassName:_textView.text classID:@"" week:_week start:_start span:_span startWeek:_startWeek endWeek:_endWeek weekType:_weekType withYear:year semester:semester username:username];
+        NSString *classID = [[JHDater sharedInstance] dateStringForDate:[NSDate date] withFormate:@"yyyyMMddHHmmssff"];
+        
+        [[CoreDataManager sharedInstance] writeOneClassToCoreDataWithClassName:_textView.text classID:classID week:_week start:_start span:_span startWeek:_startWeek endWeek:_endWeek weekType:_weekType withYear:year semester:semester username:username];
         
         NSArray *classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:username];
         
@@ -395,7 +398,7 @@
         
         [_delegate addBoxDelegateDidAdd:boxData];
         [self.navigationController popViewControllerAnimated:YES];
-        [self showHUDWithText:@"添加成功" andHideDelay:0.8];
+        [self showHUDWithText:@"添加成功" andHideDelay:1.0];
     }
 }
 

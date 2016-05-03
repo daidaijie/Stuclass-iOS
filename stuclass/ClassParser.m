@@ -70,7 +70,8 @@
         NSDictionary *days = class[@"days"];
         
         // color
-        UIColor *color = (_colorIndex < _colorArray.count) ? _colorArray[_colorIndex] : [UIColor orangeColor];
+        NSUInteger order = [class[@"order"] integerValue];
+        UIColor *color = _colorArray[order % 14];
         
         _colorIndex++;
         
