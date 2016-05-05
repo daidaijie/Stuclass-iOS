@@ -38,6 +38,9 @@
 		13242F0E1C086815008D46F2 /* DocumentFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13242F0C1C086815008D46F2 /* DocumentFooterView.m */; };
 		13242F111C089731008D46F2 /* DocumentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13242F101C089731008D46F2 /* DocumentDetailViewController.m */; };
 		1326F7D41C02DB5E0016B88E /* PublicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1326F7D31C02DB5E0016B88E /* PublicViewController.m */; };
+		132E3B881CDB394A004D192C /* class_bg_1_6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 132E3B851CDB394A004D192C /* class_bg_1_6.jpg */; };
+		132E3B891CDB394A004D192C /* class_bg_1_7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 132E3B861CDB394A004D192C /* class_bg_1_7.jpg */; };
+		132E3B8A1CDB394A004D192C /* class_bg_1_8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 132E3B871CDB394A004D192C /* class_bg_1_8.jpg */; };
 		1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC671BCA257500BC0F23 /* ClassCollectionViewCell.m */; };
 		1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC6D1BCA258300BC0F23 /* ClassHeaderView.m */; };
 		1335FC711BCA259700BC0F23 /* StartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC701BCA259700BC0F23 /* StartView.m */; };
@@ -197,6 +200,9 @@
 		13242F101C089731008D46F2 /* DocumentDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentDetailViewController.m; sourceTree = "<group>"; };
 		1326F7D21C02DB5E0016B88E /* PublicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicViewController.h; sourceTree = "<group>"; };
 		1326F7D31C02DB5E0016B88E /* PublicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicViewController.m; sourceTree = "<group>"; };
+		132E3B851CDB394A004D192C /* class_bg_1_6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = class_bg_1_6.jpg; sourceTree = "<group>"; };
+		132E3B861CDB394A004D192C /* class_bg_1_7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = class_bg_1_7.jpg; sourceTree = "<group>"; };
+		132E3B871CDB394A004D192C /* class_bg_1_8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = class_bg_1_8.jpg; sourceTree = "<group>"; };
 		1335FC661BCA257500BC0F23 /* ClassCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewCell.h; sourceTree = "<group>"; };
 		1335FC671BCA257500BC0F23 /* ClassCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewCell.m; sourceTree = "<group>"; };
 		1335FC6C1BCA258300BC0F23 /* ClassHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassHeaderView.h; sourceTree = "<group>"; };
@@ -905,6 +911,9 @@
 				1377A9BF1CD7A2B400672897 /* class_bg_1_3.jpg */,
 				1377A9C01CD7A2B400672897 /* class_bg_1_4.jpg */,
 				1377A9C11CD7A2B400672897 /* class_bg_1_5.jpg */,
+				132E3B851CDB394A004D192C /* class_bg_1_6.jpg */,
+				132E3B861CDB394A004D192C /* class_bg_1_7.jpg */,
+				132E3B871CDB394A004D192C /* class_bg_1_8.jpg */,
 				1377A9C21CD7A2B400672897 /* class_bg_2_0.jpg */,
 				1377A9C31CD7A2B400672897 /* class_bg_2_1.jpg */,
 				1377A9C41CD7A2B400672897 /* class_bg_2_2.jpg */,
@@ -1316,6 +1325,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				132E3B8A1CDB394A004D192C /* class_bg_1_8.jpg in Resources */,
 				1377A9D01CD7A2B400672897 /* class_bg_2_2.jpg in Resources */,
 				1366D67C1BD4EAA300B69C04 /* ClassInfoTableViewCell.xib in Resources */,
 				13FD91421C8ADCD000F89806 /* banner2.jpg in Resources */,
@@ -1323,6 +1333,7 @@
 				13FD91411C8ADCD000F89806 /* banner1.jpg in Resources */,
 				13C7071D1BC7DE10003061A4 /* LaunchScreen.storyboard in Resources */,
 				136A27D51C043F8500B45460 /* ExamTableViewCell.xib in Resources */,
+				132E3B891CDB394A004D192C /* class_bg_1_7.jpg in Resources */,
 				1320FC841C020B6F0084B152 /* GradeTableViewCell.xib in Resources */,
 				1377A9C81CD7A2B400672897 /* class_bg_1_0.jpg in Resources */,
 				1377A9CC1CD7A2B400672897 /* class_bg_1_4.jpg in Resources */,
@@ -1333,6 +1344,7 @@
 				1366D6831BD4F19000B69C04 /* ClassNoteTableViewCell.xib in Resources */,
 				1377A9D11CD7A2B400672897 /* class_bg_2_3.jpg in Resources */,
 				1377A9C91CD7A2B400672897 /* class_bg_1_1.jpg in Resources */,
+				132E3B881CDB394A004D192C /* class_bg_1_6.jpg in Resources */,
 				13DE7B4B1BDC682E003AFF93 /* DiscussTableViewCell.xib in Resources */,
 				1377A9D31CD7A2B400672897 /* class_bg_2_5.jpg in Resources */,
 				13FD91431C8ADCD000F89806 /* banner3.jpg in Resources */,
