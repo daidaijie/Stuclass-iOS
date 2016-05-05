@@ -4,8 +4,8 @@
         <attribute name="course_credit" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="course_description" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="course_id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="course_isClass" optional="YES" attributeType="Boolean" syncable="YES"/>
-        <attribute name="course_isColorful" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="course_isClass" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
+        <attribute name="course_isColorful" optional="YES" attributeType="Boolean" defaultValueString="YES" syncable="YES"/>
         <attribute name="course_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="course_number" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="course_order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>

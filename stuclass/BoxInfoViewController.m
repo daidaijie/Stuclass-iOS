@@ -75,8 +75,8 @@ static const CGFloat kHeightForPostButton = 52;
 
 - (void)initDataArray
 {
-    _infoTitleArray = @[@"名称", @"周数"];
-    _imgArray = @[[UIImage imageNamed:@"icon-name"], [UIImage imageNamed:@"icon-week"]];
+    _infoTitleArray = @[@"名称", @"描述", @"周数"];
+    _imgArray = @[[UIImage imageNamed:@"icon-name"], [UIImage imageNamed:@"icon-number"], [UIImage imageNamed:@"icon-week"]];
 }
 
 
@@ -198,6 +198,9 @@ static const CGFloat kHeightForPostButton = 52;
                 content = _classBox.box_name;
                 break;
             case 1:
+                content = _classBox.box_description.length == 0 ? @"无" : _classBox.box_description;
+                break;
+            case 2:
                 content = ([_classBox.box_span[0] integerValue] == [_classBox.box_span[1] integerValue]) ? [NSString stringWithFormat:@"%d", [_classBox.box_span[0] integerValue]] : [NSString stringWithFormat:@"%d-%d", [_classBox.box_span[0] integerValue], [_classBox.box_span[1] integerValue]];
                 break;
             default:

@@ -138,6 +138,10 @@
         course.course_time = course_time;
         course.course_order = [NSNumber numberWithInteger:order];
         
+        course.course_isClass = [NSNumber numberWithBool:YES];
+        course.course_isColorful = [NSNumber numberWithBool:YES];
+        course.course_description = @"";
+        
         [newTable addCourseObject:course];
         
         order++;
@@ -180,6 +184,18 @@
         
         for (Course *class in sortedArray) {
             
+            if (!class.course_description) {
+                class.course_description = @"";
+            }
+            
+            if (!class.course_isColorful) {
+                class.course_isColorful = @YES;
+            }
+            
+            if (!class.course_isClass) {
+                class.course_isClass = @YES;
+            }
+            
             NSDictionary *dict = @{
                                    @"class_id": class.course_id,
                                    @"id": class.course_number,
@@ -190,7 +206,11 @@
                                    @"credit": class.course_credit,
                                    @"days": class.course_time,
                                    @"order": class.course_order,
+                                   @"isColorful": class.course_isColorful,
+                                   @"isClass": class.course_isClass,
+                                   @"description": class.course_description,
                                    };
+            
             [classData addObject:dict];
         }
         
@@ -271,7 +291,7 @@
 }
 
 
-- (void)writeOneClassToCoreDataWithClassName:(NSString *)name classID:(NSString *)classID week:(NSUInteger)week start:(NSUInteger)start span:(NSUInteger)span startWeek:(NSUInteger)startWeek endWeek:(NSUInteger)endWeek weekType:(NSString *)weekType withYear:(NSUInteger)year semester:(NSUInteger)semester username:(NSString *)username
+- (void)writeBoxToCoreDataWithClassName:(NSString *)name classID:(NSString *)classID week:(NSUInteger)week start:(NSUInteger)start span:(NSUInteger)span startWeek:(NSUInteger)startWeek endWeek:(NSUInteger)endWeek weekType:(NSString *)weekType description:(NSString *)description isColor:(BOOL)isColor withYear:(NSUInteger)year semester:(NSUInteger)semester username:(NSString *)username
 {
     // 判断是否存在
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CourseTable"];
@@ -311,6 +331,10 @@
         course.course_teacher = @"";
         course.course_credit = @"";
         course.course_order = [NSNumber numberWithInteger:order];
+        
+        course.course_isClass = [NSNumber numberWithBool:NO];
+        course.course_isColorful = [NSNumber numberWithBool:isColor];
+        course.course_description = description;
         
         NSMutableDictionary *time = [NSMutableDictionary dictionaryWithDictionary:@{@"w0": @"None", @"w1": @"None", @"w2": @"None", @"w3": @"None", @"w4": @"None", @"w5": @"None", @"w6": @"None"}];
         

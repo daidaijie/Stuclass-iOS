@@ -26,6 +26,9 @@
     box.box_y = _box_y;
     box.box_length = _box_length;
     box.box_weekType = _box_weekType;
+    box.box_description = _box_description;
+    box.box_isClass = _box_isClass;
+    box.box_isColorful = _box_isColorful;
     
     return box;
 }

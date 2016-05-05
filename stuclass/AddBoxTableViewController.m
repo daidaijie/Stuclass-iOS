@@ -28,6 +28,10 @@
 
 @property (weak, nonatomic) IBOutlet PlaceholderTextView *textView;
 
+@property (weak, nonatomic) IBOutlet PlaceholderTextView *descriptionTextView;
+
+@property (weak, nonatomic) IBOutlet UISwitch *colorSwitch;
+
 @property (nonatomic) NSUInteger week;
 @property (nonatomic) NSUInteger start;
 @property (nonatomic) NSUInteger span;
@@ -60,6 +64,7 @@
 - (void)setupTextView
 {
     _textView.placeholder.text = @"一节课或一件事...";
+    _descriptionTextView.placeholder.text = @"班号、教师、教室、学分...";
 }
 
 - (void)setupData
@@ -103,6 +108,7 @@
 {
     if ([text isEqualToString:@"\n"]) {
         [_textView resignFirstResponder];
+        [_descriptionTextView resignFirstResponder];
         return NO;
     }
     
@@ -111,7 +117,11 @@
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-    _textView.placeholder.hidden = (textView.text.length > 0);
+    if (textView.tag == 0) {
+        _textView.placeholder.hidden = (textView.text.length > 0);
+    } else {
+        _descriptionTextView.placeholder.hidden = (textView.text.length > 0);
+    }
 }
 
 #pragma mark - TableView Delegate
@@ -119,9 +129,9 @@
 {
     NSUInteger row = indexPath.row;
     
-    if (row == 1) {
+    if (row == 3) {
         [self pickTime];
-    } else if (row == 2) {
+    } else if (row == 4) {
         [self pickWeek];
     }
 }
@@ -390,7 +400,7 @@
         
         NSString *classID = [[JHDater sharedInstance] dateStringForDate:[NSDate date] withFormate:@"yyyyMMddHHmmssff"];
         
-        [[CoreDataManager sharedInstance] writeOneClassToCoreDataWithClassName:_textView.text classID:classID week:_week start:_start span:_span startWeek:_startWeek endWeek:_endWeek weekType:_weekType withYear:year semester:semester username:username];
+        [[CoreDataManager sharedInstance] writeBoxToCoreDataWithClassName:_textView.text classID:classID week:_week start:_start span:_span startWeek:_startWeek endWeek:_endWeek weekType:_weekType description:_descriptionTextView.text isColor:_colorSwitch.isOn withYear:year semester:semester username:username];
         
         NSArray *classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:username];
         
@@ -470,7 +480,6 @@
         [hud hide:YES afterDelay:delay];
     }
 }
-
 
 @end
 

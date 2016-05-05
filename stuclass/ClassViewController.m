@@ -404,7 +404,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
                 
                 NSString *className = [self shrinkName:box.box_name];
                 
-                if (box.box_number.length == 0) {
+                if (!box.box_isClass) {
                     // not class
                     cell.label.text = [NSString stringWithFormat:@"%@%@", className, box.box_weekType.length == 0 ? @"" : [NSString stringWithFormat:@"(%@周)", box.box_weekType]];
                 } else {
@@ -412,7 +412,11 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
                     cell.label.text = [NSString stringWithFormat:@"%@@%@%@", className, box.box_room, box.box_weekType.length == 0 ? @"" : [NSString stringWithFormat:@"(%@周)", box.box_weekType]];
                 }
                 
-                [cell setBtnColor:box.box_color];
+                if (box.box_isColorful) {
+                    [cell setBtnColor:box.box_color];
+                } else {
+                    [cell setBtnColor:GRAY_BOX_COLOR];
+                }
                 
                 cell.tag = row;
                 cell.delegate = self;
@@ -477,7 +481,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     ClassBox *box = _boxData[tag];
     
-    if (box.box_number.length == 0) {
+    if (!box.box_isClass) {
         // not class
         BoxInfoViewController *bivc = [[BoxInfoViewController alloc] init];
         

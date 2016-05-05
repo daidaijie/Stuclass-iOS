@@ -97,6 +97,10 @@
                 box.box_credit = class[@"credit"];
                 box.box_color = color;
                 
+                box.box_isColorful = [class[@"isColorful"] boolValue];
+                box.box_isClass  = [class[@"isClass"] boolValue];
+                box.box_description = class[@"description"];
+                
                 NSString *weekStr = key;
                 box.box_x = [self generateCoordinateX:weekStr];
                 

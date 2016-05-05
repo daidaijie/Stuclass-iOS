@@ -115,8 +115,12 @@
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
-    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
+//    _managedObjectModel = [NSManagedObjectModel mergedModelFromBundles:nil];
     
+//    return _managedObjectModel;
+    
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
+    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return _managedObjectModel;
 }
 
@@ -149,9 +153,11 @@
     NSLog(@"path is %@",storeURL);
     NSError *error = nil;
     
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
+    
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         NSLog(@"Error: %@, %@",error,[error userInfo]);
     }
     

@@ -27,6 +27,8 @@
 
 #define TASKLIST_REDO [UIColor colorWithRed:0.969 green:0.651 blue:0.314 alpha:1.000]
 
+#define GRAY_BOX_COLOR [UIColor colorWithWhite:0.72 alpha:1.0]
+
 // Notice Title
 static NSString *global_connection_failed = @"连接服务器失败，请重试";
 

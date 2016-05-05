@@ -22,6 +22,9 @@
 @property (assign, nonatomic) NSInteger box_y;
 @property (assign, nonatomic) NSInteger box_length;
 @property (strong, nonatomic) NSString *box_weekType;
+@property (strong, nonatomic) NSString *box_description;
+@property (assign, nonatomic) BOOL box_isColorful;
+@property (assign, nonatomic) BOOL box_isClass;
 
 - (ClassBox *)copyClassBox;
 
