@@ -59,7 +59,7 @@
 
 - (void)setupTextView
 {
-    _textView.placeholder.text = @"可以是一节课或一件事...";
+    _textView.placeholder.text = @"一节课或一件事...";
 }
 
 - (void)setupData
@@ -76,13 +76,13 @@
 
 - (void)setupPickerView
 {
-    _timePickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 300, 260)];
+    _timePickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 20, 260)];
     
     _timePickerView.tag = 1;
     
     _timePickerView.delegate = self;
     
-    _weekPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 300, 260)];
+    _weekPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width - 20, 260)];
     
     _weekPickerView.tag = 2;
     
