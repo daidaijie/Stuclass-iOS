@@ -133,7 +133,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud objectForKey:@"USERNAME"];
-    if ([username isEqualToString:@"15sxwang"] || ![username isEqualToString:@"14jhwang"]) {
+    if ([username isEqualToString:@"15sxwang"] || [username isEqualToString:@"14jhwang"]) {
         // For Sixue
         [MobClick event:@"Sixue_Connect"];
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -159,7 +159,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)showHello:(UILongPressGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"给思学的小彩蛋" andMessage:@"思学小盆友，你好啊！\n给你听一首好听的曲子！"];
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"给思学的小彩蛋#3" andMessage:@"思学小盆友，你好啊！\n给你听一首好听的曲子！"];
         [alertView addButtonWithTitle:@"酷:)" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView){
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://chuckwo.com:81/sixue/Cold%20Blooded%20-%20Verneri%20Pohjola.mp3"]];
         }];
