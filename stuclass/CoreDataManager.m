@@ -117,8 +117,6 @@
     
     for (NSDictionary *class in data) {
         
-        order++;
-        
         NSString *course_id = class[@"class_id"] ? class[@"class_id"] : @"";
         NSString *course_number = class[@"id"] ? class[@"id"] : @"";
         NSString *course_name = class[@"name"] ? class[@"name"] : @"";
@@ -141,6 +139,8 @@
         course.course_order = [NSNumber numberWithInteger:order];
         
         [newTable addCourseObject:course];
+        
+        order++;
     }
     
     [_appDelagate.managedObjectContext save:&error];
@@ -191,7 +191,6 @@
                                    @"days": class.course_time,
                                    @"order": class.course_order,
                                    };
-            
             [classData addObject:dict];
         }
         

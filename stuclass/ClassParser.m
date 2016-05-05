@@ -18,8 +18,6 @@
 
 @property (strong, nonatomic) NSMutableArray *colorArray;
 
-@property (assign, nonatomic) NSInteger colorIndex;
-
 @end
 
 @implementation ClassParser
@@ -59,7 +57,6 @@
 
 - (NSMutableArray *)parseClassData:(NSArray *)classData
 {
-    _colorIndex = 0;
     
     NSMutableArray *boxData = [NSMutableArray array];
     
@@ -72,8 +69,6 @@
         // color
         NSUInteger order = [class[@"order"] integerValue];
         UIColor *color = _colorArray[order % 14];
-        
-        _colorIndex++;
         
         for (NSString *key in days) {
             

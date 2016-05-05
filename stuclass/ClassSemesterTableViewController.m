@@ -274,6 +274,7 @@
         [[CoreDataManager sharedInstance] writeSyncClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:[ud valueForKey:@"USERNAME"]];
         
         // 生成DisplayData
+        classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:[ud valueForKey:@"USERNAME"]];
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
         
         // token

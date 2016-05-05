@@ -341,6 +341,7 @@
         }
         
         // 生成DisplayData
+        classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:_inputView.usernameTextField.text];
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
         
         // token

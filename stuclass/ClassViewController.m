@@ -813,6 +813,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         [[CoreDataManager sharedInstance] writeSyncClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:username];
         
         // 生成DisplayData
+        classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:username];
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
         
         // token
