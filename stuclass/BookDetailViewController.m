@@ -9,6 +9,7 @@
 #import "BookDetailViewController.h"
 #import "MBProgressHUD.h"
 #import "Define.h"
+#import "MobClick.h"
 
 @interface BookDetailViewController () <UIWebViewDelegate>
 
@@ -20,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    [MobClick event:@"Library_ShowPosition"];
     [self setupWebView];
 }
 

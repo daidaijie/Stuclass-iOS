@@ -125,21 +125,33 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)setupItems
 {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *username = [ud objectForKey:@"USERNAME"];
+    
+    UIButton *btn;
+    UIBarButtonItem *connectItem;
+    
+    if ([username isEqualToString:@"15sxwang"]) {
+        connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-thunder"] style:UIBarButtonItemStylePlain target:self action:@selector(sixuePress)];
+    } else {
+        connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-thunder"] style:UIBarButtonItemStylePlain target:self action:@selector(connectItemPress)];
+    }
+    
     UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreItemPress)];
 
     UIBarButtonItem *noteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-note"] style:UIBarButtonItemStylePlain target:self action:@selector(noteItemPress)];
 
-    UIBarButtonItem *connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-thunder"] style:UIBarButtonItemStylePlain target:self action:@selector(connectItemPress)];
-
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *username = [ud objectForKey:@"USERNAME"];
     if ([username isEqualToString:@"15sxwang"] || [username isEqualToString:@"14jhwang"]) {
         // For Sixue
         [MobClick event:@"Sixue_Connect"];
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
         btn.showsTouchWhenHighlighted = YES;
         [btn setImage:[UIImage imageNamed:@"toolbar-sixue"] forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(sixuePress) forControlEvents:UIControlEventTouchUpInside];
+        if ([username isEqualToString:@"15sxwang"]) {
+            [btn addTarget:self action:@selector(connectItemPress) forControlEvents:UIControlEventTouchUpInside];
+        } else {
+            [btn addTarget:self action:@selector(sixuePress) forControlEvents:UIControlEventTouchUpInside];
+        }
         
         // longPress
         UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showHello:)];
@@ -495,13 +507,13 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
         [self.navigationController pushViewController:bivc animated:YES];
         
+        [MobClick event:@"Main_ShowBox"];
         
     } else {
         // is class
         [self performSegueWithIdentifier:@"ShowDetail" sender:_boxData[tag]];
+        [MobClick event:@"Main_ShowDetail"];
     }
-    
-    [MobClick event:@"Main_ShowDetail"];
 }
 
 
