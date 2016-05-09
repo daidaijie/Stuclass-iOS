@@ -99,7 +99,7 @@
 {
     [super viewDidAppear:animated];
     
-    [_textView becomeFirstResponder];
+//    [_textView becomeFirstResponder];
 }
 
 #pragma mark - TextView Delegate

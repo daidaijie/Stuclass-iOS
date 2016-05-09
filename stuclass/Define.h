@@ -93,7 +93,7 @@ static NSString *nickname_url = @"/api/v1.0/modify_user";
 
 static NSString *member_url = @"/api/v1.0/member";
 
-#define UPDATE_CONTENT @"1. 现在可以自己添加课程啦(开发者表示弄得头疼)🙄;\n2. 在图书检索中长按可以显示具体位置;\n3. 修复了挺多小bug、优化了很多功能（慢慢体会）。"
+#define UPDATE_CONTENT @"1. 现在可以自己添加课程啦(开发者表示弄得头疼)🙄;\n2. 在图书检索中长按可以显示具体位置;\n3. 修复了Bugs、优化了很多功能。(真)"
 
 // Cell Color
 #define COLOR_0 [UIColor colorWithRed:0.275 green:0.729 blue:0.902 alpha:1.000]

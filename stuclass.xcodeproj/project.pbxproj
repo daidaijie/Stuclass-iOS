@@ -21,6 +21,7 @@
 		1312101F1CB4DB9000F91F10 /* MemberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1312101E1CB4DB9000F91F10 /* MemberTableViewController.m */; };
 		131287841CB805EF0089D8D7 /* TreeholeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287831CB805EF0089D8D7 /* TreeholeViewController.m */; };
 		131287881CB89EE30089D8D7 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287871CB89EE30089D8D7 /* ActivityViewController.m */; };
+		131434261CE061ED00CEAB6F /* panda.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 131434251CE061ED00CEAB6F /* panda.jpg */; };
 		131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */; };
 		131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D21BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m */; };
 		131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D81BCB8676004EE13A /* ClassNumberCollectionReusableView.m */; };
@@ -167,6 +168,7 @@
 		131287831CB805EF0089D8D7 /* TreeholeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TreeholeViewController.m; sourceTree = "<group>"; };
 		131287861CB89EE30089D8D7 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
 		131287871CB89EE30089D8D7 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
+		131434251CE061ED00CEAB6F /* panda.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = panda.jpg; sourceTree = "<group>"; };
 		131951CE1BCB47E2004EE13A /* ClassCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewLayout.h; sourceTree = "<group>"; };
 		131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewLayout.m; sourceTree = "<group>"; };
 		131951D11BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassBackgroundCollectionReusableView.h; sourceTree = "<group>"; };
@@ -1018,6 +1020,7 @@
 				13FD913E1C8ADCD000F89806 /* banner1.jpg */,
 				13FD913F1C8ADCD000F89806 /* banner2.jpg */,
 				13FD91401C8ADCD000F89806 /* banner3.jpg */,
+				131434251CE061ED00CEAB6F /* panda.jpg */,
 				13C707191BC7DE10003061A4 /* Assets.xcassets */,
 				13C7071B1BC7DE10003061A4 /* LaunchScreen.storyboard */,
 				13C7071E1BC7DE10003061A4 /* Info.plist */,
@@ -1327,6 +1330,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				131434261CE061ED00CEAB6F /* panda.jpg in Resources */,
 				132E3B8A1CDB394A004D192C /* class_bg_1_8.jpg in Resources */,
 				1377A9D01CD7A2B400672897 /* class_bg_2_2.jpg in Resources */,
 				1366D67C1BD4EAA300B69C04 /* ClassInfoTableViewCell.xib in Resources */,
@@ -1766,7 +1770,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/stuclass/UmengSDK",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cillbox.stuclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1786,7 +1790,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/stuclass/UmengSDK",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cillbox.stuclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

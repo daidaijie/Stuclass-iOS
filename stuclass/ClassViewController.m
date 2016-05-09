@@ -171,10 +171,28 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)showHello:(UILongPressGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"给思学的小彩蛋#3" andMessage:@"思学小盆友，你好啊！\n给你听一首好听的曲子！"];
-        [alertView addButtonWithTitle:@"酷:)" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView){
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://chuckwo.com:81/sixue/Cold%20Blooded%20-%20Verneri%20Pohjola.mp3"]];
+        
+        UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 260, 185)];
+        view.center = CGPointMake([UIScreen mainScreen].bounds.size.width / 2, 100);
+        view.backgroundColor = [UIColor orangeColor];
+        view.layer.cornerRadius = 8.0;
+        view.clipsToBounds = YES;
+        view.image = [UIImage imageNamed:@"panda.jpg"];
+        
+        
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"给思学的小彩蛋#3" andMessage:@"思学🙄，你最近好忙啊！\n觉得你很努力，也很可爱！加油！"];
+        
+        [alertView addButtonWithTitle:@"返回" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView){
+            view.hidden = YES;
         }];
+        
+        [alertView addButtonWithTitle:@"好听的蛋黄Solo" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://chuckwo.com:81/sixue/ClarinetSolo.mp3"]];
+            view.hidden = YES;
+        }];
+        
+        [alertView addSubview:view];
+        
         alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
         [alertView show];
     }
