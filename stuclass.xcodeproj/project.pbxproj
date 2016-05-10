@@ -1267,7 +1267,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13C707211BC7DE10003061A4 /* Build configuration list for PBXNativeTarget "stuclass" */;
 			buildPhases = (
-				291E7DC8D5CC2E9D14BF4B88 /* 📦 Check Pods Manifest.lock */,
+				291E7DC8D5CC2E9D14BF4B88 /* uD83DuDCE6 Check Pods Manifest.lock */,
 				A7C61B1E0EF69F4052AAB2F1 /* uD83DuDCE6 Check Pods Manifest.lock */,
 				6E6394C5A63F6651606EFBDC /* uD83DuDCE6 Check Pods Manifest.lock */,
 				3BF2B6298BDC199C30CFD273 /* uD83DuDCE6 Check Pods Manifest.lock */,
@@ -1280,8 +1280,8 @@
 				BA6E1FD9536374CF7F89177A /* uD83DuDCE6 Copy Pods Resources */,
 				33A71CEE9DDD0121D87DBCDB /* uD83DuDCE6 Embed Pods Frameworks */,
 				550C1AB033E91E9B9AB1BE38 /* uD83DuDCE6 Copy Pods Resources */,
-				1694E1721DDCCFD99910D7AD /* 📦 Embed Pods Frameworks */,
-				4C11B5DFA26663C43ACF6BFA /* 📦 Copy Pods Resources */,
+				1694E1721DDCCFD99910D7AD /* uD83DuDCE6 Embed Pods Frameworks */,
+				4C11B5DFA26663C43ACF6BFA /* uD83DuDCE6 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1364,14 +1364,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1694E1721DDCCFD99910D7AD /* 📦 Embed Pods Frameworks */ = {
+		1694E1721DDCCFD99910D7AD /* uD83DuDCE6 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "uD83DuDCE6 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1379,14 +1379,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-stuclass/Pods-stuclass-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		291E7DC8D5CC2E9D14BF4B88 /* 📦 Check Pods Manifest.lock */ = {
+		291E7DC8D5CC2E9D14BF4B88 /* uD83DuDCE6 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "uD83DuDCE6 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1439,14 +1439,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		4C11B5DFA26663C43ACF6BFA /* 📦 Copy Pods Resources */ = {
+		4C11B5DFA26663C43ACF6BFA /* uD83DuDCE6 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "uD83DuDCE6 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1770,7 +1770,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/stuclass/UmengSDK",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cillbox.stuclass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
