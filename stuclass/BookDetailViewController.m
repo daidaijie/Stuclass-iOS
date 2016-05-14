@@ -35,15 +35,20 @@
     _webView.opaque = NO;
     _webView.backgroundColor = [UIColor clearColor];
 
-//    _webView.scalesPageToFit = YES;
+    _webView.scalesPageToFit = YES;
     
     [self.view addSubview:_webView];
-    
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:global_timeout];
     
     [_webView loadRequest:request];
-
+    
+    BOOL isSecond = [[NSUserDefaults standardUserDefaults] boolForKey:@"SECOND_TIME_OPEN_BOOK_RESULT"];
+    
+    if (!isSecond) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"SECOND_TIME_OPEN_BOOK_RESULT"];
+        [self showHUDWithText:@"连续触摸<馆藏地>即可放大显示" andHideDelay:2.0];
+    }
 }
 
 - (IBAction)refresh:(id)sender
