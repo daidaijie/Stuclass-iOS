@@ -52,6 +52,7 @@
 		134775BA1CCB31A1006E1E94 /* BookDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 134775B91CCB31A1006E1E94 /* BookDetailViewController.m */; };
 		134AB7D81C01840E00D8E816 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7D71C01840E00D8E816 /* MoreView.m */; };
 		134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7DA1C0184AE00D8E816 /* MoreButton.m */; };
+		1353ECBC1CE6CB3E00E6E03E /* DocumentSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1353ECBB1CE6CB3E00E6E03E /* DocumentSearchTableViewController.m */; };
 		13587A1E1CD5CC64005379FC /* AddBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13587A1D1CD5CC64005379FC /* AddBoxTableViewController.m */; };
 		1366D6681BD3E42600B69C04 /* BarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D6671BD3E42600B69C04 /* BarView.m */; };
 		1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D66B1BD4B56F00B69C04 /* PersonViewController.m */; };
@@ -226,6 +227,8 @@
 		134AB7D71C01840E00D8E816 /* MoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreView.m; sourceTree = "<group>"; };
 		134AB7D91C0184AE00D8E816 /* MoreButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreButton.h; sourceTree = "<group>"; };
 		134AB7DA1C0184AE00D8E816 /* MoreButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreButton.m; sourceTree = "<group>"; };
+		1353ECBA1CE6CB3E00E6E03E /* DocumentSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentSearchTableViewController.h; sourceTree = "<group>"; };
+		1353ECBB1CE6CB3E00E6E03E /* DocumentSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentSearchTableViewController.m; sourceTree = "<group>"; };
 		13587A1C1CD5CC64005379FC /* AddBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBoxTableViewController.h; sourceTree = "<group>"; };
 		13587A1D1CD5CC64005379FC /* AddBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBoxTableViewController.m; sourceTree = "<group>"; };
 		1366D6661BD3E42600B69C04 /* BarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarView.h; sourceTree = "<group>"; };
@@ -503,6 +506,8 @@
 				13242F061C080A40008D46F2 /* DocumentTableViewCell */,
 				1319840E1C072F62003C17E0 /* DocumentTableViewController.h */,
 				1319840F1C072F62003C17E0 /* DocumentTableViewController.m */,
+				1353ECBA1CE6CB3E00E6E03E /* DocumentSearchTableViewController.h */,
+				1353ECBB1CE6CB3E00E6E03E /* DocumentSearchTableViewController.m */,
 				130D14E41CB78C7A006194BB /* DocumentFavoriteTableViewController.h */,
 				130D14E51CB78C7A006194BB /* DocumentFavoriteTableViewController.m */,
 				13242F0F1C089731008D46F2 /* DocumentDetailViewController.h */,
@@ -1647,6 +1652,7 @@
 				131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */,
 				13FA79821CBB88EC00E8865A /* TaskAddTableViewController.m in Sources */,
 				13C4C37F1BCCEE2B0003E703 /* GKImagePicker.m in Sources */,
+				1353ECBC1CE6CB3E00E6E03E /* DocumentSearchTableViewController.m in Sources */,
 				130A6D531CBA35FF00A36F9C /* TaskListTableViewCell.m in Sources */,
 				5A421F5763A0D4D685204EF0 /* DXPopover.m in Sources */,
 				5A4210DC741070C328BA0EC3 /* LibraryTextField.m in Sources */,

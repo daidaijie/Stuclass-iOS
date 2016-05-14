@@ -534,6 +534,21 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 }
 
 
+
+
+- (IBAction)searchPress:(id)sender
+{
+    [self performSegueWithIdentifier:@"DocumentSearch" sender:nil];
+}
+
+
+
+
+
+
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

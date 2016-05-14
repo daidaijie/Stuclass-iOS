@@ -101,6 +101,24 @@
 }
 
 
+- (IBAction)share:(id)sender
+{
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"分享" message:@"\"告诉你同学可以拿奖学金了\"" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [controller addAction:[UIAlertAction actionWithTitle:@"微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+        
+    }]];
+    
+    [controller addAction:[UIAlertAction actionWithTitle:@"微信朋友圈" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
+        
+    }]];
+    
+    [controller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *alertAction){
+        
+    }]];
+    
+    [self presentViewController:controller animated:YES completion:nil];
+}
 
 
 - (void)didReceiveMemoryWarning {
