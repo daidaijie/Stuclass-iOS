@@ -60,10 +60,6 @@
     self.tableView.sectionHeaderHeight = 24.0;
     self.tableView.rowHeight = 68.0;
     self.tableView.tableFooterView = footerView;
-
-    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress:)];
-    longPressGesture.minimumPressDuration = 0.4;
-    [self.tableView addGestureRecognizer:longPressGesture];
 }
 
 
@@ -121,6 +117,25 @@
     
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger row = indexPath.row;
+    
+    NSString *bookURLStr = _bookData[row][@"link"];
+    
+    if (bookURLStr) {
+        
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        
+        BookDetailViewController *bdvc = [sb instantiateViewControllerWithIdentifier:@"bdvc"];
+        
+        bdvc.url = [NSString stringWithFormat:@"%@%@", LIBRARY_BOOK_URL, bookURLStr];
+        
+        [self.navigationController pushViewController:bdvc animated:YES];
+    }
+}
+
 
 
 // 加载更多数据
@@ -241,36 +256,6 @@
             hud.margin = 10.f;
             hud.removeFromSuperViewOnHide = YES;
             [hud hide:YES afterDelay:delay];
-        }
-    }
-}
-
-
-- (void)longPress:(UILongPressGestureRecognizer *)gesture
-{
-    if (gesture.state == UIGestureRecognizerStateBegan)
-    {
-        CGPoint point = [gesture locationInView:self.tableView];
-        NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint:point];
-        if (indexPath == nil) return;
-
-        NSUInteger row = indexPath.row;
-
-        NSString *bookURLStr = _bookData[row][@"link"];
-
-        if (bookURLStr) {
-
-            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            
-            BookDetailViewController *bdvc = [sb instantiateViewControllerWithIdentifier:@"bdvc"];
-            
-            bdvc.url = [NSString stringWithFormat:@"%@%@", LIBRARY_BOOK_URL, bookURLStr];
-            
-            UINavigationController *nvc = [[UINavigationController alloc] init];
-            
-            nvc.viewControllers = @[bdvc];
-            
-            [self presentViewController:nvc animated:YES completion:nil];
         }
     }
 }

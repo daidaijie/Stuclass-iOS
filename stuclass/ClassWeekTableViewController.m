@@ -84,9 +84,9 @@ static NSInteger kNumberOfWeeks = 16;
     
     [tableView reloadData];
     
-    [_delegate weekDelegateWeekChanged:_selectedWeek];
-    
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [_delegate weekDelegateWeekChanged:_selectedWeek];
 }
 
 

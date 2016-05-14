@@ -43,6 +43,7 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_url] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:global_timeout];
     
     [_webView loadRequest:request];
+
 }
 
 - (IBAction)refresh:(id)sender
@@ -52,9 +53,11 @@
     [_webView loadRequest:request];
 }
 
-- (IBAction)back:(id)sender
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [super viewDidDisappear:animated];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView

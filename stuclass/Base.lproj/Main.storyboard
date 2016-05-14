@@ -2239,11 +2239,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="详细信息" id="EqJ-ug-Mh1">
-                        <barButtonItem key="leftBarButtonItem" title="返回" id="oso-be-agI">
-                            <connections>
-                                <action selector="back:" destination="Ktu-MZ-gjj" id="ejy-g4-dbG"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="toolbar-sync" id="wyk-3C-n4W">
                             <connections>
                                 <action selector="refresh:" destination="Ktu-MZ-gjj" id="8lQ-1P-MIP"/>
