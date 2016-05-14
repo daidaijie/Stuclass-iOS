@@ -33,6 +33,8 @@ static NSInteger kNumberOfWeeks = 16;
 {
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.contentInset = UIEdgeInsetsMake(-10, 0, 0, 0);
+    
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:(_selectedWeek - 1) inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
 }
 
 
