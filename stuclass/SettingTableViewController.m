@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yearAndSemesterLabel;
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *cacheSizeLabel;
 
 @end
 
@@ -44,6 +45,8 @@
     [super viewWillAppear:animated];
     
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    
+    self.cacheSizeLabel.text = [NSString stringWithFormat:@"%.1f MB", [SDWebImageManager sharedManager].imageCache.getSize / 1024.0 / 1024.0];
 }
 
 - (void)setupBarBackButton
@@ -176,11 +179,6 @@
     _nicknameLabel.text = nickname;
 }
 
-- (IBAction)backButtonPress:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 
 #pragma mark - Share
 
@@ -199,10 +197,21 @@
 
 - (void)clearLocalData
 {
-    [[SDWebImageManager sharedManager].imageCache clearDisk];
-    [self showHUDWithText:@"已成功清理图片缓存" andHideDelay:1.6];
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"警告" andMessage:@"确定清空图片缓存吗?"];
     
-    [self performSelector:@selector(diselectCell) withObject:nil afterDelay:1.6];
+    alertView.transitionStyle = SIAlertViewTransitionStyleSlideFromBottom;
+    
+    [alertView addButtonWithTitle:@"取消" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    }];
+    
+    [alertView addButtonWithTitle:@"确定" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+        [[SDWebImageManager sharedManager].imageCache clearDisk];
+        self.cacheSizeLabel.text = [NSString stringWithFormat:@"%.1f MB", [SDWebImageManager sharedManager].imageCache.getSize / 1024.0 / 1024.0];
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    }];
+    
+    [alertView show];
 }
 
 

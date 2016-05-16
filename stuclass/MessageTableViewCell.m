@@ -8,6 +8,7 @@
 
 #import "MessageTableViewCell.h"
 #import "Define.h"
+#import "UIImageView+WebCache.h"
 
 @interface MessageTableViewCell () <UIScrollViewDelegate>
 
@@ -56,14 +57,14 @@
 }
 
 
-- (void)setContentImages:(NSArray *)contentImages
+- (void)setContentImagesWithImageURLs:(NSArray *)imageURLs
 {
     _messageImgView.scrollView.delegate = self;
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = width * 0.618;
     
-    if (contentImages == nil || contentImages.count == 0) {
+    if (imageURLs == nil || imageURLs.count == 0) {
         // nope
         _messageImgView.pageControl.numberOfPages = 0;
         _messageImgView.imageView1.image = nil;
@@ -72,29 +73,47 @@
         
         _messageImgView.scrollView.contentSize = CGSizeMake(width, height);
         
-    } else if (contentImages.count == 1) {
+    } else if (imageURLs.count == 1) {
         // 1 image
-        _messageImgView.imageView1.image = contentImages[0];
+        NSURL *url1 = [NSURL URLWithString:imageURLs[0]];
+        [_messageImgView.imageView1 sd_setImageWithURL:url1 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+        }];
         _messageImgView.imageView2.image = nil;
         _messageImgView.imageView3.image = nil;
         _messageImgView.pageControl.numberOfPages = 1;
         
         _messageImgView.scrollView.contentSize = CGSizeMake(width, height);
         
-    } else if (contentImages.count == 2) {
+    } else if (imageURLs.count == 2) {
         // 2 images
-        _messageImgView.imageView1.image = contentImages[0];
-        _messageImgView.imageView2.image = contentImages[1];
+        NSURL *url1 = [NSURL URLWithString:imageURLs[0]];
+        [_messageImgView.imageView1 sd_setImageWithURL:url1 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+        }];
+        NSURL *url2 = [NSURL URLWithString:imageURLs[1]];
+        [_messageImgView.imageView2 sd_setImageWithURL:url2 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+        }];
         _messageImgView.imageView3.image = nil;
         _messageImgView.pageControl.numberOfPages = 2;
         
         _messageImgView.scrollView.contentSize = CGSizeMake(width * 2, height);
         
-    } else if (contentImages.count == 3) {
+    } else if (imageURLs.count == 3) {
         // 3 images
-        _messageImgView.imageView1.image = contentImages[0];
-        _messageImgView.imageView2.image = contentImages[1];
-        _messageImgView.imageView3.image = contentImages[2];
+        NSURL *url1 = [NSURL URLWithString:imageURLs[0]];
+        [_messageImgView.imageView1 sd_setImageWithURL:url1 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+        }];
+        NSURL *url2 = [NSURL URLWithString:imageURLs[1]];
+        [_messageImgView.imageView2 sd_setImageWithURL:url2 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+        }];
+        NSURL *url3 = [NSURL URLWithString:imageURLs[2]];
+        [_messageImgView.imageView3 sd_setImageWithURL:url3 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+        }];
         
         _messageImgView.pageControl.numberOfPages = 3;
         

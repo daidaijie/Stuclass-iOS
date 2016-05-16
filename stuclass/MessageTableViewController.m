@@ -77,7 +77,7 @@ static NSString *message_text_cell_id = @"MessageTextCell";
 
 - (void)refresh
 {
-    [self performSelector:@selector(didFinishRefresh) withObject:nil afterDelay:1.3];
+    [self setupData];
 }
 
 - (void)didFinishRefresh
@@ -132,10 +132,8 @@ static NSString *message_text_cell_id = @"MessageTextCell";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"消息圈 - 连接服务器 - 失败 - %@", error);
-//        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
-//            [_popover dismiss];
-//        }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self didFinishRefresh];
     }];
 }
 
@@ -160,7 +158,7 @@ static NSString *message_text_cell_id = @"MessageTextCell";
                 message.nickname = userDict[@"nickname"];
                 message.username = userDict[@"account"];
                 message.userid = userDict[@"id"];
-                message.avatarURL = userDict[@"image"];
+                message.avatarURL = [userDict[@"image"] isEqual:[NSNull null]] ? nil : userDict[@"image"];
                 
                 // data
                 message.messageid = dict[@"id"];
@@ -197,6 +195,7 @@ static NSString *message_text_cell_id = @"MessageTextCell";
     } else {
         [self showHUDWithText:global_connection_failed andHideDelay:0.8];
     }
+    [self didFinishRefresh];
 }
 
 
@@ -269,7 +268,12 @@ static NSString *message_text_cell_id = @"MessageTextCell";
     // comment & like
     [cell setLike:message.likes.count commentNum:message.comments.count];
     
-//    cell.avatarImageView.image = message.avatarImage;
+    // avatar
+    
+    NSURL *avatarUrl = [NSURL URLWithString:message.avatarURL];
+    [cell.avatarImageView sd_setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"default_avatar"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
 }
 
 // Image
@@ -284,13 +288,15 @@ static NSString *message_text_cell_id = @"MessageTextCell";
     // comment & like
     [cell setLike:message.likes.count commentNum:message.comments.count];
     
-//    cell.avatarImageView.image = message.avatarImage;
+    // avatar
+    NSURL *avatarUrl = [NSURL URLWithString:message.avatarURL];
+    [cell.avatarImageView sd_setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"default_avatar"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
     
-//    cell.tag = indexPath.section;
-//    [cell setContentImages:message.contentImages];
-//    [cell setPage:[_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]];
-    
-    
+    cell.tag = indexPath.section;
+    [cell setContentImagesWithImageURLs:message.imageURLs];
+    [cell setPage:[_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]];
     
 //    NSLog(@"---------- section %d     index %d", indexPath.section, [_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]);
 }

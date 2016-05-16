@@ -35,7 +35,7 @@
 
 - (void)setPage:(int)page;
 
-- (void)setContentImages:(NSArray *)contentImages;
+- (void)setContentImagesWithImageURLs:(NSArray *)imageURLs;
 
 - (void)setLike:(NSUInteger)likeNum commentNum:(NSUInteger)commentNum;
 
