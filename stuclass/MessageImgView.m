@@ -18,7 +18,7 @@
     [super awakeFromNib];
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat height = 200;
+    CGFloat height = width * 0.618;
     
     _numberOfImages = 3;
     

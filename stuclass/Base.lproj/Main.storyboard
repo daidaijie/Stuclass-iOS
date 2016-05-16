@@ -2265,7 +2265,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="哈哈哈哈哈哈哈" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="Lco-Yd-cKR">
-                                            <rect key="frame" x="15" y="72" width="295" height="18"/>
+                                            <rect key="frame" x="15" y="72" width="295" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -2284,10 +2284,16 @@
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ggE-WL-coS" customClass="MessageImgView">
-                                            <rect key="frame" x="0.0" y="98" width="320" height="200"/>
+                                            <rect key="frame" x="0.0" y="100" width="320" height="198"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="200" id="3xe-R8-vsa"/>
+                                                <constraint firstAttribute="width" secondItem="ggE-WL-coS" secondAttribute="height" multiplier="1:0.618" id="Buv-al-ax2"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="3xe-R8-vsa"/>
+                                                </mask>
+                                            </variation>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8b7-Gi-ikU">
                                             <rect key="frame" x="284" y="15" width="26" height="26"/>
