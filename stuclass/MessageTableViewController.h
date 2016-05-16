@@ -1,5 +1,5 @@
 //
-//  PublicViewController.h
+//  MessageTableViewController.h
 //  stuclass
 //
 //  Created by JunhaoWang on 11/23/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PublicViewController : UIViewController
+@interface MessageTableViewController : UITableViewController
 
 @end

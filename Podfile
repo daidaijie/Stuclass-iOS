@@ -7,4 +7,5 @@ pod 'AFNetworking', '~> 2.5'
 pod 'SDWebImage'
 pod 'MGSwipeTableCell'
 pod 'SIAlertView'
+pod 'UITableView+FDTemplateLayoutCell'
 end

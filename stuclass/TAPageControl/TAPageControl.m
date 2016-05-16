@@ -239,16 +239,18 @@ static CGSize const kDefaultDotSize = {6.0, 6.0};
  */
 - (void)changeActivity:(BOOL)active atIndex:(NSInteger)index
 {
-    if (self.dotViewClass) {
-        TAAbstractDotView *abstractDotView = (TAAbstractDotView *)[self.dots objectAtIndex:index];
-        if ([abstractDotView respondsToSelector:@selector(changeActivityState:)]) {
-            [abstractDotView changeActivityState:active];
-        } else {
-            NSLog(@"Custom view : %@ must implement an 'changeActivityState' method or you can subclass %@ to help you.", self.dotViewClass, [TAAbstractDotView class]);
+    if (index < self.numberOfPages) {
+        if (self.dotViewClass) {
+            TAAbstractDotView *abstractDotView = (TAAbstractDotView *)[self.dots objectAtIndex:index];
+            if ([abstractDotView respondsToSelector:@selector(changeActivityState:)]) {
+                [abstractDotView changeActivityState:active];
+            } else {
+                NSLog(@"Custom view : %@ must implement an 'changeActivityState' method or you can subclass %@ to help you.", self.dotViewClass, [TAAbstractDotView class]);
+            }
+        } else if (self.dotImage && self.currentDotImage) {
+            UIImageView *dotView = (UIImageView *)[self.dots objectAtIndex:index];
+            dotView.image = (active) ? self.currentDotImage : self.dotImage;
         }
-    } else if (self.dotImage && self.currentDotImage) {
-        UIImageView *dotView = (UIImageView *)[self.dots objectAtIndex:index];
-        dotView.image = (active) ? self.currentDotImage : self.dotImage;
     }
 }
 
