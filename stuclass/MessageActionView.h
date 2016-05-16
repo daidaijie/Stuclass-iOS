@@ -10,4 +10,6 @@
 
 @interface MessageActionView : UIView
 
+- (void)setLike:(NSUInteger)likeNum commentNum:(NSUInteger)commentNum;
+
 @end

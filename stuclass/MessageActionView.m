@@ -8,6 +8,14 @@
 
 #import "MessageActionView.h"
 
+@interface MessageActionView ()
+
+@property (strong, nonatomic) UIButton *likeButton;
+@property (strong, nonatomic) UIButton *commentButton;
+@property (strong, nonatomic) UIButton *shareButton;
+
+@end
+
 @implementation MessageActionView
 
 - (void)awakeFromNib
@@ -21,31 +29,31 @@
     CGFloat button_height = self.frame.size.height;
     
     // likeButton
-    UIButton *likeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, button_width, button_height)];
-    [likeButton setTitle:@" 喜欢(10)" forState:UIControlStateNormal];
-    likeButton.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [likeButton setTitleColor:[UIColor colorWithWhite:0.5 alpha:1.0] forState:UIControlStateNormal];
-    [likeButton setImage:[UIImage imageNamed:@"icon-like"] forState:UIControlStateNormal];
-    likeButton.adjustsImageWhenHighlighted = NO;
-    [self addSubview:likeButton];
+    _likeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, button_width, button_height)];
+    [_likeButton setTitle:@" 喜欢(0)" forState:UIControlStateNormal];
+    _likeButton.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    [_likeButton setTitleColor:[UIColor colorWithWhite:0.5 alpha:1.0] forState:UIControlStateNormal];
+    [_likeButton setImage:[UIImage imageNamed:@"icon-like"] forState:UIControlStateNormal];
+    _likeButton.adjustsImageWhenHighlighted = NO;
+    [self addSubview:_likeButton];
     
     // commentButton
-    UIButton *commentButton = [[UIButton alloc] initWithFrame:CGRectMake(button_width, 0, button_width, button_height)];
-    [commentButton setTitle:@" 评论(185)" forState:UIControlStateNormal];
-    commentButton.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [commentButton setTitleColor:[UIColor colorWithWhite:0.5 alpha:1.0] forState:UIControlStateNormal];
-    [commentButton setImage:[UIImage imageNamed:@"icon-comment"] forState:UIControlStateNormal];
-    commentButton.adjustsImageWhenHighlighted = NO;
-    [self addSubview:commentButton];
+    _commentButton = [[UIButton alloc] initWithFrame:CGRectMake(button_width, 0, button_width, button_height)];
+    [_commentButton setTitle:@" 评论(0)" forState:UIControlStateNormal];
+    _commentButton.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    [_commentButton setTitleColor:[UIColor colorWithWhite:0.5 alpha:1.0] forState:UIControlStateNormal];
+    [_commentButton setImage:[UIImage imageNamed:@"icon-comment"] forState:UIControlStateNormal];
+    _commentButton.adjustsImageWhenHighlighted = NO;
+    [self addSubview:_commentButton];
     
     // shareButton
-    UIButton *shareButton = [[UIButton alloc] initWithFrame:CGRectMake(button_width * 2, 0, button_width, button_height)];
-    [shareButton setTitle:@" 分享" forState:UIControlStateNormal];
-    shareButton.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [shareButton setTitleColor:[UIColor colorWithWhite:0.5 alpha:1.0] forState:UIControlStateNormal];
-    [shareButton setImage:[UIImage imageNamed:@"icon-share"] forState:UIControlStateNormal];
-    shareButton.adjustsImageWhenHighlighted = NO;
-    [self addSubview:shareButton];
+    _shareButton = [[UIButton alloc] initWithFrame:CGRectMake(button_width * 2, 0, button_width, button_height)];
+    [_shareButton setTitle:@" 分享" forState:UIControlStateNormal];
+    _shareButton.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    [_shareButton setTitleColor:[UIColor colorWithWhite:0.5 alpha:1.0] forState:UIControlStateNormal];
+    [_shareButton setImage:[UIImage imageNamed:@"icon-share"] forState:UIControlStateNormal];
+    _shareButton.adjustsImageWhenHighlighted = NO;
+    [self addSubview:_shareButton];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -77,6 +85,12 @@
     CGContextMoveToPoint(context, button_width*2, 9);
     CGContextAddLineToPoint(context, button_width*2, button_height-9);
     CGContextStrokePath(context);
+}
+
+- (void)setLike:(NSUInteger)likeNum commentNum:(NSUInteger)commentNum
+{
+    [_likeButton setTitle:[NSString stringWithFormat:@" 喜欢(%d)", likeNum] forState:UIControlStateNormal];
+    [_commentButton setTitle:[NSString stringWithFormat:@" 评论(%d)", commentNum] forState:UIControlStateNormal];
 }
 
 

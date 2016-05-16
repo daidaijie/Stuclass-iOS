@@ -11,18 +11,13 @@
 #import <UITableView_FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>
 #import "MessageTableViewCell.h"
 #import "MessageTextTableViewCell.h"
-#import "DiscussPostTableViewController.h"
 #import "MBProgressHUD.h"
 #import <AFNetworking/AFNetworking.h>
-#import "Discuss.h"
 #import "JHDater.h"
-#import "DetailViewController.h"
-#import "ClassBox.h"
 #import <KVNProgress/KVNProgress.h>
 #import "MobClick.h"
-#import "HeaderCollectionReusableView.h"
 #import "UIImageView+WebCache.h"
-#import "TestingModel.h"
+#import "Message.h"
 #import "ScrollManager.h"
 
 
@@ -31,7 +26,7 @@ static NSString *message_text_cell_id = @"MessageTextCell";
 
 @interface MessageTableViewController ()
 
-@property (strong, nonatomic) NSArray *testingData;
+@property (strong, nonatomic) NSMutableArray *messageData;
 
 @property (strong, nonatomic) UIView *sectionHeaderView;
 
@@ -92,24 +87,119 @@ static NSString *message_text_cell_id = @"MessageTextCell";
 
 - (void)setupData
 {
-    TestingModel *m1 = [[TestingModel alloc] initWithNickname:@"深山中的一颗丸子" date:@"5分钟前" content:@"我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a1"] contentImages:@[[UIImage imageNamed:@"b1"], [UIImage imageNamed:@"b2"], [UIImage imageNamed:@"b3"]]];
-    TestingModel *m2 = [[TestingModel alloc] initWithNickname:@"网络中心" date:@"10分钟前" content:nil avatarImage:[UIImage imageNamed:@"a2"] contentImages:@[[UIImage imageNamed:@"b2"]]];
-    TestingModel *m3 = [[TestingModel alloc] initWithNickname:@"你好我是蠢婧" date:@"1小时前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a3"] contentImages:@[[UIImage imageNamed:@"b3"], [UIImage imageNamed:@"b8"]]];
-    TestingModel *m4 = [[TestingModel alloc] initWithNickname:@"天哪玛丽莎" date:@"2小时前" content:@"我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a4"] contentImages:nil];
-    TestingModel *m5 = [[TestingModel alloc] initWithNickname:@"哈哈哈哈哈啊哈哈哈" date:@"1天前" content:@"我曾经说过我是个蠢才" avatarImage:[UIImage imageNamed:@"a5"] contentImages:nil];
-    TestingModel *m6 = [[TestingModel alloc] initWithNickname:@"扎克伯格的纸巾" date:@"1个月前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过我不是个蠢才" avatarImage:[UIImage imageNamed:@"a6"] contentImages:@[[UIImage imageNamed:@"b6"]]];
+    /*
+    Message *m1 = [[Message alloc] initWithNickname:@"深山中的一颗丸子" date:@"5分钟前" content:@"我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a1"] contentImages:@[[UIImage imageNamed:@"b1"], [UIImage imageNamed:@"b2"], [UIImage imageNamed:@"b3"]]];
+    Message *m2 = [[Message alloc] initWithNickname:@"网络中心" date:@"10分钟前" content:nil avatarImage:[UIImage imageNamed:@"a2"] contentImages:@[[UIImage imageNamed:@"b2"]]];
+    Message *m3 = [[Message alloc] initWithNickname:@"你好我是蠢婧" date:@"1小时前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a3"] contentImages:@[[UIImage imageNamed:@"b3"], [UIImage imageNamed:@"b8"]]];
+    Message *m4 = [[Message alloc] initWithNickname:@"天哪玛丽莎" date:@"2小时前" content:@"我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a4"] contentImages:nil];
+    Message *m5 = [[Message alloc] initWithNickname:@"哈哈哈哈哈啊哈哈哈" date:@"1天前" content:@"我曾经说过我是个蠢才" avatarImage:[UIImage imageNamed:@"a5"] contentImages:nil];
+    Message *m6 = [[Message alloc] initWithNickname:@"扎克伯格的纸巾" date:@"1个月前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过我不是个蠢才" avatarImage:[UIImage imageNamed:@"a6"] contentImages:@[[UIImage imageNamed:@"b6"]]];
     
     
-    TestingModel *n1 = [[TestingModel alloc] initWithNickname:@"天哪玛丽莎" date:@"1个月前" content:@"我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a2"] contentImages:nil];
-    TestingModel *n2 = [[TestingModel alloc] initWithNickname:@"网络中心" date:@"2个月前" content:nil avatarImage:[UIImage imageNamed:@"a2"] contentImages:@[[UIImage imageNamed:@"b2"]]];
-    TestingModel *n3 = [[TestingModel alloc] initWithNickname:@"你好我是蠢婧" date:@"1小时前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a3"] contentImages:nil];
-    TestingModel *n4 = [[TestingModel alloc] initWithNickname:@"看我的飞机头呢" date:@"2小时前" content:@"我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a4"] contentImages:@[[UIImage imageNamed:@"b1"], [UIImage imageNamed:@"b2"], [UIImage imageNamed:@"b3"]]];
-    TestingModel *n5 = [[TestingModel alloc] initWithNickname:@"哈哈哈哈哈啊哈哈哈" date:@"1天前" content:@"我曾经说过" avatarImage:[UIImage imageNamed:@"a5"] contentImages:nil];
-    TestingModel *n6 = [[TestingModel alloc] initWithNickname:@"扎克伯格的纸巾" date:@"1个月前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a6"] contentImages:@[[UIImage imageNamed:@"b6"]]];
+    Message *n1 = [[Message alloc] initWithNickname:@"天哪玛丽莎" date:@"1个月前" content:@"我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a2"] contentImages:nil];
+    Message *n2 = [[Message alloc] initWithNickname:@"网络中心" date:@"2个月前" content:nil avatarImage:[UIImage imageNamed:@"a2"] contentImages:@[[UIImage imageNamed:@"b2"]]];
+    Message *n3 = [[Message alloc] initWithNickname:@"你好我是蠢婧" date:@"1小时前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a3"] contentImages:nil];
+    Message *n4 = [[Message alloc] initWithNickname:@"看我的飞机头呢" date:@"2小时前" content:@"我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a4"] contentImages:@[[UIImage imageNamed:@"b1"], [UIImage imageNamed:@"b2"], [UIImage imageNamed:@"b3"]]];
+    Message *n5 = [[Message alloc] initWithNickname:@"哈哈哈哈哈啊哈哈哈" date:@"1天前" content:@"我曾经说过" avatarImage:[UIImage imageNamed:@"a5"] contentImages:nil];
+    Message *n6 = [[Message alloc] initWithNickname:@"扎克伯格的纸巾" date:@"1个月前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a6"] contentImages:@[[UIImage imageNamed:@"b6"]]];
     
     
-    _testingData = @[m1,m2,n4,m3,m4,m5,m6,n1,n2,n3,n4,n5,n6];
+    _messageData = [NSMutableArray arrayWithArray:@[m1,m2,n4,m3,m4,m5,m6,n1,n2,n3,n4,n5,n6]];
+     
+    */
+    
+    // get data
+    NSDictionary *getData = @{
+                               @"sort_type": @"2",
+                               @"count": @"20",
+                               };
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"消息圈 - 连接服务器 - 成功");
+//        NSLog(@"------- %@", responseObject);
+        [self parseResponseObject:responseObject];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"消息圈 - 连接服务器 - 失败 - %@", error);
+//        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
+//            [_popover dismiss];
+//        }];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
 }
+
+- (void)parseResponseObject:(NSDictionary *)responseObject
+{
+    NSArray *postList = responseObject[@"post_list"];
+    
+    if (postList) {
+        
+        NSMutableArray *messageData = [NSMutableArray array];
+        
+        for (NSDictionary *dict in postList) {
+            
+            NSNumber *post_type = dict[@"post_type"];
+            
+            if ([post_type isEqualToNumber:@0]) {
+            
+            Message *message = [[Message alloc] init];
+            
+                // user
+                NSDictionary *userDict = dict[@"user"];
+                message.nickname = userDict[@"nickname"];
+                message.username = userDict[@"account"];
+                message.userid = userDict[@"id"];
+                message.avatarURL = userDict[@"image"];
+                
+                // data
+                message.messageid = dict[@"id"];
+                message.content = dict[@"content"];
+                message.date = dict[@"post_time"];
+                
+                NSString *jsonStr = dict[@"photo_list_json"];
+                
+                if (jsonStr == nil || [jsonStr isEqual:[NSNull null]]) {
+                    message.imageURLs = nil;
+                } else {
+                    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[jsonStr dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
+                    NSArray *photoList = jsonDict[@"photo_list"];
+                    
+                    NSMutableArray *imageURLs = [NSMutableArray array];
+                    for (NSDictionary *dict in photoList) {
+                        [imageURLs addObject:dict[@"size_small"]];
+                    }
+                    message.imageURLs = imageURLs;
+                }
+                
+                // comment
+                message.comments = dict[@"comments"];
+                message.likes = dict[@"thumb_ups"];
+                
+                [messageData addObject:message];
+            }
+        }
+        
+        _messageData = messageData;
+        
+        [self.tableView reloadData];
+        
+    } else {
+        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+    }
+}
+
+
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -129,14 +219,14 @@ static NSString *message_text_cell_id = @"MessageTextCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _testingData.count;
+    return _messageData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    TestingModel *model = _testingData[indexPath.section];
+    Message *message = _messageData[indexPath.section];
     
-    if (model.contentImages == nil || model.contentImages.count == 0) {
+    if (message.imageURLs == nil || message.imageURLs.count == 0) {
         // text only
         MessageTextTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_text_cell_id];
         [self configureTextCell:cell atIndexPath:indexPath];
@@ -152,9 +242,9 @@ static NSString *message_text_cell_id = @"MessageTextCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    TestingModel *model = _testingData[indexPath.section];
+    Message *message = _messageData[indexPath.section];
     
-    if (model.contentImages == nil || model.contentImages.count == 0) {
+    if (message.imageURLs == nil || message.imageURLs.count == 0) {
         // text only
         return [tableView fd_heightForCellWithIdentifier:message_text_cell_id cacheByIndexPath:indexPath configuration:^(MessageTextTableViewCell *cell) {
             [self configureTextCell:cell atIndexPath:indexPath];
@@ -170,50 +260,59 @@ static NSString *message_text_cell_id = @"MessageTextCell";
 // Text
 - (void)configureTextCell:(MessageTextTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    TestingModel *model = _testingData[indexPath.section];
+    Message *message = _messageData[indexPath.section];
     
-    cell.nameLabel.text = model.nickname;
-    cell.contentLabel.text = model.content;
-    cell.dateLabel.text = model.date;
-    cell.avatarImageView.image = model.avatarImage;
+    cell.nameLabel.text = message.nickname;
+    cell.contentLabel.text = message.content;
+    cell.dateLabel.text = message.date;
+    
+    // comment & like
+    [cell setLike:message.likes.count commentNum:message.comments.count];
+    
+//    cell.avatarImageView.image = message.avatarImage;
 }
 
 // Image
 - (void)configureCell:(MessageTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    TestingModel *model = _testingData[indexPath.section];
+    Message *message = _messageData[indexPath.section];
 
-    cell.nameLabel.text = model.nickname;
-    cell.contentLabel.text = model.content;
-    cell.dateLabel.text = model.date;
-    cell.avatarImageView.image = model.avatarImage;
+    cell.nameLabel.text = message.nickname;
+    cell.contentLabel.text = message.content;
+    cell.dateLabel.text = message.date;
     
-    cell.tag = indexPath.section;
-    [cell setContentImages:model.contentImages];
-    [cell setPage:[_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]];
+    // comment & like
+    [cell setLike:message.likes.count commentNum:message.comments.count];
+    
+//    cell.avatarImageView.image = message.avatarImage;
+    
+//    cell.tag = indexPath.section;
+//    [cell setContentImages:message.contentImages];
+//    [cell setPage:[_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]];
+    
+    
+    
 //    NSLog(@"---------- section %d     index %d", indexPath.section, [_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]);
 }
 
+#pragma mark - HUD
+
+- (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {
+    
+    [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
+    
+    if (self.navigationController.view) {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = string;
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:delay];
+    }
+}
 
 
-
-//- (void)didChangeCurrentIndex:(NSNotification *)notification
-//{
-//    NSDictionary *userInfo = notification.userInfo;
-//    
-//    UITableViewCell *cell = userInfo[@"cell"];
-//    NSUInteger index = [userInfo[@"index"] integerValue];
-//    
-//    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-//    
-////    TestingModel *model = _testingData[indexPath.section];
-//    
-//    ((TestingModel *)_testingData[indexPath.section]).currentIndex = index;
-//    
-//    NSLog(@"section = %d   index = %d", indexPath.section, index);
-//    
-////    [self.tableView reloadData];
-//}
 
 
 @end

@@ -23,8 +23,13 @@
 
 - (IBAction)morePress:(id)sender
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"更多" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"更多" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:@"复制", nil];
     [actionSheet showInView:self];
+}
+
+- (void)setLike:(NSUInteger)likeNum commentNum:(NSUInteger)commentNum
+{
+    [self.actionView setLike:likeNum commentNum:commentNum];
 }
 
 

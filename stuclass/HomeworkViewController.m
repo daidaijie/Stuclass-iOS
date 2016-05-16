@@ -303,7 +303,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, homework_delete_url] parameters:deleteData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager DELETE:[NSString stringWithFormat:@"%@%@", global_old_host, homework_delete_url] parameters:deleteData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"删除作业 - 连接服务器 - 成功 - %@", responseObject);
         [self parseDeleteResponseObject:responseObject homeworkID:homework_id Section:homework_section];
@@ -410,7 +410,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, homework_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@", global_old_host, homework_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"作业 - 连接服务器 - 成功");
         [self parseResponseObject:responseObject];

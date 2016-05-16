@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MessageImgView.h"
 #import "ScrollManager.h"
+#import "MessageActionView.h"
 
 //@protocol MessageTableViewCellDelegate <NSObject>
 
@@ -24,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet MessageImgView *messageImgView;
+@property (weak, nonatomic) IBOutlet MessageActionView *actionView;
 
 @property (assign, nonatomic) NSUInteger currentPage;
 
@@ -34,5 +36,7 @@
 - (void)setPage:(int)page;
 
 - (void)setContentImages:(NSArray *)contentImages;
+
+- (void)setLike:(NSUInteger)likeNum commentNum:(NSUInteger)commentNum;
 
 @end

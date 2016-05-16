@@ -14,7 +14,7 @@
 		1302997F1C892BDC00E4734C /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 130299791C892BDC00E4734C /* TAAnimatedDotView.m */; };
 		130299801C892BDC00E4734C /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1302997B1C892BDC00E4734C /* TADotView.m */; };
 		130299811C892BDC00E4734C /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1302997D1C892BDC00E4734C /* TAPageControl.m */; };
-		130A2B7F1CE8377D004927D8 /* TestingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A2B7E1CE8377D004927D8 /* TestingModel.m */; };
+		130A2B7F1CE8377D004927D8 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A2B7E1CE8377D004927D8 /* Message.m */; };
 		130A6D501CBA32CC00A36F9C /* TaskListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A6D4F1CBA32CC00A36F9C /* TaskListTableViewController.m */; };
 		130A6D531CBA35FF00A36F9C /* TaskListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A6D521CBA35FF00A36F9C /* TaskListTableViewCell.m */; };
 		130C09E51CB544F500848551 /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 130C09E41CB544F500848551 /* MemberTableViewCell.m */; };
@@ -161,8 +161,8 @@
 		1302997B1C892BDC00E4734C /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
 		1302997C1C892BDC00E4734C /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
 		1302997D1C892BDC00E4734C /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
-		130A2B7D1CE8377D004927D8 /* TestingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestingModel.h; sourceTree = "<group>"; };
-		130A2B7E1CE8377D004927D8 /* TestingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestingModel.m; sourceTree = "<group>"; };
+		130A2B7D1CE8377D004927D8 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		130A2B7E1CE8377D004927D8 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		130A6D4E1CBA32CC00A36F9C /* TaskListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskListTableViewController.h; sourceTree = "<group>"; };
 		130A6D4F1CBA32CC00A36F9C /* TaskListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListTableViewController.m; sourceTree = "<group>"; };
 		130A6D511CBA35FF00A36F9C /* TaskListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskListTableViewCell.h; sourceTree = "<group>"; };
@@ -633,10 +633,9 @@
 				1353ECC61CE6D7EE00E6E03E /* TreeHole */,
 				130299711C892B9500E4734C /* HeaderCollectionReusableView */,
 				1353ECC21CE6D78B00E6E03E /* MessageCell */,
+				13BDBFA01CE9A77A0031D5B8 /* Message */,
 				1326F7D21C02DB5E0016B88E /* MessageTableViewController.h */,
 				1326F7D31C02DB5E0016B88E /* MessageTableViewController.m */,
-				130A2B7D1CE8377D004927D8 /* TestingModel.h */,
-				130A2B7E1CE8377D004927D8 /* TestingModel.m */,
 				130A2B7C1CE811B7004927D8 /* Post */,
 			);
 			name = MessageTableViewController;
@@ -926,6 +925,15 @@
 				139509B31C873837008CA07B /* ClassWeekTableViewController.m */,
 			);
 			name = ClassWeekTableViewController;
+			sourceTree = "<group>";
+		};
+		13BDBFA01CE9A77A0031D5B8 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				130A2B7D1CE8377D004927D8 /* Message.h */,
+				130A2B7E1CE8377D004927D8 /* Message.m */,
+			);
+			name = Message;
 			sourceTree = "<group>";
 		};
 		13C4C3381BCBEECA0003E703 /* NSMutableArray+Shuffle */ = {
@@ -1741,7 +1749,7 @@
 				1335FC711BCA259700BC0F23 /* StartView.m in Sources */,
 				13242F111C089731008D46F2 /* DocumentDetailViewController.m in Sources */,
 				13F2690C1CE95EAF003BDA5C /* ScrollManager.m in Sources */,
-				130A2B7F1CE8377D004927D8 /* TestingModel.m in Sources */,
+				130A2B7F1CE8377D004927D8 /* Message.m in Sources */,
 				13CB2C7E1BDFDC1B00460BE4 /* HomeworkTextField.m in Sources */,
 				13C4C3461BCC07840003E703 /* SemesterTableViewController.m in Sources */,
 				139509B41C873838008CA07B /* ClassWeekTableViewController.m in Sources */,

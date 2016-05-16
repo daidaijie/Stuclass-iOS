@@ -198,7 +198,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, discuss_post_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_old_host, discuss_post_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"发布讨论 - 连接服务器 - 成功 - %@", responseObject);
         [self parseResponseObject:responseObject firstTry:firstTry];
@@ -317,7 +317,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, course_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_old_host, course_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"讨论 - 添加课程 - 连接服务器 - 成功 - %@", operation.responseObject);
         [self parseClassInfoResponseObject:responseObject];

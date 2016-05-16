@@ -59,22 +59,34 @@ static const CGFloat global_textView_RowHeightFor6p = 354;
 
 
 // url
-static NSString *global_host = @"http://121.42.175.83:8084/";
+static NSString *global_old_host = @"http://121.42.175.83:8084/";
+
+static NSString *global_host = @"http://119.29.95.245:8080/";
 
 static NSString *global80_host = @"http://121.42.175.83/";
 
 static NSString *login_host = @"http://192.168.31.4:8080";
 
+// v2
+
+// message
+static NSString *message_url = @"/interaction/api/v2/posts";
+
+
+// credit
 static NSString *activity_url = @"/activity";
 
-static NSString *login_url = @"/syllabus";
+static NSString *login_url = @"/credit/api/v2/syllabus";
 
-static NSString *exam_url = @"/exam";
+static NSString *exam_url = @"/credit/api/v2/exam";
 
-static NSString *grade_url = @"/grade";
+static NSString *grade_url = @"/credit/api/v2/grade";
 
-static NSString *oa_url = @"/oa";
+static NSString *oa_url = @"/credit/api/v2/oa";
 
+static NSString *member_url = @"/credit/api/v2/member";
+
+// v1
 static NSString *discuss_post_url = @"/api/v1.0/discuss";
 
 static NSString *course_url = @"/api/course";
@@ -90,8 +102,6 @@ static NSString *discuss_url = @"/api/course_info/1"; // discuss - 1
 static NSString *discuss_delete_url = @"/api/v1.0/delete/1";
 
 static NSString *nickname_url = @"/api/v1.0/modify_user";
-
-static NSString *member_url = @"/api/v1.0/member";
 
 #define UPDATE_CONTENT @"1. 现在可以自己添加课程啦(开发者表示弄得头疼)🙄;\n2. 在图书检索中长按可以显示具体位置;\n3. 修复了Bugs、优化了很多功能。(真)"
 
