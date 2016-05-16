@@ -51,4 +51,7 @@
 // 根据字符串返回日期
 - (NSDate *)dateFromString:(NSString *)string;
 
+// MessageCell时间
+- (NSString *)dateStrFromMessageTimeString:(NSString *)str;
+
 @end

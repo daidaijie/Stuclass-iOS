@@ -222,5 +222,53 @@
     return [self getCurrentZoneDate:[inputFormatter dateFromString:string]];
 }
 
+- (NSString *)dateStrFromMessageTimeString:(NSString *)str
+{
+    NSDateFormatter *inputFormatter= [[NSDateFormatter alloc] init];
+    
+    [inputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSDate *date = [self getCurrentZoneDate:[inputFormatter dateFromString:str]];
+    
+//    NSLog(@"--------------%@", date);
+    
+    return [self getMessageTimeStrWithTimeFrom1970:[date timeIntervalSince1970] date:date];
+}
+
+
+- (NSString *)getMessageTimeStrWithTimeFrom1970:(long long)pub_time date:(NSDate *)date
+{
+    NSDate *now = [self getCurrentZoneDate:[NSDate date]];
+    
+    long long now_second = [now timeIntervalSince1970];
+    
+    long long interval = now_second - pub_time;
+    
+    if (interval >= 0 && interval < 60) {
+        return @"刚刚";
+    } else if (interval >= 60 && interval < 3600) {
+        return [NSString stringWithFormat:@"%llu分钟前", interval / 60];
+    } else if (interval >= 3600 && interval < (3600 * 24 * 2)) {
+        
+        if ([self dayForDate:date] == [self dayForDate:now]) {
+            return [NSString stringWithFormat:@"%llu小时前", interval / 3600];
+        } else if ([self dayForDate:date] == [self dayForDate:[now dateByAddingTimeInterval:-3600 * 24]]) {
+            NSDateFormatter *inputFormatter= [[NSDateFormatter alloc] init];
+            [inputFormatter setDateFormat:@"HH:mm"];
+            return [NSString stringWithFormat:@"昨天 %@", [inputFormatter stringFromDate:date]];
+            return [NSString stringWithFormat:@"%llu小时前", interval / 3600];
+        } else {
+            NSDateFormatter *inputFormatter= [[NSDateFormatter alloc] init];
+            [inputFormatter setDateFormat:@"yyyy-M-d HH:mm"];
+            return [inputFormatter stringFromDate:date];
+        }
+        
+    } else {
+        NSDateFormatter *inputFormatter= [[NSDateFormatter alloc] init];
+        [inputFormatter setDateFormat:@"yyyy-M-d HH:mm"];
+        return [inputFormatter stringFromDate:date];
+    }
+}
+
 
 @end

@@ -163,7 +163,8 @@ static NSString *message_text_cell_id = @"MessageTextCell";
                 // data
                 message.messageid = dict[@"id"];
                 message.content = dict[@"content"];
-                message.date = dict[@"post_time"];
+                NSString *dateStr = [[JHDater sharedInstance] dateStrFromMessageTimeString:dict[@"post_time"]];
+                message.date = dateStr;
                 
                 NSString *jsonStr = dict[@"photo_list_json"];
                 
