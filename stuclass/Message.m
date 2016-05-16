@@ -11,20 +11,5 @@
 @implementation Message
 
 
-- (instancetype)initWithNickname:(NSString *)nickname date:(NSString *)date content:(NSString *)content avatarImage:(UIImage *)avatarImage contentImages:(NSArray *)contentImages
-{
-    self = [super init];
-    
-    if (self) {
-        _nickname = nickname;
-        _date = date;
-        _content = content;
-        _avatarImage = avatarImage;
-        _contentImages = contentImages;
-    }
-    
-    return self;
-}
-
 
 @end

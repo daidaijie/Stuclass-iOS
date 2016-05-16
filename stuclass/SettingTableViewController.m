@@ -138,10 +138,7 @@
     } else if (section == 4) {
         
         if (row == 0) {
-            [KVNProgress showSuccessWithStatus:@"登出成功" completion:^{
-                [self logout];
-            }];
-            [MobClick event:@"Setting_Logout"];
+            [self logoutPress];
         }
     }
 }
@@ -154,6 +151,26 @@
         
         ntvc.delegate = self;
     }
+}
+
+- (void)logoutPress
+{
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"警告" andMessage:@"确定登出吗?"];
+    
+    alertView.transitionStyle = SIAlertViewTransitionStyleSlideFromBottom;
+    
+    [alertView addButtonWithTitle:@"取消" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
+        [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+    }];
+    
+    [alertView addButtonWithTitle:@"确定" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+        [KVNProgress showSuccessWithStatus:@"登出成功" completion:^{
+            [self logout];
+        }];
+        [MobClick event:@"Setting_Logout"];
+    }];
+    
+    [alertView show];
 }
 
 - (void)logout

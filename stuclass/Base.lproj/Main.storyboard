@@ -2260,9 +2260,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="137"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14jhwang" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="HKL-7t-lGw">
-                                            <rect key="frame" x="72" y="18" width="198" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14jhwang" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="HKL-7t-lGw">
+                                            <rect key="frame" x="72" y="18" width="198" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                             <color key="textColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -2318,7 +2318,7 @@
                                         <constraint firstAttribute="trailing" secondItem="CYu-eg-5Fk" secondAttribute="trailing" constant="5" id="kqw-VC-Hh5"/>
                                         <constraint firstItem="HKL-7t-lGw" firstAttribute="leading" secondItem="TFw-jt-vTa" secondAttribute="leading" constant="72" id="n3i-8v-riT"/>
                                         <constraint firstAttribute="bottom" secondItem="C0N-73-7wb" secondAttribute="bottom" id="oYz-Cv-chb"/>
-                                        <constraint firstItem="Jxb-O2-nn5" firstAttribute="top" secondItem="HKL-7t-lGw" secondAttribute="bottom" constant="7" id="pyV-ok-aUm"/>
+                                        <constraint firstItem="Jxb-O2-nn5" firstAttribute="top" secondItem="HKL-7t-lGw" secondAttribute="bottom" constant="6" id="pyV-ok-aUm"/>
                                         <constraint firstItem="C0N-73-7wb" firstAttribute="top" secondItem="Pbc-kG-IFD" secondAttribute="bottom" constant="11" id="qry-e1-XxQ"/>
                                         <constraint firstAttribute="trailing" secondItem="Pbc-kG-IFD" secondAttribute="trailing" constant="10" id="tkk-TD-ySK"/>
                                         <constraint firstAttribute="trailing" secondItem="Jxb-O2-nn5" secondAttribute="trailing" constant="50" id="w5q-GS-ggb"/>
@@ -2348,9 +2348,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="345"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14jhwang" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="6Rd-G5-HKH">
-                                            <rect key="frame" x="72" y="18" width="198" height="17"/>
-                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14jhwang" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="13" translatesAutoresizingMaskIntoConstraints="NO" id="6Rd-G5-HKH">
+                                            <rect key="frame" x="72" y="18" width="198" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                             <color key="textColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -2414,7 +2414,7 @@
                                         <constraint firstAttribute="trailing" secondItem="IuC-aw-sI0" secondAttribute="trailing" id="KCC-JT-ZVC"/>
                                         <constraint firstAttribute="trailing" secondItem="6Rd-G5-HKH" secondAttribute="trailing" constant="50" id="KlR-0Q-NuZ"/>
                                         <constraint firstItem="Lco-Yd-cKR" firstAttribute="leading" secondItem="YRv-TL-5Sc" secondAttribute="leading" id="LNJ-W9-oxX"/>
-                                        <constraint firstItem="qaH-eu-vZv" firstAttribute="top" secondItem="6Rd-G5-HKH" secondAttribute="bottom" constant="7" id="MON-dB-mI6"/>
+                                        <constraint firstItem="qaH-eu-vZv" firstAttribute="top" secondItem="6Rd-G5-HKH" secondAttribute="bottom" constant="6" id="MON-dB-mI6"/>
                                         <constraint firstItem="Lco-Yd-cKR" firstAttribute="top" secondItem="6Rd-G5-HKH" secondAttribute="bottom" constant="6" id="RHz-sa-hqK"/>
                                         <constraint firstItem="YRv-TL-5Sc" firstAttribute="leading" secondItem="3nJ-Io-5i5" secondAttribute="leading" constant="15" id="VUR-Px-jFK"/>
                                         <constraint firstItem="YRv-TL-5Sc" firstAttribute="top" secondItem="3nJ-Io-5i5" secondAttribute="top" constant="15" id="VqV-lZ-dcW"/>

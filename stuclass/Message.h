@@ -29,11 +29,4 @@
 // like
 @property (strong, nonatomic) NSArray *likes;
 
-
-// testing
-@property (strong, nonatomic) NSArray *contentImages;
-@property (strong, nonatomic) UIImage *avatarImage;
-
-- (instancetype)initWithNickname:(NSString *)nickname date:(NSString *)date content:(NSString *)content avatarImage:(UIImage *)avatarImage contentImages:(NSArray *)contentImages;
-
 @end

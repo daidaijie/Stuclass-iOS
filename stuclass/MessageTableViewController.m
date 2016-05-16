@@ -19,18 +19,24 @@
 #import "UIImageView+WebCache.h"
 #import "Message.h"
 #import "ScrollManager.h"
+#import "DocumentFooterView.h"
 
 
 static NSString *message_cell_id = @"MessageCell";
 static NSString *message_text_cell_id = @"MessageTextCell";
 
-@interface MessageTableViewController ()
+@interface MessageTableViewController () <UIScrollViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *messageData;
 
 @property (strong, nonatomic) UIView *sectionHeaderView;
 
 @property (strong, nonatomic) ScrollManager *manager;
+
+@property (strong, nonatomic) UILabel *startLabel;
+@property (strong, nonatomic) UIImageView *startImageView;
+
+@property (assign, nonatomic) BOOL isLoadingMore;
 
 @end
 
@@ -73,6 +79,33 @@ static NSString *message_text_cell_id = @"MessageTextCell";
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl = refreshControl;
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
+    
+    self.tableView.userInteractionEnabled = NO;
+    
+    
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    
+    
+    // start
+    _startLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 50)];
+    _startLabel.center = CGPointMake(width / 2, height / 2 - 20);
+    _startLabel.textAlignment = NSTextAlignmentCenter;
+    _startLabel.textColor = MAIN_COLOR;
+    _startLabel.text = @"把我\"拉\"下去刷新";
+    
+    _startImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 88, 88)];
+    _startImageView.center = CGPointMake(width / 2, height / 2 - 80);
+    _startImageView.image = [UIImage imageNamed:@"icon-empty-discuss"];
+    
+    
+    [self.tableView addSubview:_startLabel];
+    [self.tableView addSubview:_startImageView];
+    
+    // footer
+    // FooterView
+    DocumentFooterView *footerView = [[DocumentFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 50)];
+    self.tableView.tableFooterView = footerView;
 }
 
 - (void)refresh
@@ -87,27 +120,6 @@ static NSString *message_text_cell_id = @"MessageTextCell";
 
 - (void)setupData
 {
-    /*
-    Message *m1 = [[Message alloc] initWithNickname:@"深山中的一颗丸子" date:@"5分钟前" content:@"我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a1"] contentImages:@[[UIImage imageNamed:@"b1"], [UIImage imageNamed:@"b2"], [UIImage imageNamed:@"b3"]]];
-    Message *m2 = [[Message alloc] initWithNickname:@"网络中心" date:@"10分钟前" content:nil avatarImage:[UIImage imageNamed:@"a2"] contentImages:@[[UIImage imageNamed:@"b2"]]];
-    Message *m3 = [[Message alloc] initWithNickname:@"你好我是蠢婧" date:@"1小时前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a3"] contentImages:@[[UIImage imageNamed:@"b3"], [UIImage imageNamed:@"b8"]]];
-    Message *m4 = [[Message alloc] initWithNickname:@"天哪玛丽莎" date:@"2小时前" content:@"我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a4"] contentImages:nil];
-    Message *m5 = [[Message alloc] initWithNickname:@"哈哈哈哈哈啊哈哈哈" date:@"1天前" content:@"我曾经说过我是个蠢才" avatarImage:[UIImage imageNamed:@"a5"] contentImages:nil];
-    Message *m6 = [[Message alloc] initWithNickname:@"扎克伯格的纸巾" date:@"1个月前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过我不是个蠢才" avatarImage:[UIImage imageNamed:@"a6"] contentImages:@[[UIImage imageNamed:@"b6"]]];
-    
-    
-    Message *n1 = [[Message alloc] initWithNickname:@"天哪玛丽莎" date:@"1个月前" content:@"我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a2"] contentImages:nil];
-    Message *n2 = [[Message alloc] initWithNickname:@"网络中心" date:@"2个月前" content:nil avatarImage:[UIImage imageNamed:@"a2"] contentImages:@[[UIImage imageNamed:@"b2"]]];
-    Message *n3 = [[Message alloc] initWithNickname:@"你好我是蠢婧" date:@"1小时前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a3"] contentImages:nil];
-    Message *n4 = [[Message alloc] initWithNickname:@"看我的飞机头呢" date:@"2小时前" content:@"我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a4"] contentImages:@[[UIImage imageNamed:@"b1"], [UIImage imageNamed:@"b2"], [UIImage imageNamed:@"b3"]]];
-    Message *n5 = [[Message alloc] initWithNickname:@"哈哈哈哈哈啊哈哈哈" date:@"1天前" content:@"我曾经说过" avatarImage:[UIImage imageNamed:@"a5"] contentImages:nil];
-    Message *n6 = [[Message alloc] initWithNickname:@"扎克伯格的纸巾" date:@"1个月前" content:@"我曾经说过我曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过曾经说过我曾经说过我曾经说过" avatarImage:[UIImage imageNamed:@"a6"] contentImages:@[[UIImage imageNamed:@"b6"]]];
-    
-    
-    _messageData = [NSMutableArray arrayWithArray:@[m1,m2,n4,m3,m4,m5,m6,n1,n2,n3,n4,n5,n6]];
-     
-    */
-    
     // get data
     NSDictionary *getData = @{
                                @"sort_type": @"2",
@@ -133,6 +145,8 @@ static NSString *message_text_cell_id = @"MessageTextCell";
         // 失败
         NSLog(@"消息圈 - 连接服务器 - 失败 - %@", error);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+        self.tableView.userInteractionEnabled = YES;
         [self didFinishRefresh];
     }];
 }
@@ -192,9 +206,12 @@ static NSString *message_text_cell_id = @"MessageTextCell";
         _messageData = messageData;
         
         [self.tableView reloadData];
+        self.tableView.userInteractionEnabled = YES;
+        _startLabel.hidden = _startImageView.hidden = YES;
         
     } else {
         [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+        self.tableView.userInteractionEnabled = YES;
     }
     [self didFinishRefresh];
 }
@@ -301,6 +318,133 @@ static NSString *message_text_cell_id = @"MessageTextCell";
     
 //    NSLog(@"---------- section %d     index %d", indexPath.section, [_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]);
 }
+
+// more
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y < self.tableView.tableFooterView.bounds.size.height && (_messageData.count > 0) && !_isLoadingMore) {
+        [self getMoreMessages];
+        _isLoadingMore = YES;
+        [(DocumentFooterView *)self.tableView.tableFooterView showLoading];
+        NSLog(@"-------");
+    }
+}
+
+- (void)getMoreMessages
+{
+    Message *lastMessage = [_messageData lastObject];
+    
+    // get data
+    NSDictionary *getData = @{
+                              @"sort_type": @"2",
+                              @"count": @"20",
+                              @"before_id": lastMessage.messageid,
+                              };
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"消息圈 - 更多 - 连接服务器 - 成功");
+        //        NSLog(@"------- %@", responseObject);
+        [self parseMoreResponseObject:responseObject];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"消息圈 - 更多 - 连接服务器 - 失败 - %@", error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+        self.tableView.userInteractionEnabled = YES;
+        [self didFinishRefresh];
+        [self restoreState];
+    }];
+}
+
+
+
+
+- (void)parseMoreResponseObject:(NSDictionary *)responseObject
+{
+    NSArray *postList = responseObject[@"post_list"];
+    
+    if (postList) {
+        
+        NSMutableArray *messageData = [NSMutableArray array];
+        
+        for (NSDictionary *dict in postList) {
+            
+            NSNumber *post_type = dict[@"post_type"];
+            
+            if ([post_type isEqualToNumber:@0]) {
+                
+                Message *message = [[Message alloc] init];
+                
+                // user
+                NSDictionary *userDict = dict[@"user"];
+                message.nickname = userDict[@"nickname"];
+                message.username = userDict[@"account"];
+                message.userid = userDict[@"id"];
+                message.avatarURL = [userDict[@"image"] isEqual:[NSNull null]] ? nil : userDict[@"image"];
+                
+                // data
+                message.messageid = dict[@"id"];
+                message.content = dict[@"content"];
+                NSString *dateStr = [[JHDater sharedInstance] dateStrFromMessageTimeString:dict[@"post_time"]];
+                message.date = dateStr;
+                
+                NSString *jsonStr = dict[@"photo_list_json"];
+                
+                if (jsonStr == nil || [jsonStr isEqual:[NSNull null]]) {
+                    message.imageURLs = nil;
+                } else {
+                    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[jsonStr dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
+                    NSArray *photoList = jsonDict[@"photo_list"];
+                    
+                    NSMutableArray *imageURLs = [NSMutableArray array];
+                    for (NSDictionary *dict in photoList) {
+                        [imageURLs addObject:dict[@"size_small"]];
+                    }
+                    message.imageURLs = imageURLs;
+                }
+                
+                // comment
+                message.comments = dict[@"comments"];
+                message.likes = dict[@"thumb_ups"];
+                
+                [messageData addObject:message];
+            }
+        }
+        
+        [_messageData addObjectsFromArray:messageData];
+        
+        [self.tableView reloadData];
+        
+        [(DocumentFooterView *)self.tableView.tableFooterView hideLoading];
+        
+        _isLoadingMore = NO;
+        
+    } else {
+        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+        [self restoreState];
+    }
+    [self didFinishRefresh];
+}
+
+- (void)restoreState
+{
+    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height-self.tableView.frame.size.height - self.tableView.tableFooterView.frame.size.height) animated:NO];
+    [(DocumentFooterView *)self.tableView.tableFooterView hideLoading];
+    _isLoadingMore = NO;
+}
+
+
 
 #pragma mark - HUD
 
