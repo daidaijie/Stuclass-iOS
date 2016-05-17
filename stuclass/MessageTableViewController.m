@@ -327,7 +327,6 @@ static NSString *message_text_cell_id = @"MessageTextCell";
         [self getMoreMessages];
         _isLoadingMore = YES;
         [(DocumentFooterView *)self.tableView.tableFooterView showLoading];
-//        NSLog(@"-------");
     }
 }
 
@@ -361,10 +360,8 @@ static NSString *message_text_cell_id = @"MessageTextCell";
         // 失败
         NSLog(@"消息圈 - 更多 - 连接服务器 - 失败 - %@", error);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
-        self.tableView.userInteractionEnabled = YES;
-        [self didFinishRefresh];
-        [self restoreState];
+        _isLoadingMore = NO;
+        [(DocumentFooterView *)self.tableView.tableFooterView showEnd];
     }];
 }
 
@@ -432,19 +429,10 @@ static NSString *message_text_cell_id = @"MessageTextCell";
         _isLoadingMore = NO;
         
     } else {
-        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
-        [self restoreState];
+        _isLoadingMore = NO;
     }
     [self didFinishRefresh];
 }
-
-- (void)restoreState
-{
-    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height-self.tableView.frame.size.height - self.tableView.tableFooterView.frame.size.height) animated:NO];
-    [(DocumentFooterView *)self.tableView.tableFooterView hideLoading];
-    _isLoadingMore = NO;
-}
-
 
 
 

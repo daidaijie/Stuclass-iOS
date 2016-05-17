@@ -12,5 +12,6 @@
 
 - (void)showLoading;
 - (void)hideLoading;
+- (void)showEnd;
 
 @end

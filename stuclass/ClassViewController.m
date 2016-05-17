@@ -166,8 +166,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     // LEFT
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
-    [btn setBackgroundImage:[UIImage imageNamed:@"a6"] forState:UIControlStateNormal];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"a2"] forState:UIControlStateNormal];
     btn.layer.cornerRadius = btn.bounds.size.width / 2;
     btn.layer.borderColor = [UIColor whiteColor].CGColor;
     btn.layer.borderWidth = 1.2;
@@ -295,7 +295,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat k = width / 320.0;
-    _classHeaderView = [[ClassHeaderView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, 34.5f * k)];
+    _classHeaderView = [[ClassHeaderView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, 35.0f * k)];
     
     [self.view addSubview:_classHeaderView];
 }
@@ -309,7 +309,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     layout.layoutDelegate = self;
     
     // collectionView
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64+_classHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - _classHeaderView.bounds.size.height - 64 - 44) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64 + _classHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - _classHeaderView.bounds.size.height - 64 - 44) collectionViewLayout:layout];
     
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.showsVerticalScrollIndicator = NO;
