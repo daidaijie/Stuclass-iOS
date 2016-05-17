@@ -40,7 +40,7 @@
 - (void)setupImagePicker
 {
     _imagePicker = [[GKImagePicker alloc] init];
-    CGSize cropSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - 64);
+    CGSize cropSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
     cropSize.width -= 4;
     cropSize.height -= 4;
     _imagePicker.cropSize = cropSize;

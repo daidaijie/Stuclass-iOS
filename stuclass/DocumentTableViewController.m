@@ -29,9 +29,12 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 @property (strong, nonatomic) UIView *sectionHeaderView;
 
-@property (nonatomic) BOOL isLoading;
+@property (nonatomic) BOOL isLoadingMore;
 
 @property (assign, nonatomic) NSInteger pageindex;
+
+@property (strong, nonatomic) UILabel *startLabel;
+@property (strong, nonatomic) UIImageView *startImageView;
 
 @end
 
@@ -45,6 +48,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     [self setupBarBackButton];
     
     [self setupTableView];
+    
+    [self oa];
 
     _pageindex = 1;
 }
@@ -66,6 +71,27 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     self.tableView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
     
     self.tableView.fd_debugLogEnabled = NO;
+    
+    self.tableView.userInteractionEnabled = NO;
+    
+    // start
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    
+    _startLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 50)];
+    _startLabel.center = CGPointMake(width / 2, height / 2 - 20);
+    _startLabel.textAlignment = NSTextAlignmentCenter;
+    _startLabel.textColor = MAIN_COLOR;
+    _startLabel.text = @"把我\"拉\"下去刷新";
+    
+    _startImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 88, 88)];
+    _startImageView.center = CGPointMake(width / 2, height / 2 - 80);
+    _startImageView.image = [UIImage imageNamed:@"icon-empty-discuss"];
+    
+    
+    [self.tableView addSubview:_startLabel];
+    [self.tableView addSubview:_startImageView];
+    
     
     // refresh control
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -142,12 +168,9 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 {
     NSInteger section = indexPath.section;
     
-    if (!_isLoading) {
+    Document *document = _documentData[section];
         
-        Document *document = _documentData[section];
-        
-        [self performSegueWithIdentifier:@"ShowDocumentDetail" sender:@{@"url": document.url, @"title": document.department}];
-    }
+    [self performSegueWithIdentifier:@"ShowDocumentDetail" sender:@{@"url": document.url, @"title": document.department}];
 }
 
 
@@ -178,22 +201,16 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 - (void)oa
 {
-    if (!_isLoading) {
-        
-        _isLoading = YES;
-    
-        // ActivityIndicator
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        
-        // Request
-        [self sendOaRequest];
-    }
+    // Request
+    [self sendOaRequest];
 }
 
 
 
 - (void)sendOaRequest
 {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
     // ud
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud valueForKey:@"USERNAME"];
@@ -223,8 +240,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         NSLog(@"连接服务器 - 失败 - %@", error);
         [self showHUDWithText:[NSString stringWithFormat:@"%@(连接外网)", global_connection_failed] andHideDelay:1.0];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        _isLoading = NO;
         [self.refreshControl endRefreshing];
+        self.tableView.userInteractionEnabled = YES;
     }];
 }
 
@@ -239,6 +256,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     } else if ([responseObject[@"ERROR"] isEqualToString:@"invalid input"]) {
         // 未知错误
         [self showHUDWithText:global_connection_failed andHideDelay:1.0];
+        self.tableView.userInteractionEnabled = YES;
         
     } else {
         // 成功
@@ -250,9 +268,11 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         _pageindex = 1;
         
         [self.tableView reloadData];
+        
+        _startLabel.hidden = _startImageView.hidden = YES;
+        self.tableView.userInteractionEnabled = YES;
     }
     
-    _isLoading = NO;
     [self.refreshControl endRefreshing];
 }
 
@@ -261,26 +281,22 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if ((scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y < self.tableView.tableFooterView.bounds.size.height) && (!_isLoading)) {
+    if ((scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y < self.tableView.tableFooterView.bounds.size.height) && (_documentData.count > 0) && (!_isLoadingMore)) {
         [self moreOa];
+        _isLoadingMore = YES;
     }
 }
 
 
 - (void)moreOa
 {
-    if (!_isLoading) {
-        
-        _isLoading = YES;
-        
-        [(DocumentFooterView *)self.tableView.tableFooterView showLoading];
-        
-        // ActivityIndicator
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        
-        // Request
-        [self sendMoreOaRequest];
-    }
+    [(DocumentFooterView *)self.tableView.tableFooterView showLoading];
+    
+    // ActivityIndicator
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    // Request
+    [self sendMoreOaRequest];
 }
 
 
@@ -298,7 +314,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
                                @"token": token,
                                @"pageindex": [NSNumber numberWithInteger:_pageindex + 1],
                                };
-    NSLog(@"---%d", _pageindex + 1);
+    NSLog(@"办公自动化 第%d页", _pageindex + 1);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer.timeoutInterval = global_timeout;
@@ -314,9 +330,9 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [self showHUDWithText:[NSString stringWithFormat:@"%@(连接外网)", global_connection_failed] andHideDelay:1.0];
+//        [self showHUDWithText:[NSString stringWithFormat:@"%@(连接外网)", global_connection_failed] andHideDelay:1.0];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self restoreState];
+        _isLoadingMore = NO;
     }];
 }
 
@@ -332,8 +348,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     } else if ([responseObject[@"ERROR"] isEqualToString:@"invalid input"]) {
         
         // 未知错误
-        [self showHUDWithText:global_connection_failed andHideDelay:1.0];
-        [self performSelector:@selector(restoreState) withObject:nil afterDelay:1.0];
+        _isLoadingMore = NO;
         
     } else {
         // 成功
@@ -348,24 +363,9 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         
         [(DocumentFooterView *)self.tableView.tableFooterView hideLoading];
         
-        _isLoading = NO;
+        _isLoadingMore = NO;
     }
 }
-
-
-
-- (void)restoreState
-{
-    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height-self.tableView.frame.size.height-self.tableView.tableFooterView.frame.size.height) animated:NO];
-    [(DocumentFooterView *)self.tableView.tableFooterView hideLoading];
-    _isLoading = NO;
-}
-
-
-
-
-
-
 
 
 // Log Out

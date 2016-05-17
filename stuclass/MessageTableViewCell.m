@@ -59,6 +59,8 @@
 
 - (void)setContentImagesWithImageURLs:(NSArray *)imageURLs
 {
+    UIImage *placeholder = [UIImage imageNamed:@"image-placeholder"];
+    
     _messageImgView.scrollView.delegate = self;
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
@@ -76,7 +78,7 @@
     } else if (imageURLs.count == 1) {
         // 1 image
         NSURL *url1 = [NSURL URLWithString:imageURLs[0]];
-        [_messageImgView.imageView1 sd_setImageWithURL:url1 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_messageImgView.imageView1 sd_setImageWithURL:url1 placeholderImage:placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
         _messageImgView.imageView2.image = nil;
@@ -88,11 +90,11 @@
     } else if (imageURLs.count == 2) {
         // 2 images
         NSURL *url1 = [NSURL URLWithString:imageURLs[0]];
-        [_messageImgView.imageView1 sd_setImageWithURL:url1 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_messageImgView.imageView1 sd_setImageWithURL:url1 placeholderImage:placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
         NSURL *url2 = [NSURL URLWithString:imageURLs[1]];
-        [_messageImgView.imageView2 sd_setImageWithURL:url2 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_messageImgView.imageView2 sd_setImageWithURL:url2 placeholderImage:placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
         _messageImgView.imageView3.image = nil;
@@ -103,15 +105,15 @@
     } else if (imageURLs.count == 3) {
         // 3 images
         NSURL *url1 = [NSURL URLWithString:imageURLs[0]];
-        [_messageImgView.imageView1 sd_setImageWithURL:url1 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_messageImgView.imageView1 sd_setImageWithURL:url1 placeholderImage:placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
         NSURL *url2 = [NSURL URLWithString:imageURLs[1]];
-        [_messageImgView.imageView2 sd_setImageWithURL:url2 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_messageImgView.imageView2 sd_setImageWithURL:url2 placeholderImage:placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
         NSURL *url3 = [NSURL URLWithString:imageURLs[2]];
-        [_messageImgView.imageView3 sd_setImageWithURL:url3 placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_messageImgView.imageView3 sd_setImageWithURL:url3 placeholderImage:placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
         

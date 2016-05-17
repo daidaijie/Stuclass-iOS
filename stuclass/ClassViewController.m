@@ -125,47 +125,63 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)setupItems
 {
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *username = [ud objectForKey:@"USERNAME"];
+    // LEFT
     
-    UIButton *btn;
-    UIBarButtonItem *connectItem;
+//    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+//    NSString *username = [ud objectForKey:@"USERNAME"];
+//    
+//    UIButton *btn;
+//    UIBarButtonItem *connectItem;
+//    
+//    if ([username isEqualToString:@"15sxwang"]) {
+//        connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-thunder"] style:UIBarButtonItemStylePlain target:self action:@selector(sixuePress)];
+//    } else {
+//        connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-thunder"] style:UIBarButtonItemStylePlain target:self action:@selector(connectItemPress)];
+//    }
+//
+//    if ([username isEqualToString:@"15sxwang"] || [username isEqualToString:@"14jhwang"]) {
+//        // For Sixue
+//        [MobClick event:@"Sixue_Connect"];
+//        btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+//        btn.showsTouchWhenHighlighted = YES;
+//        [btn setImage:[UIImage imageNamed:@"toolbar-sixue"] forState:UIControlStateNormal];
+//        if ([username isEqualToString:@"15sxwang"]) {
+//            [btn addTarget:self action:@selector(connectItemPress) forControlEvents:UIControlEventTouchUpInside];
+//        } else {
+//            [btn addTarget:self action:@selector(sixuePress) forControlEvents:UIControlEventTouchUpInside];
+//        }
+//        
+//        // longPress
+//        UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showHello:)];
+//        gesture.minimumPressDuration = 6.0;
+//        [btn addGestureRecognizer:gesture];
+//        
+//        UIBarButtonItem *sixueItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+//        self.navigationItem.leftBarButtonItems = @[connectItem, sixueItem];
+//    } else {
+//        // Others
+//        self.navigationItem.leftBarButtonItem = connectItem;
+//    }
     
-    if ([username isEqualToString:@"15sxwang"]) {
-        connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-thunder"] style:UIBarButtonItemStylePlain target:self action:@selector(sixuePress)];
-    } else {
-        connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-thunder"] style:UIBarButtonItemStylePlain target:self action:@selector(connectItemPress)];
-    }
+    
+    // LEFT
+    
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 32, 32)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"a6"] forState:UIControlStateNormal];
+    btn.layer.cornerRadius = btn.bounds.size.width / 2;
+    btn.layer.borderColor = [UIColor whiteColor].CGColor;
+    btn.layer.borderWidth = 1.2;
+    btn.clipsToBounds = YES;
+    
+    UIBarButtonItem *connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-connect"] style:UIBarButtonItemStylePlain target:self action:@selector(connectItemPress)];
+    UIBarButtonItem *userItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
+    // RIGHT
     
     UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreItemPress)];
-
-    UIBarButtonItem *noteItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-note"] style:UIBarButtonItemStylePlain target:self action:@selector(noteItemPress)];
-
-    if ([username isEqualToString:@"15sxwang"] || [username isEqualToString:@"14jhwang"]) {
-        // For Sixue
-        [MobClick event:@"Sixue_Connect"];
-        btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-        btn.showsTouchWhenHighlighted = YES;
-        [btn setImage:[UIImage imageNamed:@"toolbar-sixue"] forState:UIControlStateNormal];
-        if ([username isEqualToString:@"15sxwang"]) {
-            [btn addTarget:self action:@selector(connectItemPress) forControlEvents:UIControlEventTouchUpInside];
-        } else {
-            [btn addTarget:self action:@selector(sixuePress) forControlEvents:UIControlEventTouchUpInside];
-        }
-        
-        // longPress
-        UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showHello:)];
-        gesture.minimumPressDuration = 6.0;
-        [btn addGestureRecognizer:gesture];
-        
-        UIBarButtonItem *sixueItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-        self.navigationItem.leftBarButtonItems = @[connectItem, sixueItem];
-    } else {
-        // Others
-        self.navigationItem.leftBarButtonItem = connectItem;
-    }
-
-    self.navigationItem.rightBarButtonItems = @[moreItem, noteItem];
+    
+    self.navigationItem.leftBarButtonItems = @[userItem];
+    self.navigationItem.rightBarButtonItems = @[moreItem, connectItem];
 }
 
 - (void)showHello:(UILongPressGestureRecognizer *)gesture
@@ -202,7 +218,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 // View
 - (void)initBgImageView
 {
-    _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 64 - 49)];
+    _bgImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 64 - 44)];
     
     _bgImageView.contentMode = UIViewContentModeScaleAspectFill;
     
@@ -244,7 +260,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)initMoreView
 {
-    _moreView = [[MoreView alloc] initWithItems:@[@"添加格子", @"同步课表", @"考试信息", @"我的成绩", @"图书检索", @"办公自动化"] images:@[[UIImage imageNamed:@"more-addbox"], [UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-oa"]]];
+    _moreView = [[MoreView alloc] initWithItems:@[@"添加格子", @"同步课表", @"考试信息", @"我的成绩", @"图书检索", @"任务清单"] images:@[[UIImage imageNamed:@"more-addbox"], [UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-task"]]];
     
     UIButton *addBtn = _moreView.itemsArray[0];
     [addBtn addTarget:self action:@selector(moreAddPress) forControlEvents:UIControlEventTouchUpInside];
@@ -261,8 +277,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     UIButton *libraryBtn = _moreView.itemsArray[4];
     [libraryBtn addTarget:self action:@selector(moreLibraryPress) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *oaBtn = _moreView.itemsArray[5];
-    [oaBtn addTarget:self action:@selector(moreOaPress) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *taskBtn = _moreView.itemsArray[5];
+    [taskBtn addTarget:self action:@selector(moreTaskPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)initWeekView
@@ -279,7 +295,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat k = width / 320.0;
-    _classHeaderView = [[ClassHeaderView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, 32.0f * k)];
+    _classHeaderView = [[ClassHeaderView alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, 34.5f * k)];
     
     [self.view addSubview:_classHeaderView];
 }
@@ -293,7 +309,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     layout.layoutDelegate = self;
     
     // collectionView
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64+_classHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - _classHeaderView.bounds.size.height - 64 - 49) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 64+_classHeaderView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - _classHeaderView.bounds.size.height - 64 - 44) collectionViewLayout:layout];
     
     _collectionView.showsHorizontalScrollIndicator = NO;
     _collectionView.showsVerticalScrollIndicator = NO;
@@ -620,10 +636,11 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [MobClick event:@"More_Library"];
 }
 
-- (void)moreOaPress
+- (void)moreTaskPress
 {
-    [self oa];
-    [MobClick event:@"More_OA"];
+    [_popover dismiss];
+    [MobClick event:@"Show_TaskList"];
+    [self performSegueWithIdentifier:@"ShowTaskList" sender:nil];
 }
 
 - (void)connectItemPress
@@ -1041,91 +1058,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 }
 
 
-
-#pragma mark - OA
-
-- (void)oa
-{
-    // KVN
-    [KVNProgress showWithStatus:@"正在获取办公自动化信息"];
-    
-    // ActivityIndicator
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    // Request
-    [self sendOaRequest];
-}
-
-- (void)sendOaRequest
-{
-    // ud
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *username = [ud valueForKey:@"USERNAME"];
-    NSString *token = [ud valueForKey:@"USER_TOKEN"];
-    
-    // post data
-    NSDictionary *postData = @{
-                               @"username": username,
-                               @"token": token,
-                               @"pageindex": @"1",
-                               };
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    manager.requestSerializer.timeoutInterval = global_timeout;
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
-    
-    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, oa_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // 成功
-        NSLog(@"连接服务器 - 成功");
-        [self parseOaResponseObject:responseObject];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // 失败
-        NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
-            [_popover dismiss];
-        }];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    }];
-}
-
-
-- (void)parseOaResponseObject:(id)responseObject
-{
-    if ([responseObject[@"ERROR"] isEqualToString:@"wrong token"]) {
-        // wrong token
-        [KVNProgress showErrorWithStatus:global_connection_wrong_token];
-        
-        [self performSelector:@selector(logout) withObject:nil afterDelay:0.3];
-        
-        [_popover dismiss];
-        
-    } else if ([responseObject[@"ERROR"] isEqualToString:@"invalid input"]) {
-        // 未知错误
-        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
-            [_popover dismiss];
-        }];
-        
-    } else {
-        // 成功
-        
-        NSMutableArray *documentData = [[ClassParser sharedInstance] parseDocumentData:responseObject];
-        
-        [KVNProgress dismiss];
-        [_popover dismiss];
-        
-        [self performSegueWithIdentifier:@"ShowDocument" sender:documentData];
-    }
-}
-
-
-
-
-
-
 #pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -1311,17 +1243,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 }
 
 
-#pragma mark - NoteItem
-- (void)noteItemPress
-{
-    [MobClick event:@"Show_TaskList"];
-    [self performSegueWithIdentifier:@"ShowTaskList" sender:nil];
-}
-
-
-
-
-
 #pragma mark - HUD
 
 - (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {
@@ -1338,13 +1259,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         [hud hide:YES afterDelay:delay];
     }
 }
-
-
-- (void)sixuePress
-{
-    [self moreOaPress];
-}
-
 
 - (void)add
 {

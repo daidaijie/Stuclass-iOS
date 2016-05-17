@@ -14,6 +14,7 @@
 		1302997F1C892BDC00E4734C /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 130299791C892BDC00E4734C /* TAAnimatedDotView.m */; };
 		130299801C892BDC00E4734C /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1302997B1C892BDC00E4734C /* TADotView.m */; };
 		130299811C892BDC00E4734C /* TAPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1302997D1C892BDC00E4734C /* TAPageControl.m */; };
+		1307BA151CEB67C800E08A98 /* MainTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1307BA141CEB67C800E08A98 /* MainTabBar.m */; };
 		130A2B7F1CE8377D004927D8 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A2B7E1CE8377D004927D8 /* Message.m */; };
 		130A6D501CBA32CC00A36F9C /* TaskListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A6D4F1CBA32CC00A36F9C /* TaskListTableViewController.m */; };
 		130A6D531CBA35FF00A36F9C /* TaskListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A6D521CBA35FF00A36F9C /* TaskListTableViewCell.m */; };
@@ -161,6 +162,8 @@
 		1302997B1C892BDC00E4734C /* TADotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TADotView.m; sourceTree = "<group>"; };
 		1302997C1C892BDC00E4734C /* TAPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAPageControl.h; sourceTree = "<group>"; };
 		1302997D1C892BDC00E4734C /* TAPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAPageControl.m; sourceTree = "<group>"; };
+		1307BA131CEB67C800E08A98 /* MainTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabBar.h; sourceTree = "<group>"; };
+		1307BA141CEB67C800E08A98 /* MainTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabBar.m; sourceTree = "<group>"; };
 		130A2B7D1CE8377D004927D8 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
 		130A2B7E1CE8377D004927D8 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		130A6D4E1CBA32CC00A36F9C /* TaskListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskListTableViewController.h; sourceTree = "<group>"; };
@@ -1067,6 +1070,8 @@
 				13C7070D1BC7DE10003061A4 /* Supporting Files */,
 				13FE7A701CBC7AB400C89EF3 /* MainTabViewController.h */,
 				13FE7A711CBC7AB400C89EF3 /* MainTabViewController.m */,
+				1307BA131CEB67C800E08A98 /* MainTabBar.h */,
+				1307BA141CEB67C800E08A98 /* MainTabBar.m */,
 			);
 			path = stuclass;
 			sourceTree = "<group>";
@@ -1762,6 +1767,7 @@
 				13C4C37F1BCCEE2B0003E703 /* GKImagePicker.m in Sources */,
 				1353ECBC1CE6CB3E00E6E03E /* DocumentSearchTableViewController.m in Sources */,
 				130A6D531CBA35FF00A36F9C /* TaskListTableViewCell.m in Sources */,
+				1307BA151CEB67C800E08A98 /* MainTabBar.m in Sources */,
 				5A421F5763A0D4D685204EF0 /* DXPopover.m in Sources */,
 				5A4210DC741070C328BA0EC3 /* LibraryTextField.m in Sources */,
 				5A4213466C534654C06DB449 /* LibraryTableViewCell.m in Sources */,

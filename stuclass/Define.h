@@ -13,7 +13,7 @@
 
 #define BOTTOM_LINE_COLOR [UIColor colorWithRed:0.867 green:0.878 blue:0.886 alpha:1.000]
 
-#define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.925 alpha:1.000]
+#define TABLEVIEW_BACKGROUN_COLOR [UIColor colorWithWhite:0.9 alpha:1.000]
 
 #define TASKLIST_LEVEL_0_COLOR [UIColor colorWithRed:0.318 green:0.729 blue:0.949 alpha:1.000]
 

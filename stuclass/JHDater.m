@@ -243,7 +243,7 @@
 //    NSDate *now_zone = [self getCurrentZoneDate:now];
     
     // date
-    NSDate *date_zone = [self getCurrentZoneDate:date];
+//    NSDate *date_zone = [self getCurrentZoneDate:date];
     
     long long pub_time = [date timeIntervalSince1970];
     

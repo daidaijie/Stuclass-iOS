@@ -17,6 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    for (UIBarItem *item in self.tabBar.items) {
+        [item setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:10.0], NSFontAttributeName, nil] forState:UIControlStateNormal];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,6 +36,8 @@
         item.image = [item.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }
 }
+
+
 
 
 @end

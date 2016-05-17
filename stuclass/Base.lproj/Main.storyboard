@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -150,6 +149,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="Vtu-nX-1QD">
                         <nil key="title"/>
                         <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="wze-g3-obk">
@@ -163,13 +163,13 @@
                         </button>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="weekButton" destination="wze-g3-obk" id="Wda-xj-awF"/>
                         <segue destination="e7q-BD-DYu" kind="show" identifier="ShowDetail" id="4kC-RS-ZYX"/>
                         <segue destination="gqs-Ns-1Ya" kind="show" identifier="ShowGrade" id="JuH-1Q-bc8"/>
                         <segue destination="lQx-0V-2s8" kind="show" identifier="ShowExam" id="zLF-cu-aBH"/>
-                        <segue destination="8Lp-Df-7PC" kind="show" identifier="ShowDocument" id="xcz-sE-NRi"/>
                         <segue destination="c2l-aT-URn" kind="show" identifier="ShowLibrary" id="weM-MK-zMb"/>
                         <segue destination="fwB-FW-mqQ" kind="show" identifier="ShowTaskList" id="CYY-do-eOb"/>
                     </connections>
@@ -371,7 +371,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3mN-Eq-jmH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2521" y="-444"/>
+            <point key="canvasLocation" x="2865" y="-1520"/>
         </scene>
         <!--校园动态-->
         <scene sceneID="bMz-sc-Z1F">
@@ -667,7 +667,7 @@
             </objects>
             <point key="canvasLocation" x="2116" y="970"/>
         </scene>
-        <!--我-->
+        <!--设置-->
         <scene sceneID="CJw-6G-lsO">
             <objects>
                 <tableViewController storyboardIdentifier="stvc" id="BEQ-rK-05q" customClass="SettingTableViewController" sceneMemberID="viewController">
@@ -786,7 +786,7 @@
                                                     <rect key="frame" x="15" y="15" width="96" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="0 MB" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vzw-VZ-B91">
@@ -890,7 +890,7 @@
                             <outlet property="delegate" destination="BEQ-rK-05q" id="6fl-x4-OaP"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="我" id="2is-ar-KLI"/>
+                    <navigationItem key="navigationItem" title="设置" id="2is-ar-KLI"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
@@ -1124,12 +1124,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WUO-66-nGL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3260" y="-444"/>
+            <point key="canvasLocation" x="3792" y="-444"/>
         </scene>
-        <!--办公自动化-->
+        <!--办公OA-->
         <scene sceneID="ouH-wT-ZPe">
             <objects>
-                <tableViewController hidesBottomBarWhenPushed="YES" id="8Lp-Df-7PC" customClass="DocumentTableViewController" sceneMemberID="viewController">
+                <tableViewController id="8Lp-Df-7PC" customClass="DocumentTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="132" sectionHeaderHeight="28" sectionFooterHeight="28" id="wUl-qA-81j">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1190,7 +1190,7 @@
                                         <constraint firstAttribute="trailing" secondItem="9Sj-jJ-vGI" secondAttribute="trailing" constant="8" id="nTo-Mg-sWP"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dateLabel" destination="xLy-Ha-pUb" id="WLc-Op-W7R"/>
                                     <outlet property="departmentLabel" destination="XPE-Ls-vyi" id="gQj-Qs-bfw"/>
@@ -1204,19 +1204,17 @@
                             <outlet property="delegate" destination="8Lp-Df-7PC" id="D6x-Np-3dE"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="办公自动化" id="xPV-rF-4dd">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="organize" id="KXj-Eh-dv9">
-                                <connections>
-                                    <segue destination="tER-yV-SWc" kind="show" identifier="ShowDocumentFavorite" id="YPE-LQ-jWd"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="search" id="Vh3-i9-88j">
-                                <connections>
-                                    <action selector="searchPress:" destination="8Lp-Df-7PC" id="lLf-06-6FP"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                    <navigationItem key="navigationItem" title="办公OA" id="xPV-rF-4dd">
+                        <barButtonItem key="leftBarButtonItem" systemItem="organize" id="KXj-Eh-dv9">
+                            <connections>
+                                <segue destination="tER-yV-SWc" kind="show" identifier="ShowDocumentFavorite" id="YPE-LQ-jWd"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Vh3-i9-88j">
+                            <connections>
+                                <action selector="searchPress:" destination="8Lp-Df-7PC" id="lLf-06-6FP"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -1227,7 +1225,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wtb-XI-132" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2891" y="-452"/>
+            <point key="canvasLocation" x="2983" y="-460"/>
         </scene>
         <!--背景图片-->
         <scene sceneID="vmj-Kr-YGb">
@@ -1723,7 +1721,7 @@
                 <tabBarController storyboardIdentifier="tbc" automaticallyAdjustsScrollViewInsets="NO" id="exU-gN-ahX" customClass="MainTabViewController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="KSb-Dx-0nv">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="KSb-Dx-0nv" customClass="MainTabBar">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
@@ -1731,6 +1729,7 @@
                         <segue destination="PyN-wx-c7E" kind="relationship" relationship="viewControllers" id="FbR-f1-aLK"/>
                         <segue destination="amZ-Re-zSi" kind="relationship" relationship="viewControllers" id="1m0-dM-WjU"/>
                         <segue destination="mCq-rs-weH" kind="relationship" relationship="viewControllers" id="rZS-78-vpk"/>
+                        <segue destination="uuH-iv-isD" kind="relationship" relationship="viewControllers" id="2Qi-ng-f2z"/>
                         <segue destination="ldQ-ds-fJS" kind="relationship" relationship="viewControllers" id="Jxg-vW-WDR"/>
                     </connections>
                 </tabBarController>
@@ -1796,11 +1795,11 @@
             </objects>
             <point key="canvasLocation" x="3227" y="1320"/>
         </scene>
-        <!--我-->
+        <!--设置-->
         <scene sceneID="EeY-fh-OhO">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ldQ-ds-fJS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" image="tabbar-user" id="yhE-Fx-qPw"/>
+                    <tabBarItem key="tabBarItem" title="设置" image="tabbar-setting" id="yhE-Fx-qPw"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="z9c-oB-BHb">
@@ -1880,7 +1879,7 @@
                                         <constraint firstItem="pfv-qO-SfJ" firstAttribute="top" secondItem="E9G-fY-340" secondAttribute="top" id="p94-lc-ltq"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dateLabel" destination="TUW-MN-aGN" id="bVY-mD-TVT"/>
                                     <outlet property="departmentLabel" destination="WrS-Th-YeI" id="d6T-Bz-DJs"/>
@@ -1906,7 +1905,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rmk-yu-VYc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3706" y="-717"/>
+            <point key="canvasLocation" x="4238" y="-717"/>
         </scene>
         <!--校园动态-->
         <scene sceneID="o5D-bV-gg5">
@@ -2097,7 +2096,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1h6-BL-IPX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3751" y="-11"/>
+            <point key="canvasLocation" x="4283" y="-11"/>
         </scene>
         <!--检索结果-->
         <scene sceneID="gzm-DP-Wbg">
@@ -2327,8 +2326,8 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="WSu-GY-dvX"/>
                                             <exclude reference="Pe9-9y-5z8"/>
+                                            <exclude reference="WSu-GY-dvX"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -2430,8 +2429,8 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="Fbz-Ao-aHI"/>
                                             <exclude reference="RHz-sa-hqK"/>
+                                            <exclude reference="Fbz-Ao-aHI"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -2538,7 +2537,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yfv-eg-DJy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4126" y="-11"/>
+            <point key="canvasLocation" x="4658" y="-11"/>
         </scene>
         <!--添加格子-->
         <scene sceneID="yVC-5u-v9g">
@@ -2735,7 +2734,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xXF-FP-8d5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4533" y="-11"/>
+            <point key="canvasLocation" x="5065" y="-11"/>
         </scene>
         <!--Document Search Table View Controller-->
         <scene sceneID="zWd-Ph-eay">
@@ -2801,7 +2800,7 @@
                                         <constraint firstAttribute="bottom" secondItem="6oQ-q0-zh4" secondAttribute="bottom" id="umo-e4-zSt"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dateLabel" destination="BFE-dm-bHi" id="5u7-bw-JTY"/>
                                     <outlet property="departmentLabel" destination="OgX-Jz-2El" id="bXE-A5-HO2"/>
@@ -2820,7 +2819,26 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RoS-Gg-A4r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4080" y="-717"/>
+            <point key="canvasLocation" x="4612" y="-717"/>
+        </scene>
+        <!--办公OA-->
+        <scene sceneID="kU0-65-AYb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uuH-iv-isD" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="办公OA" image="tabbar-oa" id="Vue-92-pPZ"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="pr1-AM-X7k">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8Lp-Df-7PC" kind="relationship" relationship="rootViewController" id="83Q-bs-dx5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1xK-k2-QKr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2563" y="-460"/>
         </scene>
     </scenes>
     <resources>
@@ -2829,8 +2847,9 @@
         <image name="library" width="800" height="512"/>
         <image name="tabbar-activity" width="32" height="32"/>
         <image name="tabbar-class" width="32" height="32"/>
+        <image name="tabbar-oa" width="32" height="32"/>
         <image name="tabbar-public" width="32" height="32"/>
-        <image name="tabbar-user" width="32" height="32"/>
+        <image name="tabbar-setting" width="32" height="32"/>
         <image name="toolbar-sync" width="23" height="23"/>
     </resources>
 </document>

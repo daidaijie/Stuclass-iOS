@@ -25,7 +25,7 @@
 static NSString *message_cell_id = @"MessageCell";
 static NSString *message_text_cell_id = @"MessageTextCell";
 
-@interface MessageTableViewController () <UIScrollViewDelegate>
+@interface MessageTableViewController () <UIScrollViewDelegate, SDWebImageManagerDelegate>
 
 @property (strong, nonatomic) NSMutableArray *messageData;
 
@@ -68,6 +68,8 @@ static NSString *message_text_cell_id = @"MessageTextCell";
 - (void)setupTableView
 {
     _manager = [ScrollManager sharedManager];
+ 
+    self.tableView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
     
     self.tableView.fd_debugLogEnabled = NO;
     
@@ -287,7 +289,6 @@ static NSString *message_text_cell_id = @"MessageTextCell";
     [cell setLike:message.likes.count commentNum:message.comments.count];
     
     // avatar
-    
     NSURL *avatarUrl = [NSURL URLWithString:message.avatarURL];
     [cell.avatarImageView sd_setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"default_avatar"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
@@ -326,7 +327,7 @@ static NSString *message_text_cell_id = @"MessageTextCell";
         [self getMoreMessages];
         _isLoadingMore = YES;
         [(DocumentFooterView *)self.tableView.tableFooterView showLoading];
-        NSLog(@"-------");
+//        NSLog(@"-------");
     }
 }
 
@@ -443,6 +444,7 @@ static NSString *message_text_cell_id = @"MessageTextCell";
     [(DocumentFooterView *)self.tableView.tableFooterView hideLoading];
     _isLoadingMore = NO;
 }
+
 
 
 
