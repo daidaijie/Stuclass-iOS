@@ -1109,7 +1109,7 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="hGL-nY-mVq">
-                        <barButtonItem key="rightBarButtonItem" title="分享" id="RnT-H1-j7r">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-share" id="RnT-H1-j7r">
                             <connections>
                                 <action selector="share:" destination="79z-Mj-fq8" id="DaD-hV-grF"/>
                             </connections>
@@ -1779,7 +1779,7 @@
         <scene sceneID="LqB-fZ-4br">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="amZ-Re-zSi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="消息圈" image="tabbar-public" id="vWt-Ap-IfJ"/>
+                    <tabBarItem key="tabBarItem" title="消息圈" image="tabbar-message" id="vWt-Ap-IfJ"/>
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="i1h-k7-7kp">
@@ -2847,9 +2847,10 @@
         <image name="library" width="800" height="512"/>
         <image name="tabbar-activity" width="32" height="32"/>
         <image name="tabbar-class" width="32" height="32"/>
+        <image name="tabbar-message" width="32" height="32"/>
         <image name="tabbar-oa" width="32" height="32"/>
-        <image name="tabbar-public" width="32" height="32"/>
         <image name="tabbar-setting" width="32" height="32"/>
+        <image name="toolbar-share" width="22" height="22"/>
         <image name="toolbar-sync" width="23" height="23"/>
     </resources>
 </document>
