@@ -53,10 +53,11 @@
             
             weekView.weekLabel.text = [self weekStrForWeek:i];
             weekView.dateLabel.text = [self dateAtWeekIndex:i];
-            
-            weekView.backgroundColor = [self colorForDay:i];
 
             [_weekViewArray addObject:weekView];
+            
+            [self setupWeekViewForTodayOrNotToday:i];
+            
             [self addSubview:weekView];
         }
     }
@@ -108,14 +109,13 @@
 }
 
 
-- (UIColor *)colorForDay:(NSUInteger)i
+- (BOOL)isToday:(NSUInteger)i
 {
     NSDate *todayDate = [NSDate date];
     NSInteger todayWeek = [[JHDater sharedInstance] weekForDate:todayDate];
     
-    return (todayWeek == i) ? [UIColor colorWithWhite:1.0 alpha:0.45] : [UIColor colorWithWhite:1.0 alpha:0.2];
+    return (todayWeek == i);
 }
-
 
 - (void)updateCurrentDateOnClassHeaderView
 {
@@ -126,8 +126,24 @@
         weekView.weekLabel.text = [self weekStrForWeek:i];
         weekView.dateLabel.text = [self dateAtWeekIndex:i];
         
-        weekView.backgroundColor = [self colorForDay:i];
-        
+        [self setupWeekViewForTodayOrNotToday:i];
+    }
+}
+
+- (void)setupWeekViewForTodayOrNotToday:(NSUInteger)i
+{
+    WeekView *weekView = self.weekViewArray[i];
+    
+    CGFloat k = SCREEN_WIDTH / 320.0;
+    
+    if ([self isToday:i]) {
+        weekView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
+        weekView.dateLabel.font = [UIFont systemFontOfSize:11.0 * k weight:UIFontWeightSemibold];
+        weekView.weekLabel.font = [UIFont systemFontOfSize:14.0 * k weight:UIFontWeightSemibold];
+    } else {
+        weekView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2];
+        weekView.dateLabel.font = [UIFont systemFontOfSize:10.0 * k];
+        weekView.weekLabel.font = [UIFont systemFontOfSize:13.0 * k];
     }
 }
 

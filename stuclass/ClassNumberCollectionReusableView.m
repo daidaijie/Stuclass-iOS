@@ -23,7 +23,7 @@
         _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _numLabel.textAlignment = NSTextAlignmentCenter;
         _numLabel.textColor = MAIN_COLOR;
-        _numLabel.font = [UIFont systemFontOfSize:13.0];
+        _numLabel.font = [UIFont systemFontOfSize:13.0 * [UIScreen mainScreen].bounds.size.width / 320.0];
         
         [self addSubview:_numLabel];
     }
