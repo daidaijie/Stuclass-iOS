@@ -34,7 +34,6 @@
     
     [self.webView loadHTMLString:_content baseURL:nil];
     
-    self.webView.allowsLinkPreview = YES;
     self.webView.dataDetectorTypes = UIDataDetectorTypeAll;
 }
 

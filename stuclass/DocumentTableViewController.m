@@ -7,7 +7,6 @@
 //
 
 #import "DocumentTableViewController.h"
-#import <KVNProgress/KVNProgress.h>
 #import "MBProgressHUD.h"
 #import <AFNetworking/AFNetworking.h>
 #import "Define.h"
@@ -28,11 +27,11 @@ static const NSUInteger kNumberOfDocuments = 30;
 
 @interface DocumentTableViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate>
 
+@property (strong, nonatomic) NSMutableArray *documentData;
+
 @property (strong, nonatomic) UIView *sectionHeaderView;
 
 @property (nonatomic) BOOL isLoadingMore;
-
-@property (assign, nonatomic) NSInteger pageindex;
 
 @property (assign, nonatomic) NSUInteger count;
 
@@ -53,8 +52,6 @@ static const NSUInteger kNumberOfDocuments = 30;
     [self setupTableView];
     
     [self oa];
-
-    _pageindex = 1;
 }
 
 #pragma mark - Setup Method

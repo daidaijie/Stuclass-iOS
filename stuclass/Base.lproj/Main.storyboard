@@ -2816,6 +2816,9 @@
                     </tableView>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <segue destination="79z-Mj-fq8" kind="show" identifier="ShowDocumentDetail" id="MiE-cx-IUJ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RoS-Gg-A4r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2853,4 +2856,7 @@
         <image name="toolbar-share" width="22" height="22"/>
         <image name="toolbar-sync" width="23" height="23"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="MiE-cx-IUJ"/>
+    </inferredMetricsTieBreakers>
 </document>

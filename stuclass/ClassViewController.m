@@ -580,14 +580,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
         etvc.examData = examData;
         
-    } else if ([segue.identifier isEqualToString:@"ShowDocument"]) {
-        
-        
-        DocumentTableViewController *dtvc = segue.destinationViewController;
-        
-        NSMutableArray *documentData = sender;
-        
-        dtvc.documentData = documentData;
     }
 }
 
