@@ -7,21 +7,19 @@
 //
 
 #import "BackgoundTableViewController.h"
-#import "GKImagePickerController.h"
-#import "GKImagePicker.h"
 #import <KVNProgress/KVNProgress.h>
 #import "MobClick.h"
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
-@interface BackgoundTableViewController () <GKImagePickerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
+@interface BackgoundTableViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @property (assign, nonatomic) NSInteger bgSection;
 
 @property (assign, nonatomic) NSInteger bgIndex;
 
-@property (strong, nonatomic) GKImagePicker *imagePicker;
+@property (strong, nonatomic) UIImagePickerController *imagePickerController;
 
 @end
 
@@ -39,12 +37,12 @@
 
 - (void)setupImagePicker
 {
-    _imagePicker = [[GKImagePicker alloc] init];
-    CGSize cropSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
-    cropSize.width -= 4;
-    cropSize.height -= 4;
-    _imagePicker.cropSize = cropSize;
-    _imagePicker.delegate = self;
+    _imagePickerController = [[UIImagePickerController alloc] init];
+//    CGSize cropSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
+//    cropSize.width -= 4;
+//    cropSize.height -= 4;
+//    _imagePicker.cropSize = cropSize;
+    _imagePickerController.delegate = self;
 }
 
 
@@ -140,7 +138,7 @@
             // 从相册中选择
             [MobClick event:@"Setting_Background_Custom"];
             
-            if (!_imagePicker) {
+            if (!_imagePickerController) {
                 [self setupImagePicker];
             }
             
@@ -149,8 +147,8 @@
                 return;
             }
             
-            _imagePicker.imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController:_imagePicker.imagePickerController animated:YES completion:nil];
+            _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:_imagePickerController animated:YES completion:nil];
         }
     }
 }
@@ -162,18 +160,11 @@
 }
 
 
-#pragma mark - GKImagePickerDelegate
+#pragma mark - UIImagePickerControllerDelegate
 
-// 选择取消
-- (void)imagePickerDidCancel:(GKImagePicker *)imagePicker
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    [imagePicker.imagePickerController dismissViewControllerAnimated:YES completion:nil];
-}
-
-// 选择图片
-- (void)imagePicker:(GKImagePicker *)imagePicker pickedImage:(UIImage *)image
-{
-    NSLog(@"cropSizeImage - width %f - height %f", image.size.width, image.size.height);
+    UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
     [self saveImage:image];
 }
 
@@ -201,24 +192,13 @@
     _bgIndex = -1;
     [self.tableView reloadData];
     
-    [_imagePicker.imagePickerController dismissViewControllerAnimated:YES completion:nil];
+    [_imagePickerController dismissViewControllerAnimated:YES completion:nil];
     
-    [KVNProgress showSuccessWithStatus:@"设置成功"];
+    [KVNProgress showSuccessWithStatus:@"设置成功" completion:^{
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    }];
 }
 
-
-// 改变图像的尺寸
-- (UIImage *)scaleFromImage:(UIImage *)image toSize:(CGSize)size
-{
-    UIGraphicsBeginImageContext(size);
-    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    NSLog(@"图片尺寸 - %f x %f", size.width, size.height);
-    
-    return newImage;
-}
 
 @end
 

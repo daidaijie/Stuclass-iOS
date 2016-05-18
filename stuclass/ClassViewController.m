@@ -337,7 +337,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     NSInteger semester = [dict[@"semester"] integerValue];
     
-    NSString *semesterStr = @"";
+    NSString *semesterStr = @"冬季学期";
     
     switch (semester) {
             
