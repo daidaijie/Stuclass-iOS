@@ -10,6 +10,6 @@
 
 @interface DocumentDetailViewController : UIViewController
 
-@property (copy, nonatomic) NSString *url;
+@property (copy, nonatomic) NSString *content;
 
 @end

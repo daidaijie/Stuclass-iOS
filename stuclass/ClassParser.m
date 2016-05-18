@@ -381,22 +381,50 @@
 
 #pragma mark - OA Parser
 
-- (NSMutableArray *)parseDocumentData:(NSDictionary *)documentData
+- (NSMutableArray *)parseDocumentData:(NSArray *)documentData
 {
     // parse
     
     NSMutableArray *documentArray = [NSMutableArray array];
     
-    for (NSDictionary *dict in documentData[@"DOCUMENTS"]) {
+    for (NSDictionary *dict in documentData) {
         
-        Document *document = [[Document alloc] init];
+        NSString *date = dict[@"DOCVALIDDATE"];
         
-        document.title = dict[@"title"];
-        document.date = dict[@"date"];
-        document.url = dict[@"url"];
-        document.department = dict[@"department"];
-        
-        [documentArray addObject:document];
+        if (![date isEqual:[NSNull null]]) {
+            
+            Document *document = [[Document alloc] init];
+            
+            NSString *title = dict[@"DOCSUBJECT"];
+            if (![title isEqual:[NSNull null]]) {
+                document.title = title;
+            } else {
+                document.title = @"没有标题";
+            }
+            
+            NSString *content = dict[@"DOCCONTENT"];
+            if (![content isEqual:[NSNull null]]) {
+                
+                // 去掉!@#$%^&*
+                NSArray *seperates = [content componentsSeparatedByString:@"!@#$\%^&*"];
+                
+                document.content = [seperates lastObject]
+                ;
+            } else {
+                document.content = @"没有内容";
+            }
+            
+            NSString *department = dict[@"SUBCOMPANYNAME"];
+            if (![department isEqual:[NSNull null]]) {
+                document.department = department;
+            } else {
+                document.department = @"没有部门";
+            }
+            
+            document.date = dict[@"DOCVALIDDATE"];
+            
+            [documentArray addObject:document];
+        }
     }
     
     return documentArray;

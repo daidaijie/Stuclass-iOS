@@ -12,7 +12,7 @@
 
 @property (strong, nonatomic) NSString *department;
 @property (strong, nonatomic) NSString *title;
-@property (strong, nonatomic) NSString *url;
+@property (strong, nonatomic) NSString *content;
 @property (strong, nonatomic) NSString *date;
 
 @end

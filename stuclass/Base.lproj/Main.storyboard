@@ -1126,7 +1126,7 @@
             </objects>
             <point key="canvasLocation" x="3792" y="-444"/>
         </scene>
-        <!--办公OA-->
+        <!--汕大OA-->
         <scene sceneID="ouH-wT-ZPe">
             <objects>
                 <tableViewController id="8Lp-Df-7PC" customClass="DocumentTableViewController" sceneMemberID="viewController">
@@ -1204,7 +1204,7 @@
                             <outlet property="delegate" destination="8Lp-Df-7PC" id="D6x-Np-3dE"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="办公OA" id="xPV-rF-4dd">
+                    <navigationItem key="navigationItem" title="汕大OA" id="xPV-rF-4dd">
                         <barButtonItem key="leftBarButtonItem" systemItem="organize" id="KXj-Eh-dv9">
                             <connections>
                                 <segue destination="tER-yV-SWc" kind="show" identifier="ShowDocumentFavorite" id="YPE-LQ-jWd"/>
@@ -2821,11 +2821,11 @@
             </objects>
             <point key="canvasLocation" x="4612" y="-717"/>
         </scene>
-        <!--办公OA-->
+        <!--汕大OA-->
         <scene sceneID="kU0-65-AYb">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uuH-iv-isD" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="办公OA" image="tabbar-oa" id="Vue-92-pPZ"/>
+                    <tabBarItem key="tabBarItem" title="汕大OA" image="tabbar-oa" id="Vue-92-pPZ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pr1-AM-X7k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

@@ -30,39 +30,42 @@
 
 - (void)setupWebView
 {
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    self.webView.scalesPageToFit = NO;
     
-    [self performSelector:@selector(showDetailWithURL:) withObject:_url afterDelay:0.4];
+    [self.webView loadHTMLString:_content baseURL:nil];
+    
+    self.webView.allowsLinkPreview = YES;
+    self.webView.dataDetectorTypes = UIDataDetectorTypeAll;
 }
 
 
-- (void)showDetailWithURL:(NSString *)url
-{
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer.timeoutInterval = 3.0;
-    [manager.requestSerializer setValue:@"Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4" forHTTPHeaderField:@"User-Agent"];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        [self.webView loadHTMLString:[self dealWithHtml:operation.responseString] baseURL:nil];
-        
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        NSLog(@"失败 - %@", error);
-        
-        [self showHUDWithText:@"当前网络不可用(需要连入校内网)" andHideDelay:1.6];
-        
-        [self performSelector:@selector(popover) withObject:nil afterDelay:1.6];
-    }];
-}
+//- (void)showDetailWithURL:(NSString *)url
+//{
+//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+//    manager.requestSerializer.timeoutInterval = 3.0;
+//    [manager.requestSerializer setValue:@"Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4" forHTTPHeaderField:@"User-Agent"];
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        
+//        [self.webView loadHTMLString:[self dealWithHtml:operation.responseString] baseURL:nil];
+//        
+//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//        
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+//        NSLog(@"失败 - %@", error);
+//        
+//        [self showHUDWithText:@"当前网络不可用(需要连入校内网)" andHideDelay:1.6];
+//        
+//        [self performSelector:@selector(popover) withObject:nil afterDelay:1.6];
+//    }];
+//}
 
-- (void)popover
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//- (void)popover
+//{
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
 
 - (NSString *)dealWithHtml:(NSString *)responseHtml

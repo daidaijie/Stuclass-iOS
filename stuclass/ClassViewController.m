@@ -242,11 +242,11 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         NSInteger bgSection = [[NSUserDefaults standardUserDefaults] integerForKey:@"bgSection"];
         NSInteger bgIndex = [[NSUserDefaults standardUserDefaults] integerForKey:@"bgIndex"];
         UIImage *bgImage = [UIImage imageNamed:[NSString stringWithFormat:@"class_bg_%d_%d.jpg", bgSection, bgIndex]];
-        _bgImageView.image = bgImage ? bgImage : [UIImage imageNamed:@"class_bg_1_8.jpg"];
+        _bgImageView.image = bgImage ? bgImage : [UIImage imageNamed:@"class_bg_1_6.jpg"];
         
         if (!bgImage) {
             [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"bgSection"];
-            [[NSUserDefaults standardUserDefaults] setInteger:8 forKey:@"bgIndex"];
+            [[NSUserDefaults standardUserDefaults] setInteger:6 forKey:@"bgIndex"];
         }
     }
     

@@ -167,7 +167,7 @@ static NSString *cell_id = @"DocumentTableViewCell";
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     DocumentDetailViewController *ddvc = [sb instantiateViewControllerWithIdentifier:@"ddvc"];
-    ddvc.url = dict[@"url"];
+    ddvc.content = dict[@"content"];
     ddvc.title = dict[@"title"];
     [self.navigationController pushViewController:ddvc animated:YES];
 }
@@ -201,13 +201,6 @@ static NSString *cell_id = @"DocumentTableViewCell";
 
         NSUInteger section = actionSheet.tag - 10000;
 
-        NSMutableDictionary *document = [NSMutableDictionary dictionary];
-
-        document[@"title"] = _documentData[section][@"title"];
-        document[@"url"] = _documentData[section][@"url"];
-        document[@"department"] = _documentData[section][@"department"];
-        document[@"date"] = _documentData[section][@"date"];
-
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 
         NSMutableArray *documentArray = [NSMutableArray arrayWithArray:[ud objectForKey:@"DOCUMENTS"]];
@@ -216,7 +209,9 @@ static NSString *cell_id = @"DocumentTableViewCell";
 
         for (NSInteger i = 0; i < documentArray.count; i++) {
 
-            if ([document[@"title"] isEqualToString:_documentData[section][@"title"]]) {
+            NSString *title = _documentData[section][@"title"];
+            
+            if ([title isEqualToString:documentArray[i][@"title"]]) {
                 // 找到
                 flag = i;
                 break;
@@ -245,7 +240,7 @@ static NSString *cell_id = @"DocumentTableViewCell";
 
         document[@"title"] = _documentData[section][@"title"];
         document[@"department"] = _documentData[section][@"department"];
-        document[@"url"] = _documentData[section][@"url"];
+        document[@"content"] = _documentData[section][@"content"];
         document[@"date"] = _documentData[section][@"date"];
 
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];

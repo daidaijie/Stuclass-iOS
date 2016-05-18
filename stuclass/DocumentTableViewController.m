@@ -21,8 +21,9 @@
 
 static NSString *cell_id = @"DocumentTableViewCell";
 
-
 static const CGFloat kHeightForSectionHeader = 8.0;
+
+static const NSUInteger kNumberOfDocuments = 30;
 
 
 @interface DocumentTableViewController () <UIScrollViewDelegate, UIGestureRecognizerDelegate, UIActionSheetDelegate>
@@ -32,6 +33,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 @property (nonatomic) BOOL isLoadingMore;
 
 @property (assign, nonatomic) NSInteger pageindex;
+
+@property (assign, nonatomic) NSUInteger count;
 
 @property (strong, nonatomic) UILabel *startLabel;
 @property (strong, nonatomic) UIImageView *startImageView;
@@ -170,7 +173,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     Document *document = _documentData[section];
         
-    [self performSegueWithIdentifier:@"ShowDocumentDetail" sender:@{@"url": document.url, @"title": document.department}];
+    [self performSegueWithIdentifier:@"ShowDocumentDetail" sender:@{@"content": document.content, @"title": document.department}];
 }
 
 
@@ -182,16 +185,12 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         
         DocumentDetailViewController *ddvc = segue.destinationViewController;
         
-        ddvc.url = data[@"url"];
+        ddvc.content = data[@"content"];
         
         ddvc.title = data[@"title"];
     }
 }
 
-
-
-
-#pragma mark - OA
 
 - (void)refreshControlDidPull
 {
@@ -210,17 +209,12 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 - (void)sendOaRequest
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    _count = 0;
     
-    // ud
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *username = [ud valueForKey:@"USERNAME"];
-    NSString *token = [ud valueForKey:@"USER_TOKEN"];
-    
-    // post data
-    NSDictionary *postData = @{
-                               @"username": username,
-                               @"token": token,
-                               @"pageindex": @"1",
+    // get data
+    NSDictionary *getData = @{
+                              @"row_start": @"1",
+                              @"row_end": [NSString stringWithFormat:@"%d", kNumberOfDocuments],
                                };
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -229,16 +223,17 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, oa_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@", oa_wechat_url, oa_wechat_get_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"连接服务器 - 成功");
+//        NSLog(@"--------%@", responseObject);
         [self parseOaResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [self showHUDWithText:[NSString stringWithFormat:@"%@(连接外网)", global_connection_failed] andHideDelay:1.0];
+        [self showHUDWithText:global_connection_failed andHideDelay:1.0];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.refreshControl endRefreshing];
         self.tableView.userInteractionEnabled = YES;
@@ -248,31 +243,21 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 - (void)parseOaResponseObject:(id)responseObject
 {
-    if ([responseObject[@"ERROR"] isEqualToString:@"wrong token"]) {
-        // wrong token
-        [self showHUDWithText:global_connection_wrong_token andHideDelay:1.6];
-        [self performSelector:@selector(logout) withObject:nil afterDelay:1.6];
-        
-    } else if ([responseObject[@"ERROR"] isEqualToString:@"invalid input"]) {
-        // 未知错误
-        [self showHUDWithText:global_connection_failed andHideDelay:1.0];
-        self.tableView.userInteractionEnabled = YES;
-        
-    } else {
+    if (responseObject) {
+    
         // 成功
-        
         NSMutableArray *documentData = [[ClassParser sharedInstance] parseDocumentData:responseObject];
         
         _documentData = documentData;
-        
-        _pageindex = 1;
+
+        _count += kNumberOfDocuments;
         
         [self.tableView reloadData];
         
         _startLabel.hidden = _startImageView.hidden = YES;
-        self.tableView.userInteractionEnabled = YES;
     }
     
+    self.tableView.userInteractionEnabled = YES;
     [self.refreshControl endRefreshing];
 }
 
@@ -303,25 +288,19 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 - (void)sendMoreOaRequest
 {
-    // ud
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *username = [ud valueForKey:@"USERNAME"];
-    NSString *token = [ud valueForKey:@"USER_TOKEN"];
-    
-    // post data
-    NSDictionary *postData = @{
-                               @"username": username,
-                               @"token": token,
-                               @"pageindex": [NSNumber numberWithInteger:_pageindex + 1],
+    // get data
+    NSDictionary *getData = @{
+                              @"row_start": [NSString stringWithFormat:@"%d", _count + 1],
+                              @"row_end": [NSString stringWithFormat:@"%d", _count + kNumberOfDocuments],
                                };
-    NSLog(@"办公自动化 第%d页", _pageindex + 1);
+    NSLog(@"办公自动化 从%d开始", _count + 1);
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer.timeoutInterval = global_timeout;
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, oa_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@", oa_wechat_url, oa_wechat_get_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"连接服务器 - 成功");
         [self parseMoreOaResponseObject:responseObject];
@@ -330,7 +309,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-//        [self showHUDWithText:[NSString stringWithFormat:@"%@(连接外网)", global_connection_failed] andHideDelay:1.0];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         _isLoadingMore = NO;
     }];
@@ -339,53 +317,22 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
 - (void)parseMoreOaResponseObject:(id)responseObject
 {
-    if ([responseObject[@"ERROR"] isEqualToString:@"wrong token"]) {
-        
-        // wrong token
-        [self showHUDWithText:global_connection_wrong_token andHideDelay:1.6];
-        [self performSelector:@selector(logout) withObject:nil afterDelay:1.6];
-        
-    } else if ([responseObject[@"ERROR"] isEqualToString:@"invalid input"]) {
-        
-        // 未知错误
-        _isLoadingMore = NO;
-        
-    } else {
+    if (responseObject) {
         // 成功
         
         NSMutableArray *newDocumentData = [[ClassParser sharedInstance] parseDocumentData:responseObject];
         
         [_documentData addObjectsFromArray:newDocumentData];
         
-        _pageindex += 1;
+        _count += kNumberOfDocuments;
         
         [self.tableView reloadData];
         
         [(DocumentFooterView *)self.tableView.tableFooterView hideLoading];
-        
-        _isLoadingMore = NO;
     }
-}
-
-
-// Log Out
-- (void)logout
-{
-    [self logoutClearData];
-    [self.navigationController.tabBarController.navigationController popToRootViewControllerAnimated:YES];
     
+    _isLoadingMore = NO;
 }
-
-- (void)logoutClearData
-{
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    
-    // ud
-    [ud setValue:nil forKey:@"USER_TOKEN"];
-    [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
-    [ud setValue:nil forKey:@"NICKNAME"];
-}
-
 
 #pragma mark - HUD
 
@@ -456,13 +403,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
         Document *d = _documentData[section];
 
-        NSMutableDictionary *document = [NSMutableDictionary dictionary];
-
-        document[@"department"] = d.department;
-        document[@"title"] = d.title;
-        document[@"date"] = d.date;
-        document[@"url"] = d.url;
-
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 
         NSMutableArray *documentArray = [NSMutableArray arrayWithArray:[ud objectForKey:@"DOCUMENTS"]];
@@ -471,6 +411,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
 
         for (NSInteger i = 0; i < documentArray.count; i++) {
 
+            NSDictionary *document = documentArray[i];
+            
             if ([document[@"title"] isEqualToString:d.title]) {
                 // 找到
                 flag = i;
@@ -481,17 +423,11 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         if (flag != -1) {
             [documentArray removeObjectAtIndex:flag];
             [ud setObject:documentArray forKey:@"DOCUMENTS"];
-
+            
             [self showHUDWithText:@"取消成功" andHideDelay:0.8];
         }
 
-        _documentData = documentArray;
-
-        [self.tableView reloadData];
-
 //        [self displayUD];
-
-        [self showHUDWithText:@"取消成功" andHideDelay:0.8];
 
     } else if (actionSheet.tag < 10000 && buttonIndex == 0) {
         // 添加收藏
@@ -505,7 +441,7 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         document[@"department"] = d.department;
         document[@"title"] = d.title;
         document[@"date"] = d.date;
-        document[@"url"] = d.url;
+        document[@"content"] = d.content;
 
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
 
