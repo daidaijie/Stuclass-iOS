@@ -8,6 +8,9 @@
 
 #import "MessageActionView.h"
 
+static CGFloat kNormalTextColor = 0.5;
+static CGFloat kHighlightTextColor = 0.3;
+
 @interface MessageActionView ()
 
 @property (strong, nonatomic) UIButton *likeButton;
@@ -32,28 +35,33 @@
     _likeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, button_width, button_height)];
     [_likeButton setTitle:@" 喜欢(0)" forState:UIControlStateNormal];
     _likeButton.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [_likeButton setTitleColor:[UIColor colorWithWhite:0.5 alpha:1.0] forState:UIControlStateNormal];
+    [_likeButton setTitleColor:[UIColor colorWithWhite:kNormalTextColor alpha:1.0] forState:UIControlStateNormal];
+    [_likeButton setTitleColor:[UIColor colorWithWhite:kHighlightTextColor alpha:1.0] forState:UIControlStateHighlighted];
     [_likeButton setImage:[UIImage imageNamed:@"icon-like"] forState:UIControlStateNormal];
-    _likeButton.adjustsImageWhenHighlighted = NO;
+    _likeButton.adjustsImageWhenHighlighted = YES;
     [self addSubview:_likeButton];
     
     // commentButton
     _commentButton = [[UIButton alloc] initWithFrame:CGRectMake(button_width, 0, button_width, button_height)];
     [_commentButton setTitle:@" 评论(0)" forState:UIControlStateNormal];
     _commentButton.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [_commentButton setTitleColor:[UIColor colorWithWhite:0.5 alpha:1.0] forState:UIControlStateNormal];
+    [_commentButton setTitleColor:[UIColor colorWithWhite:kNormalTextColor alpha:1.0] forState:UIControlStateNormal];
+    [_commentButton setTitleColor:[UIColor colorWithWhite:kHighlightTextColor alpha:1.0] forState:UIControlStateHighlighted];
     [_commentButton setImage:[UIImage imageNamed:@"icon-comment"] forState:UIControlStateNormal];
-    _commentButton.adjustsImageWhenHighlighted = NO;
+    _commentButton.adjustsImageWhenHighlighted = YES;
     [self addSubview:_commentButton];
     
     // shareButton
     _shareButton = [[UIButton alloc] initWithFrame:CGRectMake(button_width * 2, 0, button_width, button_height)];
     [_shareButton setTitle:@" 分享" forState:UIControlStateNormal];
     _shareButton.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [_shareButton setTitleColor:[UIColor colorWithWhite:0.5 alpha:1.0] forState:UIControlStateNormal];
+    [_shareButton setTitleColor:[UIColor colorWithWhite:kNormalTextColor alpha:1.0] forState:UIControlStateNormal];
+    [_shareButton setTitleColor:[UIColor colorWithWhite:kHighlightTextColor alpha:1.0] forState:UIControlStateHighlighted];
     [_shareButton setImage:[UIImage imageNamed:@"icon-share"] forState:UIControlStateNormal];
-    _shareButton.adjustsImageWhenHighlighted = NO;
+    _shareButton.adjustsImageWhenHighlighted = YES;
     [self addSubview:_shareButton];
+    
+    
 }
 
 - (void)drawRect:(CGRect)rect

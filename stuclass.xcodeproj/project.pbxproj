@@ -642,7 +642,6 @@
 				1353ECC61CE6D7EE00E6E03E /* TreeHole */,
 				130299711C892B9500E4734C /* HeaderCollectionReusableView */,
 				1353ECC21CE6D78B00E6E03E /* MessageCell */,
-				13BDBFA01CE9A77A0031D5B8 /* Message */,
 				1326F7D21C02DB5E0016B88E /* MessageTableViewController.h */,
 				1326F7D31C02DB5E0016B88E /* MessageTableViewController.m */,
 				130A2B7C1CE811B7004927D8 /* Post */,
@@ -1148,6 +1147,7 @@
 		13D8E2C21BD71C430051617C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				13BDBFA01CE9A77A0031D5B8 /* Message */,
 				13FA79761CBB3CED00E8865A /* Task */,
 				13242F021C0805C1008D46F2 /* Document */,
 				136A27CC1C043C5800B45460 /* Exam */,
