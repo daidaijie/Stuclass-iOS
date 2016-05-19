@@ -31,6 +31,11 @@
 		131DCCBE1CE8686C0066649D /* MessageActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131DCCBD1CE8686C0066649D /* MessageActionView.m */; };
 		131DCCC11CE87C3E0066649D /* MessageImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131DCCC01CE87C3E0066649D /* MessageImgView.m */; };
 		131DCCC41CE955850066649D /* MessageTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 131DCCC31CE955850066649D /* MessageTextTableViewCell.m */; };
+		131E20911CECC44E003F09FA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 131E208D1CECC44E003F09FA /* libWeChatSDK.a */; };
+		131E20931CECC474003F09FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 131E20921CECC474003F09FA /* SystemConfiguration.framework */; };
+		131E20951CECC499003F09FA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 131E20941CECC499003F09FA /* CoreTelephony.framework */; };
+		131E20971CECC51B003F09FA /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 131E20961CECC51B003F09FA /* libc++.tbd */; };
+		131E20991CECC532003F09FA /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 131E20981CECC532003F09FA /* libsqlite3.0.tbd */; };
 		131EF3511BD7DAEA007ECFE8 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 131EF3501BD7DAEA007ECFE8 /* CoreDataManager.m */; };
 		131EF3551BD7DD95007ECFE8 /* ClassBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 131EF3541BD7DD95007ECFE8 /* ClassBox.m */; };
 		1320FC7B1C01BF500084B152 /* GradeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1320FC7A1C01BF500084B152 /* GradeTableViewController.m */; };
@@ -188,6 +193,13 @@
 		131DCCC01CE87C3E0066649D /* MessageImgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageImgView.m; sourceTree = "<group>"; };
 		131DCCC21CE955850066649D /* MessageTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTextTableViewCell.h; sourceTree = "<group>"; };
 		131DCCC31CE955850066649D /* MessageTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTextTableViewCell.m; sourceTree = "<group>"; };
+		131E208D1CECC44E003F09FA /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		131E208F1CECC44E003F09FA /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		131E20901CECC44E003F09FA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		131E20921CECC474003F09FA /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		131E20941CECC499003F09FA /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		131E20961CECC51B003F09FA /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		131E20981CECC532003F09FA /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		131EF34F1BD7DAEA007ECFE8 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		131EF3501BD7DAEA007ECFE8 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		131EF3531BD7DD95007ECFE8 /* ClassBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassBox.h; sourceTree = "<group>"; };
@@ -388,8 +400,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				131E20991CECC532003F09FA /* libsqlite3.0.tbd in Frameworks */,
+				131E20971CECC51B003F09FA /* libc++.tbd in Frameworks */,
+				131E20951CECC499003F09FA /* CoreTelephony.framework in Frameworks */,
+				131E20931CECC474003F09FA /* SystemConfiguration.framework in Frameworks */,
 				130243AE1C10472F00AA4A0E /* libz.tbd in Frameworks */,
 				130243AC1C10470600AA4A0E /* libMobClickLibrary.a in Frameworks */,
+				131E20911CECC44E003F09FA /* libWeChatSDK.a in Frameworks */,
 				9BCEBB769D71A8FCE5035FC5 /* Pods_stuclass.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -523,6 +540,16 @@
 				13242F101C089731008D46F2 /* DocumentDetailViewController.m */,
 			);
 			name = DocumentTableViewController;
+			sourceTree = "<group>";
+		};
+		131E208C1CECC44E003F09FA /* WXOpenSDK1.7 */ = {
+			isa = PBXGroup;
+			children = (
+				131E208D1CECC44E003F09FA /* libWeChatSDK.a */,
+				131E208F1CECC44E003F09FA /* WXApi.h */,
+				131E20901CECC44E003F09FA /* WXApiObject.h */,
+			);
+			path = WXOpenSDK1.7;
 			sourceTree = "<group>";
 		};
 		131EF34E1BD7DAC7007ECFE8 /* CoreDataManager */ = {
@@ -1056,6 +1083,7 @@
 		13C707241BC7DE55003061A4 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				131E208C1CECC44E003F09FA /* WXOpenSDK1.7 */,
 				130299751C892BDC00E4734C /* TAPageControl */,
 				130243A81C10470600AA4A0E /* UmengSDK */,
 				13CB2C771BDFD2A700460BE4 /* PlaceholderTextView */,
@@ -1266,6 +1294,10 @@
 		811F232ECC62EF514EDB4522 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				131E20981CECC532003F09FA /* libsqlite3.0.tbd */,
+				131E20961CECC51B003F09FA /* libc++.tbd */,
+				131E20941CECC499003F09FA /* CoreTelephony.framework */,
+				131E20921CECC474003F09FA /* SystemConfiguration.framework */,
 				130243AD1C10472F00AA4A0E /* libz.tbd */,
 				F4EF9641D1729ED32E64253A /* Pods_stuclass.framework */,
 			);
@@ -1839,6 +1871,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/stuclass/UmengSDK",
+					"$(PROJECT_DIR)/stuclass/WXOpenSDK1.7",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cillbox.stuclass;
@@ -1860,6 +1893,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/stuclass/UmengSDK",
+					"$(PROJECT_DIR)/stuclass/WXOpenSDK1.7",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.cillbox.stuclass;

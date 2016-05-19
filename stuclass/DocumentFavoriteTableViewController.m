@@ -168,7 +168,9 @@ static NSString *cell_id = @"DocumentTableViewCell";
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     DocumentDetailViewController *ddvc = [sb instantiateViewControllerWithIdentifier:@"ddvc"];
     ddvc.content = dict[@"content"];
-    ddvc.title = dict[@"title"];
+    ddvc.oa_title = dict[@"title"];
+    ddvc.date = dict[@"date"];
+    ddvc.title = dict[@"department"];
     [self.navigationController pushViewController:ddvc animated:YES];
 }
 

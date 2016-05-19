@@ -26,6 +26,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    // WXApi
+    [WXApi registerApp:@"wxcce81e2a1528e155"];
+    
     // Umeng
     [MobClick startWithAppkey:@"565fd3d1e0f55adf58000149" reportPolicy:BATCH channelId:@"App Store"];
     
@@ -164,8 +167,16 @@
     return _persistentStoreCoordinator;
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [WXApi handleOpenURL:url delegate:self];
+}
 
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [WXApi handleOpenURL:url delegate:self];
+}
 
 
 

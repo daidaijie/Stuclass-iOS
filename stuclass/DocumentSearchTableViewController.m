@@ -164,7 +164,7 @@ static const NSUInteger kNumberOfDocuments = 100;
     
     Document *document = _documentData[section];
     
-    [self performSegueWithIdentifier:@"ShowDocumentDetail" sender:@{@"content": document.content, @"title": document.department}];
+    [self performSegueWithIdentifier:@"ShowDocumentDetail" sender:@{@"content": document.content, @"department": document.department, @"title": document.title, @"date": document.date}];
 }
 
 
@@ -177,8 +177,9 @@ static const NSUInteger kNumberOfDocuments = 100;
         DocumentDetailViewController *ddvc = segue.destinationViewController;
         
         ddvc.content = data[@"content"];
-        
-        ddvc.title = data[@"title"];
+        ddvc.oa_title = data[@"title"];
+        ddvc.date = data[@"date"];
+        ddvc.title = data[@"department"];
     }
 }
 

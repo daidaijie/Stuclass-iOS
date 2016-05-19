@@ -12,4 +12,8 @@
 
 @property (copy, nonatomic) NSString *content;
 
+@property (copy, nonatomic) NSString *oa_title;
+
+@property (copy, nonatomic) NSString *date;
+
 @end

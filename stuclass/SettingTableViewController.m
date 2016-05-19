@@ -15,6 +15,7 @@
 #import "SDWebImageManager.h"
 #import <SIAlertView/SIAlertView.h>
 #import "BackgoundTableViewController.h"
+#import "WXApi.h"
 
 @interface SettingTableViewController () <NicknameChangedDelegate>
 
@@ -201,12 +202,83 @@
 
 - (void)share
 {
-    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-    pasteBoard.string = [NSString stringWithFormat:@"%@app/", global_host];
+    NSString *title = [NSString stringWithFormat:@"嗨！我[%@]在使用汕大课程表App！好赞呢！", [[NSUserDefaults standardUserDefaults] valueForKey:@"NICKNAME"]];
+    NSString *description = @"汕大课程表 - 汕大人必备的校园平台";
+    NSString *url = @"http://hjsmallfly.wicp.net/app";
     
-    [self showHUDWithText:@"下载链接已添加到剪贴板" andHideDelay:1.6];
     
-    [self performSelector:@selector(diselectCell) withObject:nil afterDelay:1.6];
+    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"分享给朋友" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = NO;
+            sendReq.scene = 0;
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            urlMessage.title = title;
+            urlMessage.description = description;
+            [urlMessage setThumbImage:[UIImage imageNamed:@"WXAppIcon"]];
+            
+            //创建多媒体对象
+            WXWebpageObject *webObj = [WXWebpageObject object];
+            webObj.webpageUrl = url;
+            
+            //完成发送对象实例
+            urlMessage.mediaObject = webObj;
+            sendReq.message = urlMessage;
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+            
+            [self diselectCell];
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信朋友圈" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = NO;
+            sendReq.scene = 1;
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            urlMessage.title = title;
+            urlMessage.description = description;
+            [urlMessage setThumbImage:[UIImage imageNamed:@"WXAppIcon"]];
+            
+            //创建多媒体对象
+            WXWebpageObject *webObj = [WXWebpageObject object];
+            webObj.webpageUrl = url;
+            
+            //完成发送对象实例
+            urlMessage.mediaObject = webObj;
+            sendReq.message = urlMessage;
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+            
+            [self diselectCell];
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *alertAction){
+            [self diselectCell];
+        }]];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+        
+    } else {
+        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+        pasteBoard.string = @"http://hjsmallfly.wicp.net/app";
+        
+        [self showHUDWithText:@"下载链接已添加到剪贴板" andHideDelay:1.6];
+        
+        [self performSelector:@selector(diselectCell) withObject:nil afterDelay:1.6];
+    }
 }
 
 

@@ -10,6 +10,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import "MBProgressHUD.h"
 #import "Define.h"
+#import "WXApi.h"
 
 @interface DocumentDetailViewController () <UIWebViewDelegate>
 
@@ -36,43 +37,6 @@
     
     self.webView.dataDetectorTypes = UIDataDetectorTypeAll;
 }
-
-
-//- (void)showDetailWithURL:(NSString *)url
-//{
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    manager.requestSerializer.timeoutInterval = 3.0;
-//    [manager.requestSerializer setValue:@"Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.3 (KHTML, like Gecko) Version/8.0 Mobile/12A4345d Safari/600.1.4" forHTTPHeaderField:@"User-Agent"];
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        
-//        [self.webView loadHTMLString:[self dealWithHtml:operation.responseString] baseURL:nil];
-//        
-//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        
-//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//        NSLog(@"失败 - %@", error);
-//        
-//        [self showHUDWithText:@"当前网络不可用(需要连入校内网)" andHideDelay:1.6];
-//        
-//        [self performSelector:@selector(popover) withObject:nil afterDelay:1.6];
-//    }];
-//}
-
-//- (void)popover
-//{
-//    [self.navigationController popViewControllerAnimated:YES];
-//}
-
-
-- (NSString *)dealWithHtml:(NSString *)responseHtml
-{
-    responseHtml = [[[[responseHtml stringByReplacingOccurrencesOfString:@"FONT-FAMILY: Verdana;" withString:@"background: #eeeeee;"] stringByReplacingOccurrencesOfString:@"#ffffff" withString:@"#eeeeee"] stringByReplacingOccurrencesOfString:@"<hr />" withString:@""] stringByReplacingOccurrencesOfString:@"<hr>" withString:@""];
-    return responseHtml;
-}
-
 
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
@@ -105,21 +69,85 @@
 
 - (IBAction)share:(id)sender
 {
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"分享" message:@"\"告诉你同学可以拿奖学金了\"" preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    [controller addAction:[UIAlertAction actionWithTitle:@"微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
         
-    }]];
-    
-    [controller addAction:[UIAlertAction actionWithTitle:@"微信朋友圈" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
+        NSString *title = [NSString stringWithFormat:@"%@", _oa_title];
+        NSString *description = [NSString stringWithFormat:@"%@\n%@\n(仅提供官网地址)", self.title, _date];
         
-    }]];
-    
-    [controller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *alertAction){
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"分享" message:@"\"告诉你同学他上办公自动化了\"" preferredStyle:UIAlertControllerStyleActionSheet];
         
-    }]];
-    
-    [self presentViewController:controller animated:YES completion:nil];
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = YES;
+            sendReq.scene = 0;
+            sendReq.text = [self filterHTML:_content];
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+            
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信朋友圈" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
+            
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = NO;
+            sendReq.scene = 1;
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            urlMessage.title = title;
+            urlMessage.description = description;
+            [urlMessage setThumbImage:[UIImage imageNamed:@"WXAppIcon"]];
+            
+            //创建多媒体对象
+            WXWebpageObject *webObj = [WXWebpageObject object];
+            webObj.webpageUrl = @"http://wechat.stu.edu.cn/oa";
+            
+            //完成发送对象实例
+            urlMessage.mediaObject = webObj;
+            sendReq.message = urlMessage;
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *alertAction){
+            
+        }]];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+        
+    } else {
+        
+        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+        pasteBoard.string = [self filterHTML:_content];
+        
+        [self showHUDWithText:@"内容已添加到剪贴板" andHideDelay:1.6];
+    }
+}
+
+-(NSString *)filterHTML:(NSString *)html
+{
+    NSScanner * scanner = [NSScanner scannerWithString:html];
+    NSString * text = nil;
+    while([scanner isAtEnd]==NO)
+    {
+        //找到标签的起始位置
+        [scanner scanUpToString:@"<" intoString:nil];
+        //找到标签的结束位置
+        [scanner scanUpToString:@">" intoString:&text];
+        //替换字符
+        html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>",text] withString:@""];
+    }
+    html = [html stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
+    html = [html stringByReplacingOccurrencesOfString:@"&mdash;" withString:@"-"];
+    html = [html stringByReplacingOccurrencesOfString:@"&ldquo;" withString:@"\""];
+    html = [html stringByReplacingOccurrencesOfString:@"&rdquo;" withString:@"\""];
+    return html;
 }
 
 
