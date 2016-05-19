@@ -72,7 +72,7 @@
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
         
         NSString *title = [NSString stringWithFormat:@"%@", _oa_title];
-        NSString *description = [NSString stringWithFormat:@"%@\n%@\n(仅提供官网地址)", self.title, _date];
+        NSString *description = [NSString stringWithFormat:@"%@\n%@\n(点击打开App)", self.title, _date];
         
         UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"分享" message:@"\"告诉你同学他上办公自动化了\"" preferredStyle:UIAlertControllerStyleActionSheet];
         
@@ -80,9 +80,22 @@
             
             //创建发送对象实例
             SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
-            sendReq.bText = YES;
+            sendReq.bText = NO;
             sendReq.scene = 0;
-            sendReq.text = [self filterHTML:_content];
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            urlMessage.title = title;
+            urlMessage.description = description;
+            [urlMessage setThumbImage:[UIImage imageNamed:@"WXAppIcon"]];
+            
+            //创建多媒体对象
+            WXWebpageObject *webObj = [WXWebpageObject object];
+            webObj.webpageUrl = @"http://chuckwo.com:81/app/jump.html";
+            
+            //完成发送对象实例
+            urlMessage.mediaObject = webObj;
+            sendReq.message = urlMessage;
             
             //发送分享信息
             [WXApi sendReq:sendReq];
@@ -90,7 +103,6 @@
         }]];
         
         [controller addAction:[UIAlertAction actionWithTitle:@"微信朋友圈" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
-            
             
             //创建发送对象实例
             SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
@@ -105,7 +117,7 @@
             
             //创建多媒体对象
             WXWebpageObject *webObj = [WXWebpageObject object];
-            webObj.webpageUrl = @"http://wechat.stu.edu.cn/oa";
+            webObj.webpageUrl = @"http://chuckwo.com:81/app/jump.html";
             
             //完成发送对象实例
             urlMessage.mediaObject = webObj;
@@ -123,14 +135,12 @@
         
     } else {
         
-        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-        pasteBoard.string = [self filterHTML:_content];
-        
-        [self showHUDWithText:@"内容已添加到剪贴板" andHideDelay:1.6];
+        [self showHUDWithText:@"当前微信不可用" andHideDelay:1.6];
     }
 }
 
--(NSString *)filterHTML:(NSString *)html
+/*
+- (NSString *)filterHTML:(NSString *)html
 {
     NSScanner * scanner = [NSScanner scannerWithString:html];
     NSString * text = nil;
@@ -149,6 +159,7 @@
     html = [html stringByReplacingOccurrencesOfString:@"&rdquo;" withString:@"\""];
     return html;
 }
+ */
 
 
 - (void)didReceiveMemoryWarning {
