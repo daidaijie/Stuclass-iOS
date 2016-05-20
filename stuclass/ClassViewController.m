@@ -33,6 +33,7 @@
 #import <SIAlertView/SIAlertView.h>
 #import "AddBoxTableViewController.h"
 #import "BoxInfoViewController.h"
+#import "WXApi.h"
 
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
@@ -326,6 +327,10 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     // register SupplementaryView
     [_collectionView registerClass:[ClassNumberCollectionReusableView class] forSupplementaryViewOfKind:@"ClassNumber" withReuseIdentifier:@"ClassSupplementary"];
+    
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(shareClass)];
+    gesture.numberOfTouchesRequired = 3;
+    [_collectionView addGestureRecognizer:gesture];
 }
 
 
@@ -1283,6 +1288,117 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     _boxData = boxData;
     
     [_collectionView reloadData];
+}
+
+#pragma mark - ShareClass
+
+- (UIImage *)screenShot
+{
+    UIImage *image;
+    UIGraphicsBeginImageContextWithOptions(self.collectionView.contentSize, NO, 0.0);
+    
+    {
+        CGPoint savedContentOffset = self.collectionView.contentOffset;
+        CGRect savedFrame = self.collectionView.frame;
+        
+        self.collectionView.contentOffset = CGPointZero;
+        self.collectionView.frame = CGRectMake(0, 0, self.collectionView.contentSize.width, self.collectionView.contentSize.height);
+        
+        [self.collectionView.layer renderInContext: UIGraphicsGetCurrentContext()];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        self.collectionView.contentOffset = savedContentOffset;
+        self.collectionView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    
+    return image;
+}
+
+- (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize
+
+{
+    UIGraphicsBeginImageContext(CGSizeMake(reSize.width, reSize.height));
+    [image drawInRect:CGRectMake(0, 0, reSize.width, reSize.height)];
+    UIImage *reSizeImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return reSizeImage;
+}
+
+- (void)shareClass
+{
+    UIImage *image = [self screenShot];
+    
+    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"分享课表" message:@"课表截图已保存到相册" preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = NO;
+            sendReq.scene = 0;
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            
+            urlMessage.thumbImage = [UIImage imageNamed:@"WXAppIcon"];
+            
+            WXImageObject *imageObj = [WXImageObject object];
+            
+            imageObj.imageData = UIImageJPEGRepresentation(image, 1.0);
+            urlMessage.mediaObject = imageObj;
+            
+            urlMessage.thumbImage = [self reSizeImage:image toSize:CGSizeMake(200, 200 * image.size.height / image.size.width)];
+            
+            //完成发送对象实例
+            sendReq.message = urlMessage;
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+            
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信朋友圈" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = NO;
+            sendReq.scene = 1;
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            
+            urlMessage.thumbImage = [UIImage imageNamed:@"WXAppIcon"];
+            
+            WXImageObject *imageObj = [WXImageObject object];
+            
+            imageObj.imageData = UIImageJPEGRepresentation(image, 1.0);
+            urlMessage.mediaObject = imageObj;
+            
+            urlMessage.thumbImage = [self reSizeImage:image toSize:CGSizeMake(200, 200 * image.size.height / image.size.width)];
+            
+            //完成发送对象实例
+            sendReq.message = urlMessage;
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *alertAction){
+            
+        }]];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+        
+    } else {
+        
+        [self showHUDWithText:@"截图已保存到相册(当前微信不可用)" andHideDelay:1.6];
+    }
 }
 
 
