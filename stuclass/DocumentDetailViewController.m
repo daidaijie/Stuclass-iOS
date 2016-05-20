@@ -91,7 +91,7 @@
             
             //创建多媒体对象
             WXWebpageObject *webObj = [WXWebpageObject object];
-            webObj.webpageUrl = @"http://chuckwo.com:81/app/jump.html";
+            webObj.webpageUrl = jump_app_url;
             
             //完成发送对象实例
             urlMessage.mediaObject = webObj;
@@ -117,7 +117,7 @@
             
             //创建多媒体对象
             WXWebpageObject *webObj = [WXWebpageObject object];
-            webObj.webpageUrl = @"http://chuckwo.com:81/app/jump.html";
+            webObj.webpageUrl = jump_app_url;
             
             //完成发送对象实例
             urlMessage.mediaObject = webObj;

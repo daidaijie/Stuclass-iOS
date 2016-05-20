@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MessageActionViewDelegate <NSObject>
+
+- (void)messageActionViewDelegateDidPressButtonType:(NSUInteger)type;
+
+@end
+
 @interface MessageActionView : UIView
+
+@property (weak, nonatomic) id<MessageActionViewDelegate> delegate;
 
 - (void)setLike:(NSUInteger)likeNum commentNum:(NSUInteger)commentNum;
 

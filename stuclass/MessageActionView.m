@@ -39,6 +39,8 @@ static CGFloat kHighlightTextColor = 0.3;
     [_likeButton setTitleColor:[UIColor colorWithWhite:kHighlightTextColor alpha:1.0] forState:UIControlStateHighlighted];
     [_likeButton setImage:[UIImage imageNamed:@"icon-like"] forState:UIControlStateNormal];
     _likeButton.adjustsImageWhenHighlighted = YES;
+    [_likeButton addTarget:self action:@selector(buttonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    _likeButton.tag = 1;
     [self addSubview:_likeButton];
     
     // commentButton
@@ -49,6 +51,8 @@ static CGFloat kHighlightTextColor = 0.3;
     [_commentButton setTitleColor:[UIColor colorWithWhite:kHighlightTextColor alpha:1.0] forState:UIControlStateHighlighted];
     [_commentButton setImage:[UIImage imageNamed:@"icon-comment"] forState:UIControlStateNormal];
     _commentButton.adjustsImageWhenHighlighted = YES;
+    [_commentButton addTarget:self action:@selector(buttonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    _commentButton.tag = 2;
     [self addSubview:_commentButton];
     
     // shareButton
@@ -59,10 +63,25 @@ static CGFloat kHighlightTextColor = 0.3;
     [_shareButton setTitleColor:[UIColor colorWithWhite:kHighlightTextColor alpha:1.0] forState:UIControlStateHighlighted];
     [_shareButton setImage:[UIImage imageNamed:@"icon-share"] forState:UIControlStateNormal];
     _shareButton.adjustsImageWhenHighlighted = YES;
+    [_shareButton addTarget:self action:@selector(buttonDidPress:) forControlEvents:UIControlEventTouchUpInside];
+    _shareButton.tag = 3;
     [self addSubview:_shareButton];
-    
-    
 }
+
+
+- (void)buttonDidPress:(UIButton *)btn
+{
+    [_delegate messageActionViewDelegateDidPressButtonType:btn.tag];
+}
+
+
+
+- (void)setLike:(NSUInteger)likeNum commentNum:(NSUInteger)commentNum
+{
+    [_likeButton setTitle:[NSString stringWithFormat:@" 喜欢(%d)", likeNum] forState:UIControlStateNormal];
+    [_commentButton setTitle:[NSString stringWithFormat:@" 评论(%d)", commentNum] forState:UIControlStateNormal];
+}
+
 
 - (void)drawRect:(CGRect)rect
 {
@@ -93,12 +112,6 @@ static CGFloat kHighlightTextColor = 0.3;
     CGContextMoveToPoint(context, button_width*2, 9);
     CGContextAddLineToPoint(context, button_width*2, button_height-9);
     CGContextStrokePath(context);
-}
-
-- (void)setLike:(NSUInteger)likeNum commentNum:(NSUInteger)commentNum
-{
-    [_likeButton setTitle:[NSString stringWithFormat:@" 喜欢(%d)", likeNum] forState:UIControlStateNormal];
-    [_commentButton setTitle:[NSString stringWithFormat:@" 评论(%d)", commentNum] forState:UIControlStateNormal];
 }
 
 

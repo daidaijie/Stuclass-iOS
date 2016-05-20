@@ -30,7 +30,7 @@
 		131984101C072F62003C17E0 /* DocumentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1319840F1C072F62003C17E0 /* DocumentTableViewController.m */; };
 		131DCCBE1CE8686C0066649D /* MessageActionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131DCCBD1CE8686C0066649D /* MessageActionView.m */; };
 		131DCCC11CE87C3E0066649D /* MessageImgView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131DCCC01CE87C3E0066649D /* MessageImgView.m */; };
-		131DCCC41CE955850066649D /* MessageTextTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 131DCCC31CE955850066649D /* MessageTextTableViewCell.m */; };
+		131DCCC41CE955850066649D /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 131DCCC31CE955850066649D /* MessageTableViewCell.m */; };
 		131E20911CECC44E003F09FA /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 131E208D1CECC44E003F09FA /* libWeChatSDK.a */; };
 		131E20931CECC474003F09FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 131E20921CECC474003F09FA /* SystemConfiguration.framework */; };
 		131E20951CECC499003F09FA /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 131E20941CECC499003F09FA /* CoreTelephony.framework */; };
@@ -63,7 +63,7 @@
 		134AB7D81C01840E00D8E816 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7D71C01840E00D8E816 /* MoreView.m */; };
 		134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7DA1C0184AE00D8E816 /* MoreButton.m */; };
 		1353ECBC1CE6CB3E00E6E03E /* DocumentSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1353ECBB1CE6CB3E00E6E03E /* DocumentSearchTableViewController.m */; };
-		1353ECC11CE6D78300E6E03E /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1353ECBF1CE6D78300E6E03E /* MessageTableViewCell.m */; };
+		1353ECC11CE6D78300E6E03E /* MessageImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1353ECBF1CE6D78300E6E03E /* MessageImageTableViewCell.m */; };
 		1353ECC51CE6D7DD00E6E03E /* MessagePostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1353ECC41CE6D7DD00E6E03E /* MessagePostTableViewController.m */; };
 		13587A1E1CD5CC64005379FC /* AddBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13587A1D1CD5CC64005379FC /* AddBoxTableViewController.m */; };
 		1366D6681BD3E42600B69C04 /* BarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D6671BD3E42600B69C04 /* BarView.m */; };
@@ -191,8 +191,8 @@
 		131DCCBD1CE8686C0066649D /* MessageActionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageActionView.m; sourceTree = "<group>"; };
 		131DCCBF1CE87C3E0066649D /* MessageImgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageImgView.h; sourceTree = "<group>"; };
 		131DCCC01CE87C3E0066649D /* MessageImgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageImgView.m; sourceTree = "<group>"; };
-		131DCCC21CE955850066649D /* MessageTextTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTextTableViewCell.h; sourceTree = "<group>"; };
-		131DCCC31CE955850066649D /* MessageTextTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTextTableViewCell.m; sourceTree = "<group>"; };
+		131DCCC21CE955850066649D /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
+		131DCCC31CE955850066649D /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		131E208D1CECC44E003F09FA /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		131E208F1CECC44E003F09FA /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		131E20901CECC44E003F09FA /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
@@ -251,8 +251,8 @@
 		134AB7DA1C0184AE00D8E816 /* MoreButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreButton.m; sourceTree = "<group>"; };
 		1353ECBA1CE6CB3E00E6E03E /* DocumentSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentSearchTableViewController.h; sourceTree = "<group>"; };
 		1353ECBB1CE6CB3E00E6E03E /* DocumentSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentSearchTableViewController.m; sourceTree = "<group>"; };
-		1353ECBD1CE6D78300E6E03E /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
-		1353ECBF1CE6D78300E6E03E /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
+		1353ECBD1CE6D78300E6E03E /* MessageImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageImageTableViewCell.h; sourceTree = "<group>"; };
+		1353ECBF1CE6D78300E6E03E /* MessageImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageImageTableViewCell.m; sourceTree = "<group>"; };
 		1353ECC31CE6D7DD00E6E03E /* MessagePostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePostTableViewController.h; sourceTree = "<group>"; };
 		1353ECC41CE6D7DD00E6E03E /* MessagePostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePostTableViewController.m; sourceTree = "<group>"; };
 		13587A1C1CD5CC64005379FC /* AddBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBoxTableViewController.h; sourceTree = "<group>"; };
@@ -723,10 +723,10 @@
 			children = (
 				13F2690A1CE95EAF003BDA5C /* ScrollManager.h */,
 				13F2690B1CE95EAF003BDA5C /* ScrollManager.m */,
-				131DCCC21CE955850066649D /* MessageTextTableViewCell.h */,
-				131DCCC31CE955850066649D /* MessageTextTableViewCell.m */,
-				1353ECBD1CE6D78300E6E03E /* MessageTableViewCell.h */,
-				1353ECBF1CE6D78300E6E03E /* MessageTableViewCell.m */,
+				131DCCC21CE955850066649D /* MessageTableViewCell.h */,
+				131DCCC31CE955850066649D /* MessageTableViewCell.m */,
+				1353ECBD1CE6D78300E6E03E /* MessageImageTableViewCell.h */,
+				1353ECBF1CE6D78300E6E03E /* MessageImageTableViewCell.m */,
 				131DCCBF1CE87C3E0066649D /* MessageImgView.h */,
 				131DCCC01CE87C3E0066649D /* MessageImgView.m */,
 				131DCCBC1CE8686C0066649D /* MessageActionView.h */,
@@ -1707,7 +1707,7 @@
 				13242F051C0805D4008D46F2 /* Document.m in Sources */,
 				1366D6711BD4BAD500B69C04 /* DiscussViewController.m in Sources */,
 				131984101C072F62003C17E0 /* DocumentTableViewController.m in Sources */,
-				131DCCC41CE955850066649D /* MessageTextTableViewCell.m in Sources */,
+				131DCCC41CE955850066649D /* MessageTableViewCell.m in Sources */,
 				13766B121BDA456300322371 /* NoteTableViewController.m in Sources */,
 				136A27D41C043F8500B45460 /* ExamTableViewCell.m in Sources */,
 				13ED2C861BD88AB500E250A2 /* CourseTable+CoreDataProperties.m in Sources */,
@@ -1726,7 +1726,7 @@
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,
 				13F9F4C11C87C3F0004BE5A0 /* ClassWeekTableViewCell.m in Sources */,
 				137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */,
-				1353ECC11CE6D78300E6E03E /* MessageTableViewCell.m in Sources */,
+				1353ECC11CE6D78300E6E03E /* MessageImageTableViewCell.m in Sources */,
 				1312101F1CB4DB9000F91F10 /* MemberTableViewController.m in Sources */,
 				1366D67B1BD4EAA300B69C04 /* ClassInfoTableViewCell.m in Sources */,
 				137F4EA11C06155200A6DC0E /* NicknameTableViewController.m in Sources */,

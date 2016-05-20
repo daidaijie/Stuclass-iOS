@@ -108,6 +108,8 @@ static NSString *oa_wechat_url = @"http://wechat.stu.edu.cn//webservice_oa/OA";
 
 static NSString *oa_wechat_get_url = @"/GetDOCDetail";
 
+static NSString *jump_app_url = @"http://chuckwo.com:81/app/jump.html";
+
 
 #define UPDATE_CONTENT @"1. 现在可以自己添加课程啦(开发者表示弄得头疼)🙄;\n2. 在图书检索中长按可以显示具体位置;\n3. 修复了Bugs、优化了很多功能。(真)"
 

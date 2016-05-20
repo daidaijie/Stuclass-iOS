@@ -10,7 +10,7 @@
 #import "Define.h"
 #import <UITableView_FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>
 #import "MessageTableViewCell.h"
-#import "MessageTextTableViewCell.h"
+#import "MessageImageTableViewCell.h"
 #import "MBProgressHUD.h"
 #import <AFNetworking/AFNetworking.h>
 #import "JHDater.h"
@@ -20,12 +20,13 @@
 #import "Message.h"
 #import "ScrollManager.h"
 #import "DocumentFooterView.h"
+#import "WXApi.h"
 
 
-static NSString *message_cell_id = @"MessageCell";
-static NSString *message_text_cell_id = @"MessageTextCell";
+static NSString *message_text_cell_id = @"MessageTextTableViewCell";
+static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
-@interface MessageTableViewController () <UIScrollViewDelegate, SDWebImageManagerDelegate>
+@interface MessageTableViewController () <UIScrollViewDelegate, SDWebImageManagerDelegate, MessageTableViewCellDelegate>
 
 @property (strong, nonatomic) NSMutableArray *messageData;
 
@@ -247,13 +248,13 @@ static NSString *message_text_cell_id = @"MessageTextCell";
     
     if (message.imageURLs == nil || message.imageURLs.count == 0) {
         // text only
-        MessageTextTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_text_cell_id];
+        MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_text_cell_id];
         [self configureTextCell:cell atIndexPath:indexPath];
         return cell;
     } else {
         // image
-        MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_cell_id];
-        [self configureCell:cell atIndexPath:indexPath];
+        MessageImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_image_cell_id];
+        [self configureImageCell:cell atIndexPath:indexPath];
         return cell;
     }
 }
@@ -265,21 +266,25 @@ static NSString *message_text_cell_id = @"MessageTextCell";
     
     if (message.imageURLs == nil || message.imageURLs.count == 0) {
         // text only
-        return [tableView fd_heightForCellWithIdentifier:message_text_cell_id cacheByIndexPath:indexPath configuration:^(MessageTextTableViewCell *cell) {
+        return [tableView fd_heightForCellWithIdentifier:message_text_cell_id cacheByIndexPath:indexPath configuration:^(MessageTableViewCell *cell) {
             [self configureTextCell:cell atIndexPath:indexPath];
         }];
     } else {
         // image
-        return [tableView fd_heightForCellWithIdentifier:message_cell_id cacheByIndexPath:indexPath configuration:^(MessageTableViewCell *cell) {
-            [self configureCell:cell atIndexPath:indexPath];
+        return [tableView fd_heightForCellWithIdentifier:message_image_cell_id cacheByIndexPath:indexPath configuration:^(MessageImageTableViewCell *cell) {
+            [self configureImageCell:cell atIndexPath:indexPath];
         }];
     }
 }
 
 // Text
-- (void)configureTextCell:(MessageTextTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureTextCell:(MessageTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Message *message = _messageData[indexPath.section];
+    
+    // delegate
+    cell.delegate = self;
+    cell.tag = indexPath.section;
     
     cell.nameLabel.text = message.nickname;
     cell.contentLabel.text = message.content;
@@ -296,10 +301,14 @@ static NSString *message_text_cell_id = @"MessageTextCell";
 }
 
 // Image
-- (void)configureCell:(MessageTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+- (void)configureImageCell:(MessageImageTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
     Message *message = _messageData[indexPath.section];
 
+    // delegate
+    cell.delegate = self;
+    cell.tag = indexPath.section;
+    
     cell.nameLabel.text = message.nickname;
     cell.contentLabel.text = message.content;
     cell.dateLabel.text = message.date;
@@ -313,7 +322,7 @@ static NSString *message_text_cell_id = @"MessageTextCell";
         
     }];
     
-    cell.tag = indexPath.section;
+    // image
     [cell setContentImagesWithImageURLs:message.imageURLs];
     [cell setPage:[_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]];
     
@@ -433,6 +442,182 @@ static NSString *message_text_cell_id = @"MessageTextCell";
     }
     [self didFinishRefresh];
 }
+
+
+#pragma mark - MessageTableViewCellDelegate
+
+- (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize
+
+{
+    UIGraphicsBeginImageContext(CGSizeMake(reSize.width, reSize.height));
+    [image drawInRect:CGRectMake(0, 0, reSize.width, reSize.height)];
+    UIImage *reSizeImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return reSizeImage;
+}
+
+- (void)messageActionViewShareDidPressWithTag:(NSUInteger)tag
+{
+    Message *message = _messageData[tag];
+    
+    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+        
+        NSString *title = [NSString stringWithFormat:@"%@", message.content];
+        NSString *description = [NSString stringWithFormat:@"%@\n%@\n来自消息圈\n(点击打开App)", message.nickname, message.date];
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"分享" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = NO;
+            sendReq.scene = 0;
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            urlMessage.title = title;
+            urlMessage.description = description;
+            
+            MessageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
+            UIImage *avatarImg = cell.avatarImageView.image;
+            urlMessage.thumbImage = [self reSizeImage:avatarImg toSize:CGSizeMake(150, 150)];
+            
+            if ([cell isKindOfClass:[MessageImageTableViewCell class]]) {
+                // Image
+                WXImageObject *imageObj = [WXImageObject object];
+                MessageImageTableViewCell *imgCell = (MessageImageTableViewCell *)cell;
+                
+                UIImage *contentImg;
+                
+                NSUInteger pageIndex = [_manager getpageForKey:[NSString stringWithFormat:@"%i",tag]];
+                switch (pageIndex) {
+                    case 0:
+                        contentImg = imgCell.messageImgView.imageView1.image;
+                        break;
+                    case 1:
+                        contentImg = imgCell.messageImgView.imageView2.image;
+                        break;
+                    case 2:
+                        contentImg = imgCell.messageImgView.imageView3.image;
+                        break;
+                    default:
+                        break;
+                }
+                
+                imageObj.imageData = UIImageJPEGRepresentation(contentImg, 1.0);
+                urlMessage.mediaObject = imageObj;
+                
+                urlMessage.thumbImage = [self reSizeImage:contentImg toSize:CGSizeMake(200, 200 * contentImg.size.height / contentImg.size.width)];
+            } else {
+                // Text
+                WXWebpageObject *webObj = [WXWebpageObject object];
+                webObj.webpageUrl = jump_app_url;
+                urlMessage.mediaObject = webObj;
+            }
+            
+            //完成发送对象实例
+            sendReq.message = urlMessage;
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+            
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信朋友圈" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = NO;
+            sendReq.scene = 1;
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            urlMessage.title = title;
+            urlMessage.description = description;
+            
+            MessageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
+            UIImage *avatarImg = cell.avatarImageView.image;
+            urlMessage.thumbImage = [self reSizeImage:avatarImg toSize:CGSizeMake(150, 150)];
+            
+            if ([cell isKindOfClass:[MessageImageTableViewCell class]]) {
+                // Image
+                WXImageObject *imageObj = [WXImageObject object];
+                MessageImageTableViewCell *imgCell = (MessageImageTableViewCell *)cell;
+                
+                UIImage *contentImg;
+                
+                NSUInteger pageIndex = [_manager getpageForKey:[NSString stringWithFormat:@"%i",tag]];
+                switch (pageIndex) {
+                    case 0:
+                        contentImg = imgCell.messageImgView.imageView1.image;
+                        break;
+                    case 1:
+                        contentImg = imgCell.messageImgView.imageView2.image;
+                        break;
+                    case 2:
+                        contentImg = imgCell.messageImgView.imageView3.image;
+                        break;
+                    default:
+                        break;
+                }
+                
+                imageObj.imageData = UIImageJPEGRepresentation(contentImg, 1.0);
+                urlMessage.mediaObject = imageObj;
+                
+                urlMessage.thumbImage = [self reSizeImage:contentImg toSize:CGSizeMake(200, 200 * contentImg.size.height / contentImg.size.width)];
+            } else {
+                // Text
+                WXWebpageObject *webObj = [WXWebpageObject object];
+                webObj.webpageUrl = jump_app_url;
+                urlMessage.mediaObject = webObj;
+            }
+            
+            //完成发送对象实例
+            sendReq.message = urlMessage;
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *alertAction){
+            
+        }]];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+        
+    } else {
+        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+        pasteBoard.string = message.content;
+        [self showHUDWithText:@"文本内容已复制(当前微信不可用)" andHideDelay:1.6];
+    }
+}
+
+- (void)messageActionViewMoreDidPressWithTag:(NSUInteger)tag
+{
+    Message *message = _messageData[tag];
+    NSString *myUsername = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERNAME"];
+    
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"更多" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [controller addAction:[UIAlertAction actionWithTitle:@"复制" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+        pasteBoard.string = message.content;
+    }]];
+    
+    if ([myUsername isEqualToString:message.username]) {
+        [controller addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
+            
+        }]];
+    }
+    
+    [controller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *alertAction){
+        
+    }]];
+    
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
 
 
 
