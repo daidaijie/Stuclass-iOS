@@ -23,4 +23,6 @@
 
 - (NSMutableArray *)parseDocumentData:(NSArray *)documentData;
 
+- (NSMutableArray *)parseMessageData:(NSArray *)postList;
+
 @end

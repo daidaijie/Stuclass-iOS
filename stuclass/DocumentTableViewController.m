@@ -52,6 +52,20 @@ static const NSUInteger kNumberOfDocuments = 30;
     [self setupTableView];
     
     [self oa];
+    
+    [self showTip];
+}
+
+- (void)showTip
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    BOOL isSecondTimeOA = [ud boolForKey:@"SECOND_TIME_OA"];
+    
+    if (!isSecondTimeOA) {
+        [self showHUDWithText:@"长按可以收藏条文哟" andHideDelay:1.6];
+        [ud setBool:YES forKey:@"SECOND_TIME_OA"];
+    }
 }
 
 #pragma mark - Setup Method

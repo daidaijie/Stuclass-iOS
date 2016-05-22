@@ -13,6 +13,8 @@
 #import "Exam.h"
 #import "Document.h"
 #import "Define.h"
+#import "Message.h"
+#import "JHDater.h"
 
 @interface ClassParser ()
 
@@ -428,6 +430,61 @@
     }
     
     return documentArray;
+}
+
+
+
+#pragma mark - Message Parser
+
+- (NSMutableArray *)parseMessageData:(NSArray *)postList
+{
+    NSMutableArray *messageData = [NSMutableArray array];
+    
+    for (NSDictionary *dict in postList) {
+        
+        NSNumber *post_type = dict[@"post_type"];
+        
+        if ([post_type isEqualToNumber:@0]) {
+            
+            Message *message = [[Message alloc] init];
+            
+            // user
+            NSDictionary *userDict = dict[@"user"];
+            message.nickname = userDict[@"nickname"];
+            message.username = userDict[@"account"];
+            message.userid = userDict[@"id"];
+            message.avatarURL = [userDict[@"image"] isEqual:[NSNull null]] ? nil : userDict[@"image"];
+            
+            // data
+            message.messageid = dict[@"id"];
+            message.content = dict[@"content"];
+            NSString *dateStr = [[JHDater sharedInstance] dateStrFromMessageTimeString:dict[@"post_time"]];
+            message.date = dateStr;
+            
+            NSString *jsonStr = dict[@"photo_list_json"];
+            
+            if (jsonStr == nil || [jsonStr isEqual:[NSNull null]]) {
+                message.imageURLs = nil;
+            } else {
+                NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[jsonStr dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
+                NSArray *photoList = jsonDict[@"photo_list"];
+                
+                NSMutableArray *imageURLs = [NSMutableArray array];
+                for (NSDictionary *dict in photoList) {
+                    [imageURLs addObject:dict[@"size_small"]];
+                }
+                message.imageURLs = imageURLs;
+            }
+            
+            // comment
+            message.comments = dict[@"comments"];
+            message.likes = dict[@"thumb_ups"];
+            
+            [messageData addObject:message];
+        }
+    }
+    
+    return messageData;
 }
 
 
