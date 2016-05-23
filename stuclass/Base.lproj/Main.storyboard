@@ -306,7 +306,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="我的成绩" id="r5Z-1e-Jfo">
-                        <barButtonItem key="rightBarButtonItem" image="toolbar-sync" id="2iP-Se-vTH">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-refresh" id="2iP-Se-vTH">
                             <connections>
                                 <action selector="syncItemPress:" destination="gqs-Ns-1Ya" id="p5K-4D-IeO"/>
                             </connections>
@@ -367,7 +367,7 @@
                                     <action selector="shareItemPress:" destination="lQx-0V-2s8" id="OAp-Fb-aNr"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="toolbar-sync" id="tYV-5v-fEu">
+                            <barButtonItem image="toolbar-refresh" id="tYV-5v-fEu">
                                 <connections>
                                     <action selector="syncItemPress:" destination="lQx-0V-2s8" id="jMa-xx-Umj"/>
                                 </connections>
@@ -395,7 +395,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="校园动态" id="4v0-lO-sd3">
-                        <barButtonItem key="rightBarButtonItem" image="toolbar-sync" id="Rf6-5w-l7P">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-refresh" id="Rf6-5w-l7P">
                             <connections>
                                 <action selector="refresh:" destination="eSg-58-dSn" id="j3M-0t-rpt"/>
                             </connections>
@@ -421,7 +421,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="汕大树洞" id="UBx-z7-a1e">
-                        <barButtonItem key="rightBarButtonItem" systemItem="reply" id="fD6-WR-LCn">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-backward" id="fD6-WR-LCn">
                             <connections>
                                 <action selector="goBackPress:" destination="Unl-jU-xUT" id="bjA-tO-R6P"/>
                             </connections>
@@ -497,7 +497,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="同班同学" id="nJj-RC-vHw">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="bcb-Ry-hzr">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-search" id="bcb-Ry-hzr">
                             <connections>
                                 <action selector="searchButtonPress:" destination="o4M-Tj-tN3" id="wkj-Pw-CrU"/>
                             </connections>
@@ -1213,12 +1213,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="汕大OA" id="xPV-rF-4dd">
-                        <barButtonItem key="leftBarButtonItem" systemItem="organize" id="KXj-Eh-dv9">
+                        <barButtonItem key="leftBarButtonItem" image="toolbar-favorite" id="KXj-Eh-dv9">
                             <connections>
                                 <segue destination="tER-yV-SWc" kind="show" identifier="ShowDocumentFavorite" id="YPE-LQ-jWd"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="Vh3-i9-88j">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-search" id="Vh3-i9-88j">
                             <connections>
                                 <action selector="searchPress:" destination="8Lp-Df-7PC" id="lLf-06-6FP"/>
                             </connections>
@@ -1902,7 +1902,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="收藏" id="LBV-w5-UfU">
-                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="L7b-4b-tNY">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-trashbin" id="L7b-4b-tNY">
                             <connections>
                                 <action selector="trashPress:" destination="tER-yV-SWc" id="Tv8-TO-9iL"/>
                             </connections>
@@ -2092,7 +2092,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="我要做的事" id="AEf-LN-bME">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="zjM-jN-gpf">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-add" id="zjM-jN-gpf">
                             <connections>
                                 <segue destination="mWD-VR-PMc" kind="show" identifier="ShowTaskAdd" id="Qop-P2-w6j"/>
                             </connections>
@@ -2238,7 +2238,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="详细信息" id="EqJ-ug-Mh1">
-                        <barButtonItem key="rightBarButtonItem" image="toolbar-sync" id="wyk-3C-n4W">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-refresh" id="wyk-3C-n4W">
                             <connections>
                                 <action selector="refresh:" destination="Ktu-MZ-gjj" id="8lQ-1P-MIP"/>
                             </connections>
@@ -2459,12 +2459,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="消息圈" id="13e-bi-5Ex">
-                        <barButtonItem key="leftBarButtonItem" title="树洞" id="pJO-tI-5an">
+                        <barButtonItem key="leftBarButtonItem" image="toolbar-treehole" id="pJO-tI-5an">
                             <connections>
                                 <segue destination="Unl-jU-xUT" kind="show" identifier="ShowTreehole" id="SZL-ye-byw"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="pSm-Lo-7Hp"/>
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-add" id="pSm-Lo-7Hp"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
@@ -3059,10 +3059,16 @@
         <image name="tabbar-message" width="32" height="32"/>
         <image name="tabbar-oa" width="32" height="32"/>
         <image name="tabbar-setting" width="32" height="32"/>
+        <image name="toolbar-add" width="22" height="22"/>
+        <image name="toolbar-backward" width="22" height="22"/>
+        <image name="toolbar-favorite" width="22" height="22"/>
+        <image name="toolbar-refresh" width="22" height="22"/>
+        <image name="toolbar-search" width="22" height="22"/>
         <image name="toolbar-share" width="22" height="22"/>
-        <image name="toolbar-sync" width="23" height="23"/>
+        <image name="toolbar-trashbin" width="22" height="22"/>
+        <image name="toolbar-treehole" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MiE-cx-IUJ"/>
+        <segue reference="pi5-8A-XAZ"/>
     </inferredMetricsTieBreakers>
 </document>
