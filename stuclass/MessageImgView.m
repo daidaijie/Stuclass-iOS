@@ -9,6 +9,7 @@
 #import "MessageImgView.h"
 
 @interface MessageImgView()
+
 @end
 
 @implementation MessageImgView
@@ -19,8 +20,6 @@
     
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = width * 0.618;
-    
-    _numberOfImages = 3;
     
     // scrollView
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
@@ -58,9 +57,18 @@
     _pageControl.layer.shadowOffset = CGSizeMake(-0.15, 0.15);
     _pageControl.layer.shadowColor = [UIColor blackColor].CGColor;
     
-    
     [self addSubview:_pageControl];
+    
+    // bgGesture
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bgGestureDidTap:)];
+    [self addGestureRecognizer:gesture];
 }
+
+- (void)bgGestureDidTap:(UITapGestureRecognizer *)gesture
+{
+    [_delegate messageImgViewBgGestureDidPress];
+}
+
 
 @end
 

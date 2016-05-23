@@ -10,13 +10,13 @@
 #import "Define.h"
 #import "UIImageView+WebCache.h"
 
-@interface MessageImageTableViewCell () <UIScrollViewDelegate>
-
-//@property (strong, nonatomic) UIView *bottomLine;
+@interface MessageImageTableViewCell () <UIScrollViewDelegate, MessageImgViewDelegate>
 
 @end
 
 @implementation MessageImageTableViewCell
+
+@dynamic delegate;
 
 - (void)awakeFromNib {
     // Initialization code
@@ -28,7 +28,7 @@
     
     // messageImgView
     self.messageImgView.clipsToBounds = YES;
-    self.messageImgView.cell = self;
+    self.messageImgView.delegate = self;
 }
 
 
@@ -117,6 +117,14 @@
     }
 }
 
+
+#pragma mark - MessageImgViewDelegate
+
+- (void)messageImgViewBgGestureDidPress
+{
+    NSUInteger index = [_manager getpageForKey:[NSString stringWithFormat:@"%i", self.tag]];
+    [self.delegate messageImgViewBgGestureDidPressWithTag:self.tag Index:index];
+}
 
 @end
 

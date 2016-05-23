@@ -16,7 +16,6 @@
 
 @end
 
-
 @interface MessageTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;

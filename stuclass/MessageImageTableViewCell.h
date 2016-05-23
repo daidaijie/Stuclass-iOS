@@ -10,6 +10,13 @@
 #import "MessageImgView.h"
 #import "ScrollManager.h"
 
+@protocol MessageImageTableViewCellDelegate <NSObject, MessageTableViewCellDelegate>
+
+@optional
+- (void)messageImgViewBgGestureDidPressWithTag:(NSUInteger)tag Index:(NSUInteger)index;
+
+@end
+
 @interface MessageImageTableViewCell : MessageTableViewCell
 
 @property (weak, nonatomic) IBOutlet MessageImgView *messageImgView;
@@ -18,6 +25,7 @@
 
 @property (strong, nonatomic) ScrollManager *manager;
 
+@property (weak, nonatomic) id <MessageImageTableViewCellDelegate> delegate;
 
 - (void)setPage:(int)page;
 

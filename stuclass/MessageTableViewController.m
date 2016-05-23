@@ -22,12 +22,13 @@
 #import "DocumentFooterView.h"
 #import "WXApi.h"
 #import "ClassParser.h"
+#import "IDMPhotoBrowser.h"
 
 
 static NSString *message_text_cell_id = @"MessageTextTableViewCell";
 static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
-@interface MessageTableViewController () <UIScrollViewDelegate, SDWebImageManagerDelegate, MessageTableViewCellDelegate>
+@interface MessageTableViewController () <UIScrollViewDelegate, SDWebImageManagerDelegate, MessageTableViewCellDelegate, MessageImageTableViewCellDelegate, IDMPhotoBrowserDelegate>
 
 @property (strong, nonatomic) NSMutableArray *messageData;
 
@@ -71,6 +72,11 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 {
     _manager = [ScrollManager sharedManager];
  
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 44, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 44, 0);
+    
     self.tableView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
     
     self.tableView.fd_debugLogEnabled = NO;
@@ -401,6 +407,53 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 #pragma mark - MessageTableViewCellDelegate
 
+- (void)messageImgViewBgGestureDidPressWithTag:(NSUInteger)tag Index:(NSUInteger)index
+{
+    NSMutableArray *photos = [NSMutableArray arrayWithCapacity:3];
+    
+    MessageImageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
+    
+    for (NSUInteger i = 0; i < cell.messageImgView.pageControl.numberOfPages; i++) {
+        IDMPhoto *p;
+        switch (i) {
+            case 0:
+                p = [IDMPhoto photoWithImage:cell.messageImgView.imageView1.image];
+                break;
+            case 1:
+                p = [IDMPhoto photoWithImage:cell.messageImgView.imageView2.image];
+                break;
+            case 2:
+                p = [IDMPhoto photoWithImage:cell.messageImgView.imageView3.image];
+                break;
+            default:
+                break;
+        }
+        p.caption = cell.contentLabel.text;
+        [photos addObject:p];
+    }
+    
+    IDMPhotoBrowser *browser = [[IDMPhotoBrowser alloc] initWithPhotos:photos];
+    browser.tag = tag;
+    browser.delegate = self;
+    browser.displayCounterLabel = YES;
+    browser.forceHideStatusBar = YES;
+    [browser setInitialPageIndex:index];
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [self presentViewController:browser animated:YES completion:^{
+        BOOL isSecondTimeSeeImage = [ud boolForKey:@"SECOND_TIME_SEE_IMAGE"];
+        if (!isSecondTimeSeeImage) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:browser.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"上、下划退出图片浏览模式";
+            hud.margin = 10.f;
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:1.2];
+            [ud setBool:YES forKey:@"SECOND_TIME_SEE_IMAGE"];
+        }
+    }];
+}
+
 - (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize
 
 {
@@ -593,7 +646,18 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     }
 }
 
+#pragma mark - IDMPhotoBrowserDelegate
 
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+}
+
+
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser willDismissAtPageIndex:(NSUInteger)index
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+}
 
 
 @end

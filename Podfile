@@ -8,4 +8,5 @@ pod 'SDWebImage'
 pod 'MGSwipeTableCell'
 pod 'SIAlertView'
 pod 'UITableView+FDTemplateLayoutCell'
+pod 'IDMPhotoBrowser'
 end
