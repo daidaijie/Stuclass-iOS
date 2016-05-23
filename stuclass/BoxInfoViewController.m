@@ -32,7 +32,7 @@ static NSString *kTitleForNoteSection = @"备忘笔记";
 static const CGFloat kHeightForPostButton = 52;
 
 
-@interface BoxInfoViewController () <UITableViewDelegate, UITableViewDataSource, NoteTableViewControllerDelegate>
+@interface BoxInfoViewController () <UITableViewDelegate, UITableViewDataSource, NoteTableViewControllerDelegate, ClassEditBoxDelegate>
 
 @property (strong, nonatomic) NSArray *infoTitleArray;
 
@@ -136,7 +136,7 @@ static const CGFloat kHeightForPostButton = 52;
 
 - (void)initItem
 {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"修改" style:UIBarButtonItemStylePlain target:self action:@selector(editButtonPress)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-edit"] style:UIBarButtonItemStylePlain target:self action:@selector(editButtonPress)];
     self.navigationItem.rightBarButtonItem = item;
 }
 
@@ -210,6 +210,9 @@ static const CGFloat kHeightForPostButton = 52;
                 break;
             case 2:
                 content = ([_classBox.box_span[0] integerValue] == [_classBox.box_span[1] integerValue]) ? [NSString stringWithFormat:@"%d", [_classBox.box_span[0] integerValue]] : [NSString stringWithFormat:@"%d-%d", [_classBox.box_span[0] integerValue], [_classBox.box_span[1] integerValue]];
+                if (![_classBox.box_weekType isEqualToString:@""]) {
+                    content = [NSString stringWithFormat:@"%@(%@周)", content, _classBox.box_weekType];
+                }
                 break;
             default:
                 break;
@@ -309,7 +312,7 @@ static const CGFloat kHeightForPostButton = 52;
     
     EditBoxTableViewController *ebtvc = [sb instantiateViewControllerWithIdentifier:@"EditBoxTVC"];
     
-//    ebtvc.delegate = self;
+    ebtvc.delegate = self;
     
     ebtvc.boxData = _boxData;
     ebtvc.classBox = _classBox;
@@ -317,6 +320,17 @@ static const CGFloat kHeightForPostButton = 52;
     [self.navigationController pushViewController:ebtvc animated:YES];
 }
 
+#pragma mark - EditBoxDelegate
+
+- (void)editBoxDelegateDidEdit:(ClassBox *)classBox boxData:(NSArray *)boxData
+{
+    _classBox = classBox;
+    _boxData = boxData;
+    [self.tableView reloadData];
+    
+    // delegate
+    [_delegate boxInfoDelegateDidChanged:boxData];
+}
 
 
 

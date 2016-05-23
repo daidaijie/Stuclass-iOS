@@ -11,7 +11,7 @@
 
 @protocol ClassEditBoxDelegate <NSObject>
 
-//- (void)addBoxDelegateDidAdd:(NSArray *)boxData;
+- (void)editBoxDelegateDidEdit:(ClassBox *)classBox boxData:(NSArray *)boxData;
 
 @end
 

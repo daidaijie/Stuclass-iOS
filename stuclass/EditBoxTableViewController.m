@@ -72,6 +72,8 @@
     // Setup
     _textView.text = _classBox.box_name;
     _descriptionTextView.text = _classBox.box_description;
+    _textView.placeholder.hidden = (_textView.text.length > 0);
+    _descriptionTextView.placeholder.hidden = (_descriptionTextView.text.length > 0);
     
     _week = _classBox.box_x + 1;
     _start = _classBox.box_y + 1;
@@ -458,23 +460,31 @@
     if (![self checkConflict]) {
         // ok and update
         
+        
+        
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         NSString *username = [ud valueForKey:@"USERNAME"];
         NSDictionary *dict = [ud valueForKey:@"YEAR_AND_SEMESTER"];
         NSInteger year = [dict[@"year"] integerValue];
         NSInteger semester = [dict[@"semester"] integerValue];
         
-        NSString *classID = [[JHDater sharedInstance] dateStringForDate:[NSDate date] withFormate:@"yyyyMMddHHmmssff"];
-        
-        [[CoreDataManager sharedInstance] writeBoxToCoreDataWithClassName:_textView.text classID:classID week:_week start:_start span:_span startWeek:_startWeek endWeek:_endWeek weekType:_weekType description:_descriptionTextView.text isColor:_colorSwitch.isOn withYear:year semester:semester username:username];
+        [[CoreDataManager sharedInstance] editBoxToCoreDataWithClassName:_textView.text classID:_classBox.box_id week:_week start:_start span:_span startWeek:_startWeek endWeek:_endWeek weekType:_weekType description:_descriptionTextView.text isColor:_colorSwitch.isOn];
         
         NSArray *classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:username];
-        
         NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
         
-//        [_delegate addBoxDelegateDidAdd:boxData];
+        NSUInteger flag = -1;
+        for (NSUInteger i = 0; i < boxData.count; i++) {
+            ClassBox *box = boxData[i];
+            if ([_classBox.box_id isEqualToString:box.box_id]) {
+                flag = i;
+                break;
+            }
+        }
+        if (flag != -1) {
+            [_delegate editBoxDelegateDidEdit:boxData[flag] boxData:boxData];
+        }
         [self.navigationController popViewControllerAnimated:YES];
-        [self showHUDWithText:@"添加成功" andHideDelay:1.0];
     }
 }
 
@@ -488,6 +498,11 @@
         //        NSLog(@"x - %d y - %d", box.box_x, box.box_y);
         //        NSLog(@"span - %@", box.box_span);
         //        NSLog(@"type -  %@\n", box.box_weekType);
+        
+        // 不用和自己进行比较
+        if ([_classBox.box_id isEqualToString:box.box_id]) {
+            continue;
+        }
         
         NSUInteger startWeek = [box.box_span[0] integerValue];
         NSUInteger endWeek = [box.box_span[1] integerValue];

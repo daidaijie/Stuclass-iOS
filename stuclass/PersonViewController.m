@@ -213,6 +213,9 @@ static const CGFloat kHeightForPostButton = 52;
                 break;
             case 5:
                 content = ([_dvc.classBox.box_span[0] integerValue] == [_dvc.classBox.box_span[1] integerValue]) ? [NSString stringWithFormat:@"%d", [_dvc.classBox.box_span[0] integerValue]] : [NSString stringWithFormat:@"%d-%d", [_dvc.classBox.box_span[0] integerValue], [_dvc.classBox.box_span[1] integerValue]];
+                if (![_dvc.classBox.box_weekType isEqualToString:@""]) {
+                    content = [NSString stringWithFormat:@"%@(%@周)", content, _dvc.classBox.box_weekType];
+                }
                 break;
                 
             default:

@@ -392,6 +392,82 @@
     }
 }
 
+- (void)editBoxToCoreDataWithClassName:(NSString *)name classID:(NSString *)classID week:(NSUInteger)week start:(NSUInteger)start span:(NSUInteger)span startWeek:(NSUInteger)startWeek endWeek:(NSUInteger)endWeek weekType:(NSString *)weekType description:(NSString *)description isColor:(BOOL)isColor
+{
+    // 判断是否存在
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Course"];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"course_id==%@", classID];
+    
+    request.predicate = predicate;
+    
+    NSError *error = nil;
+    NSArray *obj = [_appDelagate.managedObjectContext executeFetchRequest:request error:&error];
+    
+    Course *course = [obj firstObject];
+    
+    if (error) {
+        NSLog(@"格子 - 修改错误 - %@", error);
+        return;
+    }
+    
+    if (course) {
+        
+        course.course_name = name;
+        course.course_room = @"";
+        course.course_span = [NSString stringWithFormat:@"%d-%d", startWeek, endWeek];
+        course.course_isColorful = [NSNumber numberWithBool:isColor];
+        course.course_description = description;
+        
+        NSMutableDictionary *time = [NSMutableDictionary dictionaryWithDictionary:@{@"w0": @"None", @"w1": @"None", @"w2": @"None", @"w3": @"None", @"w4": @"None", @"w5": @"None", @"w6": @"None"}];
+        
+        // time
+        NSMutableString *timeStr = [NSMutableString string];
+        for (NSUInteger i = 0; i < span; i++) {
+            NSUInteger time = start + i;
+            
+            NSString *timeCh = [NSString stringWithFormat:@"%d", time];
+            if (time == 10) {
+                timeCh = @"0";
+            } else if (time == 11) {
+                timeCh = @"A";
+            } else if (time == 12) {
+                timeCh = @"B";
+            } else if (time == 13) {
+                timeCh = @"C";
+            }
+            
+            [timeStr appendString:timeCh];
+        }
+        
+        if (weekType.length != 0) {
+            timeStr = [NSMutableString stringWithFormat:@"%@%@", weekType, timeStr];
+        }
+        
+        if (week == 1) {
+            time[@"w1"] = timeStr;
+        } else if (week == 2) {
+            time[@"w2"] = timeStr;
+        } else if (week == 3) {
+            time[@"w3"] = timeStr;
+        } else if (week == 4) {
+            time[@"w4"] = timeStr;
+        } else if (week == 5) {
+            time[@"w5"] = timeStr;
+        } else if (week == 6) {
+            time[@"w6"] = timeStr;
+        } else if (week == 7) {
+            time[@"w0"] = timeStr;
+        }
+        
+        course.course_time = time;
+        
+        [_appDelagate.managedObjectContext save:&error];
+        NSLog(@"修改成功 - %@", name);
+    }
+}
+
+
 
 
 #pragma mark - Note
