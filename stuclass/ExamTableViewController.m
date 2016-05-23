@@ -14,6 +14,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "Define.h"
 #import "MobClick.h"
+#import "WXApi.h"
+#import "MBProgressHUD.h"
 
 static NSString *cell_id = @"ExamTableViewCell";
 static NSString *header_cell_id = @"HeaderExamTableViewCell";
@@ -280,11 +282,146 @@ static const NSInteger kHeightForCellRow = 46.0;
     [ud setValue:nil forKey:@"NICKNAME"];
 }
 
+- (IBAction)shareItemPress:(id)sender
+{
+    [self shareExam];
+}
+
+- (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize
+
+{
+    UIGraphicsBeginImageContext(CGSizeMake(reSize.width, reSize.height));
+    [image drawInRect:CGRectMake(0, 0, reSize.width, reSize.height)];
+    UIImage *reSizeImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return reSizeImage;
+}
+
+- (void)shareExam
+{
+    UIImage *image = [self screenShot];
+    
+    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"分享考试安排" message:@"截图已保存到相册" preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = NO;
+            sendReq.scene = 0;
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            
+//            urlMessage.thumbImage = [UIImage imageNamed:@"WXAppIcon"];
+            
+            WXImageObject *imageObj = [WXImageObject object];
+            
+            imageObj.imageData = UIImageJPEGRepresentation(image, 1.0);
+            urlMessage.mediaObject = imageObj;
+            
+            urlMessage.thumbImage = [self reSizeImage:image toSize:CGSizeMake(200 * image.size.width / image.size.height, 200)];
+            
+            //完成发送对象实例
+            sendReq.message = urlMessage;
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+            
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信朋友圈" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = NO;
+            sendReq.scene = 1;
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            
+//            urlMessage.thumbImage = [UIImage imageNamed:@"WXAppIcon"];
+            
+            WXImageObject *imageObj = [WXImageObject object];
+            
+            imageObj.imageData = UIImageJPEGRepresentation(image, 1.0);
+            urlMessage.mediaObject = imageObj;
+            
+//            urlMessage.thumbImage = [self reSizeImage:image toSize:CGSizeMake(200, 200 * image.size.height / image.size.width)];
+            urlMessage.thumbImage = [self reSizeImage:image toSize:CGSizeMake(200 * image.size.width / image.size.height, 200)];
+            
+            //完成发送对象实例
+            sendReq.message = urlMessage;
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *alertAction){
+            
+        }]];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+        
+    } else {
+        
+        [self showHUDWithText:@"截图已保存到相册(当前微信不可用)" andHideDelay:1.6];
+    }
+}
+
+
+
+- (UIImage *)screenShot
+{
+    UIImage *image;
+    UIGraphicsBeginImageContextWithOptions(self.tableView.contentSize, NO, 0.0);
+    
+    {
+        CGPoint savedContentOffset = self.tableView.contentOffset;
+        CGRect savedFrame = self.tableView.frame;
+        
+        self.tableView.contentOffset = CGPointZero;
+        self.tableView.frame = CGRectMake(0, 0, self.tableView.contentSize.width, self.tableView.contentSize.height);
+        
+        [self.tableView.layer renderInContext: UIGraphicsGetCurrentContext()];
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        
+        self.tableView.contentOffset = savedContentOffset;
+        self.tableView.frame = savedFrame;
+    }
+    UIGraphicsEndImageContext();
+    
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    
+    return image;
+}
+
+
+#pragma mark - HUD
+
+- (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {
+    
+    [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
+    
+    if (self.navigationController.view) {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = string;
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:delay];
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
 

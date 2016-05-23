@@ -261,7 +261,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)initMoreView
 {
-    _moreView = [[MoreView alloc] initWithItems:@[@"添加格子", @"同步课表", @"考试信息", @"我的成绩", @"图书检索", @"任务清单"] images:@[[UIImage imageNamed:@"more-addbox"], [UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-task"]]];
+    _moreView = [[MoreView alloc] initWithItems:@[@"添加格子", @"同步课表", @"考试安排", @"我的成绩", @"图书检索", @"任务清单"] images:@[[UIImage imageNamed:@"more-addbox"], [UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-task"]]];
     
     UIButton *addBtn = _moreView.itemsArray[0];
     [addBtn addTarget:self action:@selector(moreAddPress) forControlEvents:UIControlEventTouchUpInside];
@@ -539,6 +539,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         bivc.hidesBottomBarWhenPushed = YES;
         
         bivc.title = box.box_name;
+        
+        bivc.boxData = _boxData;
         
         bivc.classBox = box;
         
@@ -887,7 +889,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)exam
 {
     // KVN
-    [KVNProgress showWithStatus:@"正在获取考试信息"];
+    [KVNProgress showWithStatus:@"正在获取考试安排"];
     
     // ActivityIndicator
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -955,7 +957,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"no exams"]) {
         // 没有考试
-        [KVNProgress showErrorWithStatus:@"暂时没有考试信息" completion:^{
+        [KVNProgress showErrorWithStatus:@"暂时没有考试安排" completion:^{
             [_popover dismiss];
         }];
     } else {
@@ -1346,8 +1348,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
             //创建分享内容对象
             WXMediaMessage *urlMessage = [WXMediaMessage message];
             
-            urlMessage.thumbImage = [UIImage imageNamed:@"WXAppIcon"];
-            
             WXImageObject *imageObj = [WXImageObject object];
             
             imageObj.imageData = UIImageJPEGRepresentation(image, 1.0);
@@ -1372,8 +1372,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
             
             //创建分享内容对象
             WXMediaMessage *urlMessage = [WXMediaMessage message];
-            
-            urlMessage.thumbImage = [UIImage imageNamed:@"WXAppIcon"];
             
             WXImageObject *imageObj = [WXImageObject object];
             

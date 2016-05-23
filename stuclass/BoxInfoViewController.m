@@ -15,6 +15,7 @@
 #import "ClassParser.h"
 #import "MobClick.h"
 #import <SIAlertView/SIAlertView.h>
+#import "EditBoxTableViewController.h"
 
 static NSString *info_cell_id = @"ClassInfoTableViewCell";
 
@@ -58,6 +59,8 @@ static const CGFloat kHeightForPostButton = 52;
     [self initTableView];
     
     [self initNoteStr];
+    
+    [self initItem];
 }
 
 
@@ -129,7 +132,12 @@ static const CGFloat kHeightForPostButton = 52;
     NSDictionary *dict = [[CoreDataManager sharedInstance] getNoteFromCoreDataWithClassID:_classBox.box_id username:username];
     _noteStr = dict[@"content"];
     _timeStr = dict[@"time"];
-    
+}
+
+- (void)initItem
+{
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"修改" style:UIBarButtonItemStylePlain target:self action:@selector(editButtonPress)];
+    self.navigationItem.rightBarButtonItem = item;
 }
 
 #pragma mark - TableView Delegate
@@ -290,6 +298,23 @@ static const CGFloat kHeightForPostButton = 52;
     }];
     
     [alertView show];
+}
+
+
+#pragma mark - Edit
+
+- (void)editButtonPress
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    EditBoxTableViewController *ebtvc = [sb instantiateViewControllerWithIdentifier:@"EditBoxTVC"];
+    
+//    ebtvc.delegate = self;
+    
+    ebtvc.boxData = _boxData;
+    ebtvc.classBox = _classBox;
+    
+    [self.navigationController pushViewController:ebtvc animated:YES];
 }
 
 

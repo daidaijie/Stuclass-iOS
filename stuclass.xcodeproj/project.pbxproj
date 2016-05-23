@@ -124,6 +124,7 @@
 		13DE7B4A1BDC682E003AFF93 /* DiscussTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DE7B481BDC682E003AFF93 /* DiscussTableViewCell.m */; };
 		13DE7B4B1BDC682E003AFF93 /* DiscussTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13DE7B491BDC682E003AFF93 /* DiscussTableViewCell.xib */; };
 		13DE7B4F1BDC6AAC003AFF93 /* Discuss.m in Sources */ = {isa = PBXBuildFile; fileRef = 13DE7B4E1BDC6AAC003AFF93 /* Discuss.m */; };
+		13E6EF8E1CF2148200F370BA /* EditBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E6EF8D1CF2148200F370BA /* EditBoxTableViewController.m */; };
 		13E736711CDB630100354787 /* Course+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E736701CDB630100354787 /* Course+CoreDataProperties.m */; };
 		13EA0CC01CD7AFE400B39CB7 /* BoxInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13EA0CBF1CD7AFE400B39CB7 /* BoxInfoViewController.m */; };
 		13EC9B741C11FA1A00AA3F2F /* AboutusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13EC9B731C11FA1A00AA3F2F /* AboutusViewController.m */; };
@@ -354,6 +355,8 @@
 		13DE7B491BDC682E003AFF93 /* DiscussTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiscussTableViewCell.xib; sourceTree = "<group>"; };
 		13DE7B4D1BDC6AAC003AFF93 /* Discuss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Discuss.h; sourceTree = "<group>"; };
 		13DE7B4E1BDC6AAC003AFF93 /* Discuss.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Discuss.m; sourceTree = "<group>"; };
+		13E6EF8C1CF2148200F370BA /* EditBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditBoxTableViewController.h; sourceTree = "<group>"; };
+		13E6EF8D1CF2148200F370BA /* EditBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditBoxTableViewController.m; sourceTree = "<group>"; };
 		13E7366E1CDB629500354787 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		13E7366F1CDB630100354787 /* Course+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Course+CoreDataProperties.h"; sourceTree = "<group>"; };
 		13E736701CDB630100354787 /* Course+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Course+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -749,6 +752,8 @@
 			children = (
 				13587A1C1CD5CC64005379FC /* AddBoxTableViewController.h */,
 				13587A1D1CD5CC64005379FC /* AddBoxTableViewController.m */,
+				13E6EF8C1CF2148200F370BA /* EditBoxTableViewController.h */,
+				13E6EF8D1CF2148200F370BA /* EditBoxTableViewController.m */,
 			);
 			name = AddBoxTableViewController;
 			sourceTree = "<group>";
@@ -1721,6 +1726,7 @@
 				137C8C2C1BDA956900236C79 /* Note.m in Sources */,
 				134AB7D81C01840E00D8E816 /* MoreView.m in Sources */,
 				13CB2C7A1BDFD2BA00460BE4 /* PlaceholderTextView.m in Sources */,
+				13E6EF8E1CF2148200F370BA /* EditBoxTableViewController.m in Sources */,
 				13DE7B4A1BDC682E003AFF93 /* DiscussTableViewCell.m in Sources */,
 				1326F7D41C02DB5E0016B88E /* MessageTableViewController.m in Sources */,
 				13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */,

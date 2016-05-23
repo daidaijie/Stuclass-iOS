@@ -20,6 +20,8 @@
 
 @property (strong, nonatomic) ClassBox *classBox;
 
+@property (strong, nonatomic) NSArray *boxData;
+
 @property (weak, nonatomic) id<BoxInfoDelegate> delegate;
 
 @end
