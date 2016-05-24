@@ -8,7 +8,6 @@
 
 #import "SettingTableViewController.h"
 #import <KVNProgress/KVNProgress.h>
-#import "NicknameTableViewController.h"
 #import "MBProgressHUD.h"
 #import "MobClick.h"
 #import "Define.h"
@@ -17,11 +16,10 @@
 #import "BackgoundTableViewController.h"
 #import "WXApi.h"
 
-@interface SettingTableViewController () <NicknameChangedDelegate>
+@interface SettingTableViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yearAndSemesterLabel;
-@property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *cacheSizeLabel;
 
 @end
@@ -34,7 +32,6 @@
     [super viewDidLoad];
     
     [self setupBarBackButton];
-    [self setupInfo];
     [self setupTableView];
     
     [MobClick event:@"Tabbar_Setting"];
@@ -48,6 +45,8 @@
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     
     self.cacheSizeLabel.text = [NSString stringWithFormat:@"%.1f MB", [SDWebImageManager sharedManager].imageCache.getSize / 1024.0 / 1024.0];
+    
+    [self setupInfo];
 }
 
 - (void)setupBarBackButton
@@ -90,8 +89,6 @@
     _yearAndSemesterLabel.text = [NSString stringWithFormat:@"%d-%d %@", year, year + 1, semesterStr];
     
     _usernameLabel.text = [ud valueForKey:@"USERNAME"];
-    
-    _nicknameLabel.text = [ud valueForKey:@"NICKNAME"];
 }
 
 
@@ -110,13 +107,6 @@
     
     if (section == 1) {
         
-        if (row == 1) {
-            [self performSegueWithIdentifier:@"ShowNickname" sender:nil];
-            
-        }
-        
-    } else if (section == 2) {
-        
         if (row == 0) {
             [self performSegueWithIdentifier:@"ShowBackground" sender:nil];
             [MobClick event:@"Setting_Background"];
@@ -124,7 +114,7 @@
             [self clearLocalData];
         }
         
-    } else if (section == 3) {
+    } else if (section == 2) {
         
         if (row == 0) {
             [self performSegueWithIdentifier:@"ShowAboutUs" sender:nil];
@@ -136,21 +126,11 @@
             [self showUpdateInfo];
         }
         
-    } else if (section == 4) {
+    } else if (section == 3) {
         
         if (row == 0) {
             [self logoutPress];
         }
-    }
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"ShowNickname"]) {
-        
-        NicknameTableViewController *ntvc = segue.destinationViewController;
-        
-        ntvc.delegate = self;
     }
 }
 
@@ -188,13 +168,6 @@
     [ud setValue:nil forKey:@"USER_TOKEN"];
     [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
     [ud setValue:nil forKey:@"NICKNAME"];
-}
-
-#pragma mark - Nickname Delegate
-
-- (void)nicknameChangedTo:(NSString *)nickname
-{
-    _nicknameLabel.text = nickname;
 }
 
 

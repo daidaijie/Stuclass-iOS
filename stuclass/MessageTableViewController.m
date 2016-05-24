@@ -517,7 +517,10 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
                 imageObj.imageData = UIImageJPEGRepresentation(contentImg, 1.0);
                 urlMessage.mediaObject = imageObj;
                 
-                urlMessage.thumbImage = [self reSizeImage:contentImg toSize:CGSizeMake(200, 200 * contentImg.size.height / contentImg.size.width)];
+                if (contentImg.size.width > contentImg.size.height)
+                    urlMessage.thumbImage = [self reSizeImage:contentImg toSize:CGSizeMake(200, 200 * contentImg.size.height / contentImg.size.width)];
+                else
+                    urlMessage.thumbImage = [self reSizeImage:contentImg toSize:CGSizeMake(200 / contentImg.size.height * contentImg.size.width, 200)];
             } else {
                 // Text
                 WXWebpageObject *webObj = [WXWebpageObject object];
@@ -574,7 +577,10 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
                 imageObj.imageData = UIImageJPEGRepresentation(contentImg, 1.0);
                 urlMessage.mediaObject = imageObj;
                 
-                urlMessage.thumbImage = [self reSizeImage:contentImg toSize:CGSizeMake(200, 200 * contentImg.size.height / contentImg.size.width)];
+                if (contentImg.size.width > contentImg.size.height)
+                    urlMessage.thumbImage = [self reSizeImage:contentImg toSize:CGSizeMake(200, 200 * contentImg.size.height / contentImg.size.width)];
+                else
+                    urlMessage.thumbImage = [self reSizeImage:contentImg toSize:CGSizeMake(200 / contentImg.size.height * contentImg.size.width, 200)];
             } else {
                 // Text
                 WXWebpageObject *webObj = [WXWebpageObject object];
