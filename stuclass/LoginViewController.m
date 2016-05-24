@@ -280,7 +280,7 @@
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, login_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-//        NSLog(@"连接服务器 - 成功 - %@", responseObject);
+        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"连接服务器 - 成功");
         [self parseResponseObject:responseObject withYear:_year semester:_semester];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -305,9 +305,76 @@
         } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
             // 学分制崩溃了
             [KVNProgress showErrorWithStatus:global_connection_credit_broken];
-        } else if ([responseObject[@"ERROR"] isEqualToString:@"No classes"]) {
-            // 没有这个课表
-            [KVNProgress showErrorWithStatus:@"暂时没有该课表信息"];
+        } else if ([responseObject[@"ERROR"] isEqualToString:@"the user can't access credit system"]) {
+            // 医学院通道
+            NSLog(@"医学院通道");
+            // 成功
+            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+            
+            // 设置username & 密码 & 学期
+            [ud setValue:_inputView.usernameTextField.text forKey:@"USERNAME"];
+            [ud setValue:_inputView.passwordTextField.text forKey:@"PASSWORD"];
+            [ud setValue:@{@"year":[NSNumber numberWithInteger:year], @"semester":[NSNumber numberWithInteger:semester]} forKey:@"YEAR_AND_SEMESTER"];
+            
+            NSArray *classData;
+            
+            if ([[CoreDataManager sharedInstance] isClassTableExistedWithYear:year semester:semester username:_inputView.usernameTextField.text]) {
+                // 存在本地数据
+                NSLog(@"登录获取课表 - 本地存在");
+                classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:_inputView.usernameTextField.text];
+            } else {
+                // 不存在
+                // 得到原始数据
+                NSLog(@"登录获取课表 - 本地不存在");
+                NSMutableArray *originData = [NSMutableArray arrayWithArray:responseObject[@"classes"]];
+                
+                // 添加class_id
+                classData = [[ClassParser sharedInstance] generateClassIDForOriginalData:originData withYear:year semester:semester];
+                
+                // 写入本地CoreData
+                [[CoreDataManager sharedInstance] writeSyncClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:_inputView.usernameTextField.text];
+            }
+            
+            // 生成DisplayData
+            classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:_inputView.usernameTextField.text];
+            NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
+            
+            // token
+            NSString *token = responseObject[@"token"];
+            [ud setValue:token forKey:@"USER_TOKEN"];
+            
+            // nickname
+            NSString *nickname = responseObject[@"nickname"];
+            [ud setValue:nickname forKey:@"NICKNAME"];
+            
+            // avatar
+            NSString *avatarURL = responseObject[@"avatar"];
+            if ([avatarURL isEqual:[NSNull null]]) {
+                NSLog(@"avatarURL - NULL");
+                [ud setValue:nil forKey:@"AVATAR_URL"];
+            } else {
+                NSLog(@"avatarURL - %@", avatarURL);
+                [ud setValue:avatarURL forKey:@"AVATAR_URL"];
+            }
+            
+            // user_id
+            NSString *user_id = responseObject[@"user_id"];
+            NSLog(@"user_id - %@", user_id);
+            [ud setValue:user_id forKey:@"USER_ID"];
+            
+            [KVNProgress showSuccessWithStatus:@"登录成功" completion:^{
+                [MobClick event:@"Login_Login" attributes:@{@"Username": _inputView.usernameTextField.text}];
+                
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                
+                UITabBarController *tbc = [sb instantiateViewControllerWithIdentifier:@"tbc"];
+                UINavigationController *nvc = tbc.viewControllers[0];
+                ClassViewController *cvc = nvc.viewControllers[0];
+                
+                cvc.boxData = boxData;
+                
+                [self.navigationController pushViewController:tbc animated:YES];
+            }];
         } else {
             // 其他异常情况
             NSLog(@"发生未知错误");

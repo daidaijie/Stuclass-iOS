@@ -249,9 +249,57 @@
         } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
             // 学分制崩溃了
             [KVNProgress showErrorWithStatus:global_connection_credit_broken];
-        } else if ([responseObject[@"ERROR"] isEqualToString:@"No classes"]) {
-            // 没有这个课表
-            [KVNProgress showErrorWithStatus:@"暂时没有该课表信息"];
+        } else if ([responseObject[@"ERROR"] isEqualToString:@"the user can't access credit system"]) {
+            // 医学院通道
+            NSLog(@"医学院通道");
+            // 成功
+            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+            
+            // 设置学期
+            [ud setValue:@{@"year":[NSNumber numberWithInteger:year], @"semester":[NSNumber numberWithInteger:semester]} forKey:@"YEAR_AND_SEMESTER"];
+            
+            // 得到原始数据
+            NSMutableArray *originData = [NSMutableArray arrayWithArray:responseObject[@"classes"]];
+            
+            // 添加class_id
+            NSArray *classData = [[ClassParser sharedInstance] generateClassIDForOriginalData:originData withYear:year semester:semester];
+            
+            // 写入本地CoreData
+            [[CoreDataManager sharedInstance] writeSyncClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:[ud valueForKey:@"USERNAME"]];
+            
+            // 生成DisplayData
+            classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:[ud valueForKey:@"USERNAME"]];
+            NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
+            
+            // token
+            NSString *token = responseObject[@"token"];
+            [ud setValue:token forKey:@"USER_TOKEN"];
+            
+            // nickname
+            NSString *nickname = responseObject[@"nickname"];
+            [ud setValue:nickname forKey:@"NICKNAME"];
+            
+            // avatar
+            NSString *avatarURL = responseObject[@"avatar"];
+            if ([avatarURL isEqual:[NSNull null]]) {
+                NSLog(@"avatarURL - NULL");
+                [ud setValue:nil forKey:@"AVATAR_URL"];
+            } else {
+                NSLog(@"avatarURL - %@", avatarURL);
+                [ud setValue:avatarURL forKey:@"AVATAR_URL"];
+            }
+            
+            // user_id
+            NSString *user_id = responseObject[@"user_id"];
+            NSLog(@"user_id - %@", user_id);
+            [ud setValue:user_id forKey:@"USER_ID"];
+            
+            [_delegate semesterDelegateSemesterChanged:boxData semester:_selectedSemester];
+            
+            [KVNProgress showSuccessWithStatus:@"获取该学期课表成功" completion:^{
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }];
+            
         } else {
             // 其他异常情况
             NSLog(@"发生未知错误");

@@ -34,6 +34,8 @@
 #import "AddBoxTableViewController.h"
 #import "BoxInfoViewController.h"
 #import "WXApi.h"
+#import "MeTableViewController.h"
+#import "UIImageView+WebCache.h"
 
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
@@ -55,6 +57,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 @property (nonatomic) NSInteger currentWeek;
 
+@property (strong, nonatomic) UIImageView *avatarImageView;
+
 @end
 
 @implementation ClassViewController
@@ -62,6 +66,9 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    // Notification
+    [self initNotification];
     
     // Bar
     [self setupBarBackButton];
@@ -76,9 +83,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [self initClassHeaderView];
     [self initCollectionView];
     [self initSemesterButton];
-    
-    // Notification
-    [self initNotification];
     
     // Show Annoucement
     [self showAnnoucement];
@@ -167,15 +171,18 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     // LEFT
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [btn setBackgroundImage:[UIImage imageNamed:@"a2"] forState:UIControlStateNormal];
-    btn.layer.cornerRadius = btn.bounds.size.width / 2;
-    btn.layer.borderColor = [UIColor whiteColor].CGColor;
-    btn.layer.borderWidth = 1.2;
-    btn.clipsToBounds = YES;
+    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    _avatarImageView.image = [UIImage imageNamed:@"default_avatar"];
+    _avatarImageView.layer.cornerRadius = _avatarImageView.bounds.size.width / 2;
+    _avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    _avatarImageView.layer.borderWidth = 1.2;
+    _avatarImageView.clipsToBounds = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarImageViewDidTap)];
+    [_avatarImageView addGestureRecognizer:tap];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"avatarImageChanged" object:nil];
     
     UIBarButtonItem *connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-connect"] style:UIBarButtonItemStylePlain target:self action:@selector(connectItemPress)];
-    UIBarButtonItem *userItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    UIBarButtonItem *userItem = [[UIBarButtonItem alloc] initWithCustomView:_avatarImageView];
     
     // RIGHT
     
@@ -390,6 +397,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 - (void)initNotification
 {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(bgImageChanged) name:@"bgImageChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(avatarImageChanged) name:@"avatarImageChanged" object:nil];
 }
 
 
@@ -850,6 +858,55 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         [KVNProgress showErrorWithStatus:global_connection_credit_broken completion:^{
             [_popover dismiss];
         }];
+    } else if ([responseObject[@"ERROR"] isEqualToString:@"the user can't access credit system"]) {
+        // 医学院通道
+        NSLog(@"医学院通道");
+        // 成功
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        NSString *username = [ud valueForKey:@"USERNAME"];
+        
+        // 得到原始数据
+        NSMutableArray *originData = [NSMutableArray arrayWithArray:responseObject[@"classes"]];
+        
+        // 添加class_id
+        NSArray *classData = [[ClassParser sharedInstance] generateClassIDForOriginalData:originData withYear:year semester:semester];
+        
+        // 写入本地CoreData
+        [[CoreDataManager sharedInstance] writeSyncClassTableToCoreDataWithClassesArray:classData withYear:year semester:semester username:username];
+        
+        // 生成DisplayData
+        classData = [[CoreDataManager sharedInstance] getClassDataFromCoreDataWithYear:year semester:semester username:username];
+        NSArray *boxData = [[ClassParser sharedInstance] parseClassData:classData];
+        
+        // token
+        NSString *token = responseObject[@"token"];
+        [ud setValue:token forKey:@"USER_TOKEN"];
+        
+        // nickname
+        NSString *nickname = responseObject[@"nickname"];
+        [ud setValue:nickname forKey:@"NICKNAME"];
+        
+        // avatar
+        NSString *avatarURL = responseObject[@"avatar"];
+        if ([avatarURL isEqual:[NSNull null]]) {
+            NSLog(@"avatarURL - NULL");
+            [ud setValue:nil forKey:@"AVATAR_URL"];
+        } else {
+            NSLog(@"avatarURL - %@", avatarURL);
+            [ud setValue:avatarURL forKey:@"AVATAR_URL"];
+        }
+        
+        // user_id
+        NSString *user_id = responseObject[@"user_id"];
+        NSLog(@"user_id - %@", user_id);
+        [ud setValue:user_id forKey:@"USER_ID"];
+        
+        [KVNProgress showSuccessWithStatus:@"同步课表成功" completion:^{
+            _boxData = boxData;
+            [_collectionView reloadData];
+            [_collectionView setContentOffset:CGPointZero animated:YES];
+            [_popover dismiss];
+        }];
     } else {
         // 成功
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -948,9 +1005,15 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
-            [_popover dismiss];
-        }];
+        if (operation.response.statusCode == 500) {
+            [KVNProgress showErrorWithStatus:@"暂时没有考试信息" completion:^{
+                [_popover dismiss];
+            }];
+        } else {
+            [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
+                [_popover dismiss];
+            }];
+        }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
@@ -1121,7 +1184,6 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     [self logoutClearData];
     [self.navigationController.tabBarController.navigationController popToRootViewControllerAnimated:YES];
-    
 }
 
 #pragma mark - Week Update & Get
@@ -1172,12 +1234,22 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
         [alertView addButtonWithTitle:@"立即体验 🙄:)" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
             [ud setObject:appVersion forKey:@"LOCAL_VERSION"];
+            if (_boxData.count == 0) {
+                [self showHUDWithText:@"点击右上角可以添加格子哟!" andHideDelay:1.6];
+                [self performSelector:@selector(showShareClassTip) withObject:nil afterDelay:1.8];
+            } else {
+                [self showHUDWithText:@"三个手指触屏可以分享课表哟!" andHideDelay:1.6];
+            }
         }];
         
         [alertView show];
     }
 }
 
+- (void)showShareClassTip
+{
+    [self showHUDWithText:@"三个手指触屏可以分享课表哟!" andHideDelay:1.6];
+}
 
 #pragma mark - Connect
 
@@ -1421,6 +1493,31 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [super viewDidDisappear:animated];
     [_popover dismiss];
 }
+
+
+#pragma mark - Avatar
+
+- (void)avatarImageChanged
+{
+    NSLog(@"重新加载Avatar");
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *urlStr = [ud objectForKey:@"AVATAR_URL"];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    [_avatarImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"default_avatar"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
+}
+
+- (void)avatarImageViewDidTap
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    MeTableViewController *mtvc = [sb instantiateViewControllerWithIdentifier:@"metableviewcontroller"];
+    
+    [self.navigationController pushViewController:mtvc animated:YES];
+}
+
 
 
 - (void)didReceiveMemoryWarning {

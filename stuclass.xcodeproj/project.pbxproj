@@ -18,6 +18,7 @@
 		130A2B7F1CE8377D004927D8 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A2B7E1CE8377D004927D8 /* Message.m */; };
 		130A6D501CBA32CC00A36F9C /* TaskListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A6D4F1CBA32CC00A36F9C /* TaskListTableViewController.m */; };
 		130A6D531CBA35FF00A36F9C /* TaskListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 130A6D521CBA35FF00A36F9C /* TaskListTableViewCell.m */; };
+		130B75B01CF4169000F7E1DB /* NicknameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130B75AF1CF4169000F7E1DB /* NicknameTableViewController.m */; };
 		130C09E51CB544F500848551 /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 130C09E41CB544F500848551 /* MemberTableViewCell.m */; };
 		130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130D14E51CB78C7A006194BB /* DocumentFavoriteTableViewController.m */; };
 		1312101F1CB4DB9000F91F10 /* MemberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1312101E1CB4DB9000F91F10 /* MemberTableViewController.m */; };
@@ -98,7 +99,7 @@
 		137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C371BDB1A4900236C79 /* HomeworkTableViewCell.m */; };
 		137C8C3A1BDB1A4900236C79 /* HomeworkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 137C8C381BDB1A4900236C79 /* HomeworkTableViewCell.xib */; };
 		137C8C3D1BDB2C5200236C79 /* HomeworkPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */; };
-		137F4EA11C06155200A6DC0E /* NicknameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */; };
+		137F4EA11C06155200A6DC0E /* MeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137F4EA01C06155200A6DC0E /* MeTableViewController.m */; };
 		139249F51CB9190B00A23041 /* BookResultTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139249F41CB9190B00A23041 /* BookResultTableViewController.m */; };
 		139249F81CB9196100A23041 /* LibraryFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 139249F71CB9196100A23041 /* LibraryFooterView.m */; };
 		139509B41C873838008CA07B /* ClassWeekTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 139509B31C873837008CA07B /* ClassWeekTableViewController.m */; };
@@ -169,6 +170,8 @@
 		130A6D4F1CBA32CC00A36F9C /* TaskListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListTableViewController.m; sourceTree = "<group>"; };
 		130A6D511CBA35FF00A36F9C /* TaskListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskListTableViewCell.h; sourceTree = "<group>"; };
 		130A6D521CBA35FF00A36F9C /* TaskListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListTableViewCell.m; sourceTree = "<group>"; };
+		130B75AE1CF4169000F7E1DB /* NicknameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NicknameTableViewController.h; sourceTree = "<group>"; };
+		130B75AF1CF4169000F7E1DB /* NicknameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NicknameTableViewController.m; sourceTree = "<group>"; };
 		130C09E31CB544F500848551 /* MemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberTableViewCell.h; sourceTree = "<group>"; };
 		130C09E41CB544F500848551 /* MemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberTableViewCell.m; sourceTree = "<group>"; };
 		130D14E41CB78C7A006194BB /* DocumentFavoriteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentFavoriteTableViewController.h; sourceTree = "<group>"; };
@@ -306,8 +309,8 @@
 		137C8C381BDB1A4900236C79 /* HomeworkTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeworkTableViewCell.xib; sourceTree = "<group>"; };
 		137C8C3B1BDB2C5200236C79 /* HomeworkPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeworkPostTableViewController.h; sourceTree = "<group>"; };
 		137C8C3C1BDB2C5200236C79 /* HomeworkPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeworkPostTableViewController.m; sourceTree = "<group>"; };
-		137F4E9F1C06155200A6DC0E /* NicknameTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NicknameTableViewController.h; sourceTree = "<group>"; };
-		137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NicknameTableViewController.m; sourceTree = "<group>"; };
+		137F4E9F1C06155200A6DC0E /* MeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeTableViewController.h; sourceTree = "<group>"; };
+		137F4EA01C06155200A6DC0E /* MeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeTableViewController.m; sourceTree = "<group>"; };
 		139249F31CB9190B00A23041 /* BookResultTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookResultTableViewController.h; sourceTree = "<group>"; };
 		139249F41CB9190B00A23041 /* BookResultTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookResultTableViewController.m; sourceTree = "<group>"; };
 		139249F61CB9196100A23041 /* LibraryFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryFooterView.h; sourceTree = "<group>"; };
@@ -691,6 +694,7 @@
 				131951CD1BCB47C9004EE13A /* ClassLayout */,
 				132226F31C05643C0093826C /* ClassSemesterTableViewController */,
 				139509B11C873820008CA07B /* ClassWeekTableViewController */,
+				137F4E9E1C0614ED00A6DC0E /* MeTableViewController */,
 				134530891BC8AE0C0018C15E /* ClassViewController.h */,
 				13FD91361C8A790500F89806 /* ClassViewController.m */,
 			);
@@ -920,13 +924,15 @@
 			name = HomeworkPostTableViewController;
 			sourceTree = "<group>";
 		};
-		137F4E9E1C0614ED00A6DC0E /* NicknameTableViewController */ = {
+		137F4E9E1C0614ED00A6DC0E /* MeTableViewController */ = {
 			isa = PBXGroup;
 			children = (
-				137F4E9F1C06155200A6DC0E /* NicknameTableViewController.h */,
-				137F4EA01C06155200A6DC0E /* NicknameTableViewController.m */,
+				137F4E9F1C06155200A6DC0E /* MeTableViewController.h */,
+				137F4EA01C06155200A6DC0E /* MeTableViewController.m */,
+				130B75AE1CF4169000F7E1DB /* NicknameTableViewController.h */,
+				130B75AF1CF4169000F7E1DB /* NicknameTableViewController.m */,
 			);
-			name = NicknameTableViewController;
+			name = MeTableViewController;
 			sourceTree = "<group>";
 		};
 		139509B11C873820008CA07B /* ClassWeekTableViewController */ = {
@@ -973,7 +979,6 @@
 				13C4C3481BCC0D300003E703 /* SettingTableViewController.h */,
 				13C4C3491BCC0D300003E703 /* SettingTableViewController.m */,
 				13C4C35F1BCCDC9B0003E703 /* BackgroundTableViewController */,
-				137F4E9E1C0614ED00A6DC0E /* NicknameTableViewController */,
 				13EC9B711C11FA0400AA3F2F /* AboutusViewController */,
 			);
 			name = SettingTableViewController;
@@ -1712,6 +1717,7 @@
 				13242F051C0805D4008D46F2 /* Document.m in Sources */,
 				1366D6711BD4BAD500B69C04 /* DiscussViewController.m in Sources */,
 				131984101C072F62003C17E0 /* DocumentTableViewController.m in Sources */,
+				130B75B01CF4169000F7E1DB /* NicknameTableViewController.m in Sources */,
 				131DCCC41CE955850066649D /* MessageTableViewCell.m in Sources */,
 				13766B121BDA456300322371 /* NoteTableViewController.m in Sources */,
 				136A27D41C043F8500B45460 /* ExamTableViewCell.m in Sources */,
@@ -1735,7 +1741,7 @@
 				1353ECC11CE6D78300E6E03E /* MessageImageTableViewCell.m in Sources */,
 				1312101F1CB4DB9000F91F10 /* MemberTableViewController.m in Sources */,
 				1366D67B1BD4EAA300B69C04 /* ClassInfoTableViewCell.m in Sources */,
-				137F4EA11C06155200A6DC0E /* NicknameTableViewController.m in Sources */,
+				137F4EA11C06155200A6DC0E /* MeTableViewController.m in Sources */,
 				1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */,
 				1320FC7B1C01BF500084B152 /* GradeTableViewController.m in Sources */,
 				13EA0CC01CD7AFE400B39CB7 /* BoxInfoViewController.m in Sources */,

@@ -228,7 +228,11 @@ static const NSInteger kHeightForCellRow = 46.0;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:global_connection_failed];
+        if (operation.response.statusCode == 500) {
+            [KVNProgress showErrorWithStatus:@"暂时没有考试信息"];
+        } else {
+            [KVNProgress showErrorWithStatus:global_connection_failed];
+        }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
