@@ -121,8 +121,9 @@
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSDictionary *defaultYearAndSemester = [ud objectForKey:@"YEAR_AND_SEMESTER"];
+    NSString *user_id = [ud objectForKey:@"USER_ID"];
     
-    if (defaultYearAndSemester) {
+    if (defaultYearAndSemester && user_id) {
         NSLog(@"读取本地数据");
         // 用户已经登录了
         
@@ -351,6 +352,21 @@
         // nickname
         NSString *nickname = responseObject[@"nickname"];
         [ud setValue:nickname forKey:@"NICKNAME"];
+        
+        // avatar
+        NSString *avatarURL = responseObject[@"avatar"];
+        if ([avatarURL isEqual:[NSNull null]]) {
+            NSLog(@"avatarURL - NULL");
+            [ud setValue:nil forKey:@"AVATAR_URL"];
+        } else {
+            NSLog(@"avatarURL - %@", avatarURL);
+            [ud setValue:avatarURL forKey:@"AVATAR_URL"];
+        }
+        
+        // user_id
+        NSString *user_id = responseObject[@"user_id"];
+        NSLog(@"user_id - %@", user_id);
+        [ud setValue:user_id forKey:@"USER_ID"];
         
         [KVNProgress showSuccessWithStatus:@"登录成功" completion:^{
             [MobClick event:@"Login_Login" attributes:@{@"Username": _inputView.usernameTextField.text}];

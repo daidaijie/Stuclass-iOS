@@ -285,6 +285,21 @@
         NSString *nickname = responseObject[@"nickname"];
         [ud setValue:nickname forKey:@"NICKNAME"];
         
+        // avatar
+        NSString *avatarURL = responseObject[@"avatar"];
+        if ([avatarURL isEqual:[NSNull null]]) {
+            NSLog(@"avatarURL - NULL");
+            [ud setValue:nil forKey:@"AVATAR_URL"];
+        } else {
+            NSLog(@"avatarURL - %@", avatarURL);
+            [ud setValue:avatarURL forKey:@"AVATAR_URL"];
+        }
+        
+        // user_id
+        NSString *user_id = responseObject[@"user_id"];
+        NSLog(@"user_id - %@", user_id);
+        [ud setValue:user_id forKey:@"USER_ID"];
+        
         [_delegate semesterDelegateSemesterChanged:boxData semester:_selectedSemester];
         
         [KVNProgress showSuccessWithStatus:@"获取该学期课表成功" completion:^{
@@ -304,6 +319,8 @@
     [ud setValue:nil forKey:@"USER_TOKEN"];
     [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
     [ud setValue:nil forKey:@"NICKNAME"];
+    [ud setValue:nil forKey:@"AVATAR_URL"];
+    [ud setValue:nil forKey:@"USER_ID"];
 }
 
 

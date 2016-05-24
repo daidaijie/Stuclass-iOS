@@ -504,6 +504,8 @@ static const CGFloat kHeightForSectionHeader = 8.0;
     [ud setValue:nil forKey:@"USER_TOKEN"];
     [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
     [ud setValue:nil forKey:@"NICKNAME"];
+    [ud setValue:nil forKey:@"AVATAR_URL"];
+    [ud setValue:nil forKey:@"USER_ID"];
 }
 
 

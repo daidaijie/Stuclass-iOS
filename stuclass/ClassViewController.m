@@ -739,6 +739,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [ud setValue:nil forKey:@"USER_TOKEN"];
     [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
     [ud setValue:nil forKey:@"NICKNAME"];
+    [ud setValue:nil forKey:@"AVATAR_URL"];
+    [ud setValue:nil forKey:@"USER_ID"];
 }
 
 
@@ -873,6 +875,21 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         // nickname
         NSString *nickname = responseObject[@"nickname"];
         [ud setValue:nickname forKey:@"NICKNAME"];
+        
+        // avatar
+        NSString *avatarURL = responseObject[@"avatar"];
+        if ([avatarURL isEqual:[NSNull null]]) {
+            NSLog(@"avatarURL - NULL");
+            [ud setValue:nil forKey:@"AVATAR_URL"];
+        } else {
+            NSLog(@"avatarURL - %@", avatarURL);
+            [ud setValue:avatarURL forKey:@"AVATAR_URL"];
+        }
+        
+        // user_id
+        NSString *user_id = responseObject[@"user_id"];
+        NSLog(@"user_id - %@", user_id);
+        [ud setValue:user_id forKey:@"USER_ID"];
         
         [KVNProgress showSuccessWithStatus:@"同步课表成功" completion:^{
             _boxData = boxData;
@@ -1397,6 +1414,12 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
         [self showHUDWithText:@"截图已保存到相册(当前微信不可用)" andHideDelay:1.6];
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [_popover dismiss];
 }
 
 
