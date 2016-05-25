@@ -9,20 +9,24 @@
 #import <UIKit/UIKit.h>
 #import "TAPageControl.h"
 
+@protocol BannerDelegate <NSObject>
+
+- (void)bannerDidPressWithIndex:(NSUInteger)index;
+
+@end
+
 @interface HeaderCollectionReusableView : UICollectionReusableView
 
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) TAPageControl *pageControl;
 
-@property (strong, nonatomic) UIImageView *banner1;
-@property (strong, nonatomic) UIImageView *banner2;
-@property (strong, nonatomic) UIImageView *banner3;
+@property (strong, nonatomic) NSMutableArray *imageViews;
 
-@property (strong, nonatomic) NSString *link1;
-@property (strong, nonatomic) NSString *link2;
-@property (strong, nonatomic) NSString *link3;
+@property (weak, nonatomic) id<BannerDelegate> delegate;
 
 - (void)resetHeader;
 - (void)activeHeader;
+
+- (void)setNumberOfImages:(NSUInteger)number;
 
 @end

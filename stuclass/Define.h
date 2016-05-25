@@ -63,8 +63,6 @@ static NSString *global_old_host = @"http://121.42.175.83:8084/";
 
 static NSString *global_host = @"http://119.29.95.245:8080/";
 
-static NSString *global80_host = @"http://121.42.175.83/";
-
 static NSString *login_host = @"http://192.168.31.4:8080";
 
 // v2
@@ -74,8 +72,6 @@ static NSString *message_url = @"/interaction/api/v2/posts";
 
 
 // credit
-static NSString *activity_url = @"/activity";
-
 static NSString *login_url = @"/credit/api/v2/syllabus";
 
 static NSString *exam_url = @"/credit/api/v2/exam";

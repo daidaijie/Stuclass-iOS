@@ -24,6 +24,7 @@
 #import "ClassParser.h"
 #import "IDMPhotoBrowser.h"
 
+static const CGFloat kHeightForSectionHeader = 8.5;
 
 static NSString *message_text_cell_id = @"MessageTextTableViewCell";
 static NSString *message_image_cell_id = @"MessageImageTableViewCell";
@@ -112,7 +113,6 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     [self.tableView addSubview:_startLabel];
     [self.tableView addSubview:_startImageView];
     
-    // footer
     // FooterView
     DocumentFooterView *footerView = [[DocumentFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 50)];
     self.tableView.tableFooterView = footerView;
@@ -181,7 +181,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 }
 
 
-
+#pragma mark - TableView Delegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -195,7 +195,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 8.5;
+    return kHeightForSectionHeader;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

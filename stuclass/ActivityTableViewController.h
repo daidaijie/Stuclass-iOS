@@ -1,5 +1,5 @@
 //
-//  ActivityViewController.h
+//  ActivityTableViewController.h
 //  stuclass
 //
 //  Created by JunhaoWang on 4/9/16.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ActivityViewController : UIViewController
+@interface ActivityTableViewController : UITableViewController
 
 @end

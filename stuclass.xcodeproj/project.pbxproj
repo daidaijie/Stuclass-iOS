@@ -23,7 +23,7 @@
 		130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130D14E51CB78C7A006194BB /* DocumentFavoriteTableViewController.m */; };
 		1312101F1CB4DB9000F91F10 /* MemberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1312101E1CB4DB9000F91F10 /* MemberTableViewController.m */; };
 		131287841CB805EF0089D8D7 /* TreeholeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287831CB805EF0089D8D7 /* TreeholeViewController.m */; };
-		131287881CB89EE30089D8D7 /* ActivityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287871CB89EE30089D8D7 /* ActivityViewController.m */; };
+		131287881CB89EE30089D8D7 /* ActivityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287871CB89EE30089D8D7 /* ActivityTableViewController.m */; };
 		131434261CE061ED00CEAB6F /* panda.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 131434251CE061ED00CEAB6F /* panda.jpg */; };
 		131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */; };
 		131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D21BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m */; };
@@ -180,8 +180,8 @@
 		1312101E1CB4DB9000F91F10 /* MemberTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberTableViewController.m; sourceTree = "<group>"; };
 		131287821CB805EF0089D8D7 /* TreeholeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeholeViewController.h; sourceTree = "<group>"; };
 		131287831CB805EF0089D8D7 /* TreeholeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TreeholeViewController.m; sourceTree = "<group>"; };
-		131287861CB89EE30089D8D7 /* ActivityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityViewController.h; sourceTree = "<group>"; };
-		131287871CB89EE30089D8D7 /* ActivityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityViewController.m; sourceTree = "<group>"; };
+		131287861CB89EE30089D8D7 /* ActivityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityTableViewController.h; sourceTree = "<group>"; };
+		131287871CB89EE30089D8D7 /* ActivityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityTableViewController.m; sourceTree = "<group>"; };
 		131434251CE061ED00CEAB6F /* panda.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = panda.jpg; sourceTree = "<group>"; };
 		131951CE1BCB47E2004EE13A /* ClassCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewLayout.h; sourceTree = "<group>"; };
 		131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewLayout.m; sourceTree = "<group>"; };
@@ -482,13 +482,14 @@
 			name = DocumentFooterView;
 			sourceTree = "<group>";
 		};
-		131287851CB89ECA0089D8D7 /* ActivityViewController */ = {
+		131287851CB89ECA0089D8D7 /* ActivityTableViewController */ = {
 			isa = PBXGroup;
 			children = (
-				131287861CB89EE30089D8D7 /* ActivityViewController.h */,
-				131287871CB89EE30089D8D7 /* ActivityViewController.m */,
+				130299711C892B9500E4734C /* HeaderCollectionReusableView */,
+				131287861CB89EE30089D8D7 /* ActivityTableViewController.h */,
+				131287871CB89EE30089D8D7 /* ActivityTableViewController.m */,
 			);
-			name = ActivityViewController;
+			name = ActivityTableViewController;
 			sourceTree = "<group>";
 		};
 		131951CD1BCB47C9004EE13A /* ClassLayout */ = {
@@ -646,7 +647,6 @@
 			isa = PBXGroup;
 			children = (
 				1353ECC61CE6D7EE00E6E03E /* TreeHole */,
-				130299711C892B9500E4734C /* HeaderCollectionReusableView */,
 				1353ECC21CE6D78B00E6E03E /* MessageCell */,
 				1326F7D21C02DB5E0016B88E /* MessageTableViewController.h */,
 				1326F7D31C02DB5E0016B88E /* MessageTableViewController.m */,
@@ -1053,7 +1053,7 @@
 				13C707261BC81FBE003061A4 /* LoginViewController */,
 				134530881BC8AD250018C15E /* ClassViewController */,
 				1326F7D11C02D9F20016B88E /* MessageTableViewController */,
-				131287851CB89ECA0089D8D7 /* ActivityViewController */,
+				131287851CB89ECA0089D8D7 /* ActivityTableViewController */,
 				13FEE6401CB90A48000C72BC /* LibraryViewController */,
 				13587A1B1CD5CC43005379FC /* AddBoxTableViewController */,
 				5A421B153599CE926F9064AD /* TaskListTableViewController */,
@@ -1712,7 +1712,7 @@
 				13D8E2C11BD625180051617C /* MBProgressHUD.m in Sources */,
 				1366D6821BD4F19000B69C04 /* ClassNoteTableViewCell.m in Sources */,
 				13587A1E1CD5CC64005379FC /* AddBoxTableViewController.m in Sources */,
-				131287881CB89EE30089D8D7 /* ActivityViewController.m in Sources */,
+				131287881CB89EE30089D8D7 /* ActivityTableViewController.m in Sources */,
 				1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */,
 				13242F051C0805D4008D46F2 /* Document.m in Sources */,
 				1366D6711BD4BAD500B69C04 /* DiscussViewController.m in Sources */,

@@ -8,9 +8,8 @@
 
 #import "HeaderCollectionReusableView.h"
 #import "Define.h"
-#import <SIAlertView/SIAlertView.h>
 
-static const NSTimeInterval kDuration = 4.0;
+static const NSTimeInterval kDuration = 5.0;
 
 
 @interface HeaderCollectionReusableView () <UIScrollViewDelegate>
@@ -37,33 +36,12 @@ static const NSTimeInterval kDuration = 4.0;
         self.scrollView.bounces = NO;
         self.scrollView.scrollsToTop = NO;
         self.scrollView.directionalLockEnabled = YES;
-//        self.scrollView.layer.borderWidth = 0.3f;
-//        self.scrollView.layer.borderColor = [UIColor lightGrayColor].CGColor;
         [self addSubview:self.scrollView];
         
         self.pageControl = [[TAPageControl alloc] initWithFrame:CGRectMake(0, 0, 50, 10)];
-        self.pageControl.center = CGPointMake(self.scrollView.bounds.size.width/2, self.scrollView.bounds.size.height - 12.0f);
+        self.pageControl.center = CGPointMake(self.scrollView.bounds.size.width / 2, self.scrollView.bounds.size.height - 12.0f);
         self.pageControl.userInteractionEnabled = NO;
-        self.pageControl.numberOfPages = 3;
-        self.pageControl.currentPage = 0;
-        
-        _banner1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, width, width * k)];
-        _banner2 = [[UIImageView alloc] initWithFrame:CGRectMake(width, 0, width, width * k)];
-        _banner3 = [[UIImageView alloc] initWithFrame:CGRectMake(width * 2, 0, width, width * k)];
-        
-        _banner1.contentMode = _banner2.contentMode = _banner3.contentMode = UIViewContentModeScaleAspectFill;
-        
-        _banner1.clipsToBounds = _banner2.clipsToBounds = _banner3.clipsToBounds = YES;
-        
-        [self.scrollView addSubview:_banner1];
-        [self.scrollView addSubview:_banner2];
-        [self.scrollView addSubview:_banner3];
         [self addSubview:self.pageControl];
-        
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * 3, self.scrollView.frame.size.height);
-        
-        // Banner播放计时器
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:4.5 target:self selector:@selector(nextBanner) userInfo:nil repeats:YES];
         
         // Gesture
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openLink)];
@@ -78,21 +56,42 @@ static const NSTimeInterval kDuration = 4.0;
     return self;
 }
 
+- (void)setNumberOfImages:(NSUInteger)number
+{
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    
+    CGFloat k = 9.0 / 16;
+    
+    // pageControl
+    self.pageControl.numberOfPages = number;
+    self.pageControl.currentPage = 0;
+    
+    // scrollView
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * number, self.scrollView.frame.size.height);
+    
+    // imageViews
+    _imageViews = [NSMutableArray array];
+    
+    for (NSUInteger i = 0; i < number; i++) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(width * i, 0, width, width * k)];
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
+        [_imageViews addObject:imageView];
+        [self.scrollView addSubview:imageView];
+    }
+}
+
 
 - (void)nextBanner
 {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     
-    if (_pageControl.currentPage == 0) {
-        [self.scrollView setContentOffset:CGPointMake(width, 0) animated:YES];
-        self.pageControl.currentPage = 1;
-    } else if (_pageControl.currentPage == 1) {
-        [self.scrollView setContentOffset:CGPointMake(width * 2, 0) animated:YES];
-        self.pageControl.currentPage = 2;
-    } else if (_pageControl.currentPage == 2) {
-        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+    if (_imageViews.count == _pageControl.currentPage + 1) {
         self.pageControl.currentPage = 0;
+    } else {
+        self.pageControl.currentPage++;
     }
+    [self.scrollView setContentOffset:CGPointMake(width * self.pageControl.currentPage, 0) animated:YES];
 }
 
 
@@ -109,13 +108,7 @@ static const NSTimeInterval kDuration = 4.0;
 - (void)resetHeader
 {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    if (_pageControl.currentPage == 0) {
-        [self.scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-    } else if (_pageControl.currentPage == 1) {
-        [self.scrollView setContentOffset:CGPointMake(width, 0) animated:YES];
-    } else if (_pageControl.currentPage == 2) {
-        [self.scrollView setContentOffset:CGPointMake(width * 2, 0) animated:YES];
-    }
+    [self.scrollView setContentOffset:CGPointMake(width * _pageControl.currentPage, 0) animated:YES];
     [self.timer invalidate];
 }
 
@@ -129,55 +122,7 @@ static const NSTimeInterval kDuration = 4.0;
 {
     NSInteger index = _pageControl.currentPage;
     
-    if (index == 0) {
-        if (_link1.length > 0) {
-            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"了解更多" andMessage:_link1];
-            
-            alertView.transitionStyle = SIAlertViewTransitionStyleFade;
-            
-            [alertView addButtonWithTitle:@"算了" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
-                
-            }];
-            
-            [alertView addButtonWithTitle:@"访问" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_link1]];
-            }];
-            
-            [alertView show];
-        }
-    } else if (index == 1) {
-        if (_link2.length > 0) {
-            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"了解更多" andMessage:_link2];
-            
-            alertView.transitionStyle = SIAlertViewTransitionStyleFade;
-            
-            [alertView addButtonWithTitle:@"算了" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
-                
-            }];
-            
-            [alertView addButtonWithTitle:@"访问" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_link2]];
-            }];
-            
-            [alertView show];
-        }
-    } else if (index == 2) {
-        if (_link3.length > 0) {
-            SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"了解更多" andMessage:_link3];
-            
-            alertView.transitionStyle = SIAlertViewTransitionStyleFade;
-            
-            [alertView addButtonWithTitle:@"不去了" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
-                
-            }];
-            
-            [alertView addButtonWithTitle:@"访问" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:_link3]];
-            }];
-            
-            [alertView show];
-        }
-    }
+    [_delegate bannerDidPressWithIndex:index];
 }
 
 
