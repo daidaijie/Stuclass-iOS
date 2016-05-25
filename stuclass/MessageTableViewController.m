@@ -23,6 +23,7 @@
 #import "WXApi.h"
 #import "ClassParser.h"
 #import "IDMPhotoBrowser.h"
+#import "UIImageView-PlayGIF/UIImageView+PlayGIF.h"
 
 static const CGFloat kHeightForSectionHeader = 8.5;
 
@@ -105,9 +106,10 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     _startLabel.textColor = MAIN_COLOR;
     _startLabel.text = @"把我\"拉\"下去刷新";
     
-    _startImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 88, 88)];
+    _startImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 120, 88)];
     _startImageView.center = CGPointMake(width / 2, height / 2 - 80);
-    _startImageView.image = [UIImage imageNamed:@"icon-empty-discuss"];
+    _startImageView.gifPath = [[NSBundle mainBundle] pathForResource:@"panda" ofType:@"gif"];
+    [_startImageView startGIF];
     
     
     [self.tableView addSubview:_startLabel];
@@ -121,6 +123,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 - (void)refresh
 {
     [self setupData];
+    [_startImageView startGIF];
 }
 
 - (void)didFinishRefresh
@@ -150,6 +153,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 //        NSLog(@"------- %@", responseObject);
         [self parseResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [_startImageView stopGIF];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
@@ -158,6 +162,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
         [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
         self.tableView.userInteractionEnabled = YES;
         [self didFinishRefresh];
+        [_startImageView stopGIF];
     }];
 }
 

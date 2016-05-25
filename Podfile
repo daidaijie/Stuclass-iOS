@@ -9,4 +9,5 @@ pod 'MGSwipeTableCell'
 pod 'SIAlertView'
 pod 'UITableView+FDTemplateLayoutCell'
 pod 'IDMPhotoBrowser'
+pod 'UIImageView-PlayGIF', '~> 1.0.1'
 end

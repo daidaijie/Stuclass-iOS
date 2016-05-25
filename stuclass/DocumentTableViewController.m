@@ -17,6 +17,7 @@
 #import "ClassParser.h"
 #import "DocumentDetailViewController.h"
 #import "MobClick.h"
+#import "UIImageView-PlayGIF/UIImageView+PlayGIF.h"
 
 static NSString *cell_id = @"DocumentTableViewCell";
 
@@ -98,9 +99,10 @@ static const NSUInteger kNumberOfDocuments = 30;
     _startLabel.textColor = MAIN_COLOR;
     _startLabel.text = @"把我\"拉\"下去刷新";
     
-    _startImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 88, 88)];
+    _startImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 120, 88)];
     _startImageView.center = CGPointMake(width / 2, height / 2 - 80);
-    _startImageView.image = [UIImage imageNamed:@"icon-empty-discuss"];
+    _startImageView.gifPath = [[NSBundle mainBundle] pathForResource:@"panda" ofType:@"gif"];
+    [_startImageView startGIF];
     
     
     [self.tableView addSubview:_startLabel];
@@ -207,6 +209,7 @@ static const NSUInteger kNumberOfDocuments = 30;
 - (void)refreshControlDidPull
 {
     [self oa];
+    [_startImageView startGIF];
     [MobClick event:@"More_OA"];
 }
 
@@ -241,7 +244,7 @@ static const NSUInteger kNumberOfDocuments = 30;
 //        NSLog(@"--------%@", responseObject);
         [self parseOaResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
+        [_startImageView stopGIF];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
@@ -249,6 +252,7 @@ static const NSUInteger kNumberOfDocuments = 30;
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.refreshControl endRefreshing];
         self.tableView.userInteractionEnabled = YES;
+        [_startImageView stopGIF];
     }];
 }
 

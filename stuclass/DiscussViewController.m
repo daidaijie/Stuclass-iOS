@@ -410,7 +410,6 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         NSLog(@"讨论 - 连接服务器 - 成功");
         [self parseResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"讨论 - 连接服务器 - 失败 - %@", error);

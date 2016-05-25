@@ -25,9 +25,9 @@
 @implementation NSMutableArray (Shuffling)
 - (void)shuffle
 {
-    int count = [self count];
-    for (int i = 0; i < count; ++i) {
-        int n = (arc4random() % (count - i)) + i;
+    NSUInteger count = self.count;
+    for (NSUInteger i = 0; i < count; ++i) {
+        NSUInteger n = (arc4random() % (count - i)) + i;
         [self exchangeObjectAtIndex:i withObjectAtIndex:n];
     }
 }
@@ -100,19 +100,16 @@ static const CGFloat kHeightForSectionHeader = 8.5;
     Message *m1 = [[Message alloc] init];
     m1.nickname = @"喜欢喝果粒橙的猫呆汪";
     m1.avatarURL = @"a1";
-    m1.content = @"我们将会在下个学期启动校园动态平台，那真的是很棒的！(认真脸)";
     m1.comments = @[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""];
     m1.likes = @[@"", @"", @"", @"", @"", @"", @"", @""];
     
     Message *m2 = [[Message alloc] init];
     m2.nickname = @"强记这不是灯孝妇";
     m2.avatarURL = @"a2";
-    m2.content = @"40多个社团组织入驻课程表，全方面覆盖汕大的所有活动，共同打造汕大最棒的活动信息发布平台！";
     
     Message *m3 = [[Message alloc] init];
     m3.nickname = @"呆呆的李宇杰";
     m3.avatarURL = @"a3";
-    m3.content = @"校园动态将整合所有与汕大有关的推文！不用看海报，不用怕漏了组织！";
     
     NSMutableArray *messageData = [NSMutableArray array];
     [messageData addObject:m1];
@@ -124,6 +121,10 @@ static const CGFloat kHeightForSectionHeader = 8.5;
     ((Message *)messageData[0]).date = @"刚刚（哈哈，现在还不能用呢）";
     ((Message *)messageData[1]).date = @"6分钟前";
     ((Message *)messageData[2]).date = @"6小时前";
+    
+    ((Message *)messageData[0]).content = @"我们将会在下个学期启动校园动态平台，那真的是很棒的！(认真脸)";
+    ((Message *)messageData[1]).content = @"40多个社团组织入驻课程表，全方面覆盖汕大的所有活动，共同打造汕大最棒的活动信息发布平台！";
+    ((Message *)messageData[2]).content = @"校园动态将整合所有与汕大有关的推文！不用看海报，不用怕漏了组织！";
     
     _messageData = messageData;
 }
@@ -170,7 +171,7 @@ static const CGFloat kHeightForSectionHeader = 8.5;
         [alertView addButtonWithTitle:@"算了" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
         }];
         
-        [alertView addButtonWithTitle:@"访问" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+        [alertView addButtonWithTitle:@"瞧一瞧" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
         }];
         

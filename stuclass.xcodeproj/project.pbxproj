@@ -59,6 +59,7 @@
 		1335FC741BCA25A100BC0F23 /* WeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC731BCA25A100BC0F23 /* WeekView.m */; };
 		1335FC7C1BCA274900BC0F23 /* JHDater.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC7A1BCA274900BC0F23 /* JHDater.m */; };
 		1335FC7F1BCA343100BC0F23 /* ClassButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC7E1BCA343100BC0F23 /* ClassButton.m */; };
+		1338FCDE1CF5CD800007D7D4 /* panda.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1338FCDD1CF5CD800007D7D4 /* panda.gif */; };
 		13391F7E1CC722BD00FA4807 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 13391F7D1CC722BD00FA4807 /* Task.m */; };
 		134775BA1CCB31A1006E1E94 /* BookDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 134775B91CCB31A1006E1E94 /* BookDetailViewController.m */; };
 		134AB7D81C01840E00D8E816 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7D71C01840E00D8E816 /* MoreView.m */; };
@@ -244,6 +245,7 @@
 		1335FC7B1BCA274900BC0F23 /* JHDater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JHDater.h; sourceTree = "<group>"; };
 		1335FC7D1BCA343100BC0F23 /* ClassButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassButton.h; sourceTree = "<group>"; };
 		1335FC7E1BCA343100BC0F23 /* ClassButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassButton.m; sourceTree = "<group>"; };
+		1338FCDD1CF5CD800007D7D4 /* panda.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = panda.gif; sourceTree = "<group>"; };
 		13391F7C1CC722BD00FA4807 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Task.h; path = stuclass/Task.h; sourceTree = "<group>"; };
 		13391F7D1CC722BD00FA4807 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Task.m; path = stuclass/Task.m; sourceTree = "<group>"; };
 		134530891BC8AE0C0018C15E /* ClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassViewController.h; sourceTree = "<group>"; };
@@ -1080,6 +1082,7 @@
 				13FD913F1C8ADCD000F89806 /* banner2.jpg */,
 				13FD91401C8ADCD000F89806 /* banner3.jpg */,
 				131434251CE061ED00CEAB6F /* panda.jpg */,
+				1338FCDD1CF5CD800007D7D4 /* panda.gif */,
 				13C707191BC7DE10003061A4 /* Assets.xcassets */,
 				13C7071B1BC7DE10003061A4 /* LaunchScreen.storyboard */,
 				13C7071E1BC7DE10003061A4 /* Info.plist */,
@@ -1406,6 +1409,7 @@
 				13C7071D1BC7DE10003061A4 /* LaunchScreen.storyboard in Resources */,
 				136A27D51C043F8500B45460 /* ExamTableViewCell.xib in Resources */,
 				132E3B891CDB394A004D192C /* class_bg_1_7.jpg in Resources */,
+				1338FCDE1CF5CD800007D7D4 /* panda.gif in Resources */,
 				1320FC841C020B6F0084B152 /* GradeTableViewCell.xib in Resources */,
 				1377A9C81CD7A2B400672897 /* class_bg_1_0.jpg in Resources */,
 				1377A9CC1CD7A2B400672897 /* class_bg_1_4.jpg in Resources */,
