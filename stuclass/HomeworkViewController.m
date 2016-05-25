@@ -329,18 +329,18 @@ static const CGFloat kHeightForSectionHeader = 8.0;
         if ([errorStr isEqualToString:@"not authorized: wrong token"]) {
             
             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-            [self showHUDWithText:global_connection_wrong_token andHideDelay:1.6];
-            [self performSelector:@selector(logout) withObject:nil afterDelay:1.6];
+            [self showHUDWithText:global_connection_wrong_token andHideDelay:global_hud_delay];
+            [self performSelector:@selector(logout) withObject:nil afterDelay:global_hud_delay];
             
         } else {
             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-            [self showHUDWithText:@"删除失败，请重试" andHideDelay:1.0];
+            [self showHUDWithText:@"删除失败，请重试" andHideDelay:global_hud_delay];
         }
         
     } else {
         
         [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-        [self showHUDWithText:@"删除成功" andHideDelay:1.0];
+        [self showHUDWithText:@"删除成功" andHideDelay:global_hud_delay];
         
         [_tableView beginUpdates];
         [_homeworkData removeObjectAtIndex:homework_section];

@@ -339,7 +339,7 @@ static const NSUInteger kNumberOfDocuments = 100;
             [documentArray removeObjectAtIndex:flag];
             [ud setObject:documentArray forKey:@"DOCUMENTS"];
             
-            [self showHUDWithText:@"取消成功" andHideDelay:0.8];
+            [self showHUDWithText:@"取消成功" andHideDelay:global_hud_short_delay];
         }
         
         //        [self displayUD];
@@ -368,7 +368,7 @@ static const NSUInteger kNumberOfDocuments = 100;
         
         //        [self displayUD];
         
-        [self showHUDWithText:@"添加成功" andHideDelay:0.8];
+        [self showHUDWithText:@"添加成功" andHideDelay:global_hud_short_delay];
     }
 }
 

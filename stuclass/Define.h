@@ -39,13 +39,17 @@ static NSString *global_connection_wrong_user_password = @"账号或密码有误
 static NSString *global_connection_credit_broken = @"天哪！学分制系统崩溃了！";
 
 // Constant
+static const NSTimeInterval global_hud_delay = 1.2;
+
+static const NSTimeInterval global_hud_short_delay = 1.0;
+
+static const NSTimeInterval global_hud_long_delay = 1.6;
+
 static const NSTimeInterval global_timeout = 8.0;
 
 static const NSTimeInterval member_timeout = 4.0;
 
 static const NSTimeInterval login_timeout = 2.0;
-
-static const NSTimeInterval global_hud_delay = 1.0;
 
 static const CGFloat global_BarViewHeight = 43.0;
 

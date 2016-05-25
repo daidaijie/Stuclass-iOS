@@ -135,7 +135,7 @@
         
     } else {
         
-        [self showHUDWithText:@"当前微信不可用" andHideDelay:1.6];
+        [self showHUDWithText:@"当前微信不可用" andHideDelay:global_hud_delay];
     }
 }
 

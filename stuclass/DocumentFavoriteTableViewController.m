@@ -231,7 +231,7 @@ static NSString *cell_id = @"DocumentTableViewCell";
 
 //        [self displayUD];
 
-        [self showHUDWithText:@"取消成功" andHideDelay:0.8];
+        [self showHUDWithText:@"取消成功" andHideDelay:global_hud_short_delay];
 
     } else if (actionSheet.tag < 10000 && buttonIndex == 0) {
         // 添加收藏
@@ -259,7 +259,7 @@ static NSString *cell_id = @"DocumentTableViewCell";
 
 //        [self displayUD];
 
-        [self showHUDWithText:@"添加成功" andHideDelay:0.8];
+        [self showHUDWithText:@"添加成功" andHideDelay:global_hud_short_delay];
     }
 }
 

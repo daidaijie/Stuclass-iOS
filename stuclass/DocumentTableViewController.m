@@ -63,7 +63,7 @@ static const NSUInteger kNumberOfDocuments = 30;
     BOOL isSecondTimeOA = [ud boolForKey:@"SECOND_TIME_OA"];
     
     if (!isSecondTimeOA) {
-        [self showHUDWithText:@"长按可以收藏条文哟" andHideDelay:1.2];
+        [self showHUDWithText:@"长按可以收藏条文哟" andHideDelay:global_hud_delay];
         [ud setBool:YES forKey:@"SECOND_TIME_OA"];
     }
 }
@@ -245,7 +245,7 @@ static const NSUInteger kNumberOfDocuments = 30;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
-        [self showHUDWithText:global_connection_failed andHideDelay:1.0];
+        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [self.refreshControl endRefreshing];
         self.tableView.userInteractionEnabled = YES;
@@ -436,7 +436,7 @@ static const NSUInteger kNumberOfDocuments = 30;
             [documentArray removeObjectAtIndex:flag];
             [ud setObject:documentArray forKey:@"DOCUMENTS"];
             
-            [self showHUDWithText:@"取消成功" andHideDelay:0.8];
+            [self showHUDWithText:@"取消成功" andHideDelay:global_hud_short_delay];
         }
 
 //        [self displayUD];
@@ -465,7 +465,7 @@ static const NSUInteger kNumberOfDocuments = 30;
 
 //        [self displayUD];
 
-        [self showHUDWithText:@"添加成功" andHideDelay:0.8];
+        [self showHUDWithText:@"添加成功" andHideDelay:global_hud_short_delay];
     }
 }
 

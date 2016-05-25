@@ -67,22 +67,22 @@
     if (nickname.length == 0) {
         
         // 不能留空
-        [self showHUDWithText:@"昵称不能为空" andHideDelay:1.0];
+        [self showHUDWithText:@"昵称不能为空" andHideDelay:global_hud_delay];
         
     } else if ([nickname hasPrefix:@" "] || [nickname hasSuffix:@" "]) {
         
         // 首尾不能有空格
-        [self showHUDWithText:@"昵称首尾不能有空格" andHideDelay:1.0];
+        [self showHUDWithText:@"昵称首尾不能有空格" andHideDelay:global_hud_delay];
         
     } else if (nickname.length < 2){
         
         // 名字太短
-        [self showHUDWithText:@"昵称最少2个字符" andHideDelay:1.0];
+        [self showHUDWithText:@"昵称最少2个字符" andHideDelay:global_hud_delay];
         
     } else if (nickname.length > 14) {
         
         // 名字太长了
-        [self showHUDWithText:@"昵称只允许14个字符以内" andHideDelay:1.0];
+        [self showHUDWithText:@"昵称只允许14个字符以内" andHideDelay:global_hud_delay];
         
     } else if ([_nicknameTextField.text isEqualToString:_ud_nickname]) {
         

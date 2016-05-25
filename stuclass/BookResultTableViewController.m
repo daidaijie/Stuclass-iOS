@@ -172,7 +172,7 @@
         } else {
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
             NSLog(@"图书 - 失败 - %@", connectionError);
-            [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+            [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
             [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height-self.tableView.frame.size.height-self.tableView.tableFooterView.frame.size.height) animated:NO];
             [(LibraryFooterView *)self.tableView.tableFooterView hideLoading];
             _isLoading = NO;
@@ -208,7 +208,7 @@
     } else {
         NSLog(@"没有匹配");
         // 一般不会发生 - 未知错误 - 网页被修改了
-        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
         [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height-self.tableView.frame.size.height-self.tableView.tableFooterView.frame.size.height) animated:NO];
         [(LibraryFooterView *)self.tableView.tableFooterView hideLoading];
         _isLoading = NO;
@@ -287,7 +287,7 @@
     } else {
         NSLog(@"没有匹配");
         // 一般不会发生 - 未知错误 - 网页被修改了
-        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
         [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentSize.height-self.tableView.frame.size.height-self.tableView.tableFooterView.frame.size.height) animated:NO];
         [(LibraryFooterView *)self.tableView.tableFooterView hideLoading];
         _isLoading = NO;

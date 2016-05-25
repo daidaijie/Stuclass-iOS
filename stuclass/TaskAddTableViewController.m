@@ -126,11 +126,11 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 - (IBAction)AddItemPress:(id)sender
 {
     if (_textView.text.length == 0) {
-        [self showHUDWithText:@"内容不能为空" andHideDelay:1.0];
+        [self showHUDWithText:@"内容不能为空" andHideDelay:global_hud_delay];
     } else if ([_textView.text rangeOfString:@"\n\n\n"].location != NSNotFound) {
-        [self showHUDWithText:@"不能连续换三行以上" andHideDelay:1.0];
+        [self showHUDWithText:@"不能连续换三行以上" andHideDelay:global_hud_delay];
     } else if (_textView.text.length > 40) {
-        [self showHUDWithText:@"限制40字以内" andHideDelay:1.0];
+        [self showHUDWithText:@"限制40字以内" andHideDelay:global_hud_delay];
     } else {
         // add
         [MobClick event:@"TaskList_Add"];

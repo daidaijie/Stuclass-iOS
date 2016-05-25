@@ -250,9 +250,9 @@
         UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
         pasteBoard.string = @"http://hjsmallfly.wicp.net/app";
         
-        [self showHUDWithText:@"下载链接已添加到剪贴板" andHideDelay:1.6];
+        [self showHUDWithText:@"下载链接已添加到剪贴板" andHideDelay:global_hud_delay];
         
-        [self performSelector:@selector(diselectCell) withObject:nil afterDelay:1.6];
+        [self performSelector:@selector(diselectCell) withObject:nil afterDelay:global_hud_delay];
     }
 }
 

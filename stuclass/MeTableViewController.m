@@ -13,6 +13,7 @@
 #import "MBProgressHUD.h"
 #import "UIImageView+WebCache.h"
 #import "MobClick.h"
+#import "WXApi.h"
 
 @interface MeTableViewController ()
 
@@ -99,6 +100,77 @@
     [ud setValue:nil forKey:@"USER_ID"];
 }
 
+- (IBAction)share:(id)sender
+{
+    if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
+        
+        NSString *title = [NSString stringWithFormat:@"嗨，这是我的汕大课程表名片！"];
+        NSString *description = [NSString stringWithFormat:@"%@\n%@\n(点击打开App)", _nicknameLabel.text, _usernameLabel.text];
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"分享我的名片" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = NO;
+            sendReq.scene = 0;
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            urlMessage.title = title;
+            urlMessage.description = description;
+            [urlMessage setThumbImage:_avatarImageView.image];
+            
+            //创建多媒体对象
+            WXWebpageObject *webObj = [WXWebpageObject object];
+            webObj.webpageUrl = jump_app_url;
+            
+            //完成发送对象实例
+            urlMessage.mediaObject = webObj;
+            sendReq.message = urlMessage;
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+            
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"微信朋友圈" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
+            
+            //创建发送对象实例
+            SendMessageToWXReq *sendReq = [[SendMessageToWXReq alloc] init];
+            sendReq.bText = NO;
+            sendReq.scene = 1;
+            
+            //创建分享内容对象
+            WXMediaMessage *urlMessage = [WXMediaMessage message];
+            urlMessage.title = title;
+            urlMessage.description = description;
+            [urlMessage setThumbImage:_avatarImageView.image];
+            
+            //创建多媒体对象
+            WXWebpageObject *webObj = [WXWebpageObject object];
+            webObj.webpageUrl = jump_app_url;
+            
+            //完成发送对象实例
+            urlMessage.mediaObject = webObj;
+            sendReq.message = urlMessage;
+            
+            //发送分享信息
+            [WXApi sendReq:sendReq];
+        }]];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *alertAction){
+            
+        }]];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+        
+    } else {
+        
+        [self showHUDWithText:@"当前微信不可用" andHideDelay:global_hud_delay];
+    }
+}
 
 #pragma mark - HUD
 

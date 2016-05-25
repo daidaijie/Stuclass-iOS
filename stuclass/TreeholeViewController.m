@@ -72,7 +72,7 @@
         [alertView show];
         
     } else {
-        [self showHUDWithText:@"加载失败，请重试" andHideDelay:0.8];
+        [self showHUDWithText:@"加载失败，请重试" andHideDelay:global_hud_delay];
     }
 }
 

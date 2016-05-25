@@ -47,7 +47,7 @@
     
     if (!isSecond) {
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"SECOND_TIME_OPEN_BOOK_RESULT"];
-        [self showHUDWithText:@"连续触摸<馆藏地>即可放大显示" andHideDelay:2.0];
+        [self showHUDWithText:@"连续触摸<馆藏地>即可放大显示" andHideDelay:global_hud_delay];
     }
 }
 
@@ -78,7 +78,7 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    [self showHUDWithText:@"加载失败，请重试" andHideDelay:0.8];
+    [self showHUDWithText:@"加载失败，请重试" andHideDelay:global_hud_delay];
 }
 
 - (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {

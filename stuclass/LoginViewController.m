@@ -244,7 +244,6 @@
         [self showHUDWithText:@"请输入账号和密码" andHideDelay:global_hud_delay];
         return;
     } else if (_year == 0 && _semester == 0) {
-//        [self showHUDWithText:@"请选择学期" andHideDelay:global_hud_delay];
         [self semesterPress:nil];
         return;
     }

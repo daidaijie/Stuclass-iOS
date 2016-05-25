@@ -1053,7 +1053,13 @@
                             <outlet property="delegate" destination="Mea-rx-FAo" id="0WJ-NN-Ucx"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="我" id="l3g-6B-nWB"/>
+                    <navigationItem key="navigationItem" title="我" id="l3g-6B-nWB">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-share" id="Dpt-x0-n00">
+                            <connections>
+                                <action selector="share:" destination="Mea-rx-FAo" id="n4b-mv-gOt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

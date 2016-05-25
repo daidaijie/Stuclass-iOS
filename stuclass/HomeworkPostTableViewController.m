@@ -133,13 +133,13 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 - (IBAction)postItemPress:(id)sender
 {
     if (_textView.text.length == 0) {
-        [self showHUDWithText:@"作业内容不能为空" andHideDelay:1.0];
+        [self showHUDWithText:@"作业内容不能为空" andHideDelay:global_hud_delay];
     } else if ([_textView.text rangeOfString:@"\n\n\n"].location != NSNotFound) {
-        [self showHUDWithText:@"不能连续换三行以上" andHideDelay:1.0];
+        [self showHUDWithText:@"不能连续换三行以上" andHideDelay:global_hud_delay];
     } else if (_textView.text.length > 180) {
-        [self showHUDWithText:@"限制180字以内" andHideDelay:1.0];
+        [self showHUDWithText:@"限制180字以内" andHideDelay:global_hud_delay];
     } else if (_textField.text.length > 16) {
-        [self showHUDWithText:@"截止时间16字以内" andHideDelay:1.0];
+        [self showHUDWithText:@"截止时间16字以内" andHideDelay:global_hud_delay];
     } else {
         [_textView resignFirstResponder];
         [_textField resignFirstResponder];

@@ -155,7 +155,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
         // 失败
         NSLog(@"消息圈 - 连接服务器 - 失败 - %@", error);
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
         self.tableView.userInteractionEnabled = YES;
         [self didFinishRefresh];
     }];
@@ -174,7 +174,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
         _startLabel.hidden = _startImageView.hidden = YES;
         
     } else {
-        [self showHUDWithText:global_connection_failed andHideDelay:0.8];
+        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
         self.tableView.userInteractionEnabled = YES;
     }
     [self didFinishRefresh];
@@ -604,7 +604,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     } else {
         UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
         pasteBoard.string = message.content;
-        [self showHUDWithText:@"文本内容已复制(当前微信不可用)" andHideDelay:1.6];
+        [self showHUDWithText:@"文本内容已复制(当前微信不可用)" andHideDelay:global_hud_delay];
     }
 }
 

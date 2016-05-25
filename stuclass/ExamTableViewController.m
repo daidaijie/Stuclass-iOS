@@ -374,7 +374,7 @@ static const NSInteger kHeightForCellRow = 46.0;
         
     } else {
         
-        [self showHUDWithText:@"截图已保存到相册(当前微信不可用)" andHideDelay:1.6];
+        [self showHUDWithText:@"截图已保存到相册(当前微信不可用)" andHideDelay:global_hud_delay];
     }
 }
 

@@ -130,8 +130,12 @@
     NSUInteger row = indexPath.row;
     
     if (row == 3) {
+        [_textView resignFirstResponder];
+        [_descriptionTextView resignFirstResponder];
         [self pickTime];
     } else if (row == 4) {
+        [_textView resignFirstResponder];
+        [_descriptionTextView resignFirstResponder];
         [self pickWeek];
     }
 }
@@ -157,7 +161,7 @@
     
         // check
         if (start + span > 14) {
-            [self showHUDWithText:@"时间超出课表范围了" andHideDelay:0.8];
+            [self showHUDWithText:@"时间超出课表范围了" andHideDelay:global_hud_delay];
         } else {
             // week
             
@@ -246,7 +250,7 @@
         
         // check
         if (startWeek > endWeek) {
-            [self showHUDWithText:@"周数选择有误" andHideDelay:0.8];
+            [self showHUDWithText:@"周数选择有误" andHideDelay:global_hud_delay];
         } else {
             // week
             
@@ -377,14 +381,17 @@
 
 - (IBAction)confirm:(id)sender
 {
+    [_textView resignFirstResponder];
+    [_descriptionTextView resignFirstResponder];
+    
     // first check
     if (_textView.text.length == 0) {
-        [self showHUDWithText:@"格子名称不能为空" andHideDelay:0.8];
+        [self showHUDWithText:@"格子名称不能为空" andHideDelay:global_hud_delay];
         return;
     }
     
     if (_textView.text.length > 40) {
-        [self showHUDWithText:@"格子名称太长了(最多40个字符)" andHideDelay:0.8];
+        [self showHUDWithText:@"格子名称太长了(最多40个字符)" andHideDelay:global_hud_delay];
         return;
     }
     
@@ -408,7 +415,7 @@
         
         [_delegate addBoxDelegateDidAdd:boxData];
         [self.navigationController popViewControllerAnimated:YES];
-        [self showHUDWithText:@"添加成功" andHideDelay:1.0];
+        [self showHUDWithText:@"添加成功" andHideDelay:global_hud_short_delay];
     }
 }
 
@@ -440,12 +447,12 @@
                     // 在范围之内
                     if (_weekType.length == 0) {
                         conflict = YES;
-                        [self showHUDWithText:[NSString stringWithFormat:@"与 %@ 冲突", box.box_name] andHideDelay:0.8];
+                        [self showHUDWithText:[NSString stringWithFormat:@"与 %@ 冲突", box.box_name] andHideDelay:global_hud_delay];
                         break;
                     } else {
                         if ([_weekType isEqualToString:box.box_weekType]) {
                             conflict = YES;
-                            [self showHUDWithText:[NSString stringWithFormat:@"与 %@ 冲突", box.box_name] andHideDelay:0.8];
+                            [self showHUDWithText:[NSString stringWithFormat:@"与 %@ 冲突", box.box_name] andHideDelay:global_hud_delay];
                             break;
                         }
                     }

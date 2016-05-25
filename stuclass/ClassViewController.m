@@ -1235,10 +1235,10 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         [alertView addButtonWithTitle:@"立即体验 🙄:)" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
             [ud setObject:appVersion forKey:@"LOCAL_VERSION"];
             if (_boxData.count == 0) {
-                [self showHUDWithText:@"点击右上角可以添加格子哟!" andHideDelay:1.6];
-                [self performSelector:@selector(showShareClassTip) withObject:nil afterDelay:1.8];
+                [self showHUDWithText:@"点击右上角可以添加格子哟!" andHideDelay:global_hud_long_delay];
+                [self performSelector:@selector(showShareClassTip) withObject:nil afterDelay:global_hud_long_delay + 0.2];
             } else {
-                [self showHUDWithText:@"三个手指触屏可以分享课表哟!" andHideDelay:1.6];
+                [self showHUDWithText:@"三个手指触屏可以分享课表哟!" andHideDelay:global_hud_long_delay];
             }
         }];
         
@@ -1248,7 +1248,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)showShareClassTip
 {
-    [self showHUDWithText:@"三个手指触屏可以分享课表哟!" andHideDelay:1.6];
+    [self showHUDWithText:@"三个手指触屏可以分享课表哟!" andHideDelay:global_hud_long_delay];
 }
 
 #pragma mark - Connect
@@ -1278,7 +1278,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     [manager POST:login_host parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"一键联网 - 失败");
-        [self showHUDWithText:@"请连接STU校内网" andHideDelay:1.0];
+        [self showHUDWithText:@"请连接STU校内网" andHideDelay:global_hud_delay];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1289,11 +1289,11 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         if (range.location != NSNotFound && str) {
             NSLog(@"一键联网 - 成功");
             NSUInteger MB = [self getMbFromString:str];
-            [self showHUDWithText:[NSString stringWithFormat:@"已使用流量 %dMB", MB] andHideDelay:1.5];
+            [self showHUDWithText:[NSString stringWithFormat:@"已使用流量 %dMB", MB] andHideDelay:global_hud_long_delay];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         } else {
             NSLog(@"一键联网 - 失败 - %@", error);
-            [self showHUDWithText:@"请连接STU校内网" andHideDelay:1.0];
+            [self showHUDWithText:@"请连接STU校内网" andHideDelay:global_hud_delay];
             [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         }
     }];
@@ -1484,7 +1484,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         
     } else {
         
-        [self showHUDWithText:@"截图已保存到相册(当前微信不可用)" andHideDelay:1.6];
+        [self showHUDWithText:@"截图已保存到相册(当前微信不可用)" andHideDelay:global_hud_delay];
     }
 }
 
