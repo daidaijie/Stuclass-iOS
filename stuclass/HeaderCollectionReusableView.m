@@ -1,6 +1,6 @@
 //
 //  HeaderCollectionReusableView.m
-//  stuget
+//  stuclass
 //
 //  Created by JunhaoWang on 7/6/15.
 //  Copyright (c) 2015 JunhaoWang. All rights reserved.
@@ -8,6 +8,7 @@
 
 #import "HeaderCollectionReusableView.h"
 #import "Define.h"
+#import "UIImageView+WebCache.h"
 
 static const NSTimeInterval kDuration = 5.0;
 
@@ -56,13 +57,14 @@ static const NSTimeInterval kDuration = 5.0;
     return self;
 }
 
-- (void)setNumberOfImages:(NSUInteger)number
+- (void)setImages:(NSArray *)banners
 {
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     
     CGFloat k = 9.0 / 16;
     
     // pageControl
+    NSUInteger number = banners.count;
     self.pageControl.numberOfPages = number;
     self.pageControl.currentPage = 0;
     
@@ -76,6 +78,18 @@ static const NSTimeInterval kDuration = 5.0;
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(width * i, 0, width, width * k)];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
+        
+        // setImage
+        NSDictionary *dict = banners[i];
+        NSString *urlStr = dict[@"url"];
+        UIImage *placeholder = [UIImage imageNamed:[NSString stringWithFormat:@"banner%d.jpg", (i % 3) + 1]];
+        if ([urlStr isEqualToString:@""] || !urlStr) {
+            imageView.image = placeholder;
+        } else {
+            [imageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:placeholder completed:nil];
+        }
+        
+        // add
         [_imageViews addObject:imageView];
         [self.scrollView addSubview:imageView];
     }

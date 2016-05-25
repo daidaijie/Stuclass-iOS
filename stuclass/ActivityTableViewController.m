@@ -16,6 +16,7 @@
 #import <UITableView_FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>
 #import "DocumentFooterView.h"
 #import <SIAlertView/SIAlertView.h>
+#import <AFNetworking/AFNetworking.h>
 
 @interface NSMutableArray (Shuffling)
 - (void) shuffle;
@@ -58,6 +59,8 @@ static const CGFloat kHeightForSectionHeader = 8.5;
     
     [self setupBanner];
     
+    [self sendRequest];
+    
     
     [MobClick event:@"Tabbar_Activity"];
 }
@@ -97,19 +100,19 @@ static const CGFloat kHeightForSectionHeader = 8.5;
     Message *m1 = [[Message alloc] init];
     m1.nickname = @"喜欢喝果粒橙的猫呆汪";
     m1.avatarURL = @"a1";
-    m1.content = @"我们将会在下个学期启动校园动态平台，那真的是很棒的！";
+    m1.content = @"我们将会在下个学期启动校园动态平台，那真的是很棒的！(认真脸)";
     m1.comments = @[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""];
     m1.likes = @[@"", @"", @"", @"", @"", @"", @"", @""];
     
     Message *m2 = [[Message alloc] init];
     m2.nickname = @"强记这不是灯孝妇";
     m2.avatarURL = @"a2";
-    m2.content = @"我们已和四十多个社团、组织联系，共同打造汕大最棒的活动信息发布平台！";
+    m2.content = @"40多个社团组织入驻课程表，全方面覆盖汕大的所有活动，共同打造汕大最棒的活动信息发布平台！";
     
     Message *m3 = [[Message alloc] init];
-    m3.nickname = @"隐藏深山中的鲤鱼姐";
+    m3.nickname = @"呆呆的李宇杰";
     m3.avatarURL = @"a3";
-    m3.content = @"校园动态是一个整合所有与汕大有关的推文的平台！";
+    m3.content = @"校园动态将整合所有与汕大有关的推文！不用看海报，不用怕漏了组织！";
     
     NSMutableArray *messageData = [NSMutableArray array];
     [messageData addObject:m1];
@@ -118,7 +121,7 @@ static const CGFloat kHeightForSectionHeader = 8.5;
     
     [messageData shuffle];
     
-    ((Message *)messageData[0]).date = @"刚刚（哈哈，现在还点不了呢）";
+    ((Message *)messageData[0]).date = @"刚刚（哈哈，现在还不能用呢）";
     ((Message *)messageData[1]).date = @"6分钟前";
     ((Message *)messageData[2]).date = @"6小时前";
     
@@ -135,12 +138,14 @@ static const CGFloat kHeightForSectionHeader = 8.5;
     self.tableView.sectionHeaderHeight = _banner.bounds.size.height;
     
     // Setup
-    [_banner setNumberOfImages:3];
-    
-    for (NSInteger i = 0; i < 3; i++) {
-        UIImageView *imageView = _banner.imageViews[i];
-        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"banner%d.jpg", i + 1]];
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSArray *banners = [ud objectForKey:@"BANNER_DATA"];
+    if (banners == nil) {
+        // init
+        banners = @[@{@"url":@"", @"link":@"", @"description":@""}, @{@"url":@"", @"link":@"", @"description":@""}, @{@"url":@"", @"link":@"", @"description":@""}];
+        [ud setObject:banners forKey:@"BANNER_DATA"];
     }
+    [_banner setImages:banners];
     
     // Go
     [_banner activeHeader];
@@ -148,20 +153,29 @@ static const CGFloat kHeightForSectionHeader = 8.5;
 
 - (void)bannerDidPressWithIndex:(NSUInteger)index
 {
-    NSString *link = @"";
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     
-    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"了解更多" andMessage:link];
+    NSArray *banners = [ud objectForKey:@"BANNER_DATA"];
     
-    alertView.transitionStyle = SIAlertViewTransitionStyleFade;
+    NSDictionary *dict = banners[index];
     
-    [alertView addButtonWithTitle:@"算了" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
-    }];
+    NSString *description = dict[@"description"];
+    NSString *link = dict[@"link"];
     
-    [alertView addButtonWithTitle:@"访问" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
-    }];
-    
-    [alertView show];
+    if (description.length > 0) {
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"了解更多" andMessage:description];
+        
+        alertView.transitionStyle = SIAlertViewTransitionStyleFade;
+        
+        [alertView addButtonWithTitle:@"算了" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView) {
+        }];
+        
+        [alertView addButtonWithTitle:@"访问" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:link]];
+        }];
+        
+        [alertView show];
+    }
 }
 
 
@@ -223,9 +237,56 @@ static const CGFloat kHeightForSectionHeader = 8.5;
 
 - (void)refresh
 {
-    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [self sendRequest];
 }
 
+- (void)sendRequest
+{
+    // get data
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, banner_url] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"Banner - 连接服务器 - 成功");
+        [self parseBannerResponseObject:responseObject];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self.refreshControl endRefreshing];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"Banner - 连接服务器 - 失败 - %@", error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self.refreshControl endRefreshing];
+    }];
+}
+
+- (void)parseBannerResponseObject:(NSDictionary *)responseObject
+{
+    NSDictionary *latest = responseObject[@"latest"];
+    NSArray *notifications = latest[@"notifications"];
+    
+    NSMutableArray *banners = [NSMutableArray array];
+    
+    for (NSDictionary *dict in notifications) {
+//        NSLog(@"%@", dict);
+        NSDictionary *banner = @{@"url":dict[@"url"], @"link":dict[@"link"], @"description":dict[@"description"]};
+        [banners addObject:banner];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:banners forKey:@"BANNER_DATA"];
+    
+    [_banner setImages:banners];
+    
+    // Go
+    [_banner activeHeader];
+}
+
+// jump
 - (IBAction)officialaccountPress:(id)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"weixin://dl/officialaccounts"]];
