@@ -978,16 +978,30 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="84.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="更换头像" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGf-7c-7za">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="更换头像" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGf-7c-7za">
                                                     <rect key="frame" x="185" y="32" width="100" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="FRE-E9-9kU"/>
+                                                        <constraint firstAttribute="height" constant="21" id="cxp-S2-Nvd"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="default_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="TAb-oc-8NK">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="TAb-oc-8NK">
                                                     <rect key="frame" x="15" y="11" width="64" height="64"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="64" id="orr-ic-9eM"/>
+                                                        <constraint firstAttribute="width" constant="64" id="pU0-VO-Rsd"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="tGf-7c-7za" secondAttribute="trailing" constant="2" id="46b-sR-eTP"/>
+                                                <constraint firstItem="tGf-7c-7za" firstAttribute="centerY" secondItem="rqJ-5G-3Ow" secondAttribute="centerY" id="N0G-M6-qAG"/>
+                                                <constraint firstItem="TAb-oc-8NK" firstAttribute="centerY" secondItem="rqJ-5G-3Ow" secondAttribute="centerY" id="PG8-py-Df4"/>
+                                                <constraint firstItem="TAb-oc-8NK" firstAttribute="leading" secondItem="rqJ-5G-3Ow" secondAttribute="leading" constant="15" id="lvk-Of-pYu"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>

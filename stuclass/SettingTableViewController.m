@@ -145,9 +145,7 @@
     }];
     
     [alertView addButtonWithTitle:@"确定" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
-        [KVNProgress showSuccessWithStatus:@"登出成功" completion:^{
-            [self logout];
-        }];
+        [self logout];
         [MobClick event:@"Setting_Logout"];
     }];
     
