@@ -929,10 +929,9 @@
 		137F4E9E1C0614ED00A6DC0E /* MeTableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				13F2F10F1CF6ECFB00AC4293 /* Nickname */,
 				137F4E9F1C06155200A6DC0E /* MeTableViewController.h */,
 				137F4EA01C06155200A6DC0E /* MeTableViewController.m */,
-				130B75AE1CF4169000F7E1DB /* NicknameTableViewController.h */,
-				130B75AF1CF4169000F7E1DB /* NicknameTableViewController.m */,
 			);
 			name = MeTableViewController;
 			sourceTree = "<group>";
@@ -1246,6 +1245,15 @@
 				13EC9B731C11FA1A00AA3F2F /* AboutusViewController.m */,
 			);
 			name = AboutusViewController;
+			sourceTree = "<group>";
+		};
+		13F2F10F1CF6ECFB00AC4293 /* Nickname */ = {
+			isa = PBXGroup;
+			children = (
+				130B75AE1CF4169000F7E1DB /* NicknameTableViewController.h */,
+				130B75AF1CF4169000F7E1DB /* NicknameTableViewController.m */,
+			);
+			name = Nickname;
 			sourceTree = "<group>";
 		};
 		13FA79761CBB3CED00E8865A /* Task */ = {

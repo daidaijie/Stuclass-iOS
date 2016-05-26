@@ -123,6 +123,8 @@
     NSDictionary *defaultYearAndSemester = [ud objectForKey:@"YEAR_AND_SEMESTER"];
     NSString *user_id = [ud objectForKey:@"USER_ID"];
     
+    NSLog(@"当前用户[TOKEN] - %@", [ud valueForKey:@"USER_TOKEN"]);
+    
     if (defaultYearAndSemester && user_id) {
         NSLog(@"读取本地数据");
         // 用户已经登录了

@@ -11,6 +11,7 @@
 #import "Define.h"
 #import "MobClick.h"
 #import "JHDater.h"
+#import <BmobSDK/Bmob.h>
 
 @interface AppDelegate ()
 
@@ -25,6 +26,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    // Bmob
+    [Bmob registerWithAppKey:@"d48aed80cfd81cb6d20724df41bc6fc2"];
     
     // WXApi
     [WXApi registerApp:@"wxcce81e2a1528e155"];
@@ -79,13 +83,14 @@
     
     [UITabBar appearance].tintColor = MAIN_COLOR;
     
+    // 手机型号
+    
     // 启动等待时间
     [NSThread sleepForTimeInterval:0.2];
     
-    NSLog(@"当前用户 - TOKEN - %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"USER_TOKEN"]);
-    
     return YES;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

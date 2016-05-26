@@ -172,7 +172,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     if (postList) {
         
-        _messageData = [[ClassParser sharedInstance] parseMessageData:postList]; ;
+        _messageData = [[ClassParser sharedInstance] parseMessageData:postList];
         
         [self.tableView reloadData];
         self.tableView.userInteractionEnabled = YES;
@@ -254,7 +254,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     cell.nameLabel.text = message.nickname;
     cell.contentLabel.text = message.content;
-    cell.dateLabel.text = message.date;
+    cell.dateLabel.text = [NSString stringWithFormat:@"%@  来自%@", message.date, message.source];
     
     // comment & like
     [cell setLike:message.likes.count commentNum:message.comments.count];
@@ -277,7 +277,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     cell.nameLabel.text = message.nickname;
     cell.contentLabel.text = message.content;
-    cell.dateLabel.text = message.date;
+    cell.dateLabel.text = [NSString stringWithFormat:@"%@  来自%@", message.date, message.source];
     
     // comment & like
     [cell setLike:message.likes.count commentNum:message.comments.count];
@@ -349,54 +349,8 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     if (postList) {
         
-        NSMutableArray *messageData = [NSMutableArray array];
-        
-        for (NSDictionary *dict in postList) {
-            
-            NSNumber *post_type = dict[@"post_type"];
-            
-            if ([post_type isEqualToNumber:@0]) {
-                
-                Message *message = [[Message alloc] init];
-                
-                // user
-                NSDictionary *userDict = dict[@"user"];
-                message.nickname = userDict[@"nickname"];
-                message.username = userDict[@"account"];
-                message.userid = userDict[@"id"];
-                message.avatarURL = [userDict[@"image"] isEqual:[NSNull null]] ? nil : userDict[@"image"];
-                
-                // data
-                message.messageid = dict[@"id"];
-                message.content = dict[@"content"];
-                NSString *dateStr = [[JHDater sharedInstance] dateStrFromMessageTimeString:dict[@"post_time"]];
-                message.date = dateStr;
-                
-                NSString *jsonStr = dict[@"photo_list_json"];
-                
-                if (jsonStr == nil || [jsonStr isEqual:[NSNull null]]) {
-                    message.imageURLs = nil;
-                } else {
-                    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:[jsonStr dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableLeaves error:nil];
-                    NSArray *photoList = jsonDict[@"photo_list"];
-                    
-                    NSMutableArray *imageURLs = [NSMutableArray array];
-                    for (NSDictionary *dict in photoList) {
-                        [imageURLs addObject:dict[@"size_small"]];
-                    }
-                    message.imageURLs = imageURLs;
-                }
-                
-                // comment
-                message.comments = dict[@"comments"];
-                message.likes = dict[@"thumb_ups"];
-                
-                [messageData addObject:message];
-            }
-        }
-        
-        [_messageData addObjectsFromArray:messageData];
-        
+        _messageData = [[ClassParser sharedInstance] parseMessageData:postList];
+
         [self.tableView reloadData];
         
         [(DocumentFooterView *)self.tableView.tableFooterView hideLoading];
@@ -617,8 +571,9 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 {
     Message *message = _messageData[tag];
     NSString *myUsername = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERNAME"];
+    NSString *messageStr = [myUsername isEqualToString:@"14jhwang"] ? message.username : nil;
     
-    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"更多" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"更多" message:messageStr preferredStyle:UIAlertControllerStyleActionSheet];
     [controller addAction:[UIAlertAction actionWithTitle:@"复制" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
         UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
         pasteBoard.string = message.content;

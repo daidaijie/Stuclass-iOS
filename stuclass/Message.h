@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSString *date;
 @property (strong, nonatomic) NSString *content;
 @property (strong, nonatomic) NSArray *imageURLs;
+@property (strong, nonatomic) NSString *source;
 
 // comment
 @property (strong, nonatomic) NSArray *comments;

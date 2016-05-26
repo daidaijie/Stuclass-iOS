@@ -9,6 +9,8 @@
 #import "BackgoundTableViewController.h"
 #import <KVNProgress/KVNProgress.h>
 #import "MobClick.h"
+#import "Define.h"
+#import "MBProgressHUD.h"
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -30,7 +32,6 @@
 {
     [super viewDidLoad];
     
-//    [self setupImagePicker];
     [self setupTableView];
     [self setupDisplayData];
 }
@@ -38,10 +39,6 @@
 - (void)setupImagePicker
 {
     _imagePickerController = [[UIImagePickerController alloc] init];
-//    CGSize cropSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT - 64 - 44);
-//    cropSize.width -= 4;
-//    cropSize.height -= 4;
-//    _imagePicker.cropSize = cropSize;
     _imagePickerController.delegate = self;
 }
 
@@ -144,6 +141,7 @@
             
             // checking
             if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+                [self showHUDWithText:@"没有打开相册的权限(设置-隐私)" andHideDelay:global_hud_delay];
                 return;
             }
             
@@ -166,6 +164,12 @@
 {
     UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
     [self saveImage:image];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 // 保存图片
@@ -197,6 +201,24 @@
     [KVNProgress showSuccessWithStatus:@"设置成功" completion:^{
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     }];
+}
+
+
+#pragma mark - HUD
+
+- (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {
+    
+    [MBProgressHUD hideAllHUDsForView:self.navigationController.view animated:YES];
+    
+    if (self.navigationController.view) {
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = string;
+        hud.margin = 10.f;
+        hud.removeFromSuperViewOnHide = YES;
+        [hud hide:YES afterDelay:delay];
+    }
 }
 
 

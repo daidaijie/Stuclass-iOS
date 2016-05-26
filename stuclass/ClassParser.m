@@ -460,6 +460,7 @@
             message.content = dict[@"content"];
             NSString *dateStr = [[JHDater sharedInstance] dateStrFromMessageTimeString:dict[@"post_time"]];
             message.date = dateStr;
+            message.source = [dict[@"source"] isEqual:[NSNull null]] ? @"火星" : dict[@"source"];
             
             NSString *jsonStr = dict[@"photo_list_json"];
             

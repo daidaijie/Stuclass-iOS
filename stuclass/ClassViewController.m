@@ -171,7 +171,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     // LEFT
     
-    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    _avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
     _avatarImageView.image = [UIImage imageNamed:@"default_avatar"];
     _avatarImageView.layer.cornerRadius = _avatarImageView.bounds.size.width / 2;
     _avatarImageView.layer.borderColor = [UIColor whiteColor].CGColor;

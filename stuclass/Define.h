@@ -90,6 +90,7 @@ static NSString *member_url = @"/credit/api/v2/member";
 
 // user
 static NSString *nickname_url = @"/interaction/api/v2/user";
+static NSString *avatar_url = @"/interaction/api/v2/user";
 
 // v1
 static NSString *discuss_post_url = @"/api/v1.0/discuss";
