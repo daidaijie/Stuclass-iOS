@@ -1504,7 +1504,21 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *urlStr = [ud objectForKey:@"AVATAR_URL"];
     NSURL *url = [NSURL URLWithString:urlStr];
-    [_avatarImageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"default_avatar"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    
+    // local
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager diskImageExistsForURL:url];
+    
+    UIImage *placeholder;
+    
+    if ([manager diskImageExistsForURL:url]) {
+        placeholder = [[manager imageCache] imageFromDiskCacheForKey:urlStr] ? [[manager imageCache] imageFromDiskCacheForKey:urlStr] : [UIImage imageNamed:@"default_avatar"];
+    } else {
+        placeholder = [UIImage imageNamed:@"default_avatar"];
+    }
+    
+    // fetch
+    [_avatarImageView sd_setImageWithURL:url placeholderImage:placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
     }];
 }

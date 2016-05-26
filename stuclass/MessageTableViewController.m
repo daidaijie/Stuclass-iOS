@@ -593,6 +593,15 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 }
 
 
+#pragma mark - Unread Message
+
+- (IBAction)unreadItemPress:(id)sender
+{
+    UIBarButtonItem *btn = sender;
+    btn.tag = (btn.tag == 0) ? 1 : 0;
+    btn.image = (btn.tag == 0) ? [UIImage imageNamed:@"toolbar-read"] : [UIImage imageNamed:@"toolbar-unread"];
+}
+
 
 
 #pragma mark - HUD
