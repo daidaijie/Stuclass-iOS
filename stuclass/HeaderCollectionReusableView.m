@@ -86,7 +86,27 @@ static const NSTimeInterval kDuration = 5.0;
         if ([urlStr isEqualToString:@""] || !urlStr) {
             imageView.image = placeholder;
         } else {
-            [imageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:placeholder completed:nil];
+            
+            if (i == 0) {
+            
+                // local
+                NSURL *url = [NSURL URLWithString:urlStr];
+                SDWebImageManager *manager = [SDWebImageManager sharedManager];
+                [manager diskImageExistsForURL:url];
+                
+                UIImage *placeholder;
+                
+                if ([manager diskImageExistsForURL:url]) {
+                    placeholder = [[manager imageCache] imageFromDiskCacheForKey:urlStr] ? [[manager imageCache] imageFromDiskCacheForKey:urlStr] : [UIImage imageNamed:@"banner1.jpg"];
+                } else {
+                    placeholder = [UIImage imageNamed:@"banner1.jpg"];
+                }
+                
+                // fetch
+                [imageView sd_setImageWithURL:url placeholderImage:placeholder completed:nil];
+            } else {
+                [imageView sd_setImageWithURL:[NSURL URLWithString:urlStr] placeholderImage:placeholder completed:nil];
+            }
         }
         
         // add

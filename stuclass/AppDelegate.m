@@ -83,11 +83,6 @@
     
     [UITabBar appearance].tintColor = MAIN_COLOR;
     
-    // 手机型号
-    
-    // 启动等待时间
-    [NSThread sleepForTimeInterval:0.2];
-    
     return YES;
 }
 
