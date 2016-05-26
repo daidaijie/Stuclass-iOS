@@ -675,8 +675,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)semesterDelegateLogout
 {
-    [self logoutClearData];
-    [self.navigationController.tabBarController.navigationController popViewControllerAnimated:NO];
+    [self logout];
 }
 
 - (void)semesterDelegateSemesterChanged:(NSArray *)boxData semester:(NSInteger)semester
@@ -849,8 +848,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         // 账号或密码错误
         [KVNProgress showErrorWithStatus:global_connection_wrong_user_password completion:^{
             [_popover dismiss];
-            [self logoutClearData];
-            [self.navigationController.tabBarController.navigationController popViewControllerAnimated:NO];
+            [self logout];
         }];
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
@@ -897,7 +895,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         }
         
         // user_id
-        NSString *user_id = responseObject[@"user_id"];
+        NSString *user_id = [NSString stringWithFormat:@"%@", responseObject[@"user_id"]];
         NSLog(@"user_id - %@", user_id);
         [ud setValue:user_id forKey:@"USER_ID"];
         
@@ -944,7 +942,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         }
         
         // user_id
-        NSString *user_id = responseObject[@"user_id"];
+        NSString *user_id = [NSString stringWithFormat:@"%@", responseObject[@"user_id"]];
         NSLog(@"user_id - %@", user_id);
         [ud setValue:user_id forKey:@"USER_ID"];
         
@@ -1025,8 +1023,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         // 账号或密码错误
         [KVNProgress showErrorWithStatus:global_connection_wrong_user_password completion:^{
             [_popover dismiss];
-            [self logoutClearData];
-            [self.navigationController.tabBarController.navigationController popViewControllerAnimated:NO];
+            [self logout];
         }];
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {
@@ -1109,8 +1106,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         // 账号或密码错误
         [KVNProgress showErrorWithStatus:global_connection_wrong_user_password completion:^{
             [_popover dismiss];
-            [self logoutClearData];
-            [self.navigationController.tabBarController.navigationController popViewControllerAnimated:NO];
+            [self logout];
         }];
         
     } else if ([responseObject[@"ERROR"] isEqualToString:@"credit system broken"]) {

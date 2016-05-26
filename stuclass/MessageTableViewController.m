@@ -291,8 +291,6 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     // image
     [cell setContentImagesWithImageURLs:message.imageURLs];
     [cell setPage:[_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]];
-    
-//    NSLog(@"---------- section %d     index %d", indexPath.section, [_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]);
 }
 
 // more
@@ -313,7 +311,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     NSDictionary *getData = @{
                               @"sort_type": @"2",
                               @"count": @"20",
-                              @"before_id": lastMessage.messageid,
+                              @"before_id": lastMessage.message_id,
                               };
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -581,7 +579,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     if ([myUsername isEqualToString:message.username]) {
         [controller addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
-            
+            [self deleteMessageWithTag:tag];
         }]];
     }
     
@@ -591,6 +589,74 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     [self presentViewController:controller animated:YES completion:nil];
 }
+
+#pragma mark - Delete
+
+- (void)deleteMessageWithTag:(NSUInteger)tag
+{
+    [KVNProgress showWithStatus:@"正在删除消息"];
+    
+    // ud
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *token = [ud valueForKey:@"USER_TOKEN"];
+    NSString *user_id = [ud valueForKey:@"USER_ID"];
+    
+    // message
+    Message *message = _messageData[tag];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    [manager.requestSerializer setValue:message.message_id forHTTPHeaderField:@"id"];
+    [manager.requestSerializer setValue:user_id forHTTPHeaderField:@"uid"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, message_interaction_url] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+//        NSLog(@"连接服务器 - 成功 - %@", responseObject);
+        NSLog(@"连接服务器 - 成功");
+        [self deleteSuccessfullyWithTag:tag];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+//        NSLog(@"连接服务器 - 失败 - %@", operation.error);
+        NSLog(@"连接服务器 - 失败");
+        
+        NSUInteger code = operation.response.statusCode;
+        
+        if (code == 401) {
+            // wrong token
+            [KVNProgress showErrorWithStatus:global_connection_wrong_token completion:^{
+                [self logout];
+            }];
+        } else if (code == 404) {
+            // 已被使用
+            [KVNProgress showErrorWithStatus:@"该信息已被删除" completion:^{
+                
+            }];
+        } else {
+            [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
+                
+            }];
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
+- (void)deleteSuccessfullyWithTag:(NSUInteger)tag
+{
+    [KVNProgress showSuccessWithStatus:@"删除成功" completion:^{
+        [self.tableView beginUpdates];
+        [_messageData removeObjectAtIndex:tag];
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:tag] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    }];
+}
+
 
 
 #pragma mark - Unread Message
@@ -634,10 +700,27 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
 
+#pragma mark - Log Out
+
+- (void)logout
+{
+    [self logoutClearData];
+    [self.navigationController.tabBarController.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)logoutClearData
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    // ud
+    [ud setValue:nil forKey:@"USER_TOKEN"];
+    [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
+    [ud setValue:nil forKey:@"NICKNAME"];
+    [ud setValue:nil forKey:@"AVATAR_URL"];
+    [ud setValue:nil forKey:@"USER_ID"];
+}
+
 
 @end
-
-
-
 
 

@@ -73,6 +73,7 @@ static NSString *login_host = @"http://192.168.31.4:8080";
 
 // message
 static NSString *message_url = @"/interaction/api/v2/posts";
+static NSString *message_interaction_url = @"/interaction/api/v2/post";
 
 // activity
 static NSString *banner_url = @"/interaction/api/v2/banner";

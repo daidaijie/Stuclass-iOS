@@ -359,7 +359,7 @@
             }
             
             // user_id
-            NSString *user_id = responseObject[@"user_id"];
+            NSString *user_id = [NSString stringWithFormat:@"%@", responseObject[@"user_id"]];
             NSLog(@"user_id - %@", user_id);
             [ud setValue:user_id forKey:@"USER_ID"];
             
@@ -432,7 +432,7 @@
         }
         
         // user_id
-        NSString *user_id = responseObject[@"user_id"];
+        NSString *user_id = [NSString stringWithFormat:@"%@", responseObject[@"user_id"]];
         NSLog(@"user_id - %@", user_id);
         [ud setValue:user_id forKey:@"USER_ID"];
         

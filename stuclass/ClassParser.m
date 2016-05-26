@@ -452,11 +452,11 @@
             NSDictionary *userDict = dict[@"user"];
             message.nickname = userDict[@"nickname"];
             message.username = userDict[@"account"];
-            message.userid = userDict[@"id"];
+            message.userid = [NSString stringWithFormat:@"%@", userDict[@"id"]];
             message.avatarURL = [userDict[@"image"] isEqual:[NSNull null]] ? nil : userDict[@"image"];
             
             // data
-            message.messageid = dict[@"id"];
+            message.message_id = [NSString stringWithFormat:@"%@", dict[@"id"]];
             message.content = dict[@"content"];
             NSString *dateStr = [[JHDater sharedInstance] dateStrFromMessageTimeString:dict[@"post_time"]];
             message.date = dateStr;

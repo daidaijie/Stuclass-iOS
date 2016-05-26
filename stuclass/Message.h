@@ -18,7 +18,7 @@
 @property (strong, nonatomic) NSString *avatarURL;
 
 // data
-@property (strong, nonatomic) NSString *messageid;
+@property (strong, nonatomic) NSString *message_id;
 @property (strong, nonatomic) NSString *date;
 @property (strong, nonatomic) NSString *content;
 @property (strong, nonatomic) NSArray *imageURLs;

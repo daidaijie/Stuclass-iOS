@@ -118,11 +118,11 @@ static const CGFloat kHeightForSectionHeader = 8.5;
     
     [messageData shuffle];
     
-    ((Message *)messageData[0]).date = @"刚刚（哈哈，现在还不能用呢）";
-    ((Message *)messageData[1]).date = @"6分钟前";
-    ((Message *)messageData[2]).date = @"6小时前";
+    ((Message *)messageData[0]).date = [NSString stringWithFormat:@"刚刚  来自%@", [((Message *)messageData[0]).avatarURL isEqualToString:@"a1"] ? @"iOS" : @"Android"];
+    ((Message *)messageData[1]).date = [NSString stringWithFormat:@"6分钟前  来自%@", [((Message *)messageData[1]).avatarURL isEqualToString:@"a1"] ? @"iOS" : @"Android"];
+    ((Message *)messageData[2]).date = [NSString stringWithFormat:@"6小时前  来自%@", [((Message *)messageData[2]).avatarURL isEqualToString:@"a1"] ? @"iOS" : @"Android"];
     
-    ((Message *)messageData[0]).content = @"我们将会在下个学期启动校园动态平台，那真的是很棒的！(认真脸)";
+    ((Message *)messageData[0]).content = @"我们将会在下个学期启动校园动态平台，那真的是很棒的！(现在还不能用呢，T^T)";
     ((Message *)messageData[1]).content = @"40多个社团组织入驻课程表，全方面覆盖汕大的所有活动，共同打造汕大最棒的活动信息发布平台！";
     ((Message *)messageData[2]).content = @"校园动态将整合所有与汕大有关的推文！不用看海报，不用怕漏了组织！";
     
