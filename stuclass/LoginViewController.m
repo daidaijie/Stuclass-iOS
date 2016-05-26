@@ -279,7 +279,7 @@
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, login_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        NSLog(@"连接服务器 - 成功 - %@", responseObject);
+//        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"连接服务器 - 成功");
         [self parseResponseObject:responseObject withYear:_year semester:_semester];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

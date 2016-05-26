@@ -14,8 +14,9 @@
 #import "UIImageView+WebCache.h"
 #import "MobClick.h"
 #import "WXApi.h"
+#import "NicknameTableViewController.h"
 
-@interface MeTableViewController ()
+@interface MeTableViewController () <NicknameChangedDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
@@ -36,6 +37,13 @@
     [self setupInfo];
     
     [self setupAvatar];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
 }
 
 #pragma mark - Setup Method
@@ -171,6 +179,41 @@
         [self showHUDWithText:@"当前微信不可用" andHideDelay:global_hud_delay];
     }
 }
+
+
+#pragma mark - TableView Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger section = indexPath.section;
+    NSUInteger row = indexPath.row;
+    
+    if (section == 0) {
+        if (row == 0) {
+            // avatar
+            
+        }
+    } else if (section == 1) {
+        if (row == 1) {
+            // nickname
+            [self performSegueWithIdentifier:@"ShowNickname" sender:nil];
+        }
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ShowNickname"]) {
+        NicknameTableViewController *ntvc = segue.destinationViewController;
+        ntvc.delegate = self;
+    }
+}
+
+- (void)nicknameChangedTo:(NSString *)nickname
+{
+    _nicknameLabel.text = nickname;
+}
+
 
 #pragma mark - HUD
 

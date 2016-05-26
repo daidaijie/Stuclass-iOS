@@ -104,10 +104,8 @@ static const NSUInteger kNumberOfDocuments = 30;
     _startImageView.gifPath = [[NSBundle mainBundle] pathForResource:@"panda" ofType:@"gif"];
     [_startImageView startGIF];
     
-    
     [self.tableView addSubview:_startLabel];
     [self.tableView addSubview:_startImageView];
-    
     
     // refresh control
     self.refreshControl = [[UIRefreshControl alloc] init];

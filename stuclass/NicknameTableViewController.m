@@ -56,9 +56,14 @@
 
 - (IBAction)saveItemPress:(id)sender
 {
+    [_nicknameTextField resignFirstResponder];
     [self checkBeforeSaving];
 }
 
+- (void)activateTextField
+{
+    [_nicknameTextField becomeFirstResponder];
+}
 
 - (void)checkBeforeSaving
 {
@@ -68,21 +73,19 @@
         
         // 不能留空
         [self showHUDWithText:@"昵称不能为空" andHideDelay:global_hud_delay];
+        [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
         
     } else if ([nickname hasPrefix:@" "] || [nickname hasSuffix:@" "]) {
         
         // 首尾不能有空格
         [self showHUDWithText:@"昵称首尾不能有空格" andHideDelay:global_hud_delay];
+        [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
         
-    } else if (nickname.length < 2){
-        
-        // 名字太短
-        [self showHUDWithText:@"昵称最少2个字符" andHideDelay:global_hud_delay];
-        
-    } else if (nickname.length > 14) {
+    } else if (nickname.length > 20) {
         
         // 名字太长了
-        [self showHUDWithText:@"昵称只允许14个字符以内" andHideDelay:global_hud_delay];
+        [self showHUDWithText:@"昵称只允许20个字符以内" andHideDelay:global_hud_delay];
+        [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
         
     } else if ([_nicknameTextField.text isEqualToString:_ud_nickname]) {
         
@@ -114,12 +117,16 @@
 {
     // ud
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *username = [ud valueForKey:@"USERNAME"];
     NSString *token = [ud valueForKey:@"USER_TOKEN"];
+    NSString *user_id = [ud valueForKey:@"USER_ID"];
     
-    // post data
-    NSDictionary *postData = @{
-                               @"username": username,
+    // put data
+    NSDictionary *putData = @{
+                               @"id": user_id,
+                               @"uid": user_id,
+                               @"birthday": @"0",
+                               @"gender": @"1",
+                               @"profile": @"",
                                @"token": token,
                                @"nickname": _nicknameTextField.text,
                                };
@@ -127,22 +134,40 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer.timeoutInterval = global_timeout;
-    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, nickname_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager PUT:[NSString stringWithFormat:@"%@%@", global_host, nickname_url] parameters:putData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
+//        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"连接服务器 - 成功");
         [self parseNicknameResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-        NSLog(@"连接服务器 - 失败 - %@", error);
-        [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
-            [_nicknameTextField becomeFirstResponder];
-        }];
+//        NSLog(@"连接服务器 - 失败 - %@", operation.error);
+        NSLog(@"连接服务器 - 失败");
+        
+        NSUInteger code = operation.response.statusCode;
+        
+        if (code == 401) {
+            // wrong token
+            [KVNProgress showErrorWithStatus:global_connection_wrong_token completion:^{
+                
+                [self logoutClearData];
+                [self logout];
+            }];
+        } else if (code == 500) {
+            // 已被使用
+            [KVNProgress showErrorWithStatus:@"该昵称已被他人使用" completion:^{
+                [_nicknameTextField becomeFirstResponder];
+            }];
+        } else {
+            [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
+                [_nicknameTextField becomeFirstResponder];
+            }];
+        }
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
@@ -150,63 +175,19 @@
 
 - (void)parseNicknameResponseObject:(id)responseObject
 {
-    if ([responseObject[@"ERROR"] isEqualToString:@"wrong token"] || [responseObject[@"ERROR"] isEqualToString:@"no such user"]) {
-        // wrong token
-        [KVNProgress showErrorWithStatus:global_connection_wrong_token completion:^{
-            
-            [self logoutClearData];
-            [self logout];
-        }];
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    [ud setValue:_nicknameTextField.text forKey:@"NICKNAME"];
+    
+    [_delegate nicknameChangedTo:_nicknameTextField.text];
+    
+    [KVNProgress showSuccessWithStatus:@"已保存新昵称" completion:^{
         
-    } else if ([responseObject[@"ERROR"] isEqualToString:@"empty name"]) {
-        // 名字不能留空
-        [KVNProgress showErrorWithStatus:@"昵称不能为空" completion:^{
-            [_nicknameTextField becomeFirstResponder];
-        }];
+        [self.navigationController popViewControllerAnimated:YES];
         
-    } else if ([responseObject[@"ERROR"] isEqualToString:@"not authorized to use this name"]) {
-        // 无权用别人的账号名
-        [KVNProgress showErrorWithStatus:@"无法使用已注册的账号名" completion:^{
-            [_nicknameTextField becomeFirstResponder];
-        }];
-        
-    } else if ([responseObject[@"ERROR"] isEqualToString:@"nickname too long"]) {
-        // 名字太长了
-        [KVNProgress showErrorWithStatus:@"昵称只允许14个字符以内" completion:^{
-            [_nicknameTextField becomeFirstResponder];
-        }];
-        
-    } else if ([responseObject[@"ERROR"] isEqualToString:@"the nickname has been used"]) {
-        // 已被使用
-        [KVNProgress showErrorWithStatus:@"该昵称已被他人使用" completion:^{
-            [_nicknameTextField becomeFirstResponder];
-        }];
-        
-    } else if ([responseObject[@"ERROR"] isEqualToString:@"nickname too short, at least 2"]) {
-        
-        // 名字太短
-        [KVNProgress showErrorWithStatus:@"昵称最少2个字符" completion:^{
-            [_nicknameTextField becomeFirstResponder];
-        }];
-        
-    } else {
-        // 成功
-        
-        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-        
-        [ud setValue:_nicknameTextField.text forKey:@"NICKNAME"];
-        
-        [_delegate nicknameChangedTo:_nicknameTextField.text];
-        
-        [KVNProgress showSuccessWithStatus:@"保存新昵称成功" completion:^{
-            
-            [self.navigationController popViewControllerAnimated:YES];
-            
-            [MobClick event:@"Setting_Nickname"];
-        }];
-    }
+        [MobClick event:@"Setting_Nickname"];
+    }];
 }
-
 
 
 // Log Out
@@ -225,6 +206,8 @@
     [ud setValue:nil forKey:@"USER_TOKEN"];
     [ud setValue:nil forKey:@"YEAR_AND_SEMESTER"];
     [ud setValue:nil forKey:@"NICKNAME"];
+    [ud setValue:nil forKey:@"AVATAR_URL"];
+    [ud setValue:nil forKey:@"USER_ID"];
 }
 
 

@@ -88,6 +88,9 @@ static NSString *oa_url = @"/credit/api/v2/oa";
 
 static NSString *member_url = @"/credit/api/v2/member";
 
+// user
+static NSString *nickname_url = @"/interaction/api/v2/user";
+
 // v1
 static NSString *discuss_post_url = @"/api/v1.0/discuss";
 
@@ -102,8 +105,6 @@ static NSString *homework_delete_url = @"/api/v1.0/delete/0";
 static NSString *discuss_url = @"/api/course_info/1"; // discuss - 1
 
 static NSString *discuss_delete_url = @"/api/v1.0/delete/1";
-
-static NSString *nickname_url = @"/api/v1.0/modify_user";
 
 // oa
 static NSString *oa_wechat_url = @"http://wechat.stu.edu.cn//webservice_oa/OA";

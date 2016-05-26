@@ -984,7 +984,7 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="a2" translatesAutoresizingMaskIntoConstraints="NO" id="TAb-oc-8NK">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="default_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="TAb-oc-8NK">
                                                     <rect key="frame" x="15" y="11" width="64" height="64"/>
                                                 </imageView>
                                             </subviews>
@@ -1067,6 +1067,7 @@
                         <outlet property="avatarImageView" destination="TAb-oc-8NK" id="lJl-g5-awX"/>
                         <outlet property="nicknameLabel" destination="HJv-9n-6RC" id="pJi-Bo-xgn"/>
                         <outlet property="usernameLabel" destination="VQr-hy-opI" id="PLb-gn-ubx"/>
+                        <segue destination="Tyt-dE-HCP" kind="show" identifier="ShowNickname" id="Dme-b2-7zi"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dvt-NP-hAA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3227,7 +3228,7 @@
     </scenes>
     <resources>
         <image name="LaunchLogo" width="512" height="512"/>
-        <image name="a2" width="640" height="640"/>
+        <image name="default_avatar" width="512" height="493"/>
         <image name="icon-more" width="256" height="256"/>
         <image name="library" width="800" height="512"/>
         <image name="tabbar-activity" width="32" height="32"/>
