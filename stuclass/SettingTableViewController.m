@@ -136,7 +136,7 @@
 
 - (void)logoutPress
 {
-    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"警告" andMessage:@"确定登出吗?"];
+    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"警告" andMessage:@"确定退出当前账号吗?"];
     
     alertView.transitionStyle = SIAlertViewTransitionStyleSlideFromBottom;
     

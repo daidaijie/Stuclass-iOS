@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSString *content;
 @property (strong, nonatomic) NSArray *imageURLs;
 @property (strong, nonatomic) NSString *source;
+@property (assign, nonatomic) BOOL isLike;
 
 // comment
 @property (strong, nonatomic) NSArray *comments;

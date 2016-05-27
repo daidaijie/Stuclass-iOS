@@ -155,7 +155,6 @@
             // wrong token
             [KVNProgress showErrorWithStatus:global_connection_wrong_token completion:^{
                 
-                [self logoutClearData];
                 [self logout];
             }];
         } else if (code == 500) {

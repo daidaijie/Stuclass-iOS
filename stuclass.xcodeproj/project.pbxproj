@@ -25,6 +25,7 @@
 		131287841CB805EF0089D8D7 /* TreeholeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287831CB805EF0089D8D7 /* TreeholeViewController.m */; };
 		131287881CB89EE30089D8D7 /* ActivityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287871CB89EE30089D8D7 /* ActivityTableViewController.m */; };
 		131434261CE061ED00CEAB6F /* panda.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 131434251CE061ED00CEAB6F /* panda.jpg */; };
+		131611851CF813700083DC92 /* CatZanButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 131611841CF813700083DC92 /* CatZanButton.m */; };
 		131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */; };
 		131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D21BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m */; };
 		131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D81BCB8676004EE13A /* ClassNumberCollectionReusableView.m */; };
@@ -184,6 +185,8 @@
 		131287861CB89EE30089D8D7 /* ActivityTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityTableViewController.h; sourceTree = "<group>"; };
 		131287871CB89EE30089D8D7 /* ActivityTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityTableViewController.m; sourceTree = "<group>"; };
 		131434251CE061ED00CEAB6F /* panda.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = panda.jpg; sourceTree = "<group>"; };
+		131611831CF813700083DC92 /* CatZanButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatZanButton.h; sourceTree = "<group>"; };
+		131611841CF813700083DC92 /* CatZanButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatZanButton.m; sourceTree = "<group>"; };
 		131951CE1BCB47E2004EE13A /* ClassCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewLayout.h; sourceTree = "<group>"; };
 		131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewLayout.m; sourceTree = "<group>"; };
 		131951D11BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassBackgroundCollectionReusableView.h; sourceTree = "<group>"; };
@@ -492,6 +495,15 @@
 				131287871CB89EE30089D8D7 /* ActivityTableViewController.m */,
 			);
 			name = ActivityTableViewController;
+			sourceTree = "<group>";
+		};
+		131611821CF813670083DC92 /* CatZanButton */ = {
+			isa = PBXGroup;
+			children = (
+				131611831CF813700083DC92 /* CatZanButton.h */,
+				131611841CF813700083DC92 /* CatZanButton.m */,
+			);
+			name = CatZanButton;
 			sourceTree = "<group>";
 		};
 		131951CD1BCB47C9004EE13A /* ClassLayout */ = {
@@ -1094,6 +1106,7 @@
 		13C707241BC7DE55003061A4 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				131611821CF813670083DC92 /* CatZanButton */,
 				131E208C1CECC44E003F09FA /* WXOpenSDK1.7 */,
 				130299751C892BDC00E4734C /* TAPageControl */,
 				130243A81C10470600AA4A0E /* UmengSDK */,
@@ -1760,6 +1773,7 @@
 				13DE7B461BDC67F1003AFF93 /* DiscussPostTableViewController.m in Sources */,
 				1335FC711BCA259700BC0F23 /* StartView.m in Sources */,
 				13242F111C089731008D46F2 /* DocumentDetailViewController.m in Sources */,
+				131611851CF813700083DC92 /* CatZanButton.m in Sources */,
 				13F2690C1CE95EAF003BDA5C /* ScrollManager.m in Sources */,
 				130A2B7F1CE8377D004927D8 /* Message.m in Sources */,
 				13CB2C7E1BDFDC1B00460BE4 /* HomeworkTextField.m in Sources */,

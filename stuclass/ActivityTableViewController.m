@@ -229,8 +229,11 @@ static const CGFloat kHeightForSectionHeader = 8.5;
     cell.dateLabel.text = message.date;
     cell.userInteractionEnabled = NO;
     
-    // comment & like
-    [cell setLike:message.likes.count commentNum:message.comments.count];
+    // comment
+    [cell setCommentNum:message.comments.count];
+    
+    // like
+    [cell setLikeNum:message.likes.count status:message.isLike animation:NO];
     
     // avatar
     cell.avatarImageView.image = [UIImage imageNamed:message.avatarURL];

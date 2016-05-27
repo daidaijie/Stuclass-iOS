@@ -29,9 +29,15 @@
     self.actionView.delegate = self;
 }
 
-- (void)setLike:(NSUInteger)likeNum commentNum:(NSUInteger)commentNum
+
+- (void)setLikeNum:(NSUInteger)likeNum status:(BOOL)isLike animation:(BOOL)animate
 {
-    [self.actionView setLike:likeNum commentNum:commentNum];
+    [self.actionView setLikeNum:likeNum status:isLike animation:animate];
+}
+
+- (void)setCommentNum:(NSUInteger)commentNum
+{
+    [self.actionView setCommentNum:commentNum];
 }
 
 
@@ -41,6 +47,7 @@
 {
     if (type == 1) {
         // like
+        [_delegate messageActionViewLikeDidPressWithTag:self.tag];
     } else if (type == 2) {
         // comment
     } else if (type == 3) {

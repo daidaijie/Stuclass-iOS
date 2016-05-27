@@ -64,7 +64,7 @@ static const NSUInteger kNumberOfDocuments = 30;
     BOOL isSecondTimeOA = [ud boolForKey:@"SECOND_TIME_OA"];
     
     if (!isSecondTimeOA) {
-        [self showHUDWithText:@"长按可以收藏条文哟" andHideDelay:global_hud_delay];
+        [self showHUDWithText:@"长按可以收藏条文" andHideDelay:global_hud_delay];
         [ud setBool:YES forKey:@"SECOND_TIME_OA"];
     }
 }

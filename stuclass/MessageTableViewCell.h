@@ -11,6 +11,7 @@
 
 @protocol MessageTableViewCellDelegate <NSObject>
 
+- (void)messageActionViewLikeDidPressWithTag:(NSUInteger)tag;
 - (void)messageActionViewShareDidPressWithTag:(NSUInteger)tag;
 - (void)messageActionViewMoreDidPressWithTag:(NSUInteger)tag;
 
@@ -26,7 +27,7 @@
 
 @property (weak, nonatomic) id<MessageTableViewCellDelegate> delegate;
 
-- (void)setLike:(NSUInteger)likeNum commentNum:(NSUInteger)commentNum;
-
+- (void)setLikeNum:(NSUInteger)likeNum status:(BOOL)isLike animation:(BOOL)animate;
+- (void)setCommentNum:(NSUInteger)commentNum;
 
 @end

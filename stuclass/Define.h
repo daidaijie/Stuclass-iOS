@@ -47,6 +47,8 @@ static const NSTimeInterval global_hud_long_delay = 1.6;
 
 static const NSTimeInterval global_timeout = 8.0;
 
+static const NSTimeInterval global_like_timeout = 4.0;
+
 static const NSTimeInterval member_timeout = 4.0;
 
 static const NSTimeInterval login_timeout = 2.0;
@@ -74,6 +76,7 @@ static NSString *login_host = @"http://192.168.31.4:8080";
 // message
 static NSString *message_url = @"/interaction/api/v2/posts";
 static NSString *message_interaction_url = @"/interaction/api/v2/post";
+static NSString *message_like_url = @"/interaction/api/v2/like";
 
 // activity
 static NSString *banner_url = @"/interaction/api/v2/banner";

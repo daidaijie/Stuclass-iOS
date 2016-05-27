@@ -172,7 +172,10 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     if (postList) {
         
-        _messageData = [[ClassParser sharedInstance] parseMessageData:postList];
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        NSString *uid = [ud objectForKey:@"USER_ID"];
+        
+        _messageData = [[ClassParser sharedInstance] parseMessageData:postList uid:uid];
         
         [self.tableView reloadData];
         self.tableView.userInteractionEnabled = YES;
@@ -256,8 +259,11 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     cell.contentLabel.text = message.content;
     cell.dateLabel.text = [NSString stringWithFormat:@"%@  来自%@", message.date, message.source];
     
-    // comment & like
-    [cell setLike:message.likes.count commentNum:message.comments.count];
+    // comment
+    [cell setCommentNum:message.comments.count];
+    
+    // like
+    [cell setLikeNum:message.likes.count status:message.isLike animation:NO];
     
     // avatar
     NSURL *avatarUrl = [NSURL URLWithString:message.avatarURL];
@@ -279,8 +285,11 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     cell.contentLabel.text = message.content;
     cell.dateLabel.text = [NSString stringWithFormat:@"%@  来自%@", message.date, message.source];
     
-    // comment & like
-    [cell setLike:message.likes.count commentNum:message.comments.count];
+    // comment
+    [cell setCommentNum:message.comments.count];
+    
+    // like
+    [cell setLikeNum:message.likes.count status:message.isLike animation:NO];
     
     // avatar
     NSURL *avatarUrl = [NSURL URLWithString:message.avatarURL];
@@ -347,7 +356,10 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     if (postList) {
         
-        [_messageData addObjectsFromArray:[[ClassParser sharedInstance] parseMessageData:postList]];
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        NSString *uid = [ud objectForKey:@"USER_ID"];
+        
+        [_messageData addObjectsFromArray:[[ClassParser sharedInstance] parseMessageData:postList uid:uid]];
 
         [self.tableView reloadData];
         
@@ -412,7 +424,6 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 }
 
 - (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize
-
 {
     UIGraphicsBeginImageContext(CGSizeMake(reSize.width, reSize.height));
     [image drawInRect:CGRectMake(0, 0, reSize.width, reSize.height)];
@@ -422,6 +433,210 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     return reSizeImage;
 }
 
+// like delegate
+- (void)messageActionViewLikeDidPressWithTag:(NSUInteger)tag
+{
+    Message *message = _messageData[tag];
+    MessageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
+    
+    if (message.isLike) {
+        // send not like
+        [cell setLikeNum:((message.likes.count > 0) ? (message.likes.count - 1) : 0) status:NO animation:YES];
+        
+        message.isLike = NO;
+        
+        // server
+        [self sendNotLikeRequestWithTag:tag];
+        
+    } else {
+        // send like
+        
+        [cell setLikeNum:message.likes.count + 1 status:YES animation:YES];
+
+        message.isLike = YES;
+        
+        // server
+        [self sendLikeRequestWithTag:tag];
+    }
+}
+
+- (void)sendLikeRequestWithTag:(NSUInteger)tag
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    Message *message = _messageData[tag];
+    
+    // ud
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *token = [ud valueForKey:@"USER_TOKEN"];
+    NSString *user_id = [ud valueForKey:@"USER_ID"];
+    
+    // post data
+    NSDictionary *postData = @{
+                              @"post_id": message.message_id,
+                              @"uid": user_id,
+                              @"token": token,
+                              };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_like_timeout;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, message_like_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+//        NSLog(@"点赞 - 连接服务器 - 成功 - %@", responseObject);
+        NSLog(@"点赞 - 连接服务器 - 成功");
+        [self addLikeToLocalWithTag:tag likeID:[NSString stringWithFormat:@"%@", responseObject[@"id"]]];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+//        NSLog(@"点赞 - 连接服务器 - 失败 - %@", operation.error);
+        NSLog(@"点赞 - 连接服务器 - 失败");
+        
+        NSUInteger code = operation.response.statusCode;
+        
+        if (code == 401) {
+            // wrong token
+            [self showHUDWithText:global_connection_wrong_token andHideDelay:global_hud_delay];
+            [self performSelector:@selector(logout) withObject:nil afterDelay:global_hud_delay];
+        }
+        
+        [self restoreLikeWithTag:tag isLike:NO];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
+- (void)sendNotLikeRequestWithTag:(NSUInteger)tag
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    Message *message = _messageData[tag];
+    
+    // ud
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *token = [ud valueForKey:@"USER_TOKEN"];
+    NSString *user_id = [ud valueForKey:@"USER_ID"];
+    NSString *like_id = @"";
+    
+    for (NSDictionary *dict in message.likes) {
+        NSString *uid = dict[@"uid"];
+        if ([uid isEqualToString:user_id]) {
+            like_id = dict[@"id"];
+            break;
+        }
+    }
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_like_timeout;
+    
+    [manager.requestSerializer setValue:like_id forHTTPHeaderField:@"id"];
+    [manager.requestSerializer setValue:user_id forHTTPHeaderField:@"uid"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, message_like_url] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+//        NSLog(@"取消点赞 - 连接服务器 - 成功 - %@", responseObject);
+        NSLog(@"取消点赞 - 连接服务器 - 成功");
+        [self removeLikeToLocalWithTag:tag likeID:like_id];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+//        NSLog(@"取消点赞 - 连接服务器 - 失败 - %@", operation.error);
+        NSLog(@"取消点赞 - 连接服务器 - 失败");
+        
+        NSUInteger code = operation.response.statusCode;
+        
+        if (code == 401) {
+            // wrong token
+            [self showHUDWithText:global_connection_wrong_token andHideDelay:global_hud_delay];
+            [self performSelector:@selector(logout) withObject:nil afterDelay:global_hud_delay];
+        }
+        
+        [self restoreLikeWithTag:tag isLike:YES];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
+
+- (void)addLikeToLocalWithTag:(NSUInteger)tag likeID:(NSString *)like_id
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *user_id = [ud valueForKey:@"USER_ID"];
+    
+    Message *message = _messageData[tag];
+    
+    message.isLike = YES;
+    
+    NSMutableArray *likeData = [NSMutableArray arrayWithArray:message.likes];
+    
+    [likeData addObject:@{@"id": like_id, @"uid": user_id}];
+    
+    message.likes = likeData;
+    
+    _messageData[tag] = message;
+    
+    MessageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
+    
+    [cell setLikeNum:message.likes.count status:YES animation:NO];
+}
+
+- (void)removeLikeToLocalWithTag:(NSUInteger)tag likeID:(NSString *)like_id
+{
+    Message *message = _messageData[tag];
+    
+    message.isLike = NO;
+    
+    NSMutableArray *likeData = [NSMutableArray arrayWithArray:message.likes];
+    
+    NSUInteger flag = -1;
+    
+    for (NSUInteger i = 0; i < likeData.count; i++) {
+        NSString *l_id = likeData[i][@"id"];
+        if ([l_id isEqualToString:like_id]) {
+            flag = i;
+            break;
+        }
+    }
+    
+    if (flag != -1) {
+        [likeData removeObjectAtIndex:flag];
+    }
+    
+    message.likes = likeData;
+    
+    _messageData[tag] = message;
+    
+    MessageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
+    
+    [cell setLikeNum:message.likes.count status:NO animation:NO];
+}
+
+- (void)restoreLikeWithTag:(NSUInteger)tag isLike:(BOOL)isLike
+{
+    Message *message = _messageData[tag];
+    
+    MessageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
+    
+    [cell setLikeNum:message.likes.count status:isLike animation:YES];
+    
+    message.isLike = isLike;
+}
+
+
+
+
+// comment delegate
+
+
+
+// share delegate
 - (void)messageActionViewShareDidPressWithTag:(NSUInteger)tag
 {
     Message *message = _messageData[tag];
@@ -431,7 +646,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
         NSString *title = [NSString stringWithFormat:@"%@", message.content];
         NSString *description = [NSString stringWithFormat:@"%@\n%@\n来自消息圈\n(点击打开App)", message.nickname, message.date];
         
-        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"分享" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"分享消息" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
         [controller addAction:[UIAlertAction actionWithTitle:@"微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
             
@@ -635,7 +850,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
                 [self logout];
             }];
         } else if (code == 404) {
-            // 已被使用
+            // 已被删除
             [KVNProgress showErrorWithStatus:@"该信息已被删除" completion:^{
                 
             }];

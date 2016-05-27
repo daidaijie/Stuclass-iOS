@@ -18,6 +18,7 @@
 
 @property (weak, nonatomic) id<MessageActionViewDelegate> delegate;
 
-- (void)setLike:(NSUInteger)likeNum commentNum:(NSUInteger)commentNum;
+- (void)setLikeNum:(NSUInteger)likeNum status:(BOOL)isLike animation:(BOOL)animate;
+- (void)setCommentNum:(NSUInteger)commentNum;
 
 @end

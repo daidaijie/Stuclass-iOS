@@ -436,7 +436,7 @@
 
 #pragma mark - Message Parser
 
-- (NSMutableArray *)parseMessageData:(NSArray *)postList
+- (NSMutableArray *)parseMessageData:(NSArray *)postList uid:(NSString *)my_uid
 {
     NSMutableArray *messageData = [NSMutableArray array];
     
@@ -477,9 +477,36 @@
                 message.imageURLs = imageURLs;
             }
             
-            // comment
-            message.comments = dict[@"comments"];
-            message.likes = dict[@"thumb_ups"];
+            // comment - to NSString
+            NSMutableArray *commentData = [NSMutableArray array];
+            
+            for (NSDictionary *c in dict[@"comments"]) {
+                
+                [commentData addObject:@{@"id":[NSString stringWithFormat:@"%@", c[@"id"]], @"uid":[NSString stringWithFormat:@"%@", c[@"uid"]]}];
+            }
+            
+            message.comments = commentData;
+            
+            // like
+            NSMutableArray *likeData = [NSMutableArray array];
+            
+            for (NSDictionary *l in dict[@"thumb_ups"]) {
+                
+                [likeData addObject:@{@"id":[NSString stringWithFormat:@"%@", l[@"id"]], @"uid":[NSString stringWithFormat:@"%@", l[@"uid"]]}];
+            }
+            
+            message.likes = likeData;
+   
+            
+            message.isLike = NO;
+            
+            for (NSDictionary *likeDict in message.likes) {
+                NSString *uid = likeDict[@"uid"];
+                if ([uid isEqualToString:my_uid]) {
+                    message.isLike = YES;
+                    break;
+                }
+            }
             
             [messageData addObject:message];
         }

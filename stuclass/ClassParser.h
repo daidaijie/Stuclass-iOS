@@ -23,6 +23,6 @@
 
 - (NSMutableArray *)parseDocumentData:(NSArray *)documentData;
 
-- (NSMutableArray *)parseMessageData:(NSArray *)postList;
+- (NSMutableArray *)parseMessageData:(NSArray *)postList uid:(NSString *)my_uid;
 
 @end
