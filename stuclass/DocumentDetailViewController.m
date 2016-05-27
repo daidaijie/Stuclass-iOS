@@ -14,7 +14,7 @@
 
 @interface DocumentDetailViewController () <UIWebViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) UIWebView *webView;
 
 @end
 
@@ -31,11 +31,22 @@
 
 - (void)setupWebView
 {
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    
+    self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    
+    self.webView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
+    
     self.webView.scalesPageToFit = NO;
     
     [self.webView loadHTMLString:_content baseURL:nil];
     
+    self.webView.delegate = self;
+    
     self.webView.dataDetectorTypes = UIDataDetectorTypeAll;
+    
+    [self.view addSubview:self.webView];
 }
 
 
@@ -138,28 +149,6 @@
         [self showHUDWithText:@"当前微信不可用" andHideDelay:global_hud_delay];
     }
 }
-
-/*
-- (NSString *)filterHTML:(NSString *)html
-{
-    NSScanner * scanner = [NSScanner scannerWithString:html];
-    NSString * text = nil;
-    while([scanner isAtEnd]==NO)
-    {
-        //找到标签的起始位置
-        [scanner scanUpToString:@"<" intoString:nil];
-        //找到标签的结束位置
-        [scanner scanUpToString:@">" intoString:&text];
-        //替换字符
-        html = [html stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>",text] withString:@""];
-    }
-    html = [html stringByReplacingOccurrencesOfString:@"&nbsp;" withString:@" "];
-    html = [html stringByReplacingOccurrencesOfString:@"&mdash;" withString:@"-"];
-    html = [html stringByReplacingOccurrencesOfString:@"&ldquo;" withString:@"\""];
-    html = [html stringByReplacingOccurrencesOfString:@"&rdquo;" withString:@"\""];
-    return html;
-}
- */
 
 
 - (void)didReceiveMemoryWarning {

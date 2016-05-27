@@ -407,7 +407,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bII-Tv-Z1F" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4073" y="1320"/>
+            <point key="canvasLocation" x="2430" y="1712"/>
         </scene>
         <!--同班同学-->
         <scene sceneID="4Ia-O8-MEo">
@@ -481,7 +481,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRO-wu-yME" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2710" y="1682"/>
+            <point key="canvasLocation" x="2826" y="1234"/>
         </scene>
         <!--新的作业信息-->
         <scene sceneID="9zj-QO-rXr">
@@ -1097,32 +1097,11 @@
                         <viewControllerLayoutGuide type="bottom" id="exh-yh-Eke"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9dY-fs-dsm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" scalesPageToFit="YES" translatesAutoresizingMaskIntoConstraints="NO" id="utn-hj-OYx">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
-                                <connections>
-                                    <outlet property="delegate" destination="79z-Mj-fq8" id="zVj-Xi-w7S"/>
-                                </connections>
-                            </webView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="utn-hj-OYx" firstAttribute="leading" secondItem="9dY-fs-dsm" secondAttribute="leading" id="3Yg-zh-2Op"/>
-                            <constraint firstItem="exh-yh-Eke" firstAttribute="top" secondItem="utn-hj-OYx" secondAttribute="bottom" id="bhh-8Z-Ug8"/>
-                            <constraint firstAttribute="trailing" secondItem="utn-hj-OYx" secondAttribute="trailing" id="vNi-6L-7pa"/>
-                            <constraint firstItem="utn-hj-OYx" firstAttribute="top" secondItem="bdu-c0-wdQ" secondAttribute="bottom" id="wZE-Jy-iz6"/>
-                            <constraint firstItem="utn-hj-OYx" firstAttribute="top" secondItem="9dY-fs-dsm" secondAttribute="top" id="xCu-Vl-BBV"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="wZE-Jy-iz6"/>
-                            </mask>
-                        </variation>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="hGL-nY-mVq">
                         <barButtonItem key="rightBarButtonItem" image="toolbar-share" id="RnT-H1-j7r">
                             <connections>
@@ -1131,11 +1110,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="webView" destination="utn-hj-OYx" id="fPb-HE-rCH"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WUO-66-nGL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2045,6 +2020,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="校园动态" id="CQt-b2-va5">
+                        <barButtonItem key="leftBarButtonItem" image="toolbar-treehole" id="bgG-Oq-v3l">
+                            <connections>
+                                <segue destination="Unl-jU-xUT" kind="show" id="1Ud-Em-r9W"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="公众号" id="k2V-Ci-0fZ">
                             <connections>
                                 <action selector="officialaccountPress:" destination="uCd-Rg-BL2" id="11c-cS-A9l"/>
@@ -2582,11 +2562,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="消息圈" id="13e-bi-5Ex">
-                        <barButtonItem key="leftBarButtonItem" image="toolbar-treehole" id="pJO-tI-5an">
-                            <connections>
-                                <segue destination="Unl-jU-xUT" kind="show" identifier="ShowTreehole" id="SZL-ye-byw"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" image="toolbar-mypost" id="pJO-tI-5an"/>
                         <rightBarButtonItems>
                             <barButtonItem image="toolbar-add" id="pSm-Lo-7Hp"/>
                             <barButtonItem image="toolbar-read" id="HQL-aW-wwv">
@@ -3260,6 +3236,7 @@
         <image name="toolbar-add" width="22" height="22"/>
         <image name="toolbar-backward" width="22" height="22"/>
         <image name="toolbar-favorite" width="22" height="22"/>
+        <image name="toolbar-mypost" width="22" height="22"/>
         <image name="toolbar-read" width="22" height="22"/>
         <image name="toolbar-refresh" width="22" height="22"/>
         <image name="toolbar-search" width="22" height="22"/>

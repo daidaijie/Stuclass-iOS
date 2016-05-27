@@ -347,7 +347,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     if (postList) {
         
-        _messageData = [[ClassParser sharedInstance] parseMessageData:postList];
+        [_messageData addObjectsFromArray:[[ClassParser sharedInstance] parseMessageData:postList]];
 
         [self.tableView reloadData];
         
@@ -569,15 +569,16 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 {
     Message *message = _messageData[tag];
     NSString *myUsername = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERNAME"];
-    NSString *messageStr = [myUsername isEqualToString:@"14jhwang"] ? message.username : nil;
+    NSString *messageStr = ([myUsername isEqualToString:@"14jhwang"] || [myUsername isEqualToString:@"14xfdeng"] || [myUsername isEqualToString:@"13yjli3"]) ? message.username : nil;
     
     UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"更多" message:messageStr preferredStyle:UIAlertControllerStyleActionSheet];
+    
     [controller addAction:[UIAlertAction actionWithTitle:@"复制" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
         UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
         pasteBoard.string = message.content;
     }]];
     
-    if ([myUsername isEqualToString:message.username]) {
+    if ([myUsername isEqualToString:message.username] || [myUsername isEqualToString:@"14jhwang"] || [myUsername isEqualToString:@"14xfdeng"] || [myUsername isEqualToString:@"13yjli3"]) {
         [controller addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
             [self deleteMessageWithTag:tag];
         }]];

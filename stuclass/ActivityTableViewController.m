@@ -98,13 +98,13 @@ static const CGFloat kHeightForSectionHeader = 8.5;
 - (void)setupData
 {
     Message *m1 = [[Message alloc] init];
-    m1.nickname = @"喜欢喝果粒橙的猫呆汪";
+    m1.nickname = @"哈奇士说自己不是狗";
     m1.avatarURL = @"a1";
     m1.comments = @[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""];
     m1.likes = @[@"", @"", @"", @"", @"", @"", @"", @""];
     
     Message *m2 = [[Message alloc] init];
-    m2.nickname = @"强记这不是灯孝妇";
+    m2.nickname = @"强记这不是孝妇";
     m2.avatarURL = @"a2";
     
     Message *m3 = [[Message alloc] init];
