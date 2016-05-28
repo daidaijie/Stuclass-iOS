@@ -248,7 +248,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="备忘笔记" id="bqQ-gf-kVP">
-                        <barButtonItem key="rightBarButtonItem" title="保存" id="9Qc-mY-3RV">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-tick" id="9Qc-mY-3RV">
                             <connections>
                                 <action selector="saveItemPress:" destination="709-SW-O5u" id="66S-5L-pKd"/>
                             </connections>
@@ -556,7 +556,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="新的作业信息" id="IVu-N7-g5h">
-                        <barButtonItem key="rightBarButtonItem" title="发布" id="RzF-H8-3GX">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-send" id="RzF-H8-3GX">
                             <connections>
                                 <action selector="postItemPress:" destination="D1B-a4-k8L" id="7ta-vP-dpX"/>
                             </connections>
@@ -632,7 +632,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="吹一下水" id="F0h-sm-3LB">
-                        <barButtonItem key="rightBarButtonItem" title="吹" id="UfN-1V-n0D">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-send" id="UfN-1V-n0D">
                             <connections>
                                 <action selector="postItemPress:" destination="StQ-yR-9Jf" id="Zdo-u3-cBH"/>
                             </connections>
@@ -1577,12 +1577,12 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="选择学期" id="BvW-Au-r5O">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="Dvp-K2-UHP">
+                        <barButtonItem key="leftBarButtonItem" image="toolbar-backward" id="Dvp-K2-UHP">
                             <connections>
                                 <action selector="cancelPress:" destination="kvP-hG-ytS" id="dKp-pJ-oIg"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="完成" id="o61-8J-tFW">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-tick" id="o61-8J-tFW">
                             <connections>
                                 <action selector="confirmPress:" destination="kvP-hG-ytS" id="h4h-z5-njn"/>
                             </connections>
@@ -1631,7 +1631,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="选择学期" id="3xJ-bU-xTP">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="xYL-2Z-tLg">
+                        <barButtonItem key="leftBarButtonItem" image="toolbar-backward" id="xYL-2Z-tLg">
                             <connections>
                                 <action selector="cancelPress:" destination="Q6j-CC-tyz" id="4IR-mX-QT7"/>
                             </connections>
@@ -1692,7 +1692,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="选择周数" id="kcg-bH-sg1">
-                        <barButtonItem key="leftBarButtonItem" title="取消" id="41z-Qm-8I0">
+                        <barButtonItem key="leftBarButtonItem" image="toolbar-backward" id="41z-Qm-8I0">
                             <connections>
                                 <action selector="cancelPress:" destination="cDH-wM-y6W" id="Mpq-dQ-tuq"/>
                             </connections>
@@ -2564,7 +2564,11 @@
                     <navigationItem key="navigationItem" title="消息圈" id="13e-bi-5Ex">
                         <barButtonItem key="leftBarButtonItem" image="toolbar-mypost" id="pJO-tI-5an"/>
                         <rightBarButtonItems>
-                            <barButtonItem image="toolbar-add" id="pSm-Lo-7Hp"/>
+                            <barButtonItem image="toolbar-add" id="pSm-Lo-7Hp">
+                                <connections>
+                                    <segue destination="s19-Wf-gAR" kind="show" id="2gx-2G-ZnE"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="toolbar-read" id="HQL-aW-wwv">
                                 <connections>
                                     <action selector="unreadItemPress:" destination="oMG-Ek-CY8" id="S48-YE-YUQ"/>
@@ -2577,6 +2581,133 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ww-sP-qpI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3615" y="1308"/>
+        </scene>
+        <!--发表消息-->
+        <scene sceneID="7UJ-lR-5Fv">
+            <objects>
+                <tableViewController hidesBottomBarWhenPushed="YES" id="s19-Wf-gAR" customClass="MessagePostTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="140" sectionHeaderHeight="18" sectionFooterHeight="6" id="ifq-4t-VTf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="Oq0-2j-caa">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" rowHeight="140" id="DPJ-VM-Yg8">
+                                        <rect key="frame" x="0.0" y="99" width="320" height="140"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DPJ-VM-Yg8" id="XUC-z0-6Ao">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="139.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ODC-lu-tod" customClass="PlaceholderTextView">
+                                                    <rect key="frame" x="4" y="4" width="312" height="131"/>
+                                                    <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="s19-Wf-gAR" id="LAW-4X-KTG"/>
+                                                    </connections>
+                                                </textView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C8f-cY-KPr">
+                                                    <rect key="frame" x="275" y="113" width="35" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="0Ic-uL-I2Y"/>
+                                                        <constraint firstAttribute="height" constant="21" id="qbZ-4E-74T"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="C8f-cY-KPr" secondAttribute="bottom" constant="5" id="Hv2-VW-Vus"/>
+                                                <constraint firstItem="ODC-lu-tod" firstAttribute="top" secondItem="XUC-z0-6Ao" secondAttribute="top" constant="4" id="K5k-83-t9x"/>
+                                                <constraint firstItem="ODC-lu-tod" firstAttribute="leading" secondItem="XUC-z0-6Ao" secondAttribute="leading" constant="4" id="KVj-Lh-CUm"/>
+                                                <constraint firstAttribute="bottom" secondItem="ODC-lu-tod" secondAttribute="bottom" constant="4" id="Wza-8J-AEa"/>
+                                                <constraint firstAttribute="trailing" secondItem="ODC-lu-tod" secondAttribute="trailing" constant="4" id="mlv-Dw-M2u"/>
+                                                <constraint firstAttribute="trailing" secondItem="C8f-cY-KPr" secondAttribute="trailing" constant="10" id="yBi-sA-Tic"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="分享图片" id="Sev-Aw-F5l">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" rowHeight="47" id="Lsj-7Z-9hb">
+                                        <rect key="frame" x="0.0" y="277" width="320" height="47"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lsj-7Z-9hb" id="GaE-qH-YHT">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="46.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="消息来源" id="zA9-Kp-lJy">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" rowHeight="45" id="JCz-nL-8hP">
+                                        <rect key="frame" x="0.0" y="362" width="320" height="45"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JCz-nL-8hP" id="EeI-YS-Eco">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rqc-QP-61l">
+                                                    <rect key="frame" x="15" y="8" width="290" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="28" id="GWa-md-cK2"/>
+                                                    </constraints>
+                                                    <segments>
+                                                        <segment title="iOS"/>
+                                                        <segment title="iPhone 5"/>
+                                                        <segment title="火星"/>
+                                                    </segments>
+                                                    <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rqc-QP-61l" firstAttribute="centerY" secondItem="EeI-YS-Eco" secondAttribute="centerY" id="CBg-Ti-UAC"/>
+                                                <constraint firstItem="rqc-QP-61l" firstAttribute="leading" secondItem="EeI-YS-Eco" secondAttribute="leading" constant="15" id="Xt4-lR-k5X"/>
+                                                <constraint firstAttribute="bottom" secondItem="rqc-QP-61l" secondAttribute="bottom" constant="7.5" id="ebs-83-P2z"/>
+                                                <constraint firstAttribute="trailing" secondItem="rqc-QP-61l" secondAttribute="trailing" constant="15" id="o9g-JK-ncY"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="ebs-83-P2z"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="s19-Wf-gAR" id="t5Y-fA-1Xk"/>
+                            <outlet property="delegate" destination="s19-Wf-gAR" id="kQz-Vc-MHn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="发表消息" id="ngx-rk-nV6">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-send" id="OBn-yS-VZJ">
+                            <connections>
+                                <action selector="postItemPress:" destination="s19-Wf-gAR" id="FTl-vL-nHw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="countLabel" destination="C8f-cY-KPr" id="vMj-po-71X"/>
+                        <outlet property="segmentControl" destination="rqc-QP-61l" id="cZi-hB-STH"/>
+                        <outlet property="textView" destination="ODC-lu-tod" id="4FG-vR-FaB"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="k48-V7-l7m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3980" y="1308"/>
         </scene>
         <!--写下你要做的事-->
         <scene sceneID="28b-Ds-P6f">
@@ -2636,7 +2767,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="写下你要做的事" id="vfs-eP-Kh9">
-                        <barButtonItem key="rightBarButtonItem" title="添加" id="bHE-QR-CPs">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-tick" id="bHE-QR-CPs">
                             <connections>
                                 <action selector="AddItemPress:" destination="mWD-VR-PMc" id="EBo-kN-O87"/>
                             </connections>
@@ -2794,15 +2925,15 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="43" id="nKR-v9-HBz">
-                                        <rect key="frame" x="0.0" y="361" width="320" height="43"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="45" id="nKR-v9-HBz">
+                                        <rect key="frame" x="0.0" y="361" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nKR-v9-HBz" id="k9e-9v-c5q">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="42.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Aed-un-Hc5">
-                                                    <rect key="frame" x="15" y="6" width="290" height="29"/>
+                                                    <rect key="frame" x="15" y="8" width="290" height="29"/>
                                                     <segments>
                                                         <segment title="默认"/>
                                                         <segment title="单周"/>
@@ -2815,10 +2946,16 @@
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Aed-un-Hc5" firstAttribute="centerY" secondItem="k9e-9v-c5q" secondAttribute="centerY" id="2lo-ve-fgH"/>
                                                 <constraint firstItem="Aed-un-Hc5" firstAttribute="top" secondItem="k9e-9v-c5q" secondAttribute="topMargin" constant="-2" id="BhH-ct-HDA"/>
                                                 <constraint firstItem="Aed-un-Hc5" firstAttribute="leading" secondItem="k9e-9v-c5q" secondAttribute="leading" constant="15" id="Zr9-NG-mWH"/>
                                                 <constraint firstAttribute="trailing" secondItem="Aed-un-Hc5" secondAttribute="trailing" constant="15" id="z5y-NJ-cDO"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="BhH-ct-HDA"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -2830,7 +2967,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="添加格子" id="O05-LQ-q2N">
-                        <barButtonItem key="rightBarButtonItem" title="确认" id="d1V-6F-3b4">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-tick" id="d1V-6F-3b4">
                             <connections>
                                 <action selector="confirm:" destination="nq2-sZ-dAg" id="QzP-9i-3NZ"/>
                             </connections>
@@ -3098,15 +3235,15 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="43" id="hmd-nU-oXT">
-                                        <rect key="frame" x="0.0" y="361" width="320" height="43"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="45" id="hmd-nU-oXT">
+                                        <rect key="frame" x="0.0" y="361" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hmd-nU-oXT" id="4NN-Qt-3Y3">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="42.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iyJ-ON-Umx">
-                                                    <rect key="frame" x="15" y="6" width="290" height="29"/>
+                                                    <rect key="frame" x="15" y="8" width="290" height="29"/>
                                                     <segments>
                                                         <segment title="默认"/>
                                                         <segment title="单周"/>
@@ -3119,10 +3256,16 @@
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="iyJ-ON-Umx" firstAttribute="centerY" secondItem="4NN-Qt-3Y3" secondAttribute="centerY" id="2aw-1A-OLH"/>
                                                 <constraint firstAttribute="trailing" secondItem="iyJ-ON-Umx" secondAttribute="trailing" constant="15" id="3xZ-wW-Bgz"/>
                                                 <constraint firstItem="iyJ-ON-Umx" firstAttribute="leading" secondItem="4NN-Qt-3Y3" secondAttribute="leading" constant="15" id="EDq-Ub-UUR"/>
                                                 <constraint firstItem="iyJ-ON-Umx" firstAttribute="top" secondItem="4NN-Qt-3Y3" secondAttribute="topMargin" constant="-2" id="qlI-36-Thp"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="qlI-36-Thp"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -3134,7 +3277,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="修改格子" id="u6S-cl-YNj" userLabel="修改格子">
-                        <barButtonItem key="rightBarButtonItem" title="保存" id="diw-KU-HBP">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-tick" id="diw-KU-HBP">
                             <connections>
                                 <action selector="confirm:" destination="16I-Ae-KOR" id="c3A-7v-7E2"/>
                             </connections>
@@ -3205,7 +3348,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="修改昵称" id="yuP-fn-9ct" userLabel="修改昵称">
-                        <barButtonItem key="rightBarButtonItem" title="保存" id="Hs5-zV-Xce">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-tick" id="Hs5-zV-Xce">
                             <connections>
                                 <action selector="saveItemPress:" destination="Tyt-dE-HCP" id="Aw7-XZ-7rl"/>
                             </connections>
@@ -3240,7 +3383,9 @@
         <image name="toolbar-read" width="22" height="22"/>
         <image name="toolbar-refresh" width="22" height="22"/>
         <image name="toolbar-search" width="22" height="22"/>
+        <image name="toolbar-send" width="22" height="22"/>
         <image name="toolbar-share" width="22" height="22"/>
+        <image name="toolbar-tick" width="22" height="22"/>
         <image name="toolbar-trashbin" width="22" height="22"/>
         <image name="toolbar-treehole" width="22" height="22"/>
     </resources>

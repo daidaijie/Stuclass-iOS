@@ -7,8 +7,21 @@
 //
 
 #import "MessagePostTableViewController.h"
+#import "Define.h"
+#import <AFNetworking/AFNetworking.h>
+#import "MBProgressHUD.h"
+#import <KVNProgress/KVNProgress.h>
+#import "SDVersion.h"
+#import "PlaceholderTextView.h"
 
-@interface MessagePostTableViewController ()
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+@interface MessagePostTableViewController () <UITextViewDelegate>
+
+@property (weak, nonatomic) IBOutlet PlaceholderTextView *textView;
+
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 @end
 
@@ -16,83 +29,103 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self setupTableView];
+    [self setupTextView];
 }
+
+#pragma mark - Setup Method
+
+- (void)setupTableView
+{
+    self.tableView.contentInset = UIEdgeInsetsMake(-12, 0, 0, 0);
+}
+
+- (void)setupTextView
+{
+    _textView.placeholder.text = @"分享身边发生的事...";
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+//    [_textView becomeFirstResponder];
+}
+
+#pragma mark - TableView Delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger section = indexPath.section;
+    
+    if (section == 0) {
+        if (SCREEN_HEIGHT == 480.0) {
+            return global_textView_RowHeightFor4;
+        } else {
+            return global_textView_RowHeightFor5;
+        }
+    } else if (section == 1) {
+        return 50;
+    } else {
+        return 45;
+    }
+}
+
+
+
+#pragma mark - TextView Delegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if (textView.text.length > 1) {
+        // 禁止换行
+        NSString *originStr = textView.text;
+        NSString *lastTwoChar = [originStr substringWithRange:NSMakeRange(originStr.length - 2, 2)];
+        
+        if ([lastTwoChar isEqualToString:@"\n\n"] && [text isEqualToString:@"\n"]) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    _countLabel.text = [NSString stringWithFormat:@"%d", textView.text.length];
+    
+    _textView.placeholder.hidden = (textView.text.length > 0);
+}
+
+#pragma mark - ScrollView Delegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [_textView resignFirstResponder];
+}
+
+#pragma mark - Post
+
+- (IBAction)postItemPress:(id)sender
+{
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
-}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
