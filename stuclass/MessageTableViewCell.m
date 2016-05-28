@@ -7,6 +7,7 @@
 //
 
 #import "MessageTableViewCell.h"
+//#import "Define.h"
 
 @interface MessageTableViewCell()<MessageActionViewDelegate>
 
@@ -22,8 +23,8 @@
     // avatarImageView
     self.avatarImageView.layer.cornerRadius = self.avatarImageView.bounds.size.width / 2.0;
     self.avatarImageView.clipsToBounds = YES;
-    //    self.avatarImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    //    self.avatarImageView.layer.borderWidth = 0.3;
+//    self.avatarImageView.layer.borderColor = MAIN_COLOR.CGColor;
+//    self.avatarImageView.layer.borderWidth = 0.6;
     
     // actionView
     self.actionView.delegate = self;

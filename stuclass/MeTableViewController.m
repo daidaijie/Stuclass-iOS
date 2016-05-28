@@ -335,7 +335,6 @@
             // wrong token
             [KVNProgress showErrorWithStatus:global_connection_wrong_token completion:^{
                 [_imagePickerController dismissViewControllerAnimated:YES completion:nil];
-                [self logoutClearData];
                 [self logout];
             }];
         } else {

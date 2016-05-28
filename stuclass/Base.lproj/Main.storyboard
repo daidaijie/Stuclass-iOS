@@ -2586,7 +2586,7 @@
         <scene sceneID="7UJ-lR-5Fv">
             <objects>
                 <tableViewController hidesBottomBarWhenPushed="YES" id="s19-Wf-gAR" customClass="MessagePostTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="140" sectionHeaderHeight="18" sectionFooterHeight="6" id="ifq-4t-VTf">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="140" sectionHeaderHeight="18" sectionFooterHeight="6" id="ifq-4t-VTf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -2633,23 +2633,39 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="分享图片" id="Sev-Aw-F5l">
+                            <tableViewSection headerTitle="分享图片 0/3" id="Sev-Aw-F5l">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" rowHeight="47" id="Lsj-7Z-9hb">
-                                        <rect key="frame" x="0.0" y="277" width="320" height="47"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="0.0" rowHeight="90" id="Lsj-7Z-9hb">
+                                        <rect key="frame" x="0.0" y="277" width="320" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lsj-7Z-9hb" id="GaE-qH-YHT">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="46.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="89.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="从相册中选择图片" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gow-ns-Z3s">
+                                                    <rect key="frame" x="15" y="34" width="160" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="MRD-3d-cdd"/>
+                                                        <constraint firstAttribute="width" constant="160" id="hf2-wb-59V"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Gow-ns-Z3s" firstAttribute="leading" secondItem="GaE-qH-YHT" secondAttribute="leading" constant="15" id="SBq-2k-m6Y"/>
+                                                <constraint firstItem="Gow-ns-Z3s" firstAttribute="centerY" secondItem="GaE-qH-YHT" secondAttribute="centerY" id="SDc-8u-YxW"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="消息来源" id="zA9-Kp-lJy">
+                            <tableViewSection headerTitle="消息来源" footerTitle="" id="zA9-Kp-lJy">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="0.0" rowHeight="45" id="JCz-nL-8hP">
-                                        <rect key="frame" x="0.0" y="362" width="320" height="45"/>
+                                        <rect key="frame" x="0.0" y="405" width="320" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JCz-nL-8hP" id="EeI-YS-Eco">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="44.5"/>
@@ -2662,7 +2678,7 @@
                                                     </constraints>
                                                     <segments>
                                                         <segment title="iOS"/>
-                                                        <segment title="iPhone 5"/>
+                                                        <segment title="iPhone 7"/>
                                                         <segment title="火星"/>
                                                     </segments>
                                                     <color key="tintColor" red="0.74509803919999995" green="0.29803921570000003" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
