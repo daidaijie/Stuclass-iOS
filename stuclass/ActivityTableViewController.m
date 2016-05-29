@@ -230,7 +230,7 @@ static const CGFloat kHeightForSectionHeader = 8.5;
     cell.userInteractionEnabled = NO;
     
     // comment
-    [cell setCommentNum:message.comments.count];
+    [cell setCommentNum:message.comments.count available:NO];
     
     // like
     [cell setLikeNum:message.likes.count status:message.isLike animation:NO];

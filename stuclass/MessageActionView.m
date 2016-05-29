@@ -82,9 +82,10 @@ static CGFloat kHighlightTextColor = 0.3;
     [_likeButton setWithStatus:isLike withAnimation:animate];
 }
 
-- (void)setCommentNum:(NSUInteger)commentNum
+- (void)setCommentNum:(NSUInteger)commentNum available:(BOOL)available
 {
     [_commentButton setTitle:[NSString stringWithFormat:@" 评论[%d]", commentNum] forState:UIControlStateNormal];
+    _commentButton.userInteractionEnabled = available;
 }
 
 

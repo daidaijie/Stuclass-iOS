@@ -786,17 +786,22 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     }];
     
     [alertView addButtonWithTitle:@"同步" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView){
-        // KVN
-        [KVNProgress showWithStatus:@"正在获取最新课表信息"];
-        
-        // ActivityIndicator
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        
-        // Request
-        [self sendSyncRequest];
+        [self performSelector:@selector(syncClass) withObject:nil afterDelay:0.3];
     }];
     
     [alertView show];
+}
+
+- (void)syncClass
+{
+    // KVN
+    [KVNProgress showWithStatus:@"正在获取最新课表信息"];
+    
+    // ActivityIndicator
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    // Request
+    [self sendSyncRequest];
 }
 
 - (void)sendSyncRequest

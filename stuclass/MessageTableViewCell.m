@@ -36,9 +36,9 @@
     [self.actionView setLikeNum:likeNum status:isLike animation:animate];
 }
 
-- (void)setCommentNum:(NSUInteger)commentNum
+- (void)setCommentNum:(NSUInteger)commentNum available:(BOOL)available;
 {
-    [self.actionView setCommentNum:commentNum];
+    [self.actionView setCommentNum:commentNum available:(BOOL)available];
 }
 
 
@@ -51,6 +51,7 @@
         [_delegate messageActionViewLikeDidPressWithTag:self.tag];
     } else if (type == 2) {
         // comment
+        [_delegate messageActionViewCommentDidPressWithTag:self.tag];
     } else if (type == 3) {
         // share
         [_delegate messageActionViewShareDidPressWithTag:self.tag];

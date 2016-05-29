@@ -64,6 +64,7 @@
 		13391F7E1CC722BD00FA4807 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 13391F7D1CC722BD00FA4807 /* Task.m */; };
 		1342F6141CF9B00000754D18 /* MessageTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1342F6131CF9B00000754D18 /* MessageTitleButton.m */; };
 		1346A9DB1CFA7267004DE125 /* MessagePostImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1346A9DA1CFA7267004DE125 /* MessagePostImageView.m */; };
+		1346A9DF1CFA832A004DE125 /* MessageDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1346A9DE1CFA832A004DE125 /* MessageDetailTableViewController.m */; };
 		134775BA1CCB31A1006E1E94 /* BookDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 134775B91CCB31A1006E1E94 /* BookDetailViewController.m */; };
 		134AB7D81C01840E00D8E816 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7D71C01840E00D8E816 /* MoreView.m */; };
 		134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7DA1C0184AE00D8E816 /* MoreButton.m */; };
@@ -269,6 +270,8 @@
 		134530891BC8AE0C0018C15E /* ClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassViewController.h; sourceTree = "<group>"; };
 		1346A9D91CFA7267004DE125 /* MessagePostImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePostImageView.h; sourceTree = "<group>"; };
 		1346A9DA1CFA7267004DE125 /* MessagePostImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePostImageView.m; sourceTree = "<group>"; };
+		1346A9DD1CFA832A004DE125 /* MessageDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailTableViewController.h; sourceTree = "<group>"; };
+		1346A9DE1CFA832A004DE125 /* MessageDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailTableViewController.m; sourceTree = "<group>"; };
 		134775B81CCB31A1006E1E94 /* BookDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookDetailViewController.h; sourceTree = "<group>"; };
 		134775B91CCB31A1006E1E94 /* BookDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookDetailViewController.m; sourceTree = "<group>"; };
 		134AB7D61C01840E00D8E816 /* MoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreView.h; sourceTree = "<group>"; };
@@ -705,6 +708,8 @@
 				1353ECC21CE6D78B00E6E03E /* MessageCell */,
 				1326F7D21C02DB5E0016B88E /* MessageTableViewController.h */,
 				1326F7D31C02DB5E0016B88E /* MessageTableViewController.m */,
+				1346A9DD1CFA832A004DE125 /* MessageDetailTableViewController.h */,
+				1346A9DE1CFA832A004DE125 /* MessageDetailTableViewController.m */,
 				130A2B7C1CE811B7004927D8 /* Post */,
 			);
 			name = MessageTableViewController;
@@ -1793,6 +1798,7 @@
 				130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */,
 				1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */,
 				13F661811CF969A7001599E2 /* QBCheckmarkView.m in Sources */,
+				1346A9DF1CFA832A004DE125 /* MessageDetailTableViewController.m in Sources */,
 				131287841CB805EF0089D8D7 /* TreeholeViewController.m in Sources */,
 				13F6617F1CF969A7001599E2 /* QBAssetCell.m in Sources */,
 				130A6D501CBA32CC00A36F9C /* TaskListTableViewController.m in Sources */,
