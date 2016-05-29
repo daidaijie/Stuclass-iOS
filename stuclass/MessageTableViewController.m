@@ -24,6 +24,7 @@
 #import "ClassParser.h"
 #import "IDMPhotoBrowser.h"
 #import "UIImageView-PlayGIF/UIImageView+PlayGIF.h"
+#import "MessageTitleButton.h"
 
 static const CGFloat kHeightForSectionHeader = 8.5;
 
@@ -31,6 +32,8 @@ static NSString *message_text_cell_id = @"MessageTextTableViewCell";
 static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 @interface MessageTableViewController () <UIScrollViewDelegate, SDWebImageManagerDelegate, MessageTableViewCellDelegate, MessageImageTableViewCellDelegate, IDMPhotoBrowserDelegate>
+
+@property (weak, nonatomic) IBOutlet MessageTitleButton *messageTitleButton;
 
 @property (strong, nonatomic) NSMutableArray *messageData;
 
@@ -42,6 +45,10 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 @property (strong, nonatomic) UIImageView *startImageView;
 
 @property (assign, nonatomic) BOOL isLoadingMore;
+
+@property (assign, nonatomic) BOOL isLoadedFirstTimeSuccessfully;
+
+@property (assign, nonatomic) BOOL isCheckingLatest;
 
 @end
 
@@ -58,6 +65,15 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     [self setupTableView];
     
     [self setupData];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (!_isCheckingLatest && _isLoadedFirstTimeSuccessfully) {
+        [self checkIfLatest];
+    }
 }
 
 
@@ -147,13 +163,15 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_posts_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"消息圈 - 连接服务器 - 成功");
 //        NSLog(@"------- %@", responseObject);
         [self parseResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         [_startImageView stopGIF];
+        [_messageTitleButton setAlertViewVisible:NO];
+        _isLoadedFirstTimeSuccessfully = YES;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
@@ -331,7 +349,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_posts_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"消息圈 - 更多 - 连接服务器 - 成功");
         //        NSLog(@"------- %@", responseObject);
@@ -903,6 +921,42 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     }
 }
 
+#pragma mark - Latest
+
+- (void)checkIfLatest
+{
+    _isCheckingLatest = YES;
+    
+    Message *message = [_messageData firstObject];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_latest_url] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"检查最新 - 连接服务器 - 成功");
+        
+        NSString *latest_id = [NSString stringWithFormat:@"%@", responseObject[@"id"]];
+        
+        if ([latest_id isEqualToString:message.message_id]) {
+            [_messageTitleButton setAlertViewVisible:NO];
+        } else {
+            [_messageTitleButton setAlertViewVisible:YES];
+        }
+        
+        _isCheckingLatest = NO;
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"检查最新 - 连接服务器 - 失败 - %@", error);
+        
+        _isCheckingLatest = NO;
+    }];
+}
+
 #pragma mark - IDMPhotoBrowserDelegate
 
 - (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index
@@ -915,6 +969,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 {
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
+
 
 #pragma mark - Log Out
 
@@ -935,6 +990,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     [ud setValue:nil forKey:@"AVATAR_URL"];
     [ud setValue:nil forKey:@"USER_ID"];
 }
+
 
 
 @end

@@ -62,6 +62,8 @@
 		1335FC7F1BCA343100BC0F23 /* ClassButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1335FC7E1BCA343100BC0F23 /* ClassButton.m */; };
 		1338FCDE1CF5CD800007D7D4 /* panda.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1338FCDD1CF5CD800007D7D4 /* panda.gif */; };
 		13391F7E1CC722BD00FA4807 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 13391F7D1CC722BD00FA4807 /* Task.m */; };
+		1342F6141CF9B00000754D18 /* MessageTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1342F6131CF9B00000754D18 /* MessageTitleButton.m */; };
+		1346A9DB1CFA7267004DE125 /* MessagePostImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1346A9DA1CFA7267004DE125 /* MessagePostImageView.m */; };
 		134775BA1CCB31A1006E1E94 /* BookDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 134775B91CCB31A1006E1E94 /* BookDetailViewController.m */; };
 		134AB7D81C01840E00D8E816 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7D71C01840E00D8E816 /* MoreView.m */; };
 		134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7DA1C0184AE00D8E816 /* MoreButton.m */; };
@@ -135,6 +137,17 @@
 		13ED2C871BD88AB500E250A2 /* CourseTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C851BD88AB500E250A2 /* CourseTable.m */; };
 		13ED2C931BD8BC3F00E250A2 /* Course.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED2C911BD8BC3F00E250A2 /* Course.m */; };
 		13F2690C1CE95EAF003BDA5C /* ScrollManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F2690B1CE95EAF003BDA5C /* ScrollManager.m */; };
+		13F6617B1CF969A7001599E2 /* QBImagePicker.strings in Resources */ = {isa = PBXBuildFile; fileRef = 13F6615F1CF969A7001599E2 /* QBImagePicker.strings */; };
+		13F6617D1CF969A7001599E2 /* QBAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F661671CF969A7001599E2 /* QBAlbumCell.m */; };
+		13F6617E1CF969A7001599E2 /* QBAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F661691CF969A7001599E2 /* QBAlbumsViewController.m */; };
+		13F6617F1CF969A7001599E2 /* QBAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F6616B1CF969A7001599E2 /* QBAssetCell.m */; };
+		13F661801CF969A7001599E2 /* QBAssetsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F6616D1CF969A7001599E2 /* QBAssetsViewController.m */; };
+		13F661811CF969A7001599E2 /* QBCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F6616F1CF969A7001599E2 /* QBCheckmarkView.m */; };
+		13F661821CF969A7001599E2 /* QBImagePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13F661711CF969A7001599E2 /* QBImagePicker.storyboard */; };
+		13F661831CF969A7001599E2 /* QBImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F661731CF969A7001599E2 /* QBImagePickerController.m */; };
+		13F661841CF969A7001599E2 /* QBSlomoIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F661751CF969A7001599E2 /* QBSlomoIconView.m */; };
+		13F661851CF969A7001599E2 /* QBVideoIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F661771CF969A7001599E2 /* QBVideoIconView.m */; };
+		13F661861CF969A7001599E2 /* QBVideoIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F661791CF969A7001599E2 /* QBVideoIndicatorView.m */; };
 		13F9F4C11C87C3F0004BE5A0 /* ClassWeekTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13F9F4C01C87C3F0004BE5A0 /* ClassWeekTableViewCell.m */; };
 		13FA797E1CBB6A1C00E8865A /* StatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FA797D1CBB6A1C00E8865A /* StatusView.m */; };
 		13FA79821CBB88EC00E8865A /* TaskAddTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FA79811CBB88EC00E8865A /* TaskAddTableViewController.m */; };
@@ -251,7 +264,11 @@
 		1338FCDD1CF5CD800007D7D4 /* panda.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = panda.gif; sourceTree = "<group>"; };
 		13391F7C1CC722BD00FA4807 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Task.h; path = stuclass/Task.h; sourceTree = "<group>"; };
 		13391F7D1CC722BD00FA4807 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Task.m; path = stuclass/Task.m; sourceTree = "<group>"; };
+		1342F6121CF9B00000754D18 /* MessageTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTitleButton.h; sourceTree = "<group>"; };
+		1342F6131CF9B00000754D18 /* MessageTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTitleButton.m; sourceTree = "<group>"; };
 		134530891BC8AE0C0018C15E /* ClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassViewController.h; sourceTree = "<group>"; };
+		1346A9D91CFA7267004DE125 /* MessagePostImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePostImageView.h; sourceTree = "<group>"; };
+		1346A9DA1CFA7267004DE125 /* MessagePostImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePostImageView.m; sourceTree = "<group>"; };
 		134775B81CCB31A1006E1E94 /* BookDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookDetailViewController.h; sourceTree = "<group>"; };
 		134775B91CCB31A1006E1E94 /* BookDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookDetailViewController.m; sourceTree = "<group>"; };
 		134AB7D61C01840E00D8E816 /* MoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreView.h; sourceTree = "<group>"; };
@@ -381,6 +398,27 @@
 		13ED2C911BD8BC3F00E250A2 /* Course.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Course.m; sourceTree = "<group>"; };
 		13F2690A1CE95EAF003BDA5C /* ScrollManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollManager.h; sourceTree = "<group>"; };
 		13F2690B1CE95EAF003BDA5C /* ScrollManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollManager.m; sourceTree = "<group>"; };
+		13F661661CF969A7001599E2 /* QBAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAlbumCell.h; sourceTree = "<group>"; };
+		13F661671CF969A7001599E2 /* QBAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAlbumCell.m; sourceTree = "<group>"; };
+		13F661681CF969A7001599E2 /* QBAlbumsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAlbumsViewController.h; sourceTree = "<group>"; };
+		13F661691CF969A7001599E2 /* QBAlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAlbumsViewController.m; sourceTree = "<group>"; };
+		13F6616A1CF969A7001599E2 /* QBAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAssetCell.h; sourceTree = "<group>"; };
+		13F6616B1CF969A7001599E2 /* QBAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAssetCell.m; sourceTree = "<group>"; };
+		13F6616C1CF969A7001599E2 /* QBAssetsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBAssetsViewController.h; sourceTree = "<group>"; };
+		13F6616D1CF969A7001599E2 /* QBAssetsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBAssetsViewController.m; sourceTree = "<group>"; };
+		13F6616E1CF969A7001599E2 /* QBCheckmarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBCheckmarkView.h; sourceTree = "<group>"; };
+		13F6616F1CF969A7001599E2 /* QBCheckmarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBCheckmarkView.m; sourceTree = "<group>"; };
+		13F661701CF969A7001599E2 /* QBImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBImagePicker.h; sourceTree = "<group>"; };
+		13F661711CF969A7001599E2 /* QBImagePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = QBImagePicker.storyboard; sourceTree = "<group>"; };
+		13F661721CF969A7001599E2 /* QBImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBImagePickerController.h; sourceTree = "<group>"; };
+		13F661731CF969A7001599E2 /* QBImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBImagePickerController.m; sourceTree = "<group>"; };
+		13F661741CF969A7001599E2 /* QBSlomoIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBSlomoIconView.h; sourceTree = "<group>"; };
+		13F661751CF969A7001599E2 /* QBSlomoIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBSlomoIconView.m; sourceTree = "<group>"; };
+		13F661761CF969A7001599E2 /* QBVideoIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBVideoIconView.h; sourceTree = "<group>"; };
+		13F661771CF969A7001599E2 /* QBVideoIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBVideoIconView.m; sourceTree = "<group>"; };
+		13F661781CF969A7001599E2 /* QBVideoIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QBVideoIndicatorView.h; sourceTree = "<group>"; };
+		13F661791CF969A7001599E2 /* QBVideoIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QBVideoIndicatorView.m; sourceTree = "<group>"; };
+		13F6617A1CF969A7001599E2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/QBImagePicker.strings"; sourceTree = "<group>"; };
 		13F9F4BF1C87C3F0004BE5A0 /* ClassWeekTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassWeekTableViewCell.h; sourceTree = "<group>"; };
 		13F9F4C01C87C3F0004BE5A0 /* ClassWeekTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassWeekTableViewCell.m; sourceTree = "<group>"; };
 		13FA797C1CBB6A1C00E8865A /* StatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusView.h; sourceTree = "<group>"; };
@@ -461,6 +499,7 @@
 		130A2B7C1CE811B7004927D8 /* Post */ = {
 			isa = PBXGroup;
 			children = (
+				1346A9DC1CFA73A8004DE125 /* View */,
 				1353ECC31CE6D7DD00E6E03E /* MessagePostTableViewController.h */,
 				1353ECC41CE6D7DD00E6E03E /* MessagePostTableViewController.m */,
 			);
@@ -660,6 +699,8 @@
 		1326F7D11C02D9F20016B88E /* MessageTableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1342F6121CF9B00000754D18 /* MessageTitleButton.h */,
+				1342F6131CF9B00000754D18 /* MessageTitleButton.m */,
 				1353ECC61CE6D7EE00E6E03E /* TreeHole */,
 				1353ECC21CE6D78B00E6E03E /* MessageCell */,
 				1326F7D21C02DB5E0016B88E /* MessageTableViewController.h */,
@@ -713,6 +754,15 @@
 				13FD91361C8A790500F89806 /* ClassViewController.m */,
 			);
 			name = ClassViewController;
+			sourceTree = "<group>";
+		};
+		1346A9DC1CFA73A8004DE125 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1346A9D91CFA7267004DE125 /* MessagePostImageView.h */,
+				1346A9DA1CFA7267004DE125 /* MessagePostImageView.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		134775B71CCB318E006E1E94 /* View */ = {
@@ -1060,11 +1110,11 @@
 			children = (
 				13C707241BC7DE55003061A4 /* Framework */,
 				13D8E2C21BD71C430051617C /* Model */,
-				13C707161BC7DE10003061A4 /* Main.storyboard */,
 				13C4C3471BCC0D1A0003E703 /* SettingTableViewController */,
 				13C4C3431BCC07650003E703 /* SemesterTableViewController */,
 				13C707261BC81FBE003061A4 /* LoginViewController */,
 				134530881BC8AD250018C15E /* ClassViewController */,
+				13C707161BC7DE10003061A4 /* Main.storyboard */,
 				1326F7D11C02D9F20016B88E /* MessageTableViewController */,
 				131287851CB89ECA0089D8D7 /* ActivityTableViewController */,
 				13FEE6401CB90A48000C72BC /* LibraryViewController */,
@@ -1106,6 +1156,7 @@
 		13C707241BC7DE55003061A4 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
+				13F6615E1CF969A7001599E2 /* QBImagePicker */,
 				131611821CF813670083DC92 /* CatZanButton */,
 				131E208C1CECC44E003F09FA /* WXOpenSDK1.7 */,
 				130299751C892BDC00E4734C /* TAPageControl */,
@@ -1269,6 +1320,34 @@
 			name = Nickname;
 			sourceTree = "<group>";
 		};
+		13F6615E1CF969A7001599E2 /* QBImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				13F6615F1CF969A7001599E2 /* QBImagePicker.strings */,
+				13F661661CF969A7001599E2 /* QBAlbumCell.h */,
+				13F661671CF969A7001599E2 /* QBAlbumCell.m */,
+				13F661681CF969A7001599E2 /* QBAlbumsViewController.h */,
+				13F661691CF969A7001599E2 /* QBAlbumsViewController.m */,
+				13F6616A1CF969A7001599E2 /* QBAssetCell.h */,
+				13F6616B1CF969A7001599E2 /* QBAssetCell.m */,
+				13F6616C1CF969A7001599E2 /* QBAssetsViewController.h */,
+				13F6616D1CF969A7001599E2 /* QBAssetsViewController.m */,
+				13F6616E1CF969A7001599E2 /* QBCheckmarkView.h */,
+				13F6616F1CF969A7001599E2 /* QBCheckmarkView.m */,
+				13F661701CF969A7001599E2 /* QBImagePicker.h */,
+				13F661711CF969A7001599E2 /* QBImagePicker.storyboard */,
+				13F661721CF969A7001599E2 /* QBImagePickerController.h */,
+				13F661731CF969A7001599E2 /* QBImagePickerController.m */,
+				13F661741CF969A7001599E2 /* QBSlomoIconView.h */,
+				13F661751CF969A7001599E2 /* QBSlomoIconView.m */,
+				13F661761CF969A7001599E2 /* QBVideoIconView.h */,
+				13F661771CF969A7001599E2 /* QBVideoIconView.m */,
+				13F661781CF969A7001599E2 /* QBVideoIndicatorView.h */,
+				13F661791CF969A7001599E2 /* QBVideoIndicatorView.m */,
+			);
+			path = QBImagePicker;
+			sourceTree = "<group>";
+		};
 		13FA79761CBB3CED00E8865A /* Task */ = {
 			isa = PBXGroup;
 			children = (
@@ -1404,6 +1483,11 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				es,
+				ja,
+				pl,
+				"zh-Hans",
 			);
 			mainGroup = 13C707011BC7DE10003061A4;
 			productRefGroup = 13C7070B1BC7DE10003061A4 /* Products */;
@@ -1423,8 +1507,10 @@
 				131434261CE061ED00CEAB6F /* panda.jpg in Resources */,
 				132E3B8A1CDB394A004D192C /* class_bg_1_8.jpg in Resources */,
 				1377A9D01CD7A2B400672897 /* class_bg_2_2.jpg in Resources */,
+				13F661821CF969A7001599E2 /* QBImagePicker.storyboard in Resources */,
 				1366D67C1BD4EAA300B69C04 /* ClassInfoTableViewCell.xib in Resources */,
 				13FD91421C8ADCD000F89806 /* banner2.jpg in Resources */,
+				13F6617B1CF969A7001599E2 /* QBImagePicker.strings in Resources */,
 				1377A9CF1CD7A2B400672897 /* class_bg_2_1.jpg in Resources */,
 				13FD91411C8ADCD000F89806 /* banner1.jpg in Resources */,
 				13C7071D1BC7DE10003061A4 /* LaunchScreen.storyboard in Resources */,
@@ -1688,6 +1774,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1366D6681BD3E42600B69C04 /* BarView.m in Sources */,
+				13F6617E1CF969A7001599E2 /* QBAlbumsViewController.m in Sources */,
 				13ED2C871BD88AB500E250A2 /* CourseTable.m in Sources */,
 				136A27CB1C04395300B45460 /* ExamTableViewController.m in Sources */,
 				1302997E1C892BDC00E4734C /* TAAbstractDotView.m in Sources */,
@@ -1702,12 +1789,16 @@
 				13FEE6431CB90A73000C72BC /* LibraryViewController.m in Sources */,
 				134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */,
 				13DBA09E1BD247DA00FC0682 /* DetailViewController.m in Sources */,
+				13F661801CF969A7001599E2 /* QBAssetsViewController.m in Sources */,
 				130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */,
 				1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */,
+				13F661811CF969A7001599E2 /* QBCheckmarkView.m in Sources */,
 				131287841CB805EF0089D8D7 /* TreeholeViewController.m in Sources */,
+				13F6617F1CF969A7001599E2 /* QBAssetCell.m in Sources */,
 				130A6D501CBA32CC00A36F9C /* TaskListTableViewController.m in Sources */,
 				131DCCBE1CE8686C0066649D /* MessageActionView.m in Sources */,
 				13C4C34A1BCC0D300003E703 /* SettingTableViewController.m in Sources */,
+				13F6617D1CF969A7001599E2 /* QBAlbumCell.m in Sources */,
 				1335FC7F1BCA343100BC0F23 /* ClassButton.m in Sources */,
 				13C707151BC7DE10003061A4 /* LoginViewController.m in Sources */,
 				130299741C892BA900E4734C /* HeaderCollectionReusableView.m in Sources */,
@@ -1720,6 +1811,7 @@
 				13C707121BC7DE10003061A4 /* AppDelegate.m in Sources */,
 				131EF3551BD7DD95007ECFE8 /* ClassBox.m in Sources */,
 				1320FC7F1C01C1230084B152 /* Grade.m in Sources */,
+				13F661841CF969A7001599E2 /* QBSlomoIconView.m in Sources */,
 				1320FC831C020B6F0084B152 /* GradeTableViewCell.m in Sources */,
 				13E736711CDB630100354787 /* Course+CoreDataProperties.m in Sources */,
 				131EF3511BD7DAEA007ECFE8 /* CoreDataManager.m in Sources */,
@@ -1729,8 +1821,10 @@
 				13D8E2DA1BD7252C0051617C /* Model.xcdatamodeld in Sources */,
 				130299801C892BDC00E4734C /* TADotView.m in Sources */,
 				13C4C35E1BCCDC980003E703 /* BackgoundTableViewController.m in Sources */,
+				1346A9DB1CFA7267004DE125 /* MessagePostImageView.m in Sources */,
 				13EC9B741C11FA1A00AA3F2F /* AboutusViewController.m in Sources */,
 				13391F7E1CC722BD00FA4807 /* Task.m in Sources */,
+				1342F6141CF9B00000754D18 /* MessageTitleButton.m in Sources */,
 				13242F0E1C086815008D46F2 /* DocumentFooterView.m in Sources */,
 				137C8C3D1BDB2C5200236C79 /* HomeworkPostTableViewController.m in Sources */,
 				137C8C2B1BDA956900236C79 /* Note+CoreDataProperties.m in Sources */,
@@ -1738,6 +1832,8 @@
 				1366D6821BD4F19000B69C04 /* ClassNoteTableViewCell.m in Sources */,
 				13587A1E1CD5CC64005379FC /* AddBoxTableViewController.m in Sources */,
 				131287881CB89EE30089D8D7 /* ActivityTableViewController.m in Sources */,
+				13F661831CF969A7001599E2 /* QBImagePickerController.m in Sources */,
+				13F661851CF969A7001599E2 /* QBVideoIconView.m in Sources */,
 				1335FC6E1BCA258300BC0F23 /* ClassHeaderView.m in Sources */,
 				13242F051C0805D4008D46F2 /* Document.m in Sources */,
 				1366D6711BD4BAD500B69C04 /* DiscussViewController.m in Sources */,
@@ -1748,6 +1844,7 @@
 				136A27D41C043F8500B45460 /* ExamTableViewCell.m in Sources */,
 				13ED2C861BD88AB500E250A2 /* CourseTable+CoreDataProperties.m in Sources */,
 				13C7070F1BC7DE10003061A4 /* main.m in Sources */,
+				13F661861CF969A7001599E2 /* QBVideoIndicatorView.m in Sources */,
 				130C09E51CB544F500848551 /* MemberTableViewCell.m in Sources */,
 				1366D6741BD4BAE000B69C04 /* HomeworkViewController.m in Sources */,
 				136A27CF1C043C6300B45460 /* Exam.m in Sources */,
@@ -1811,6 +1908,14 @@
 				13C7071C1BC7DE10003061A4 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		13F6615F1CF969A7001599E2 /* QBImagePicker.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13F6617A1CF969A7001599E2 /* zh-Hans */,
+			);
+			name = QBImagePicker.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

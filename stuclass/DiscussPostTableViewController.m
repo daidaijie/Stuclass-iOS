@@ -140,7 +140,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         [self showHUDWithText:@"限制180字以内" andHideDelay:global_hud_delay];
     } else {
         [_textView resignFirstResponder];
-        [KVNProgress showWithStatus:@"吹~吹~吹~"];
+        [KVNProgress showWithStatus:@"正在发送吹水"];
         [self sendRequest:YES];
     }
 }
