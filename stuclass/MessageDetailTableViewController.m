@@ -177,7 +177,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     cell.dateLabel.text = [NSString stringWithFormat:@"%@  来自%@", _message.date, _message.source];
     
     // comment
-    [cell setCommentNum:_message.comments.count available:NO];
+    [cell setCommentNum:_message.comments.count available:YES];
     
     // like
     [cell setLikeNum:_message.likes.count status:_message.isLike animation:NO];
@@ -201,7 +201,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     cell.dateLabel.text = [NSString stringWithFormat:@"%@  来自%@", _message.date, _message.source];
     
     // comment
-    [cell setCommentNum:_message.comments.count available:NO];
+    [cell setCommentNum:_message.comments.count available:YES];
     
     // like
     [cell setLikeNum:_message.likes.count status:_message.isLike animation:NO];
@@ -467,7 +467,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 #pragma mark - Comment Delegate
 - (void)messageActionViewCommentDidPressWithTag:(NSUInteger)tag
 {
-    // Do Nothing
+    [self comment];
 }
 
 
@@ -705,6 +705,16 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
         [self updateStatus:_message];
         [self.navigationController popViewControllerAnimated:YES];
     }];
+}
+
+- (IBAction)commentItemPress:(id)sender
+{
+    [self comment];
+}
+
+- (void)comment
+{
+    
 }
 
 #pragma mark - IDMPhotoBrowserDelegate

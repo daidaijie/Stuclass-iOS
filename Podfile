@@ -12,4 +12,5 @@ pod 'IDMPhotoBrowser'
 pod 'UIImageView-PlayGIF', '~> 1.0.1'
 pod 'BmobSDK'
 pod 'SDVersion'
+pod 'MYBlurIntroductionView'
 end

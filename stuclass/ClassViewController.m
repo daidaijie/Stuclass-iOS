@@ -36,11 +36,12 @@
 #import "WXApi.h"
 #import "MeTableViewController.h"
 #import "UIImageView+WebCache.h"
+#import "MYBlurIntroductionView.h"
 
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
-@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, ClassSemesterDelegate, UIScrollViewDelegate, ClassWeekDelegate, UIGestureRecognizerDelegate, ClassAddBoxDelegate, BoxInfoDelegate>
+@interface ClassViewController () <UICollectionViewDelegate, UICollectionViewDataSource, ClassCollectionViewLayoutDelegate, ClassCollectionViewCellDelegate, ClassSemesterDelegate, UIScrollViewDelegate, ClassWeekDelegate, UIGestureRecognizerDelegate, ClassAddBoxDelegate, BoxInfoDelegate, MYIntroductionDelegate>
 
 @property (strong, nonatomic) ClassHeaderView *classHeaderView;
 @property (strong, nonatomic) UICollectionView *collectionView;
@@ -1220,6 +1221,73 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     
+    BOOL hasShownWalkThrough = [ud boolForKey:@"SHOW_WALKTHROUGH"];
+    
+    if (!hasShownWalkThrough) {
+        [self showWalkThrough];
+        [ud setBool:YES forKey:@"SHOW_WALKTHROUGH"];
+    }
+}
+
+- (void)showWalkThrough
+{
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = [UIScreen mainScreen].bounds.size.height;
+    
+    UIView *headerView = [[NSBundle mainBundle] loadNibNamed:@"IntroHeader" owner:nil options:nil][0];
+    
+    MYIntroductionPanel *panel1 = [[MYIntroductionPanel alloc] initWithFrame:CGRectMake(0, 0, width, height) title:@"在这里，你可以..." description:@"查看课表、考试安排、成绩、馆藏图书、一键连接校园Wi-Fi..." image:[UIImage imageNamed:@"intro-img1"] header:headerView];
+    
+    MYIntroductionPanel *panel2 = [[MYIntroductionPanel alloc] initWithFrame:CGRectMake(0, 0, width, height) title:@"在这里，你还可以..." description:@"制作自己的任务清单，让一天的事务一目了然！" image:[UIImage imageNamed:@"intro-img2"] header:nil];
+    
+    MYIntroductionPanel *panel3 = [[MYIntroductionPanel alloc] initWithFrame:CGRectMake(0, 0, width, height) title:@"在这里，你更可以..." description:@"与校内外所有师生进行互动，分享大学生活的心路历程！" image:[UIImage imageNamed:@"intro-img3"] header:nil];
+    
+    MYIntroductionPanel *panel4 = [[MYIntroductionPanel alloc] initWithFrame:CGRectMake(0, 0, width, height) title:@"最后" description:@"愿您前程似锦！\n\n2016/5/29" image:nil header:nil];
+    
+    panel1.PanelDescriptionLabel.font = panel2.PanelDescriptionLabel.font = panel3.PanelDescriptionLabel.font = panel4.PanelDescriptionLabel.font = [UIFont systemFontOfSize:17.0];
+    
+    panel1.PanelImageView.contentMode = panel2.PanelImageView.contentMode = panel3.PanelImageView.contentMode = panel4.PanelImageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    
+    MYBlurIntroductionView *introductionView = [[MYBlurIntroductionView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    
+    introductionView.delegate = self;
+    
+    introductionView.RightSkipButton.hidden = YES;
+    [introductionView.RightSkipButton setTitle:@"好的" forState:UIControlStateNormal];
+    
+    introductionView.BackgroundImageView.image = [UIImage imageNamed:@"intro-bg.jpg"];
+    [introductionView setBackgroundColor:[UIColor colorWithRed:90.0f/255.0f green:175.0f/255.0f blue:113.0f/255.0f alpha:0.65]];
+    
+    [introductionView buildIntroductionWithPanels:@[panel1, panel2, panel3, panel4]];
+    
+    [self.navigationController.tabBarController.view addSubview:introductionView];
+}
+
+#pragma mark - MYIntroduction Delegate
+
+- (void)introduction:(MYBlurIntroductionView *)introductionView didChangeToPanel:(MYIntroductionPanel *)panel withIndex:(NSInteger)panelIndex{
+    
+    if (panelIndex == 0) {
+        [introductionView setBackgroundColor:[UIColor colorWithRed:90.0f/255.0f green:175.0f/255.0f blue:113.0f/255.0f alpha:0.65]];
+        introductionView.RightSkipButton.hidden = YES;
+    } else if (panelIndex == 1) {
+        [introductionView setBackgroundColor:[UIColor colorWithRed:50.0f/255.0f green:79.0f/255.0f blue:133.0f/255.0f alpha:0.65]];
+        introductionView.RightSkipButton.hidden = YES;
+    } else if (panelIndex == 2) {
+        [introductionView setBackgroundColor:[UIColor colorWithRed:0.745 green:0.298 blue:0.235 alpha:0.65]];
+        introductionView.RightSkipButton.hidden = YES;
+    } else {
+        [introductionView setBackgroundColor:[UIColor clearColor]];
+        introductionView.RightSkipButton.hidden = NO;
+    }
+}
+
+- (void)introduction:(MYBlurIntroductionView *)introductionView didFinishWithType:(MYFinishType)finishType {
+    NSLog(@"介绍完了!");
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
     NSString *localVersion = [ud stringForKey:@"LOCAL_VERSION"];
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -1246,6 +1314,9 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
         [alertView show];
     }
 }
+
+
+
 
 - (void)showShareClassTip
 {

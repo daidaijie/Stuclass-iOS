@@ -72,6 +72,8 @@
 		1353ECC11CE6D78300E6E03E /* MessageImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1353ECBF1CE6D78300E6E03E /* MessageImageTableViewCell.m */; };
 		1353ECC51CE6D7DD00E6E03E /* MessagePostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1353ECC41CE6D7DD00E6E03E /* MessagePostTableViewController.m */; };
 		13587A1E1CD5CC64005379FC /* AddBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13587A1D1CD5CC64005379FC /* AddBoxTableViewController.m */; };
+		1361642A1CFACCF00094402E /* intro-bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 136164291CFACCF00094402E /* intro-bg.jpg */; };
+		1361642C1CFAD53E0094402E /* IntroHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1361642B1CFAD53E0094402E /* IntroHeader.xib */; };
 		1366D6681BD3E42600B69C04 /* BarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D6671BD3E42600B69C04 /* BarView.m */; };
 		1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D66B1BD4B56F00B69C04 /* PersonViewController.m */; };
 		1366D6711BD4BAD500B69C04 /* DiscussViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1366D6701BD4BAD500B69C04 /* DiscussViewController.m */; };
@@ -286,6 +288,8 @@
 		1353ECC41CE6D7DD00E6E03E /* MessagePostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePostTableViewController.m; sourceTree = "<group>"; };
 		13587A1C1CD5CC64005379FC /* AddBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBoxTableViewController.h; sourceTree = "<group>"; };
 		13587A1D1CD5CC64005379FC /* AddBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBoxTableViewController.m; sourceTree = "<group>"; };
+		136164291CFACCF00094402E /* intro-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "intro-bg.jpg"; sourceTree = "<group>"; };
+		1361642B1CFAD53E0094402E /* IntroHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroHeader.xib; sourceTree = "<group>"; };
 		1366D6661BD3E42600B69C04 /* BarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BarView.h; sourceTree = "<group>"; };
 		1366D6671BD3E42600B69C04 /* BarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BarView.m; sourceTree = "<group>"; };
 		1366D66A1BD4B56F00B69C04 /* PersonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonViewController.h; sourceTree = "<group>"; };
@@ -755,6 +759,7 @@
 				132226F31C05643C0093826C /* ClassSemesterTableViewController */,
 				139509B11C873820008CA07B /* ClassWeekTableViewController */,
 				137F4E9E1C0614ED00A6DC0E /* MeTableViewController */,
+				1361642B1CFAD53E0094402E /* IntroHeader.xib */,
 				134530891BC8AE0C0018C15E /* ClassViewController.h */,
 				13FD91361C8A790500F89806 /* ClassViewController.m */,
 			);
@@ -1144,6 +1149,7 @@
 				13C707251BC7DE88003061A4 /* Define.h */,
 				13C707101BC7DE10003061A4 /* AppDelegate.h */,
 				13C707111BC7DE10003061A4 /* AppDelegate.m */,
+				136164291CFACCF00094402E /* intro-bg.jpg */,
 				13FD913E1C8ADCD000F89806 /* banner1.jpg */,
 				13FD913F1C8ADCD000F89806 /* banner2.jpg */,
 				13FD91401C8ADCD000F89806 /* banner3.jpg */,
@@ -1535,9 +1541,11 @@
 				132E3B881CDB394A004D192C /* class_bg_1_6.jpg in Resources */,
 				13DE7B4B1BDC682E003AFF93 /* DiscussTableViewCell.xib in Resources */,
 				1377A9D31CD7A2B400672897 /* class_bg_2_5.jpg in Resources */,
+				1361642C1CFAD53E0094402E /* IntroHeader.xib in Resources */,
 				13FD91431C8ADCD000F89806 /* banner3.jpg in Resources */,
 				1377A9CA1CD7A2B400672897 /* class_bg_1_2.jpg in Resources */,
 				137C8C3A1BDB1A4900236C79 /* HomeworkTableViewCell.xib in Resources */,
+				1361642A1CFACCF00094402E /* intro-bg.jpg in Resources */,
 				13C707181BC7DE10003061A4 /* Main.storyboard in Resources */,
 				1377A9CB1CD7A2B400672897 /* class_bg_1_3.jpg in Resources */,
 			);

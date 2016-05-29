@@ -300,7 +300,6 @@
             [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:CGSizeMake(CGRectGetWidth(imageView.frame) * 2, CGRectGetWidth(imageView.frame) * 2) contentMode:PHImageContentModeAspectFill options:option resultHandler:^(UIImage *result, NSDictionary *info) {
                 imageView.image = result;
                 button.hidden = NO;
-                NSLog(@"------%@", result);
             }];
         } else {
             imageView.image = nil;
@@ -423,6 +422,9 @@
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
+
+
+
 
 
 
