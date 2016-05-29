@@ -261,7 +261,7 @@
     if (image.size.width > image.size.height) {
         size = CGSizeMake(320, 320 / image.size.width * image.size.height);
     } else {
-        size = CGSizeMake(320, 320 * image.size.width / image.size.height);
+        size = CGSizeMake(320 * image.size.width / image.size.height, 320);
     }
     
     image = [self reSizeImage:image toSize:size];

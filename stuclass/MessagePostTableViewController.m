@@ -238,25 +238,7 @@
 
 - (void)qb_imagePickerController:(QBImagePickerController *)imagePickerController didFinishPickingAssets:(NSArray *)assets
 {
-//    NSLog(@"Selected assets:");
-//    NSLog(@"%@", assets);
-    
-//    NSLog(@"------------------------+");
-    
     _assetArray = [NSMutableArray arrayWithArray:assets];
-    
-//    PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
-//    option.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-//    option.resizeMode = PHImageRequestOptionsResizeModeExact;
-//            
-//            CGSize size = CGSizeZero;
-//            
-//            if (asset.pixelWidth > asset.pixelHeight) {
-//                size = CGSizeMake(640, 640 * asset.pixelHeight / asset.pixelWidth);
-//            } else {
-//                size = CGSizeMake(640, 640 / asset.pixelHeight * asset.pixelWidth);
-//
-//            }
     
     [self updateImageViewDisplay];
     
@@ -363,25 +345,99 @@
     } else if (_textView.text.length > 320) {
         [self showHUDWithText:@"限制320字以内" andHideDelay:global_hud_delay];
     } else {
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        [KVNProgress showWithStatus:@"正在发表消息"];
-        [self sendPostRequest];
+//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+//        [KVNProgress showWithStatus:@"正在发表消息"];
+        [self uploadImages];
+        [self sendPostRequestWithImageURL:nil];
     }
 }
 
-- (void)sendPostRequest
+- (void)uploadImages
+{
+    if (_assetArray.count == 0) {
+        // text only
+        [self sendPostRequestWithImageURL:nil];
+    } else {
+        // upload image
+        
+        // get image
+        for (PHAsset *asset in _assetArray) {
+            
+            PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
+            option.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+            option.resizeMode = PHImageRequestOptionsResizeModeExact;
+            
+            CGSize size = CGSizeZero;
+
+            if (asset.pixelWidth > asset.pixelHeight) {
+                size = CGSizeMake(640, 640 * asset.pixelHeight / asset.pixelWidth);
+            } else {
+                size = CGSizeMake(640 / asset.pixelHeight * asset.pixelWidth, 640);
+
+            }
+            
+//            UIImage *image;
+            
+            [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeAspectFill options:option resultHandler:^(UIImage *result, NSDictionary *info) {
+                NSLog(@"--- %@", result);
+            }];
+            
+        }
+        
+//        for (NSUInteger i = 0; i < 3; i++) {
+//            
+//            PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
+//            option.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+//            option.resizeMode = PHImageRequestOptionsResizeModeExact;
+//            
+//            if (i < _assetArray.count) {
+//                
+//                PHAsset *asset = _assetArray[i];
+//                
+//                [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:CGSizeMake(CGRectGetWidth(imageView.frame) * 2, CGRectGetWidth(imageView.frame) * 2) contentMode:PHImageContentModeAspectFill options:option resultHandler:^(UIImage *result, NSDictionary *info) {
+//                    imageView.image = result;
+//                    button.hidden = NO;
+//                }];
+//            } else {
+//                imageView.image = nil;
+//                button.hidden = YES;
+//            }
+//        }
+    }
+}
+
+- (void)sendPostRequestWithImageURL:(NSString *)imageJSON
 {
     // ud
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *token = [ud valueForKey:@"USER_TOKEN"];
     NSString *user_id = [ud valueForKey:@"USER_ID"];
     
-    // put data
-    NSDictionary *putData = @{
-                              @"id": user_id,
-                              @"uid": user_id,
-                              @"token": token,
-                              };
+    // post data
+    NSDictionary *postData;
+    
+    if (imageJSON) {
+        postData = @{
+                     @"uid": user_id,
+                     @"token": token,
+                     @"title": @"",
+                     @"content": _textView.text,
+                     @"description": @"",
+                     @"post_type": @0,
+                     @"source": [_segmentControl titleForSegmentAtIndex:_segmentControl.selectedSegmentIndex],
+                     @"photo_json_list": imageJSON,
+                     };
+    } else {
+        postData = @{
+                     @"uid": user_id,
+                     @"token": token,
+                     @"title": @"",
+                     @"content": _textView.text,
+                     @"description": @"",
+                     @"source": [_segmentControl titleForSegmentAtIndex:_segmentControl.selectedSegmentIndex],
+                     @"post_type": @0,
+                     };
+    }
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -389,17 +445,17 @@
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager PUT:[NSString stringWithFormat:@"%@%@", global_host, message_post_url] parameters:putData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, message_post_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
-        NSLog(@"连接服务器 - 成功");
+//        NSLog(@"连接服务器 - 成功 - %@", responseObject);
+        NSLog(@"发表 - 连接服务器 - 成功");
 //        [self parseNicknameResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-        //        NSLog(@"连接服务器 - 失败 - %@", operation.error);
-        NSLog(@"连接服务器 - 失败");
+//        NSLog(@"连接服务器 - 失败 - %@", operation.error);
+        NSLog(@"发表 - 连接服务器 - 失败");
         
         NSUInteger code = operation.response.statusCode;
         
@@ -408,11 +464,6 @@
             [KVNProgress showErrorWithStatus:global_connection_wrong_token completion:^{
                 
                 [self logout];
-            }];
-        } else if (code == 500) {
-            // 已被使用
-            [KVNProgress showErrorWithStatus:@"该昵称已被他人使用" completion:^{
-                
             }];
         } else {
             [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
