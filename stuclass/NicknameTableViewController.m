@@ -119,11 +119,12 @@
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *token = [ud valueForKey:@"USER_TOKEN"];
     NSString *user_id = [ud valueForKey:@"USER_ID"];
+    NSNumber *user_id_num = [NSNumber numberWithInteger:[user_id integerValue]];
     
     // put data
     NSDictionary *putData = @{
-                               @"id": user_id,
-                               @"uid": user_id,
+                               @"id": user_id_num,
+                               @"uid": user_id_num,
                                @"birthday": @"0",
                                @"gender": @"1",
                                @"profile": @"",
@@ -134,8 +135,11 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     manager.requestSerializer.timeoutInterval = global_timeout;
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];    
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/javascript", nil];
+//    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject: @"text/html"];
     
     [manager PUT:[NSString stringWithFormat:@"%@%@", global_host, nickname_url] parameters:putData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
@@ -146,8 +150,8 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-//        NSLog(@"连接服务器 - 失败 - %@", operation.error);
-        NSLog(@"连接服务器 - 失败");
+        NSLog(@"连接服务器 - 失败 - %@", operation.error);
+//        NSLog(@"连接服务器 - 失败");
         
         NSUInteger code = operation.response.statusCode;
         

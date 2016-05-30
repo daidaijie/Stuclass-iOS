@@ -42,4 +42,9 @@ static NSMutableDictionary *dictionary;
     return self;
 }
 
+- (void)restoreState
+{
+    dictionary = [[NSMutableDictionary alloc] init];
+}
+
 @end

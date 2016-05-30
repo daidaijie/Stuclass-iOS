@@ -421,7 +421,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     [cell setLikeNum:_message.likes.count status:YES animation:NO];
     
-    [self updateStatus:nil];
+    [self updateStatus:nil action:@"like"];
 }
 
 - (void)removeLikeToLocalWithLikeID:(NSString *)like_id
@@ -451,7 +451,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     [cell setLikeNum:_message.likes.count status:NO animation:NO];
     
-    [self updateStatus:nil];
+    [self updateStatus:nil action:@"like"];
 }
 
 - (void)restoreLikeWithStatus:(BOOL)isLike
@@ -702,7 +702,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 - (void)deleteSuccessfully
 {
     [KVNProgress showSuccessWithStatus:@"删除成功" completion:^{
-        [self updateStatus:_message];
+        [self updateStatus:_message action:@"delete"];
         [self.navigationController popViewControllerAnimated:YES];
     }];
 }
@@ -751,9 +751,9 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     [ud setValue:nil forKey:@"USER_ID"];
 }
 
-- (void)updateStatus:(id)object
+- (void)updateStatus:(id)object action:(NSString *)action
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"MessageStatusUpdated" object:object userInfo:@{@"action": @"delete"}];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MessageStatusUpdated" object:object userInfo:@{@"action": action}];
 }
 
 

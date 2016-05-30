@@ -15,4 +15,6 @@
 -(void)setpage:(int)page ForKey:(NSString*)key;
 -(int)getpageForKey:(NSString*)key;
 
+-(void)restoreState;
+
 @end

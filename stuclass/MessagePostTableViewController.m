@@ -15,6 +15,8 @@
 #import "PlaceholderTextView.h"
 #import <SDVersion/SDVersion.h>
 #import "QBImagePickerController.h"
+#import "JHDater.h"
+#import <BmobSDK/Bmob.h>
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
@@ -33,6 +35,12 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *deleteButtons;
 
 @property (strong, nonatomic) NSMutableArray *assetArray;
+
+@property (assign, nonatomic) NSUInteger processingCount;
+
+@property (strong, nonatomic) NSData *uploadData1;
+@property (strong, nonatomic) NSData *uploadData2;
+@property (strong, nonatomic) NSData *uploadData3;
 
 @end
 
@@ -345,10 +353,9 @@
     } else if (_textView.text.length > 320) {
         [self showHUDWithText:@"限制320字以内" andHideDelay:global_hud_delay];
     } else {
-//        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-//        [KVNProgress showWithStatus:@"正在发表消息"];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        [KVNProgress showWithStatus:@"正在发表消息"];
         [self uploadImages];
-        [self sendPostRequestWithImageURL:nil];
     }
 }
 
@@ -360,8 +367,12 @@
     } else {
         // upload image
         
+        _processingCount = _assetArray.count;
+        
         // get image
-        for (PHAsset *asset in _assetArray) {
+        for (NSUInteger i = 0; i < _assetArray.count; i++) {
+            
+            PHAsset *asset = _assetArray[i];
             
             PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
             option.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
@@ -369,41 +380,117 @@
             
             CGSize size = CGSizeZero;
 
+            CGFloat max = 1280;
+            
             if (asset.pixelWidth > asset.pixelHeight) {
-                size = CGSizeMake(640, 640 * asset.pixelHeight / asset.pixelWidth);
+                // if width > max
+                if (asset.pixelWidth > max) {
+                    size = CGSizeMake(max, max * asset.pixelHeight / asset.pixelWidth);
+                } else {
+                    size = CGSizeMake(asset.pixelWidth, asset.pixelHeight);
+                }
             } else {
-                size = CGSizeMake(640 / asset.pixelHeight * asset.pixelWidth, 640);
+                // if height > max
+                if (asset.pixelHeight > max) {
+                    size = CGSizeMake(max / asset.pixelHeight * asset.pixelWidth, max);
+                } else {
+                    size = CGSizeMake(asset.pixelWidth, asset.pixelHeight);
+                }
 
             }
             
-//            UIImage *image;
-            
             [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeAspectFill options:option resultHandler:^(UIImage *result, NSDictionary *info) {
-                NSLog(@"--- %@", result);
+                NSData *data = UIImageJPEGRepresentation(result, 0.8);
+                NSLog(@"%d --- %@ --- %d KB", i, result, data.length / 1024);
+                
+                switch (i) {
+                    case 0:
+                        _uploadData1 = data;
+                        break;
+                    case 1:
+                        _uploadData2 = data;
+                        break;
+                    case 2:
+                        _uploadData3 = data;
+                        break;
+                    default:
+                        break;
+                }
+                
+                
+                _processingCount--;
+                
+                if (_processingCount == 0) {
+                    // ready to upload
+                    NSLog(@"Ready To Upload!");
+                    
+                    // ud
+                    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+                    NSString *username = [ud objectForKey:@"USERNAME"];
+                    NSString *timestamp = [[JHDater sharedInstance] dateStringForDate:[NSDate date] withFormate:@"yyyy_MM_dd_HH_mm_ss"];
+                    
+                    NSMutableArray *dataArray = [NSMutableArray arrayWithCapacity:3];
+                    
+                    for (NSUInteger i = 0; i < _assetArray.count; i++) {
+                        
+                        NSData *d;
+                        
+                        switch (i) {
+                            case 0:
+                                d = _uploadData1;
+                                break;
+                            case 1:
+                                d = _uploadData2;
+                                break;
+                            case 2:
+                                d = _uploadData3;
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                        NSString *fileName = [NSString stringWithFormat:@"message_%@_%@_%d.jpg", username, timestamp, i];
+                        [dataArray addObject:@{@"filename": fileName, @"data": d}];
+                    }
+                    
+                    [BmobFile filesUploadBatchWithDataArray:dataArray progressBlock:nil resultBlock:^(NSArray *array, BOOL isSuccessful, NSError *error) {
+                        
+                        if (isSuccessful) {
+                            NSLog(@"上传成功 %@", array);
+                            _uploadData1 = nil;
+                            _uploadData2 = nil;
+                            _uploadData3 = nil;
+                            NSMutableArray *jsonArray = [NSMutableArray arrayWithCapacity:3];
+                            for (BmobFile *file in array) {
+                                [jsonArray addObject:@{@"size_small": file.url, @"size_big": file.url}];
+                            }
+                            NSDictionary *jsonDict = @{@"photo_list": jsonArray};
+                            NSString *jsonStr = [self dictionaryToJson:jsonDict];
+                            [self sendPostRequestWithImageURL:jsonStr];
+                        } else {
+                            NSLog(@"上传失败 %@", error);
+                            _uploadData1 = nil;
+                            _uploadData2 = nil;
+                            _uploadData3 = nil;
+                            [KVNProgress showErrorWithStatus:global_connection_failed];
+                        }
+                    }];
+                }
             }];
             
         }
-        
-//        for (NSUInteger i = 0; i < 3; i++) {
-//            
-//            PHImageRequestOptions *option = [[PHImageRequestOptions alloc] init];
-//            option.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
-//            option.resizeMode = PHImageRequestOptionsResizeModeExact;
-//            
-//            if (i < _assetArray.count) {
-//                
-//                PHAsset *asset = _assetArray[i];
-//                
-//                [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:CGSizeMake(CGRectGetWidth(imageView.frame) * 2, CGRectGetWidth(imageView.frame) * 2) contentMode:PHImageContentModeAspectFill options:option resultHandler:^(UIImage *result, NSDictionary *info) {
-//                    imageView.image = result;
-//                    button.hidden = NO;
-//                }];
-//            } else {
-//                imageView.image = nil;
-//                button.hidden = YES;
-//            }
-//        }
     }
+    NSLog(@"\n");
+}
+
+- (NSString *)dictionaryToJson:(NSDictionary *)dict
+
+{
+    NSError *parseError = nil;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&parseError];
+    
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 }
 
 - (void)sendPostRequestWithImageURL:(NSString *)imageJSON
@@ -425,7 +512,7 @@
                      @"description": @"",
                      @"post_type": @0,
                      @"source": [_segmentControl titleForSegmentAtIndex:_segmentControl.selectedSegmentIndex],
-                     @"photo_json_list": imageJSON,
+                     @"photo_list_json": imageJSON,
                      };
     } else {
         postData = @{
@@ -449,7 +536,9 @@
         // 成功
 //        NSLog(@"连接服务器 - 成功 - %@", responseObject);
         NSLog(@"发表 - 连接服务器 - 成功");
-//        [self parseNicknameResponseObject:responseObject];
+        [KVNProgress showSuccessWithStatus:@"发表消息成功" completion:^{
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

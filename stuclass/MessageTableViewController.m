@@ -198,6 +198,8 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
         
         _messageData = [[ClassParser sharedInstance] parseMessageData:postList uid:uid];
         
+        [_manager restoreState];
+        
         [self.tableView reloadData];
         self.tableView.userInteractionEnabled = YES;
         _startLabel.hidden = _startImageView.hidden = YES;
@@ -219,6 +221,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     NSDictionary *info = notification.userInfo;
     if ([info[@"action"] isEqualToString:@"delete"]) {
         [_messageData removeObject:notification.object];
+        [_manager restoreState];
     }
     [self.tableView reloadData];
 }
@@ -931,10 +934,15 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
         [_messageData removeObjectAtIndex:tag];
         [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:tag] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
+        [self performSelector:@selector(deleteAnimateComplete) withObject:nil afterDelay:0.3];
+        [_manager restoreState];
     }];
 }
 
-
+- (void)deleteAnimateComplete
+{
+    [self.tableView reloadData];
+}
 
 #pragma mark - Unread Message
 
