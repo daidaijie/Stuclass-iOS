@@ -161,7 +161,7 @@
                 
                 [self logout];
             }];
-        } else if (code == 500) {
+        } else if (code == 500 || code == 502) {
             // 已被使用
             [KVNProgress showErrorWithStatus:@"该昵称已被他人使用" completion:^{
                 [_nicknameTextField becomeFirstResponder];
