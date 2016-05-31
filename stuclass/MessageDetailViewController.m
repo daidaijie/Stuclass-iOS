@@ -1,12 +1,12 @@
 //
-//  MessageDetailTableViewController.m
+//  MessageDetailViewController.m
 //  stuclass
 //
 //  Created by JunhaoWang on 5/29/16.
 //  Copyright © 2016 JunhaoWang. All rights reserved.
 //
 
-#import "MessageDetailTableViewController.h"
+#import "MessageDetailViewController.h"
 #import "Define.h"
 #import <UITableView_FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>
 #import "MessageTableViewCell.h"
@@ -20,26 +20,40 @@
 #import "Message.h"
 #import "DocumentFooterView.h"
 #import "WXApi.h"
+#import "ClassParser.h"
 #import "IDMPhotoBrowser.h"
+#import "MessageCommentTableViewCell.h"
+#import "Comment.h"
+#import "MessageCommentTableViewController.h"
 
 static const CGFloat kHeightForSectionHeader = 8.5;
 
 static NSString *message_text_cell_id = @"MessageTextTableViewCell";
 static NSString *message_image_cell_id = @"MessageImageTableViewCell";
+static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
 
-@interface MessageDetailTableViewController () <SDWebImageManagerDelegate, MessageTableViewCellDelegate, MessageImageTableViewCellDelegate, IDMPhotoBrowserDelegate>
+@interface MessageDetailViewController () <SDWebImageManagerDelegate, MessageTableViewCellDelegate, MessageImageTableViewCellDelegate, IDMPhotoBrowserDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (strong, nonatomic) UIView *sectionHeaderView;
 
+@property (strong, nonatomic) NSMutableArray *commentData;
+
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+
 @end
 
-@implementation MessageDetailTableViewController
+@implementation MessageDetailViewController
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     [self setupTableView];
+    [self setupTextField];
+    [self setupData];
 }
 
 #pragma mark - Setup Method
@@ -56,8 +70,6 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (void)setupTableView
 {
-//    _manager = [ScrollManager sharedManager];
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
@@ -72,30 +84,11 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     _sectionHeaderView.backgroundColor = [UIColor clearColor];
     
     // refreshControl
+    /*
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl = refreshControl;
     [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    
-    
-//    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-//    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    
-    
-//    // start
-//    _startLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 50)];
-//    _startLabel.center = CGPointMake(width / 2, height / 2 - 20);
-//    _startLabel.textAlignment = NSTextAlignmentCenter;
-//    _startLabel.textColor = MAIN_COLOR;
-//    _startLabel.text = @"把我\"拉\"下去刷新";
-//    
-//    _startImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 120, 88)];
-//    _startImageView.center = CGPointMake(width / 2, height / 2 - 80);
-//    _startImageView.gifPath = [[NSBundle mainBundle] pathForResource:@"panda" ofType:@"gif"];
-//    [_startImageView startGIF];
-    
-    
-//    [self.tableView addSubview:_startLabel];
-//    [self.tableView addSubview:_startImageView];
+     */
     
     // FooterView
     DocumentFooterView *footerView = [[DocumentFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 50)];
@@ -109,8 +102,65 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (void)didFinishRefresh
 {
-    [self.refreshControl endRefreshing];
+//    [self.refreshControl endRefreshing];
 }
+
+- (void)setupTextField
+{
+    self.textField.placeholder = [NSString stringWithFormat:@"评论 %@ 的消息", _message.nickname];
+}
+
+- (void)setupData
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    // get data
+    NSDictionary *getData = @{
+                              @"field": @"post_id",
+                              @"value": _message.message_id,
+                              };
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_commests_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"消息圈 - 连接服务器 - 成功");
+//        NSLog(@"------- %@", responseObject);
+        [self parseResponseObject:responseObject];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"消息圈 - 连接服务器 - 失败 - %@", error);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
+        [self didFinishRefresh];
+    }];
+}
+
+- (void)parseResponseObject:(NSDictionary *)responseObject
+{
+    NSArray *comments = responseObject[@"comments"];
+    
+    if (comments) {
+        
+        _commentData = [[ClassParser sharedInstance] parseCommentData:comments];
+        
+        
+        [self.tableView reloadData];
+        
+    } else {
+        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
+    }
+    [self didFinishRefresh];
+}
+
 
 #pragma mark - TableView Delegate
 
@@ -121,7 +171,11 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    if (section == 0) {
+        return 1;
+    } else {
+        return _commentData.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -131,20 +185,29 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger section = indexPath.section;
     
-    if (_message.imageURLs == nil || _message.imageURLs.count == 0) {
-        // text only
-        MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_text_cell_id];
-        [self configureTextCell:cell atIndexPath:indexPath];
-        return cell;
+    if (section == 0) {
+        if (_message.imageURLs == nil || _message.imageURLs.count == 0) {
+            // text only
+            MessageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_text_cell_id];
+            [self configureTextCell:cell atIndexPath:indexPath];
+            return cell;
+        } else {
+            // image
+            MessageImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_image_cell_id];
+            [self configureImageCell:cell atIndexPath:indexPath];
+            return cell;
+        }
     } else {
-        // image
-        MessageImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_image_cell_id];
-        [self configureImageCell:cell atIndexPath:indexPath];
+        // comment
+        MessageCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_comment_cell_id];
+        [self configureCommentCell:cell atIndexPath:indexPath];
         return cell;
     }
 }
@@ -152,15 +215,24 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_message.imageURLs == nil || _message.imageURLs.count == 0) {
-        // text only
-        return [tableView fd_heightForCellWithIdentifier:message_text_cell_id cacheByIndexPath:indexPath configuration:^(MessageTableViewCell *cell) {
-            [self configureTextCell:cell atIndexPath:indexPath];
-        }];
+    NSUInteger section = indexPath.section;
+
+    if (section == 0) {
+        if (_message.imageURLs == nil || _message.imageURLs.count == 0) {
+            // text only
+            return [tableView fd_heightForCellWithIdentifier:message_text_cell_id cacheByIndexPath:indexPath configuration:^(MessageTableViewCell *cell) {
+                [self configureTextCell:cell atIndexPath:indexPath];
+            }];
+        } else {
+            // image
+            return [tableView fd_heightForCellWithIdentifier:message_image_cell_id cacheByIndexPath:indexPath configuration:^(MessageImageTableViewCell *cell) {
+                [self configureImageCell:cell atIndexPath:indexPath];
+            }];
+        }
     } else {
-        // image
-        return [tableView fd_heightForCellWithIdentifier:message_image_cell_id cacheByIndexPath:indexPath configuration:^(MessageImageTableViewCell *cell) {
-            [self configureImageCell:cell atIndexPath:indexPath];
+        // comment
+        return [tableView fd_heightForCellWithIdentifier:message_comment_cell_id cacheByIndexPath:indexPath configuration:^(MessageCommentTableViewCell *cell) {
+            [self configureCommentCell:cell atIndexPath:indexPath];
         }];
     }
 }
@@ -214,7 +286,16 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     // image
     [cell setContentImagesWithImageURLs:_message.imageURLs];
-//    [cell setPage:[_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]];
+}
+
+// Comment
+- (void)configureCommentCell:(MessageCommentTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    Comment *comment = _commentData[indexPath.row];
+    
+    cell.usernameLabel.text = comment.nickname;
+    cell.dateLabel.text = comment.date;
+    cell.contentLabel.text = comment.content;
 }
 
 
@@ -707,16 +788,6 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     }];
 }
 
-- (IBAction)commentItemPress:(id)sender
-{
-    [self comment];
-}
-
-- (void)comment
-{
-    
-}
-
 #pragma mark - IDMPhotoBrowserDelegate
 
 - (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index
@@ -773,6 +844,27 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
         [hud hide:YES afterDelay:delay];
     }
 }
+
+#pragma mark - TextField
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    [self comment];
+    
+    return NO;
+}
+
+- (void)comment
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MessageCommentTableViewController *mctvc = [sb instantiateViewControllerWithIdentifier:@"mctvc"];
+    
+    UINavigationController *nvc = [[UINavigationController alloc] init];
+    nvc.viewControllers = @[mctvc];
+    
+    [self presentViewController:nvc animated:YES completion:nil];
+}
+
 
 
 - (void)didReceiveMemoryWarning

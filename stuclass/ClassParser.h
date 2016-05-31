@@ -25,4 +25,6 @@
 
 - (NSMutableArray *)parseMessageData:(NSArray *)postList uid:(NSString *)my_uid;
 
+- (NSMutableArray *)parseCommentData:(NSArray *)commentList;
+
 @end

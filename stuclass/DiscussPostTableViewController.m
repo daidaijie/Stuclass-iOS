@@ -132,17 +132,26 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 - (IBAction)postItemPress:(id)sender
 {
+    [_textView resignFirstResponder];
+    
     if (_textView.text.length == 0) {
         [self showHUDWithText:@"内容不能为空" andHideDelay:global_hud_delay];
+        [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
     } else if ([_textView.text rangeOfString:@"\n\n\n"].location != NSNotFound) {
         [self showHUDWithText:@"不能连续换三行以上" andHideDelay:global_hud_delay];
+        [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
     } else if (_textView.text.length > 180) {
         [self showHUDWithText:@"限制180字以内" andHideDelay:global_hud_delay];
+        [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
     } else {
-        [_textView resignFirstResponder];
         [KVNProgress showWithStatus:@"正在发送吹水"];
         [self sendRequest:YES];
     }
+}
+
+- (void)activateTextField
+{
+    [_textView becomeFirstResponder];
 }
 
 

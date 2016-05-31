@@ -132,20 +132,35 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 - (IBAction)postItemPress:(id)sender
 {
+    [_textView resignFirstResponder];
+    [_textField resignFirstResponder];
+    
     if (_textView.text.length == 0) {
         [self showHUDWithText:@"作业内容不能为空" andHideDelay:global_hud_delay];
+        [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
     } else if ([_textView.text rangeOfString:@"\n\n\n"].location != NSNotFound) {
         [self showHUDWithText:@"不能连续换三行以上" andHideDelay:global_hud_delay];
+        [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
     } else if (_textView.text.length > 180) {
         [self showHUDWithText:@"限制180字以内" andHideDelay:global_hud_delay];
+        [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
     } else if (_textField.text.length > 16) {
         [self showHUDWithText:@"截止时间16字以内" andHideDelay:global_hud_delay];
+        [self performSelector:@selector(activateTimeTextField) withObject:nil afterDelay:global_hud_delay];
     } else {
-        [_textView resignFirstResponder];
-        [_textField resignFirstResponder];
         [KVNProgress showWithStatus:@"正在发布"];
         [self sendRequest:YES];
     }
+}
+
+- (void)activateTextField
+{
+    [_textView becomeFirstResponder];
+}
+
+- (void)activateTimeTextField
+{
+    [_textField becomeFirstResponder];
 }
 
 

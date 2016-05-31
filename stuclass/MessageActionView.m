@@ -99,7 +99,7 @@ static CGFloat kHighlightTextColor = 0.3;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:0.8022 green:0.8022 blue:0.8022 alpha:1.0].CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor colorWithWhite:0.804 alpha:1.000].CGColor);
     CGContextSetLineCap(context, kCGLineCapRound);
     CGContextSetLineWidth(context, line_width-0.1);
     

@@ -21,6 +21,7 @@
 		130B75B01CF4169000F7E1DB /* NicknameTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130B75AF1CF4169000F7E1DB /* NicknameTableViewController.m */; };
 		130C09E51CB544F500848551 /* MemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 130C09E41CB544F500848551 /* MemberTableViewCell.m */; };
 		130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130D14E51CB78C7A006194BB /* DocumentFavoriteTableViewController.m */; };
+		130DD3041CFCADDF00402C77 /* MessageCommentTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130DD3031CFCADDF00402C77 /* MessageCommentTableViewController.m */; };
 		1312101F1CB4DB9000F91F10 /* MemberTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1312101E1CB4DB9000F91F10 /* MemberTableViewController.m */; };
 		131287841CB805EF0089D8D7 /* TreeholeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287831CB805EF0089D8D7 /* TreeholeViewController.m */; };
 		131287881CB89EE30089D8D7 /* ActivityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287871CB89EE30089D8D7 /* ActivityTableViewController.m */; };
@@ -64,13 +65,15 @@
 		13391F7E1CC722BD00FA4807 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 13391F7D1CC722BD00FA4807 /* Task.m */; };
 		1342F6141CF9B00000754D18 /* MessageTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1342F6131CF9B00000754D18 /* MessageTitleButton.m */; };
 		1346A9DB1CFA7267004DE125 /* MessagePostImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1346A9DA1CFA7267004DE125 /* MessagePostImageView.m */; };
-		1346A9DF1CFA832A004DE125 /* MessageDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1346A9DE1CFA832A004DE125 /* MessageDetailTableViewController.m */; };
+		1346A9DF1CFA832A004DE125 /* MessageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1346A9DE1CFA832A004DE125 /* MessageDetailViewController.m */; };
 		134775BA1CCB31A1006E1E94 /* BookDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 134775B91CCB31A1006E1E94 /* BookDetailViewController.m */; };
 		134AB7D81C01840E00D8E816 /* MoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7D71C01840E00D8E816 /* MoreView.m */; };
 		134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 134AB7DA1C0184AE00D8E816 /* MoreButton.m */; };
 		1353ECBC1CE6CB3E00E6E03E /* DocumentSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1353ECBB1CE6CB3E00E6E03E /* DocumentSearchTableViewController.m */; };
 		1353ECC11CE6D78300E6E03E /* MessageImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1353ECBF1CE6D78300E6E03E /* MessageImageTableViewCell.m */; };
 		1353ECC51CE6D7DD00E6E03E /* MessagePostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1353ECC41CE6D7DD00E6E03E /* MessagePostTableViewController.m */; };
+		13560DAE1CFC1EFE00F448AE /* MessageCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13560DAD1CFC1EFE00F448AE /* MessageCommentTableViewCell.m */; };
+		13560DB11CFC1FCC00F448AE /* Comment.m in Sources */ = {isa = PBXBuildFile; fileRef = 13560DB01CFC1FCC00F448AE /* Comment.m */; };
 		13587A1E1CD5CC64005379FC /* AddBoxTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13587A1D1CD5CC64005379FC /* AddBoxTableViewController.m */; };
 		1361642A1CFACCF00094402E /* intro-bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 136164291CFACCF00094402E /* intro-bg.jpg */; };
 		1361642C1CFAD53E0094402E /* IntroHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1361642B1CFAD53E0094402E /* IntroHeader.xib */; };
@@ -194,6 +197,8 @@
 		130C09E41CB544F500848551 /* MemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberTableViewCell.m; sourceTree = "<group>"; };
 		130D14E41CB78C7A006194BB /* DocumentFavoriteTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentFavoriteTableViewController.h; sourceTree = "<group>"; };
 		130D14E51CB78C7A006194BB /* DocumentFavoriteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentFavoriteTableViewController.m; sourceTree = "<group>"; };
+		130DD3021CFCADDF00402C77 /* MessageCommentTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCommentTableViewController.h; sourceTree = "<group>"; };
+		130DD3031CFCADDF00402C77 /* MessageCommentTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCommentTableViewController.m; sourceTree = "<group>"; };
 		1312101D1CB4DB9000F91F10 /* MemberTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberTableViewController.h; sourceTree = "<group>"; };
 		1312101E1CB4DB9000F91F10 /* MemberTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberTableViewController.m; sourceTree = "<group>"; };
 		131287821CB805EF0089D8D7 /* TreeholeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeholeViewController.h; sourceTree = "<group>"; };
@@ -272,8 +277,8 @@
 		134530891BC8AE0C0018C15E /* ClassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassViewController.h; sourceTree = "<group>"; };
 		1346A9D91CFA7267004DE125 /* MessagePostImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePostImageView.h; sourceTree = "<group>"; };
 		1346A9DA1CFA7267004DE125 /* MessagePostImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePostImageView.m; sourceTree = "<group>"; };
-		1346A9DD1CFA832A004DE125 /* MessageDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailTableViewController.h; sourceTree = "<group>"; };
-		1346A9DE1CFA832A004DE125 /* MessageDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailTableViewController.m; sourceTree = "<group>"; };
+		1346A9DD1CFA832A004DE125 /* MessageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDetailViewController.h; sourceTree = "<group>"; };
+		1346A9DE1CFA832A004DE125 /* MessageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDetailViewController.m; sourceTree = "<group>"; };
 		134775B81CCB31A1006E1E94 /* BookDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookDetailViewController.h; sourceTree = "<group>"; };
 		134775B91CCB31A1006E1E94 /* BookDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookDetailViewController.m; sourceTree = "<group>"; };
 		134AB7D61C01840E00D8E816 /* MoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreView.h; sourceTree = "<group>"; };
@@ -286,6 +291,10 @@
 		1353ECBF1CE6D78300E6E03E /* MessageImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageImageTableViewCell.m; sourceTree = "<group>"; };
 		1353ECC31CE6D7DD00E6E03E /* MessagePostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessagePostTableViewController.h; sourceTree = "<group>"; };
 		1353ECC41CE6D7DD00E6E03E /* MessagePostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessagePostTableViewController.m; sourceTree = "<group>"; };
+		13560DAC1CFC1EFE00F448AE /* MessageCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCommentTableViewCell.h; sourceTree = "<group>"; };
+		13560DAD1CFC1EFE00F448AE /* MessageCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCommentTableViewCell.m; sourceTree = "<group>"; };
+		13560DAF1CFC1FCC00F448AE /* Comment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comment.h; sourceTree = "<group>"; };
+		13560DB01CFC1FCC00F448AE /* Comment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comment.m; sourceTree = "<group>"; };
 		13587A1C1CD5CC64005379FC /* AddBoxTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddBoxTableViewController.h; sourceTree = "<group>"; };
 		13587A1D1CD5CC64005379FC /* AddBoxTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddBoxTableViewController.m; sourceTree = "<group>"; };
 		136164291CFACCF00094402E /* intro-bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "intro-bg.jpg"; sourceTree = "<group>"; };
@@ -533,6 +542,15 @@
 			name = DocumentFooterView;
 			sourceTree = "<group>";
 		};
+		130DD3051CFD19FF00402C77 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				13560DAC1CFC1EFE00F448AE /* MessageCommentTableViewCell.h */,
+				13560DAD1CFC1EFE00F448AE /* MessageCommentTableViewCell.m */,
+			);
+			name = cell;
+			sourceTree = "<group>";
+		};
 		131287851CB89ECA0089D8D7 /* ActivityTableViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -712,8 +730,7 @@
 				1353ECC21CE6D78B00E6E03E /* MessageCell */,
 				1326F7D21C02DB5E0016B88E /* MessageTableViewController.h */,
 				1326F7D31C02DB5E0016B88E /* MessageTableViewController.m */,
-				1346A9DD1CFA832A004DE125 /* MessageDetailTableViewController.h */,
-				1346A9DE1CFA832A004DE125 /* MessageDetailTableViewController.m */,
+				13560DAB1CFC1ED800F448AE /* Detail */,
 				130A2B7C1CE811B7004927D8 /* Post */,
 			);
 			name = MessageTableViewController;
@@ -823,6 +840,27 @@
 				131287831CB805EF0089D8D7 /* TreeholeViewController.m */,
 			);
 			name = TreeHole;
+			sourceTree = "<group>";
+		};
+		13560DAB1CFC1ED800F448AE /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				130DD3051CFD19FF00402C77 /* cell */,
+				1346A9DD1CFA832A004DE125 /* MessageDetailViewController.h */,
+				1346A9DE1CFA832A004DE125 /* MessageDetailViewController.m */,
+				130DD3021CFCADDF00402C77 /* MessageCommentTableViewController.h */,
+				130DD3031CFCADDF00402C77 /* MessageCommentTableViewController.m */,
+			);
+			name = Detail;
+			sourceTree = "<group>";
+		};
+		13560DB21CFC1FD100F448AE /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				13560DAF1CFC1FCC00F448AE /* Comment.h */,
+				13560DB01CFC1FCC00F448AE /* Comment.m */,
+			);
+			name = Comment;
 			sourceTree = "<group>";
 		};
 		13587A1B1CD5CC43005379FC /* AddBoxTableViewController */ = {
@@ -1246,6 +1284,7 @@
 				13766B201BDA535D00322371 /* Note */,
 				13D8E2F41BD7351A0051617C /* CourseTable */,
 				13D8E2F31BD735120051617C /* Course */,
+				13560DB21CFC1FD100F448AE /* Comment */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1795,6 +1834,7 @@
 				1335FC741BCA25A100BC0F23 /* WeekView.m in Sources */,
 				13C7072D1BC8230E003061A4 /* InputTextField.m in Sources */,
 				131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */,
+				13560DB11CFC1FCC00F448AE /* Comment.m in Sources */,
 				13766B0F1BDA3FF600322371 /* NoteLabel.m in Sources */,
 				131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */,
 				132226F91C056C4D0093826C /* ClassSemesterButton.m in Sources */,
@@ -1802,11 +1842,12 @@
 				13FEE6431CB90A73000C72BC /* LibraryViewController.m in Sources */,
 				134AB7DB1C0184AE00D8E816 /* MoreButton.m in Sources */,
 				13DBA09E1BD247DA00FC0682 /* DetailViewController.m in Sources */,
+				130DD3041CFCADDF00402C77 /* MessageCommentTableViewController.m in Sources */,
 				13F661801CF969A7001599E2 /* QBAssetsViewController.m in Sources */,
 				130D14E61CB78C7A006194BB /* DocumentFavoriteTableViewController.m in Sources */,
 				1366D66C1BD4B56F00B69C04 /* PersonViewController.m in Sources */,
 				13F661811CF969A7001599E2 /* QBCheckmarkView.m in Sources */,
-				1346A9DF1CFA832A004DE125 /* MessageDetailTableViewController.m in Sources */,
+				1346A9DF1CFA832A004DE125 /* MessageDetailViewController.m in Sources */,
 				131287841CB805EF0089D8D7 /* TreeholeViewController.m in Sources */,
 				13F6617F1CF969A7001599E2 /* QBAssetCell.m in Sources */,
 				130A6D501CBA32CC00A36F9C /* TaskListTableViewController.m in Sources */,
@@ -1880,6 +1921,7 @@
 				137F4EA11C06155200A6DC0E /* MeTableViewController.m in Sources */,
 				1335FC6A1BCA257500BC0F23 /* ClassCollectionViewCell.m in Sources */,
 				1320FC7B1C01BF500084B152 /* GradeTableViewController.m in Sources */,
+				13560DAE1CFC1EFE00F448AE /* MessageCommentTableViewCell.m in Sources */,
 				13EA0CC01CD7AFE400B39CB7 /* BoxInfoViewController.m in Sources */,
 				13DE7B461BDC67F1003AFF93 /* DiscussPostTableViewController.m in Sources */,
 				1335FC711BCA259700BC0F23 /* StartView.m in Sources */,

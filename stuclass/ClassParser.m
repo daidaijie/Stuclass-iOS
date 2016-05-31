@@ -15,6 +15,7 @@
 #import "Define.h"
 #import "Message.h"
 #import "JHDater.h"
+#import "Comment.h"
 
 @interface ClassParser ()
 
@@ -516,13 +517,37 @@
 }
 
 
+#pragma mark - Comment Parser
+
+- (NSMutableArray *)parseCommentData:(NSArray *)commentList
+{
+    NSMutableArray *commentData = [NSMutableArray array];
+    
+    for (NSDictionary *dict in commentList) {
+        
+        Comment *comment = [[Comment alloc] init];
+        
+        // user
+        NSDictionary *userDict = dict[@"user"];
+        comment.nickname = userDict[@"nickname"];
+        comment.username = userDict[@"account"];
+        comment.user_id = [NSString stringWithFormat:@"%@", dict[@"uid"]];
+        
+        // data
+        comment.post_id = [NSString stringWithFormat:@"%@", dict[@"post_id"]];
+        comment.content = dict[@"comment"];
+        comment.comment_id = dict[@"id"];
+        NSString *dateStr = [[JHDater sharedInstance] dateStrFromMessageTimeString:dict[@"post_time"]];
+        comment.date = dateStr;
+        
+        [commentData addObject:comment];
+    }
+    
+    return commentData;
+}
+
+
 @end
-
-
-
-
-
-
 
 
 

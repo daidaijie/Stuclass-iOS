@@ -1,5 +1,5 @@
 //
-//  MessageDetailTableViewController.h
+//  MessageDetailViewController.h
 //  stuclass
 //
 //  Created by JunhaoWang on 5/29/16.
@@ -10,7 +10,7 @@
 
 @class Message;
 
-@interface MessageDetailTableViewController : UITableViewController
+@interface MessageDetailViewController : UIViewController
 
 @property (strong, nonatomic) Message *message;
 

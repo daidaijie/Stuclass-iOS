@@ -1,16 +1,17 @@
 //
-//  TaskAddTableViewController.m
+//  MessageCommentTableViewController.m
 //  stuclass
 //
-//  Created by JunhaoWang on 4/11/16.
+//  Created by JunhaoWang on 5/31/16.
 //  Copyright © 2016 JunhaoWang. All rights reserved.
 //
 
-#import "TaskAddTableViewController.h"
+#import "MessageCommentTableViewController.h"
 #import "MBProgressHUD.h"
 #import "Define.h"
+#import <AFNetworking/AFNetworking.h>
+#import <KVNProgress/KVNProgress.h>
 #import "PlaceholderTextView.h"
-#import "MobClick.h"
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
@@ -18,19 +19,22 @@ static const NSInteger kNumberOfSections = 1;
 
 static const NSInteger kNumberOfRowsInNoteSection = 1;
 
-@interface TaskAddTableViewController () <UITextViewDelegate>
+@interface MessageCommentTableViewController () <UITextFieldDelegate>
+
 @property (weak, nonatomic) IBOutlet PlaceholderTextView *textView;
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 
 @end
 
-@implementation TaskAddTableViewController
+@implementation MessageCommentTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self setupTableView];
     [self setupTextView];
+    
+    [_textView becomeFirstResponder];
 }
 
 #pragma mark - Setup Method
@@ -42,7 +46,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 - (void)setupTextView
 {
-    _textView.placeholder.text = @"下午去老师办公室交作业...";
+    _textView.placeholder.text = @"你发表的消息好赞...";
 }
 
 
@@ -50,7 +54,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 {
     [super viewDidAppear:animated];
     
-    [_textView becomeFirstResponder];
+//    [_textView becomeFirstResponder];
 }
 
 #pragma mark - TableView Delegate
@@ -123,7 +127,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 #pragma mark - Event
 
-- (IBAction)AddItemPress:(id)sender
+- (IBAction)sendItemPress:(id)sender
 {
     [_textView resignFirstResponder];
     
@@ -133,14 +137,11 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     } else if ([_textView.text rangeOfString:@"\n\n\n"].location != NSNotFound) {
         [self showHUDWithText:@"不能连续换三行以上" andHideDelay:global_hud_delay];
         [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
-    } else if (_textView.text.length > 40) {
-        [self showHUDWithText:@"限制40字以内" andHideDelay:global_hud_delay];
+    } else if (_textView.text.length > 200) {
+        [self showHUDWithText:@"限制200字以内" andHideDelay:global_hud_delay];
         [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
     } else {
-        // add
-        [MobClick event:@"TaskList_Add"];
-        [_delegate taskDidAddWithTitle:_textView.text];
-        [self.navigationController popViewControllerAnimated:YES];
+        
     }
 }
 
@@ -148,6 +149,14 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 {
     [_textView becomeFirstResponder];
 }
+
+
+- (IBAction)backItemPress:(id)sender
+{
+    [_textView resignFirstResponder];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 
 #pragma mark - HUD
@@ -167,13 +176,5 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 
 @end
-
-

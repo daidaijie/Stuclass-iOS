@@ -25,7 +25,7 @@
 #import "IDMPhotoBrowser.h"
 #import "UIImageView-PlayGIF/UIImageView+PlayGIF.h"
 #import "MessageTitleButton.h"
-#import "MessageDetailTableViewController.h"
+#import "MessageDetailViewController.h"
 
 static const CGFloat kHeightForSectionHeader = 8.5;
 
@@ -346,11 +346,11 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
-    MessageDetailTableViewController *mdtvc = [sb instantiateViewControllerWithIdentifier:@"mdtvc"];
+    MessageDetailViewController *mdvc = [sb instantiateViewControllerWithIdentifier:@"mdvc"];
     
-    mdtvc.message = _messageData[section];
+    mdvc.message = _messageData[section];
     
-    [self.navigationController pushViewController:mdtvc animated:YES];
+    [self.navigationController pushViewController:mdvc animated:YES];
 }
 
 
@@ -688,11 +688,11 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
-    MessageDetailTableViewController *mdtvc = [sb instantiateViewControllerWithIdentifier:@"mdtvc"];
+    MessageDetailViewController *mdvc = [sb instantiateViewControllerWithIdentifier:@"mdvc"];
     
-    mdtvc.message = _messageData[tag];
+    mdvc.message = _messageData[tag];
     
-    [self.navigationController pushViewController:mdtvc animated:YES];
+    [self.navigationController pushViewController:mdvc animated:YES];
 }
 
 

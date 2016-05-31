@@ -79,6 +79,7 @@ static NSString *message_post_url = @"/interaction/api/v2/post";
 static NSString *message_latest_url = @"/interaction/api/v2/latest";
 static NSString *message_interaction_url = @"/interaction/api/v2/post";
 static NSString *message_like_url = @"/interaction/api/v2/like";
+static NSString *message_commests_url = @"/interaction/api/v2/post_comments";
 
 // activity
 static NSString *banner_url = @"/interaction/api/v2/banner";
