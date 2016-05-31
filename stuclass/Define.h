@@ -123,7 +123,7 @@ static NSString *oa_wechat_get_url = @"/GetDOCDetail";
 static NSString *jump_app_url = @"http://chuckwo.com:81/app/jump.html";
 
 
-#define UPDATE_CONTENT @"1. 现在可以自己添加课程啦(开发者表示弄得头疼)🙄;\n2. 在图书检索中长按可以显示具体位置;\n3. 修复了Bugs、优化了很多功能。(真)"
+#define UPDATE_CONTENT @"1. 欢迎医学院本科生及研究生👏！校本部研究生👏🏻！还有老师们👏🏼！加入汕大课程表👏🏽！(部分功能正在装备中)\n2. 办公自动化体验Up！支持条文搜索，还能外网查看哦！\n3. 全面改进消息圈，图文并茂非常棒！\n4. 微信分享新功能~三指触屏转课表、考试安排谁更少~🌚\n5. 优化了好多功能，如允许修改格子、访问速度更快等等。\n6. 改进多个页面的UI，界面更美观、更精致！🎉\n7. 修复了部分用户闪退等一大堆Bugs！\n【还有很多小细节，慢慢发现吧！】"
 
 // Cell Color
 #define COLOR_0 [UIColor colorWithRed:0.275 green:0.729 blue:0.902 alpha:1.000]

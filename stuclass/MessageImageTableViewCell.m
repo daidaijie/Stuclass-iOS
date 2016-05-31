@@ -47,7 +47,12 @@
     int page = fabs(scrollView.contentOffset.x) / [UIScreen mainScreen].bounds.size.width;
     _currentPage = page;
     _messageImgView.pageControl.currentPage = page;
-    [_manager setpage:_currentPage ForKey:[NSString stringWithFormat:@"%i",self.tag]];
+    if (_managerType == 0) {
+        [_manager setpage:_currentPage ForKey:[NSString stringWithFormat:@"%i",self.tag]];
+    } else {
+        [_manager setMYpage:_currentPage ForKey:[NSString stringWithFormat:@"%i",self.tag]];
+
+    }
 }
 
 
@@ -122,7 +127,12 @@
 
 - (void)messageImgViewBgGestureDidPress
 {
-    NSUInteger index = [_manager getpageForKey:[NSString stringWithFormat:@"%i", self.tag]];
+    NSUInteger index;
+    if (_managerType == 0) {
+        index = [_manager getpageForKey:[NSString stringWithFormat:@"%i", self.tag]];
+    } else {
+        index = [_manager getMYpageForKey:[NSString stringWithFormat:@"%i", self.tag]];
+    }
     [self.delegate messageImgViewBgGestureDidPressWithTag:self.tag Index:index];
 }
 

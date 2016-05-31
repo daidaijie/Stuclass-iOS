@@ -47,7 +47,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 
 - (void)setupTextView
 {
-    _textView.placeholder.text = @"你发表的消息好赞...";
+    _textView.placeholder.text = @"楼上那位你好帅...";
 }
 
 - (void)setupData

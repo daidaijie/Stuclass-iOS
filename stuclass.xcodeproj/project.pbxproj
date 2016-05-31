@@ -28,6 +28,8 @@
 		131287881CB89EE30089D8D7 /* ActivityTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 131287871CB89EE30089D8D7 /* ActivityTableViewController.m */; };
 		131434261CE061ED00CEAB6F /* panda.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 131434251CE061ED00CEAB6F /* panda.jpg */; };
 		131611851CF813700083DC92 /* CatZanButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 131611841CF813700083DC92 /* CatZanButton.m */; };
+		13187AD21CFDD70B00C05059 /* MessageFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13187AD11CFDD70B00C05059 /* MessageFooterView.m */; };
+		13187AD51CFDE31B00C05059 /* MessageMyPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13187AD41CFDE31B00C05059 /* MessageMyPostTableViewController.m */; };
 		131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */; };
 		131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D21BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m */; };
 		131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D81BCB8676004EE13A /* ClassNumberCollectionReusableView.m */; };
@@ -211,6 +213,10 @@
 		131434251CE061ED00CEAB6F /* panda.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = panda.jpg; sourceTree = "<group>"; };
 		131611831CF813700083DC92 /* CatZanButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatZanButton.h; sourceTree = "<group>"; };
 		131611841CF813700083DC92 /* CatZanButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatZanButton.m; sourceTree = "<group>"; };
+		13187AD01CFDD70B00C05059 /* MessageFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageFooterView.h; sourceTree = "<group>"; };
+		13187AD11CFDD70B00C05059 /* MessageFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFooterView.m; sourceTree = "<group>"; };
+		13187AD31CFDE31B00C05059 /* MessageMyPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMyPostTableViewController.h; sourceTree = "<group>"; };
+		13187AD41CFDE31B00C05059 /* MessageMyPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMyPostTableViewController.m; sourceTree = "<group>"; };
 		131951CE1BCB47E2004EE13A /* ClassCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewLayout.h; sourceTree = "<group>"; };
 		131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewLayout.m; sourceTree = "<group>"; };
 		131951D11BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassBackgroundCollectionReusableView.h; sourceTree = "<group>"; };
@@ -576,6 +582,15 @@
 			name = CatZanButton;
 			sourceTree = "<group>";
 		};
+		13187ACF1CFDD6FC00C05059 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				13187AD01CFDD70B00C05059 /* MessageFooterView.h */,
+				13187AD11CFDD70B00C05059 /* MessageFooterView.m */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
 		131951CD1BCB47C9004EE13A /* ClassLayout */ = {
 			isa = PBXGroup;
 			children = (
@@ -735,6 +750,8 @@
 				1353ECC21CE6D78B00E6E03E /* MessageCell */,
 				1326F7D21C02DB5E0016B88E /* MessageTableViewController.h */,
 				1326F7D31C02DB5E0016B88E /* MessageTableViewController.m */,
+				13187AD31CFDE31B00C05059 /* MessageMyPostTableViewController.h */,
+				13187AD41CFDE31B00C05059 /* MessageMyPostTableViewController.m */,
 				13560DAB1CFC1ED800F448AE /* Detail */,
 				130A2B7C1CE811B7004927D8 /* Post */,
 			);
@@ -850,6 +867,7 @@
 		13560DAB1CFC1ED800F448AE /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				13187ACF1CFDD6FC00C05059 /* view */,
 				130DD3051CFD19FF00402C77 /* cell */,
 				1346A9DD1CFA832A004DE125 /* MessageDetailViewController.h */,
 				1346A9DE1CFA832A004DE125 /* MessageDetailViewController.m */,
@@ -1857,6 +1875,7 @@
 				13F6617F1CF969A7001599E2 /* QBAssetCell.m in Sources */,
 				130A6D501CBA32CC00A36F9C /* TaskListTableViewController.m in Sources */,
 				131DCCBE1CE8686C0066649D /* MessageActionView.m in Sources */,
+				13187AD51CFDE31B00C05059 /* MessageMyPostTableViewController.m in Sources */,
 				13C4C34A1BCC0D300003E703 /* SettingTableViewController.m in Sources */,
 				13F6617D1CF969A7001599E2 /* QBAlbumCell.m in Sources */,
 				1335FC7F1BCA343100BC0F23 /* ClassButton.m in Sources */,
@@ -1922,6 +1941,7 @@
 				13F9F4C11C87C3F0004BE5A0 /* ClassWeekTableViewCell.m in Sources */,
 				137C8C391BDB1A4900236C79 /* HomeworkTableViewCell.m in Sources */,
 				1353ECC11CE6D78300E6E03E /* MessageImageTableViewCell.m in Sources */,
+				13187AD21CFDD70B00C05059 /* MessageFooterView.m in Sources */,
 				1312101F1CB4DB9000F91F10 /* MemberTableViewController.m in Sources */,
 				1366D67B1BD4EAA300B69C04 /* ClassInfoTableViewCell.m in Sources */,
 				137F4EA11C06155200A6DC0E /* MeTableViewController.m in Sources */,

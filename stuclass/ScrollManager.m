@@ -9,6 +9,7 @@
 #import "ScrollManager.h"
 
 static NSMutableDictionary *dictionary;
+static NSMutableDictionary *myDictionary;
 
 @implementation ScrollManager
 
@@ -35,16 +36,34 @@ static NSMutableDictionary *dictionary;
     return [[dictionary valueForKey:key] intValue];
 }
 
+- (void)setMYpage:(int)page ForKey:(NSString*)key
+{
+    [myDictionary setValue:[NSString stringWithFormat:@"%i",page] forKey:key];
+}
+
+- (int)getMYpageForKey:(NSString*)key
+{
+    return [[myDictionary valueForKey:key] intValue];
+}
+
 - (id)init {
     if (self = [super init]) {
-       dictionary = [[NSMutableDictionary alloc] init];
+        dictionary = [[NSMutableDictionary alloc] init];
+        myDictionary = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
 - (void)restoreState
 {
+    NSLog(@"restoreState");
     dictionary = [[NSMutableDictionary alloc] init];
+}
+
+- (void)restoreMYState
+{
+    NSLog(@"restoreMYState");
+    myDictionary = [[NSMutableDictionary alloc] init];
 }
 
 @end

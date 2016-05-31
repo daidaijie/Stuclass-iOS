@@ -27,6 +27,8 @@
 
 @property (weak, nonatomic) id <MessageImageTableViewCellDelegate> delegate;
 
+@property (assign, nonatomic) NSUInteger managerType;
+
 - (void)setPage:(int)page;
 
 - (void)setContentImagesWithImageURLs:(NSArray *)imageURLs;

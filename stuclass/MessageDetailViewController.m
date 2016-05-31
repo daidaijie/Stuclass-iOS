@@ -18,7 +18,7 @@
 #import "MobClick.h"
 #import "UIImageView+WebCache.h"
 #import "Message.h"
-#import "DocumentFooterView.h"
+#import "MessageFooterView.h"
 #import "WXApi.h"
 #import "ClassParser.h"
 #import "IDMPhotoBrowser.h"
@@ -28,6 +28,7 @@
 #import "MessageCommentTableViewController.h"
 
 static const CGFloat kHeightForSectionHeader = 8.5;
+static const CGFloat kHeightForFooterView = 67.0;
 
 static NSString *message_text_cell_id = @"MessageTextTableViewCell";
 static NSString *message_image_cell_id = @"MessageImageTableViewCell";
@@ -105,8 +106,9 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
     [_refreshControl addTarget:self action:@selector(refreshControlDidPull) forControlEvents:UIControlEventValueChanged];
     [_tableView addSubview:_refreshControl];
     
-//     FooterView
-    DocumentFooterView *footerView = [[DocumentFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, kHeightForSectionHeader)];
+    // FooterView
+    MessageFooterView *footerView = [[MessageFooterView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, kHeightForFooterView)];
+    footerView.label.text = [NSString stringWithFormat:@"%@ 很期待你的评论呢", _message.nickname];
     self.tableView.tableFooterView = footerView;
 }
 
@@ -227,8 +229,10 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
     if (section == 0) {
         return 1;
     } else {
-        NSUInteger count = (_commentData.count == 0) ? 1 : _commentData.count;
-        return count;
+        CGFloat height = (_commentData.count > 0) ? kHeightForSectionHeader : kHeightForFooterView;
+        self.tableView.tableFooterView.frame = CGRectMake(0, 0, self.view.frame.size.width, height);
+        self.tableView.tableFooterView.backgroundColor = (_commentData.count > 0) ? [UIColor clearColor] : [UIColor whiteColor];
+        return _commentData.count;
     }
 }
 
@@ -260,15 +264,9 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
         }
     } else {
         // comment
-        if (_commentData.count == 0) {
-            MessageNoCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_no_comment_cell_id];
-            cell.emptyLabel.text = [NSString stringWithFormat:@"%@ 很期待你的评论呢", _message.nickname];
-            return cell;
-        } else {
-            MessageCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_comment_cell_id];
-            [self configureCommentCell:cell atIndexPath:indexPath];
-            return cell;
-        }
+        MessageCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_comment_cell_id];
+        [self configureCommentCell:cell atIndexPath:indexPath];
+        return cell;
     }
 }
 
@@ -291,13 +289,9 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
         }
     } else {
         // comment
-        if (_commentData.count == 0) {
-            return 160.0;
-        } else {
-            return [tableView fd_heightForCellWithIdentifier:message_comment_cell_id cacheByIndexPath:indexPath configuration:^(MessageCommentTableViewCell *cell) {
+        return [tableView fd_heightForCellWithIdentifier:message_comment_cell_id cacheByIndexPath:indexPath configuration:^(MessageCommentTableViewCell *cell) {
                 [self configureCommentCell:cell atIndexPath:indexPath];
-            }];
-        }
+        }];
     }
 }
 
@@ -368,7 +362,7 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
     NSUInteger row = indexPath.row;
     
     
-    if (section == 1) {
+    if (section == 1 && _commentData.count > 0) {
         Comment *comment = _commentData[row];
         
         NSString *myUsername = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERNAME"];
@@ -419,7 +413,7 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, message_interaction_url] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, message_comment_url] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"删除评论 - 连接服务器 - 成功 - %@", responseObject);
 //        NSLog(@"删除评论 - 连接服务器 - 成功");
@@ -451,11 +445,14 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
 {
     [KVNProgress showSuccessWithStatus:@"删除成功" completion:^{
         [self.tableView beginUpdates];
+        
+        [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:tag inSection:1]] withRowAnimation:UITableViewRowAnimationFade];
+        
         [_commentData removeObjectAtIndex:tag];
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:tag] withRowAnimation:UITableViewRowAnimationFade];
+        
         [self.tableView endUpdates];
         
-        [self removeCommentFromLocalWithCommentID:_commentData[tag]];
+        [self removeCommentFromLocalWithCommentID:comment_id];
         [self setupAtData];
     }];
 }

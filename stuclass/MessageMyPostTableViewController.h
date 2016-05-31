@@ -1,5 +1,5 @@
 //
-//  MessageFooterView.h
+//  MessageMyPostTableViewController.h
 //  stuclass
 //
 //  Created by JunhaoWang on 5/31/16.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MessageFooterView : UIView
-
-@property (strong, nonatomic) UILabel *label;
+@interface MessageMyPostTableViewController : UITableViewController
 
 @end
