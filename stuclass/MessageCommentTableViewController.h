@@ -10,4 +10,6 @@
 
 @interface MessageCommentTableViewController : UITableViewController
 
+@property (strong, nonatomic) NSString *atPerson;
+
 @end

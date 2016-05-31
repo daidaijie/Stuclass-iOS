@@ -33,8 +33,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     
     [self setupTableView];
     [self setupTextView];
-    
-    [_textView becomeFirstResponder];
+    [self setupData];
 }
 
 #pragma mark - Setup Method
@@ -49,12 +48,21 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     _textView.placeholder.text = @"你发表的消息好赞...";
 }
 
+- (void)setupData
+{
+    if (_atPerson.length > 0) {
+        _textView.text = [NSString stringWithFormat:@"@%@ ", _atPerson];
+        _textView.placeholder.hidden = YES;
+        _countLabel.text = [NSString stringWithFormat:@"%d", _textView.text.length];
+    }
+}
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-//    [_textView becomeFirstResponder];
+    [_textView becomeFirstResponder];
 }
 
 #pragma mark - TableView Delegate

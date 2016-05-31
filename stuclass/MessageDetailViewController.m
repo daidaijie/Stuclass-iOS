@@ -23,6 +23,7 @@
 #import "ClassParser.h"
 #import "IDMPhotoBrowser.h"
 #import "MessageCommentTableViewCell.h"
+#import "MessageNoCommentTableViewCell.h"
 #import "Comment.h"
 #import "MessageCommentTableViewController.h"
 
@@ -31,6 +32,7 @@ static const CGFloat kHeightForSectionHeader = 8.5;
 static NSString *message_text_cell_id = @"MessageTextTableViewCell";
 static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
+static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
 
 @interface MessageDetailViewController () <SDWebImageManagerDelegate, MessageTableViewCellDelegate, MessageImageTableViewCellDelegate, IDMPhotoBrowserDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate>
 
@@ -40,8 +42,13 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
 
 @property (strong, nonatomic) NSMutableArray *commentData;
 
+@property (strong, nonatomic) NSMutableSet *atData;
+
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *atItem;
+
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 
 @end
 
@@ -52,7 +59,7 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
     [super viewDidLoad];
     
     [self setupTableView];
-    [self setupTextField];
+    [self setupToolbar];
     [self setupData];
 }
 
@@ -84,29 +91,33 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
     _sectionHeaderView.backgroundColor = [UIColor clearColor];
     
     // refreshControl
-    /*
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl = refreshControl;
-    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-     */
+    _refreshControl = [[UIRefreshControl alloc] init];
+    [_refreshControl addTarget:self action:@selector(refreshControlDidPull) forControlEvents:UIControlEventValueChanged];
+    [_tableView addSubview:_refreshControl];
     
-    // FooterView
-    DocumentFooterView *footerView = [[DocumentFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 50)];
+//     FooterView
+    DocumentFooterView *footerView = [[DocumentFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, kHeightForSectionHeader)];
     self.tableView.tableFooterView = footerView;
 }
 
-- (void)refresh
+- (void)refreshControlDidPull
 {
-//    [self setupData];
+    [self setupData];
 }
 
 - (void)didFinishRefresh
 {
-//    [self.refreshControl endRefreshing];
+    [self.refreshControl endRefreshing];
 }
 
-- (void)setupTextField
+- (void)setupToolbar
 {
+    // toolbar
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.3)];
+    line.backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.000];
+    [self.toolbar addSubview:line];
+    
+    // textField
     self.textField.placeholder = [NSString stringWithFormat:@"评论 %@ 的消息", _message.nickname];
 }
 
@@ -130,17 +141,25 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
     
     [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_commests_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-        NSLog(@"消息圈 - 连接服务器 - 成功");
+        NSLog(@"正文 - 连接服务器 - 成功");
 //        NSLog(@"------- %@", responseObject);
         [self parseResponseObject:responseObject];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-        NSLog(@"消息圈 - 连接服务器 - 失败 - %@", error);
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
+        NSLog(@"正文 - 连接服务器 - 失败 - %@", error);
+        
+        NSUInteger code = operation.response.statusCode;
+        
+        if (code == 404) {
+            // do nothing yet
+        } else {
+//            [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
+        }
+        
         [self didFinishRefresh];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     }];
 }
 
@@ -150,8 +169,23 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
     
     if (comments) {
         
+        NSString *my_nickname = [[NSUserDefaults standardUserDefaults] objectForKey:@"NICKNAME"];
+        
         _commentData = [[ClassParser sharedInstance] parseCommentData:comments];
         
+        NSMutableSet *atData = [NSMutableSet set];
+        
+        // @ data
+        for (Comment *comment in _commentData) {
+            
+            if (![my_nickname isEqualToString:comment.nickname]) {
+                [atData addObject:comment.nickname];
+            }
+        }
+        
+        _atData = atData;
+        
+        _atItem.enabled = !(_atData.count == 0);
         
         [self.tableView reloadData];
         
@@ -174,7 +208,8 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
     if (section == 0) {
         return 1;
     } else {
-        return _commentData.count;
+        NSUInteger count = (_commentData.count == 0) ? 1 : _commentData.count;
+        return count;
     }
 }
 
@@ -206,9 +241,15 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
         }
     } else {
         // comment
-        MessageCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_comment_cell_id];
-        [self configureCommentCell:cell atIndexPath:indexPath];
-        return cell;
+        if (_commentData.count == 0) {
+            MessageNoCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_no_comment_cell_id];
+            cell.emptyLabel.text = [NSString stringWithFormat:@"%@ 很期待你的评论呢", _message.nickname];
+            return cell;
+        } else {
+            MessageCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:message_comment_cell_id];
+            [self configureCommentCell:cell atIndexPath:indexPath];
+            return cell;
+        }
     }
 }
 
@@ -231,9 +272,13 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
         }
     } else {
         // comment
-        return [tableView fd_heightForCellWithIdentifier:message_comment_cell_id cacheByIndexPath:indexPath configuration:^(MessageCommentTableViewCell *cell) {
-            [self configureCommentCell:cell atIndexPath:indexPath];
-        }];
+        if (_commentData.count == 0) {
+            return 160.0;
+        } else {
+            return [tableView fd_heightForCellWithIdentifier:message_comment_cell_id cacheByIndexPath:indexPath configuration:^(MessageCommentTableViewCell *cell) {
+                [self configureCommentCell:cell atIndexPath:indexPath];
+            }];
+        }
     }
 }
 
@@ -257,7 +302,6 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
     // avatar
     NSURL *avatarUrl = [NSURL URLWithString:_message.avatarURL];
     [cell.avatarImageView sd_setImageWithURL:avatarUrl placeholderImage:[UIImage imageNamed:@"default_avatar"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        
     }];
 }
 
@@ -548,7 +592,7 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
 #pragma mark - Comment Delegate
 - (void)messageActionViewCommentDidPressWithTag:(NSUInteger)tag
 {
-    [self comment];
+    [self comment:nil];
 }
 
 
@@ -849,15 +893,17 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    [self comment];
+    [self comment:nil];
     
     return NO;
 }
 
-- (void)comment
+- (void)comment:(NSString *)at
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MessageCommentTableViewController *mctvc = [sb instantiateViewControllerWithIdentifier:@"mctvc"];
+    
+    mctvc.atPerson = at;
     
     UINavigationController *nvc = [[UINavigationController alloc] init];
     nvc.viewControllers = @[mctvc];
@@ -865,6 +911,22 @@ static NSString *message_comment_cell_id = @"MessageCommentTableViewCell";
     [self presentViewController:nvc animated:YES completion:nil];
 }
 
+- (IBAction)atItemPress:(id)sender
+{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"选择你要@的人" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    for (NSString *at in _atData) {
+        [alert addAction:[UIAlertAction actionWithTitle:at style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self comment:at];
+        }]];
+    }
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+        
+    }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 
 - (void)didReceiveMemoryWarning
