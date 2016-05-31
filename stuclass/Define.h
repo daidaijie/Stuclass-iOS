@@ -30,7 +30,7 @@
 #define GRAY_BOX_COLOR [UIColor colorWithWhite:0.72 alpha:1.0]
 
 // Notice Title
-static NSString *global_connection_failed = @"连接服务器失败，请重试";
+static NSString *global_connection_failed = @"噫，服务器出了点问题T^T";
 
 static NSString *global_connection_wrong_token = @"该账号曾在别处登录，请重新登录";
 
@@ -79,7 +79,8 @@ static NSString *message_post_url = @"/interaction/api/v2/post";
 static NSString *message_latest_url = @"/interaction/api/v2/latest";
 static NSString *message_interaction_url = @"/interaction/api/v2/post";
 static NSString *message_like_url = @"/interaction/api/v2/like";
-static NSString *message_commests_url = @"/interaction/api/v2/post_comments";
+static NSString *message_comments_url = @"/interaction/api/v2/post_comments";
+static NSString *message_comment_url = @"/interaction/api/v2/comment";
 
 // activity
 static NSString *banner_url = @"/interaction/api/v2/banner";

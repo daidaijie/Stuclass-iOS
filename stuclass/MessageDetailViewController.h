@@ -14,4 +14,6 @@
 
 @property (strong, nonatomic) Message *message;
 
+- (void)logout;
+
 @end

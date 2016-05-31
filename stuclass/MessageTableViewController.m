@@ -915,7 +915,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
             }];
         } else if (code == 404) {
             // 已被删除
-            [KVNProgress showErrorWithStatus:@"该信息已被删除" completion:^{
+            [KVNProgress showErrorWithStatus:@"该消息已被删除" completion:^{
                 
             }];
         } else {

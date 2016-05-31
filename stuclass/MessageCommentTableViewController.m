@@ -12,6 +12,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <KVNProgress/KVNProgress.h>
 #import "PlaceholderTextView.h"
+#import "MessageDetailViewController.h"
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
@@ -51,7 +52,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
 - (void)setupData
 {
     if (_atPerson.length > 0) {
-        _textView.text = [NSString stringWithFormat:@"@%@ ", _atPerson];
+        _textView.text = [NSString stringWithFormat:@"@%@: ", _atPerson];
         _textView.placeholder.hidden = YES;
         _countLabel.text = [NSString stringWithFormat:@"%d", _textView.text.length];
     }
@@ -149,7 +150,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         [self showHUDWithText:@"限制200字以内" andHideDelay:global_hud_delay];
         [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
     } else {
-        
+        [self sendCommentRequest];
     }
 }
 
@@ -165,6 +166,61 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+- (void)sendCommentRequest
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [KVNProgress showWithStatus:@"正在发表评论"];
+    
+    // ud
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *token = [ud valueForKey:@"USER_TOKEN"];
+    NSString *user_id = [ud valueForKey:@"USER_ID"];
+    
+    // post data
+    NSDictionary *postData = @{
+                                 @"uid": user_id,
+                                 @"token": token,
+                                 @"comment": _textView.text,
+                                 @"post_id": _post_id,
+                                 };
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@", global_host, message_comment_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"评论 - 连接服务器 - 成功 - %@", responseObject);
+//        NSLog(@"评论 - 连接服务器 - 成功");
+        [KVNProgress showSuccessWithStatus:@"发表评论成功" completion:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"CommentPost" object:nil userInfo:@{@"id": [NSString stringWithFormat:@"%@", responseObject[@"id"]]}];
+        }];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"评论 - 连接服务器 - 失败 - %@", operation.error);
+//        NSLog(@"评论 - 连接服务器 - 失败");
+        NSUInteger code = operation.response.statusCode;
+        
+        if (code == 401) {
+            // wrong token
+            [KVNProgress showErrorWithStatus:global_connection_wrong_token completion:^{
+                [self dismissViewControllerAnimated:YES completion:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"CommentLogout" object:nil];
+            }];
+        } else {
+            [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
+                [self activateTextField];
+            }];
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
 
 
 #pragma mark - HUD

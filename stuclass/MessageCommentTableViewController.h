@@ -12,4 +12,6 @@
 
 @property (strong, nonatomic) NSString *atPerson;
 
+@property (strong, nonatomic) NSString *post_id;
+
 @end

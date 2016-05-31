@@ -523,7 +523,9 @@
 {
     NSMutableArray *commentData = [NSMutableArray array];
     
-    for (NSDictionary *dict in commentList) {
+    for (NSInteger i = commentList.count - 1; i >= 0; i--) {
+        
+        NSDictionary *dict = commentList[i];
         
         Comment *comment = [[Comment alloc] init];
         
@@ -536,7 +538,7 @@
         // data
         comment.post_id = [NSString stringWithFormat:@"%@", dict[@"post_id"]];
         comment.content = dict[@"comment"];
-        comment.comment_id = dict[@"id"];
+        comment.comment_id = [NSString stringWithFormat:@"%@", dict[@"id"]];
         NSString *dateStr = [[JHDater sharedInstance] dateStrFromMessageTimeString:dict[@"post_time"]];
         comment.date = dateStr;
         

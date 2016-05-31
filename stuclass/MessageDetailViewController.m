@@ -61,9 +61,17 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
     [self setupTableView];
     [self setupToolbar];
     [self setupData];
+    
+    [self setupNotification];
 }
 
 #pragma mark - Setup Method
+
+- (void)setupNotification
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentLogout) name:@"CommentLogout" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentDidPost:) name:@"CommentPost" object:nil];
+}
 
 - (void)setupBackBarButton
 {
@@ -112,6 +120,12 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
 
 - (void)setupToolbar
 {
+    // layout
+    UIBarButtonItem *item = self.toolbar.items[0];
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    item.width = width - 60;
+    
+    
     // toolbar
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.3)];
     line.backgroundColor = [UIColor colorWithWhite:0.8 alpha:1.000];
@@ -139,7 +153,7 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
     
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
     
-    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_commests_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_comments_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
         NSLog(@"正文 - 连接服务器 - 成功");
 //        NSLog(@"------- %@", responseObject);
@@ -148,14 +162,13 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-        NSLog(@"正文 - 连接服务器 - 失败 - %@", error);
-        
         NSUInteger code = operation.response.statusCode;
         
         if (code == 404) {
             // do nothing yet
         } else {
 //            [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
+            NSLog(@"正文 - 连接服务器 - 失败 - %@", error);
         }
         
         [self didFinishRefresh];
@@ -169,23 +182,9 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
     
     if (comments) {
         
-        NSString *my_nickname = [[NSUserDefaults standardUserDefaults] objectForKey:@"NICKNAME"];
-        
         _commentData = [[ClassParser sharedInstance] parseCommentData:comments];
         
-        NSMutableSet *atData = [NSMutableSet set];
-        
-        // @ data
-        for (Comment *comment in _commentData) {
-            
-            if (![my_nickname isEqualToString:comment.nickname]) {
-                [atData addObject:comment.nickname];
-            }
-        }
-        
-        _atData = atData;
-        
-        _atItem.enabled = !(_atData.count == 0);
+        [self setupAtData];
         
         [self.tableView reloadData];
         
@@ -193,6 +192,24 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
         [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
     }
     [self didFinishRefresh];
+}
+
+- (void)setupAtData
+{
+    NSString *my_nickname = [[NSUserDefaults standardUserDefaults] objectForKey:@"NICKNAME"];
+    
+    NSMutableSet *atData = [NSMutableSet set];
+    
+    for (Comment *comment in _commentData) {
+        
+        if (![my_nickname isEqualToString:comment.nickname]) {
+            [atData addObject:comment.nickname];
+        }
+    }
+    
+    _atData = atData;
+    
+    _atItem.enabled = !(_atData.count == 0);
 }
 
 
@@ -341,6 +358,135 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
     cell.dateLabel.text = comment.date;
     cell.contentLabel.text = comment.content;
 }
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSUInteger section = indexPath.section;
+    NSUInteger row = indexPath.row;
+    
+    
+    if (section == 1) {
+        Comment *comment = _commentData[row];
+        
+        NSString *myUsername = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERNAME"];
+        NSString *messageStr = ([myUsername isEqualToString:@"14jhwang"] || [myUsername isEqualToString:@"14xfdeng"] || [myUsername isEqualToString:@"13yjli3"]) ? comment.username : nil;
+        
+        UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"更多" message:messageStr preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"复制" style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction){
+            UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+            pasteBoard.string = comment.content;
+        }]];
+        
+        if ([myUsername isEqualToString:comment.username] || [myUsername isEqualToString:@"14jhwang"] || [myUsername isEqualToString:@"14xfdeng"] || [myUsername isEqualToString:@"13yjli3"]) {
+            [controller addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
+                [self deleteCommentWithTag:row commentID:comment.comment_id];
+            }]];
+        }
+        
+        [controller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *alertAction){
+            
+        }]];
+        
+        [self presentViewController:controller animated:YES completion:nil];
+    }
+}
+
+- (void)deleteCommentWithTag:(NSUInteger)tag commentID:(NSString *)comment_id
+{
+    // todo
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [KVNProgress showWithStatus:@"正在删除评论"];
+    
+    // ud
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *token = [ud valueForKey:@"USER_TOKEN"];
+    NSString *user_id = [ud valueForKey:@"USER_ID"];
+    
+    // comment
+    Comment *comment = _commentData[tag];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_timeout;
+    
+    [manager.requestSerializer setValue:comment.comment_id forHTTPHeaderField:@"id"];
+    [manager.requestSerializer setValue:user_id forHTTPHeaderField:@"uid"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, message_interaction_url] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"删除评论 - 连接服务器 - 成功 - %@", responseObject);
+//        NSLog(@"删除评论 - 连接服务器 - 成功");
+        [self deleteSuccessfullyWithTag:tag commentID:comment_id];
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        NSLog(@"删除评论 - 连接服务器 - 失败 - %@", operation.error);
+//        NSLog(@"删除评论 - 连接服务器 - 失败");
+        
+        NSUInteger code = operation.response.statusCode;
+        
+        if (code == 401) {
+            // wrong token
+            [KVNProgress showErrorWithStatus:global_connection_wrong_token completion:^{
+                [self logout];
+            }];
+        } else {
+            [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
+                
+            }];
+        }
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+}
+
+- (void)deleteSuccessfullyWithTag:(NSUInteger)tag commentID:(NSString *)comment_id
+{
+    [KVNProgress showSuccessWithStatus:@"删除成功" completion:^{
+        [self.tableView beginUpdates];
+        [_commentData removeObjectAtIndex:tag];
+        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:tag] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+        
+        [self removeCommentFromLocalWithCommentID:_commentData[tag]];
+        [self setupAtData];
+    }];
+}
+
+
+- (void)removeCommentFromLocalWithCommentID:(NSString *)comment_id
+{
+    NSMutableArray *commentData = [NSMutableArray arrayWithArray:_message.comments];
+    
+    NSUInteger flag = -1;
+    
+    for (NSUInteger i = 0; i < commentData.count; i++) {
+        NSString *c_id = commentData[i][@"id"];
+        if ([c_id isEqualToString:comment_id]) {
+            flag = i;
+            break;
+        }
+    }
+    
+    if (flag != -1) {
+        [commentData removeObjectAtIndex:flag];
+    }
+    
+    _message.comments = commentData;
+    
+    
+    MessageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    [cell setCommentNum:_message.comments.count available:YES];
+    
+    [self updateStatus:nil action:@"comment"];
+}
+
 
 
 #pragma mark - MessageTableViewCellDelegate
@@ -905,6 +1051,8 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
     
     mctvc.atPerson = at;
     
+    mctvc.post_id = _message.message_id;
+    
     UINavigationController *nvc = [[UINavigationController alloc] init];
     nvc.viewControllers = @[mctvc];
     
@@ -926,6 +1074,26 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
     }]];
     
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)commentLogout
+{
+    [self logout];
+}
+
+- (void)commentDidPost:(NSNotification *)notification
+{
+    NSMutableArray *newComments = [NSMutableArray arrayWithArray:_message.comments];
+    
+    [newComments addObject:@{@"id": notification.userInfo[@"id"], @"uid": [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_ID"]}];
+    
+    _message.comments = newComments;
+    
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MessageStatusUpdated" object:nil];
+    
+    [self setupData];
 }
 
 
