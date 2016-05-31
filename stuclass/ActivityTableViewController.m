@@ -63,6 +63,7 @@ static const CGFloat kHeightForSectionHeader = 8.5;
     
     
     [MobClick event:@"Tabbar_Activity"];
+    [MobClick event:@"Activity_Main"];
 }
 
 
@@ -154,6 +155,8 @@ static const CGFloat kHeightForSectionHeader = 8.5;
 
 - (void)bannerDidPressWithIndex:(NSUInteger)index
 {
+    [MobClick event:@"Activity_Banner_More"];
+    
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     
     NSArray *banners = [ud objectForKey:@"BANNER_DATA"];
@@ -293,6 +296,7 @@ static const CGFloat kHeightForSectionHeader = 8.5;
 // jump
 - (IBAction)officialaccountPress:(id)sender
 {
+    [MobClick event:@"Activity_Official"];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"weixin://dl/officialaccounts"]];
 }
 

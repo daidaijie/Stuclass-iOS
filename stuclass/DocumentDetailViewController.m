@@ -11,6 +11,7 @@
 #import "MBProgressHUD.h"
 #import "Define.h"
 #import "WXApi.h"
+#import "MobClick.h"
 
 @interface DocumentDetailViewController () <UIWebViewDelegate>
 
@@ -24,6 +25,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [MobClick event:@"OA_Detail"];
     [self setupWebView];
 }
 
@@ -80,6 +82,8 @@
 
 - (IBAction)share:(id)sender
 {
+    [MobClick event:@"OA_Share"];
+    
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
         
         NSString *title = [NSString stringWithFormat:@"%@", _oa_title];

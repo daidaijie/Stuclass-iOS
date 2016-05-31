@@ -55,6 +55,8 @@ static const NSUInteger kNumberOfDocuments = 30;
     [self oa];
     
     [self showTip];
+    
+    [MobClick event:@"OA_Main"];
 }
 
 - (void)showTip
@@ -488,6 +490,7 @@ static const NSUInteger kNumberOfDocuments = 30;
 
 - (IBAction)searchPress:(id)sender
 {
+    [MobClick event:@"OA_Search"];
     [self performSegueWithIdentifier:@"DocumentSearch" sender:nil];
 }
 

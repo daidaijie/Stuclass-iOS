@@ -12,6 +12,7 @@
 #import <AFNetworking/AFNetworking.h>
 #import <KVNProgress/KVNProgress.h>
 #import "PlaceholderTextView.h"
+#import "MobClick.h"
 #import "MessageDetailViewController.h"
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -151,6 +152,7 @@ static const NSInteger kNumberOfRowsInNoteSection = 1;
         [self performSelector:@selector(activateTextField) withObject:nil afterDelay:global_hud_delay];
     } else {
         [self sendCommentRequest];
+        [MobClick event:@"Message_Post_Comment"];
     }
 }
 

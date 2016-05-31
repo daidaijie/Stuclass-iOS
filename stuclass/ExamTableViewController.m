@@ -306,6 +306,8 @@ static const NSInteger kHeightForCellRow = 46.0;
 
 - (void)shareExam
 {
+    [MobClick event:@"More_Exam_Share"];
+    
     UIImage *image = [self screenShot];
     
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {

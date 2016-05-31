@@ -1231,6 +1231,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)showWalkThrough
 {
+    [MobClick event:@"Walk_Through"];
+    
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     
@@ -1333,6 +1335,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *username = [ud valueForKey:@"USERNAME"];
     NSString *password = [ud valueForKey:@"PASSWORD"];
+    
+    [MobClick event:@"Main_WiFi" attributes:@{@"Username": username}];
     
     // post data
     NSDictionary *postData = @{
@@ -1493,6 +1497,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)shareClass
 {
+    [MobClick event:@"Main_ShareClass"];
+    
     UIImage *image = [self screenShot];
     
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {

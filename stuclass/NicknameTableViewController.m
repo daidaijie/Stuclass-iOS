@@ -26,6 +26,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [MobClick event:@"Me_Nickname"];
+    
     [self setupTableView];
     
     [self setupInfo];

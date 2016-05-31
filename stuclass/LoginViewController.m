@@ -286,6 +286,8 @@
         [self parseResponseObject:responseObject withYear:_year semester:_semester];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
+        [MobClick event:@"Login_V14" attributes:@{@"Username": _inputView.usernameTextField.text}];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
         NSLog(@"连接服务器 - 失败 - %@", error);
@@ -309,6 +311,8 @@
         } else if ([responseObject[@"ERROR"] isEqualToString:@"the user can't access credit system"]) {
             // 医学院通道
             NSLog(@"医学院通道");
+            [MobClick event:@"Login_NewType_User"];
+            
             // 成功
             NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
             

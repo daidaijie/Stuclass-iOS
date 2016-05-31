@@ -58,6 +58,8 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
 {
     [super viewDidLoad];
     
+    [MobClick event:@"Message_Detail"];
+    
     [self setupTableView];
     [self setupToolbar];
     [self setupData];
@@ -493,6 +495,8 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
 
 - (void)messageImgViewBgGestureDidPressWithTag:(NSUInteger)tag Index:(NSUInteger)index
 {
+    [MobClick event:@"Message_Browse_Image"];
+    
     NSMutableArray *photos = [NSMutableArray arrayWithCapacity:3];
     
     MessageImageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
@@ -677,6 +681,8 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
 
 - (void)addLikeToLocalWithLikeID:(NSString *)like_id
 {
+    [MobClick event:@"Message_Like"];
+    
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *user_id = [ud valueForKey:@"USER_ID"];
     
@@ -697,6 +703,8 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
 
 - (void)removeLikeToLocalWithLikeID:(NSString *)like_id
 {
+    [MobClick event:@"Message_Not_Like"];
+    
     _message.isLike = NO;
     
     NSMutableArray *likeData = [NSMutableArray arrayWithArray:_message.likes];
@@ -746,6 +754,8 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
 #pragma mark - Share Delegate
 - (void)messageActionViewShareDidPressWithTag:(NSUInteger)tag
 {
+    [MobClick event:@"Message_Share"];
+    
     Message *message = _message;
     
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
@@ -891,6 +901,8 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
 
 - (void)messageActionViewMoreDidPressWithTag:(NSUInteger)tag
 {
+    [MobClick event:@"Message_More"];
+    
     Message *message = _message;
     NSString *myUsername = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERNAME"];
     NSString *messageStr = ([myUsername isEqualToString:@"14jhwang"] || [myUsername isEqualToString:@"14xfdeng"] || [myUsername isEqualToString:@"13yjli3"]) ? message.username : nil;
@@ -1061,6 +1073,8 @@ static NSString *message_no_comment_cell_id = @"MessageNoCommentTableViewCell";
 
 - (IBAction)atItemPress:(id)sender
 {
+    [MobClick event:@"Message_At"];
+    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"选择你要@的人" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
     for (NSString *at in _atData) {

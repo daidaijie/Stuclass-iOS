@@ -16,6 +16,7 @@
 #import <SDVersion/SDVersion.h>
 #import "QBImagePickerController.h"
 #import "JHDater.h"
+#import "MobClick.h"
 #import <BmobSDK/Bmob.h>
 
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
@@ -48,7 +49,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [MobClick event:@"Message_Post"];
     [self setupTableView];
     [self setupTextView];
     [self setupSegmentControl];

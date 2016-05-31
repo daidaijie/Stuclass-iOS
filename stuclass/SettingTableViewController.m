@@ -113,6 +113,7 @@
             [MobClick event:@"Setting_Background"];
         } else if (row == 1) {
             [self clearLocalData];
+            [MobClick event:@"Setting_Cache"];
         }
         
     } else if (section == 2) {
@@ -122,7 +123,6 @@
             [MobClick event:@"Setting_Aboutus"];
         } else if (row == 1) {
             [self share];
-            [MobClick event:@"Setting_Share"];
         } else if (row == 2) {
             [self showUpdateInfo];
         } else if (row == 3) {
@@ -178,6 +178,8 @@
 
 - (void)share
 {
+    [MobClick event:@"Setting_ShareApp"];
+    
     NSString *title = [NSString stringWithFormat:@"嗨！我[%@]在使用汕大课程表App！好赞呢！", [[NSUserDefaults standardUserDefaults] valueForKey:@"NICKNAME"]];
     NSString *description = @"汕大课程表 - 汕大人必备的校园平台";
     NSString *url = @"http://hjsmallfly.wicp.net/app";
@@ -320,6 +322,8 @@
 
 - (void)showWalkThrough
 {
+    [MobClick event:@"Walk_Through"];
+    
     CGFloat width = [UIScreen mainScreen].bounds.size.width;
     CGFloat height = [UIScreen mainScreen].bounds.size.height;
     

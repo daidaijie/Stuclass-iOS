@@ -13,6 +13,7 @@
 #import "CoreDataManager.h"
 #import "ClassParser.h"
 #import "JHDater.h"
+#import "MobClick.h"
 
 
 @interface EditBoxTableViewController () <UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource>
@@ -49,6 +50,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [MobClick event:@"Box_Edit"];
     
     [self setupTableView];
     [self setupTextView];

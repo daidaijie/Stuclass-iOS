@@ -559,6 +559,7 @@
 		131287851CB89ECA0089D8D7 /* ActivityTableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1353ECC61CE6D7EE00E6E03E /* TreeHole */,
 				130299711C892B9500E4734C /* HeaderCollectionReusableView */,
 				131287861CB89EE30089D8D7 /* ActivityTableViewController.h */,
 				131287871CB89EE30089D8D7 /* ActivityTableViewController.m */,
@@ -731,7 +732,6 @@
 			children = (
 				1342F6121CF9B00000754D18 /* MessageTitleButton.h */,
 				1342F6131CF9B00000754D18 /* MessageTitleButton.m */,
-				1353ECC61CE6D7EE00E6E03E /* TreeHole */,
 				1353ECC21CE6D78B00E6E03E /* MessageCell */,
 				1326F7D21C02DB5E0016B88E /* MessageTableViewController.h */,
 				1326F7D31C02DB5E0016B88E /* MessageTableViewController.m */,

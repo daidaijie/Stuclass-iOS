@@ -33,6 +33,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [MobClick event:@"Main_Me"];
+    
     [self setupBarBackButton];
     
     [self setupTableView];
@@ -99,6 +101,8 @@
 
 - (IBAction)share:(id)sender
 {
+    [MobClick event:@"Me_Share"];
+    
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
         
         NSString *title = [NSString stringWithFormat:@"嗨，这是我的汕大课程表名片！"];
@@ -241,6 +245,8 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
+    [MobClick event:@"Me_Upload"];
+    
     // KVN
     [KVNProgress showWithStatus:@"正在上传头像"];
     

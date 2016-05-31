@@ -42,6 +42,7 @@ static NSString *cell_id = @"DocumentTableViewCell";
     [self setupOfficeData];
     [self setupTableView];
     
+    [MobClick event:@"OA_Favorite"];
     [MobClick event:@"Document_Favorite"];
 }
 

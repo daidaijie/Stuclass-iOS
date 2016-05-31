@@ -68,6 +68,8 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     [self setupData];
     
     [self setupNotification];
+    
+    [MobClick event:@"Message_Main"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -431,6 +433,8 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (void)messageImgViewBgGestureDidPressWithTag:(NSUInteger)tag Index:(NSUInteger)index
 {
+    [MobClick event:@"Message_Browse_Image"];
+    
     NSMutableArray *photos = [NSMutableArray arrayWithCapacity:3];
     
     MessageImageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
@@ -620,6 +624,8 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (void)addLikeToLocalWithTag:(NSUInteger)tag likeID:(NSString *)like_id
 {
+    [MobClick event:@"Message_Like"];
+    
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *user_id = [ud valueForKey:@"USER_ID"];
     
@@ -642,6 +648,8 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (void)removeLikeToLocalWithTag:(NSUInteger)tag likeID:(NSString *)like_id
 {
+    [MobClick event:@"Message_Not_Like"];
+    
     Message *message = _messageData[tag];
     
     message.isLike = NO;
@@ -700,6 +708,8 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 #pragma mark - Share Delegate
 - (void)messageActionViewShareDidPressWithTag:(NSUInteger)tag
 {
+    [MobClick event:@"Message_Share"];
+    
     Message *message = _messageData[tag];
     
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
@@ -845,6 +855,8 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (void)messageActionViewMoreDidPressWithTag:(NSUInteger)tag
 {
+    [MobClick event:@"Message_More"];
+    
     Message *message = _messageData[tag];
     NSString *myUsername = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERNAME"];
     NSString *messageStr = ([myUsername isEqualToString:@"14jhwang"] || [myUsername isEqualToString:@"14xfdeng"] || [myUsername isEqualToString:@"13yjli3"]) ? message.username : nil;
@@ -948,6 +960,8 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (IBAction)unreadItemPress:(id)sender
 {
+    [MobClick event:@"Message_Unread"];
+    
     UIBarButtonItem *btn = sender;
     btn.tag = (btn.tag == 0) ? 1 : 0;
     btn.image = (btn.tag == 0) ? [UIImage imageNamed:@"toolbar-read"] : [UIImage imageNamed:@"toolbar-unread"];
@@ -1007,6 +1021,13 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
         _isCheckingLatest = NO;
     }];
 }
+
+
+- (IBAction)myPostItemPress:(id)sender
+{
+    [MobClick event:@"Message_MyPost"];
+}
+
 
 #pragma mark - IDMPhotoBrowserDelegate
 
