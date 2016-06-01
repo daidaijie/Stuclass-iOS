@@ -1,12 +1,12 @@
 //
-//  MessageTableViewController.m
+//  MessageUnreadTableViewController.m
 //  stuclass
 //
 //  Created by JunhaoWang on 11/23/15.
 //  Copyright © 2015 JunhaoWang. All rights reserved.
 //
 
-#import "MessageTableViewController.h"
+#import "MessageUnreadTableViewController.h"
 #import "Define.h"
 #import <UITableView_FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>
 #import "MessageTableViewCell.h"
@@ -26,44 +26,22 @@
 #import "UIImageView-PlayGIF/UIImageView+PlayGIF.h"
 #import "MessageTitleButton.h"
 #import "MessageDetailViewController.h"
-#import "MessageUnreadTableViewController.h"
 
 static const CGFloat kHeightForSectionHeader = 8.5;
 
 static NSString *message_text_cell_id = @"MessageTextTableViewCell";
 static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
-@interface MessageTableViewController () <UIScrollViewDelegate, SDWebImageManagerDelegate, MessageTableViewCellDelegate, MessageImageTableViewCellDelegate, IDMPhotoBrowserDelegate>
-
-@property (weak, nonatomic) IBOutlet MessageTitleButton *messageTitleButton;
-
-@property (strong, nonatomic) NSMutableArray *messageData;
+@interface MessageUnreadTableViewController () <UIScrollViewDelegate, SDWebImageManagerDelegate, MessageTableViewCellDelegate, MessageImageTableViewCellDelegate, IDMPhotoBrowserDelegate>
 
 @property (strong, nonatomic) UIView *sectionHeaderView;
 
 @property (strong, nonatomic) ScrollManager *manager;
 
-@property (strong, nonatomic) UILabel *startLabel;
-
-@property (strong, nonatomic) UIImageView *startImageView;
-
-@property (assign, nonatomic) BOOL isLoadingMore;
-
-@property (assign, nonatomic) BOOL isLoadedFirstTimeSuccessfully;
-
-@property (assign, nonatomic) BOOL isCheckingLatest;
-
-@property (assign, nonatomic) BOOL isCheckingUnread;
-
-@property (strong, nonatomic) NSMutableArray *unreadRawData;
-
-
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *unreadItem;
-
 @end
 
 
-@implementation MessageTableViewController
+@implementation MessageUnreadTableViewController
 
 
 - (void)viewDidLoad
@@ -74,23 +52,9 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     [self setupTableView];
     
-    [self setupData];
-    
     [self setupNotification];
     
-    [MobClick event:@"Message_Main"];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if (!_isCheckingLatest && _isLoadedFirstTimeSuccessfully) {
-        [self checkIfLatest];
-    }
-    if (!_isCheckingUnread) {
-        [self checkIfUnread];
-    }
+    [_manager restoreURState];
 }
 
 
@@ -106,11 +70,11 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 - (void)setupTableView
 {
     _manager = [ScrollManager sharedManager];
- 
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 44, 0);
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 44, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0);
     
     self.tableView.backgroundColor = TABLEVIEW_BACKGROUN_COLOR;
     
@@ -120,110 +84,12 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     _sectionHeaderView = [[UIView alloc] init];
     _sectionHeaderView.backgroundColor = [UIColor clearColor];
     
-    // refreshControl
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl = refreshControl;
-    [self.refreshControl addTarget:self action:@selector(refresh) forControlEvents:UIControlEventValueChanged];
-    
-    self.tableView.userInteractionEnabled = NO;
-    
-    
-    CGFloat width = [UIScreen mainScreen].bounds.size.width;
-    CGFloat height = [UIScreen mainScreen].bounds.size.height;
-    
-    
-    // start
-    _startLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, width, 50)];
-    _startLabel.center = CGPointMake(width / 2, height / 2 - 20);
-    _startLabel.textAlignment = NSTextAlignmentCenter;
-    _startLabel.textColor = MAIN_COLOR;
-    _startLabel.text = @"把我\"拉\"下去刷新";
-    
-    _startImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 120, 88)];
-    _startImageView.center = CGPointMake(width / 2, height / 2 - 80);
-    _startImageView.gifPath = [[NSBundle mainBundle] pathForResource:@"panda" ofType:@"gif"];
-    [_startImageView startGIF];
-    
-    
-    [self.tableView addSubview:_startLabel];
-    [self.tableView addSubview:_startImageView];
-    
     // FooterView
-    DocumentFooterView *footerView = [[DocumentFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, 50)];
+    DocumentFooterView *footerView = [[DocumentFooterView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, kHeightForSectionHeader)];
     self.tableView.tableFooterView = footerView;
 }
 
-- (void)refresh
-{
-    [self setupData];
-    [_startImageView startGIF];
-}
 
-- (void)didFinishRefresh
-{
-    [self.refreshControl endRefreshing];
-}
-
-- (void)setupData
-{
-    // get data
-    NSDictionary *getData = @{
-                               @"sort_type": @"2",
-                               @"count": @"20",
-                               };
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    manager.requestSerializer.timeoutInterval = global_timeout;
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
-    
-    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_posts_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // 成功
-        NSLog(@"消息圈 - 连接服务器 - 成功");
-//        NSLog(@"------- %@", responseObject);
-        [self parseResponseObject:responseObject];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [_startImageView stopGIF];
-        [_messageTitleButton setAlertViewVisible:NO];
-        _isLoadedFirstTimeSuccessfully = YES;
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // 失败
-        NSLog(@"消息圈 - 连接服务器 - 失败 - %@", error);
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
-        self.tableView.userInteractionEnabled = YES;
-        [self didFinishRefresh];
-        [_startImageView stopGIF];
-    }];
-}
-
-- (void)parseResponseObject:(NSDictionary *)responseObject
-{
-    NSArray *postList = responseObject[@"post_list"];
-    
-    if (postList) {
-        
-        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-        NSString *uid = [ud objectForKey:@"USER_ID"];
-        
-        _messageData = [[ClassParser sharedInstance] parseMessageData:postList uid:uid];
-        
-        [_manager restoreState];
-        
-        [self.tableView reloadData];
-        self.tableView.userInteractionEnabled = YES;
-        _startLabel.hidden = _startImageView.hidden = YES;
-        
-    } else {
-        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
-        self.tableView.userInteractionEnabled = YES;
-    }
-    [self didFinishRefresh];
-}
 
 - (void)setupNotification
 {
@@ -234,8 +100,8 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 {
     NSDictionary *info = notification.userInfo;
     if ([info[@"action"] isEqualToString:@"delete"]) {
-        [_messageData removeObject:notification.object];
-        [_manager restoreState];
+        [_unreadData removeObject:notification.object];
+        [_manager restoreURState];
     }
     [self.tableView reloadData];
 }
@@ -260,12 +126,12 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return _messageData.count;
+    return _unreadData.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    Message *message = _messageData[indexPath.section];
+    Message *message = _unreadData[indexPath.section];
     
     if (message.imageURLs == nil || message.imageURLs.count == 0) {
         // text only
@@ -283,7 +149,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Message *message = _messageData[indexPath.section];
+    Message *message = _unreadData[indexPath.section];
     
     if (message.imageURLs == nil || message.imageURLs.count == 0) {
         // text only
@@ -301,7 +167,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 // Text
 - (void)configureTextCell:(MessageTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    Message *message = _messageData[indexPath.section];
+    Message *message = _unreadData[indexPath.section];
     
     // delegate
     cell.delegate = self;
@@ -327,8 +193,8 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 // Image
 - (void)configureImageCell:(MessageImageTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    Message *message = _messageData[indexPath.section];
-
+    Message *message = _unreadData[indexPath.section];
+    
     // delegate
     cell.delegate = self;
     cell.tag = indexPath.section;
@@ -336,8 +202,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     cell.nameLabel.text = message.nickname;
     cell.contentLabel.text = message.content;
     cell.dateLabel.text = [NSString stringWithFormat:@"%@  来自%@", message.date, message.source];
-    
-    cell.managerType = 0;
+    cell.managerType = 2;
     
     // comment
     [cell setCommentNum:message.comments.count available:YES];
@@ -353,7 +218,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     // image
     [cell setContentImagesWithImageURLs:message.imageURLs];
-    [cell setPage:[_manager getpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]];
+    [cell setPage:[_manager getURpageForKey:[NSString stringWithFormat:@"%i",indexPath.section]]];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -364,82 +229,11 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     MessageDetailViewController *mdvc = [sb instantiateViewControllerWithIdentifier:@"mdvc"];
     
-    mdvc.message = _messageData[section];
+    mdvc.message = _unreadData[section];
+    
+    [self sendRequestForReadWithTag:section];
     
     [self.navigationController pushViewController:mdvc animated:YES];
-}
-
-
-
-// more
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y < self.tableView.tableFooterView.bounds.size.height && (_messageData.count > 0) && !_isLoadingMore) {
-        [self getMoreMessages];
-        _isLoadingMore = YES;
-        [(DocumentFooterView *)self.tableView.tableFooterView showLoading];
-    }
-}
-
-- (void)getMoreMessages
-{
-    Message *lastMessage = [_messageData lastObject];
-    
-    // get data
-    NSDictionary *getData = @{
-                              @"sort_type": @"2",
-                              @"count": @"20",
-                              @"before_id": lastMessage.message_id,
-                              };
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    manager.requestSerializer.timeoutInterval = global_timeout;
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
-    
-    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_posts_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // 成功
-        NSLog(@"消息圈 - 更多 - 连接服务器 - 成功");
-        //        NSLog(@"------- %@", responseObject);
-        [self parseMoreResponseObject:responseObject];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // 失败
-        NSLog(@"消息圈 - 更多 - 连接服务器 - 失败 - %@", error);
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        _isLoadingMore = NO;
-        [(DocumentFooterView *)self.tableView.tableFooterView showEnd];
-    }];
-}
-
-
-
-
-- (void)parseMoreResponseObject:(NSDictionary *)responseObject
-{
-    NSArray *postList = responseObject[@"post_list"];
-    
-    if (postList) {
-        
-        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-        NSString *uid = [ud objectForKey:@"USER_ID"];
-        
-        [_messageData addObjectsFromArray:[[ClassParser sharedInstance] parseMessageData:postList uid:uid]];
-
-        [self.tableView reloadData];
-        
-        [(DocumentFooterView *)self.tableView.tableFooterView hideLoading];
-        
-        _isLoadingMore = NO;
-        
-    } else {
-        _isLoadingMore = NO;
-    }
-    [self didFinishRefresh];
 }
 
 
@@ -507,7 +301,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 #pragma mark - Like Delegate
 - (void)messageActionViewLikeDidPressWithTag:(NSUInteger)tag
 {
-    Message *message = _messageData[tag];
+    Message *message = _unreadData[tag];
     MessageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
     
     if (message.isLike) {
@@ -523,7 +317,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
         // send like
         
         [cell setLikeNum:message.likes.count + 1 status:YES animation:YES];
-
+        
         message.isLike = YES;
         
         // server
@@ -535,7 +329,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    Message *message = _messageData[tag];
+    Message *message = _unreadData[tag];
     
     // ud
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -544,10 +338,10 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     // post data
     NSDictionary *postData = @{
-                              @"post_id": message.message_id,
-                              @"uid": user_id,
-                              @"token": token,
-                              };
+                               @"post_id": message.message_id,
+                               @"uid": user_id,
+                               @"token": token,
+                               };
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
@@ -557,14 +351,14 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     [manager POST:[NSString stringWithFormat:@"%@%@", global_host, message_like_url] parameters:postData success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-//        NSLog(@"点赞 - 连接服务器 - 成功 - %@", responseObject);
+        //        NSLog(@"点赞 - 连接服务器 - 成功 - %@", responseObject);
         NSLog(@"点赞 - 连接服务器 - 成功");
         [self addLikeToLocalWithTag:tag likeID:[NSString stringWithFormat:@"%@", responseObject[@"id"]]];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-//        NSLog(@"点赞 - 连接服务器 - 失败 - %@", operation.error);
+        //        NSLog(@"点赞 - 连接服务器 - 失败 - %@", operation.error);
         NSLog(@"点赞 - 连接服务器 - 失败");
         
         NSUInteger code = operation.response.statusCode;
@@ -584,7 +378,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    Message *message = _messageData[tag];
+    Message *message = _unreadData[tag];
     
     // ud
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -612,14 +406,14 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, message_like_url] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         // 成功
-//        NSLog(@"取消点赞 - 连接服务器 - 成功 - %@", responseObject);
+        //        NSLog(@"取消点赞 - 连接服务器 - 成功 - %@", responseObject);
         NSLog(@"取消点赞 - 连接服务器 - 成功");
         [self removeLikeToLocalWithTag:tag likeID:like_id];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         // 失败
-//        NSLog(@"取消点赞 - 连接服务器 - 失败 - %@", operation.error);
+        //        NSLog(@"取消点赞 - 连接服务器 - 失败 - %@", operation.error);
         NSLog(@"取消点赞 - 连接服务器 - 失败");
         
         NSUInteger code = operation.response.statusCode;
@@ -643,7 +437,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSString *user_id = [ud valueForKey:@"USER_ID"];
     
-    Message *message = _messageData[tag];
+    Message *message = _unreadData[tag];
     
     message.isLike = YES;
     
@@ -653,7 +447,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     message.likes = likeData;
     
-    _messageData[tag] = message;
+    _unreadData[tag] = message;
     
     MessageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
     
@@ -664,7 +458,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 {
     [MobClick event:@"Message_Not_Like"];
     
-    Message *message = _messageData[tag];
+    Message *message = _unreadData[tag];
     
     message.isLike = NO;
     
@@ -686,7 +480,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     message.likes = likeData;
     
-    _messageData[tag] = message;
+    _unreadData[tag] = message;
     
     MessageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
     
@@ -695,7 +489,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 
 - (void)restoreLikeWithTag:(NSUInteger)tag isLike:(BOOL)isLike
 {
-    Message *message = _messageData[tag];
+    Message *message = _unreadData[tag];
     
     MessageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:tag]];
     
@@ -712,7 +506,9 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     
     MessageDetailViewController *mdvc = [sb instantiateViewControllerWithIdentifier:@"mdvc"];
     
-    mdvc.message = _messageData[tag];
+    mdvc.message = _unreadData[tag];
+    
+    [self sendRequestForReadWithTag:tag];
     
     [self.navigationController pushViewController:mdvc animated:YES];
 }
@@ -724,7 +520,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 {
     [MobClick event:@"Message_Share"];
     
-    Message *message = _messageData[tag];
+    Message *message = _unreadData[tag];
     
     if ([WXApi isWXAppInstalled] && [WXApi isWXAppSupportApi]) {
         
@@ -756,7 +552,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
                 
                 UIImage *contentImg;
                 
-                NSUInteger pageIndex = [_manager getpageForKey:[NSString stringWithFormat:@"%i",tag]];
+                NSUInteger pageIndex = [_manager getURpageForKey:[NSString stringWithFormat:@"%i",tag]];
                 switch (pageIndex) {
                     case 0:
                         contentImg = imgCell.messageImgView.imageView1.image;
@@ -816,7 +612,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
                 
                 UIImage *contentImg;
                 
-                NSUInteger pageIndex = [_manager getpageForKey:[NSString stringWithFormat:@"%i",tag]];
+                NSUInteger pageIndex = [_manager getURpageForKey:[NSString stringWithFormat:@"%i",tag]];
                 switch (pageIndex) {
                     case 0:
                         contentImg = imgCell.messageImgView.imageView1.image;
@@ -871,7 +667,7 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
 {
     [MobClick event:@"Message_More"];
     
-    Message *message = _messageData[tag];
+    Message *message = _unreadData[tag];
     NSString *myUsername = [[NSUserDefaults standardUserDefaults] objectForKey:@"USERNAME"];
     NSString *messageStr = ([myUsername isEqualToString:@"14jhwang"] || [myUsername isEqualToString:@"14xfdeng"] || [myUsername isEqualToString:@"13yjli3"]) ? message.username : nil;
     
@@ -882,232 +678,11 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
         pasteBoard.string = message.content;
     }]];
     
-    if ([myUsername isEqualToString:message.username] || [myUsername isEqualToString:@"14jhwang"] || [myUsername isEqualToString:@"14xfdeng"] || [myUsername isEqualToString:@"13yjli3"]) {
-        [controller addAction:[UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *alertAction){
-            [self deleteMessageWithTag:tag];
-        }]];
-    }
-    
     [controller addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *alertAction){
         
     }]];
     
     [self presentViewController:controller animated:YES completion:nil];
-}
-
-#pragma mark - Delete
-
-- (void)deleteMessageWithTag:(NSUInteger)tag
-{
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [KVNProgress showWithStatus:@"正在删除消息"];
-    
-    // ud
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSString *token = [ud valueForKey:@"USER_TOKEN"];
-    NSString *user_id = [ud valueForKey:@"USER_ID"];
-    
-    // message
-    Message *message = _messageData[tag];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    manager.requestSerializer.timeoutInterval = global_timeout;
-    
-    [manager.requestSerializer setValue:message.message_id forHTTPHeaderField:@"id"];
-    [manager.requestSerializer setValue:user_id forHTTPHeaderField:@"uid"];
-    [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
-    
-    [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, message_interaction_url] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // 成功
-//        NSLog(@"连接服务器 - 成功 - %@", responseObject);
-        NSLog(@"删除 - 连接服务器 - 成功");
-        [self deleteSuccessfullyWithTag:tag];
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // 失败
-//        NSLog(@"连接服务器 - 失败 - %@", operation.error);
-        NSLog(@"删除 - 连接服务器 - 失败");
-        
-        NSUInteger code = operation.response.statusCode;
-        
-        if (code == 401) {
-            // wrong token
-            [KVNProgress showErrorWithStatus:global_connection_wrong_token completion:^{
-                [self logout];
-            }];
-        } else if (code == 404) {
-            // 已被删除
-            [KVNProgress showErrorWithStatus:@"该消息已被删除" completion:^{
-                
-            }];
-        } else {
-            [KVNProgress showErrorWithStatus:global_connection_failed completion:^{
-                
-            }];
-        }
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-    }];
-}
-
-- (void)deleteSuccessfullyWithTag:(NSUInteger)tag
-{
-    [KVNProgress showSuccessWithStatus:@"删除成功" completion:^{
-        [self.tableView beginUpdates];
-        [_messageData removeObjectAtIndex:tag];
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:tag] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
-        [self performSelector:@selector(deleteAnimateComplete) withObject:nil afterDelay:0.3];
-        [_manager restoreState];
-    }];
-}
-
-- (void)deleteAnimateComplete
-{
-    [self.tableView reloadData];
-}
-
-#pragma mark - Unread Message
-
-- (void)checkIfUnread
-{
-    _isCheckingUnread = YES;
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSDictionary *getData = @{
-                              @"uid": [[NSUserDefaults standardUserDefaults] objectForKey:@"USER_ID"],
-                              @"type": @1,
-                              };
-    
-    manager.requestSerializer.timeoutInterval = global_timeout;
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
-    
-    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_unread_url] parameters:getData success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // 成功
-        NSLog(@"检查未读 - 连接服务器 - 成功");
-//        NSLog(@"%@", responseObject);
-        
-        NSArray *postList = responseObject[@"post_list"];
-        
-        if (postList) {
-            _unreadRawData = [NSMutableArray arrayWithArray:postList];
-        }
-        
-        [self updateUnreadItemWithStatus:1];
-        
-        _isCheckingUnread = NO;
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // 失败
-        NSLog(@"检查未读 - 连接服务器 - 失败 - %@", error);
-        
-        NSUInteger code = operation.response.statusCode;
-        
-        if (code == 404) {
-            // no unread message
-            NSLog(@"检查未读 - 连接服务器 - 成功 - 404");
-            [self updateUnreadItemWithStatus:0];
-            _unreadRawData = nil;
-        } else {
-            NSLog(@"检查未读 - 连接服务器 - 失败 - %@", error);
-        }
-        
-        _isCheckingUnread = NO;
-    }];
-}
-
-- (void)updateUnreadItemWithStatus:(NSUInteger)tag
-{
-    _unreadItem.tag = tag;
-    _unreadItem.image = (tag == 0) ? [UIImage imageNamed:@"toolbar-read"] : [UIImage imageNamed:@"toolbar-unread"];
-}
-
-
-- (IBAction)unreadItemPress:(id)sender
-{
-    if (_unreadItem.tag == 0 || _unreadRawData == nil) {
-        // no unread
-        [self showHUDWithText:@"暂时没有未读消息" andHideDelay:global_hud_delay];
-    } else {
-        // unread
-        [MobClick event:@"Message_Unread"];
-        [self performSegueWithIdentifier:@"ShowUnread" sender:nil];
-    }
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"ShowUnread"]) {
-        MessageUnreadTableViewController *unreadVC = segue.destinationViewController;
-        
-        NSMutableArray *unreadData = [[ClassParser sharedInstance] parseMessageData:_unreadRawData uid:[[NSUserDefaults standardUserDefaults] objectForKey:@"USER_ID"]];
-
-        NSMutableArray *re_unreadData = [NSMutableArray arrayWithArray:[[unreadData reverseObjectEnumerator] allObjects]];
-        
-        unreadVC.unreadData = re_unreadData;
-    }
-}
-
-
-#pragma mark - Latest
-
-- (void)checkIfLatest
-{
-    _isCheckingLatest = YES;
-    
-    Message *message = [_messageData firstObject];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    manager.requestSerializer.timeoutInterval = global_timeout;
-    
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
-    
-    [manager GET:[NSString stringWithFormat:@"%@%@", global_host, message_latest_url] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // 成功
-        NSLog(@"检查最新 - 连接服务器 - 成功");
-        
-        NSString *latest_id = [NSString stringWithFormat:@"%@", responseObject[@"id"]];
-        
-        if ([latest_id isEqualToString:message.message_id]) {
-            [_messageTitleButton setAlertViewVisible:NO];
-        } else {
-            [_messageTitleButton setAlertViewVisible:YES];
-        }
-        
-        _isCheckingLatest = NO;
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // 失败
-        NSLog(@"检查最新 - 连接服务器 - 失败 - %@", error);
-        
-        _isCheckingLatest = NO;
-    }];
-}
-
-
-- (IBAction)myPostItemPress:(id)sender
-{
-    [MobClick event:@"Message_MyPost"];
-}
-
-
-#pragma mark - IDMPhotoBrowserDelegate
-
-- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index
-{
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-}
-
-
-- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser willDismissAtPageIndex:(NSUInteger)index
-{
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
 }
 
 
@@ -1128,6 +703,20 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     }
 }
 
+#pragma mark - IDMPhotoBrowserDelegate
+
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser didShowPhotoAtIndex:(NSUInteger)index
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+}
+
+
+- (void)photoBrowser:(IDMPhotoBrowser *)photoBrowser willDismissAtPageIndex:(NSUInteger)index
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+}
+
+
 #pragma mark - Log Out
 
 - (void)logout
@@ -1146,6 +735,46 @@ static NSString *message_image_cell_id = @"MessageImageTableViewCell";
     [ud setValue:nil forKey:@"NICKNAME"];
     [ud setValue:nil forKey:@"AVATAR_URL"];
     [ud setValue:nil forKey:@"USER_ID"];
+}
+
+#pragma mark - Read Delete
+
+- (void)sendRequestForReadWithTag:(NSUInteger)tag
+{
+    Message *message = _unreadData[tag];
+    
+    // ud
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *token = [ud valueForKey:@"USER_TOKEN"];
+    NSString *user_id = [ud valueForKey:@"USER_ID"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    manager.requestSerializer.timeoutInterval = global_like_timeout;
+    
+    [manager.requestSerializer setValue:message.message_id forHTTPHeaderField:@"pid"];
+    [manager.requestSerializer setValue:user_id forHTTPHeaderField:@"uid"];
+    [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html",@"text/json",@"text/javascript", nil];
+    
+    [manager DELETE:[NSString stringWithFormat:@"%@%@", global_host, message_unread_url] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 成功
+        NSLog(@"已读 - 连接服务器 - 成功");
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        // 失败
+        //        NSLog(@"取消点赞 - 连接服务器 - 失败 - %@", operation.error);
+        NSLog(@"已读 - 连接服务器 - 失败");
+        
+        NSUInteger code = operation.response.statusCode;
+        
+        if (code == 401) {
+            // wrong token
+            [self showHUDWithText:global_connection_wrong_token andHideDelay:global_hud_delay];
+            [self performSelector:@selector(logout) withObject:nil afterDelay:global_hud_delay];
+        }
+    }];
 }
 
 

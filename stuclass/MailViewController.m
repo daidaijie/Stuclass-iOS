@@ -61,6 +61,12 @@
     [_webView loadRequest:request];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
+
 #pragma mark - HUD
 
 - (void)showHUDWithText:(NSString *)string andHideDelay:(NSTimeInterval)delay {

@@ -10,6 +10,7 @@
 
 static NSMutableDictionary *dictionary;
 static NSMutableDictionary *myDictionary;
+static NSMutableDictionary *urDictionary;
 
 @implementation ScrollManager
 
@@ -26,6 +27,7 @@ static NSMutableDictionary *myDictionary;
     return sharedMyManager;
 }
 
+
 - (void)setpage:(int)page ForKey:(NSString*)key
 {
     [dictionary setValue:[NSString stringWithFormat:@"%i",page] forKey:key];
@@ -35,6 +37,7 @@ static NSMutableDictionary *myDictionary;
 {
     return [[dictionary valueForKey:key] intValue];
 }
+
 
 - (void)setMYpage:(int)page ForKey:(NSString*)key
 {
@@ -46,10 +49,23 @@ static NSMutableDictionary *myDictionary;
     return [[myDictionary valueForKey:key] intValue];
 }
 
+
+- (void)setURpage:(int)page ForKey:(NSString*)key
+{
+    [urDictionary setValue:[NSString stringWithFormat:@"%i",page] forKey:key];
+}
+
+- (int)getURpageForKey:(NSString*)key
+{
+    return [[urDictionary valueForKey:key] intValue];
+}
+
+
 - (id)init {
     if (self = [super init]) {
         dictionary = [[NSMutableDictionary alloc] init];
         myDictionary = [[NSMutableDictionary alloc] init];
+        urDictionary = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -64,6 +80,12 @@ static NSMutableDictionary *myDictionary;
 {
     NSLog(@"restoreMYState");
     myDictionary = [[NSMutableDictionary alloc] init];
+}
+
+- (void)restoreURState
+{
+    NSLog(@"restoreURState");
+    urDictionary = [[NSMutableDictionary alloc] init];
 }
 
 @end

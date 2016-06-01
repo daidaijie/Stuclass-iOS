@@ -49,9 +49,10 @@
     _messageImgView.pageControl.currentPage = page;
     if (_managerType == 0) {
         [_manager setpage:_currentPage ForKey:[NSString stringWithFormat:@"%i",self.tag]];
-    } else {
+    } else if (_managerType == 1) {
         [_manager setMYpage:_currentPage ForKey:[NSString stringWithFormat:@"%i",self.tag]];
-
+    } else {
+        [_manager setURpage:_currentPage ForKey:[NSString stringWithFormat:@"%i",self.tag]];
     }
 }
 
@@ -130,8 +131,10 @@
     NSUInteger index;
     if (_managerType == 0) {
         index = [_manager getpageForKey:[NSString stringWithFormat:@"%i", self.tag]];
-    } else {
+    } else if (_managerType == 1) {
         index = [_manager getMYpageForKey:[NSString stringWithFormat:@"%i", self.tag]];
+    } else {
+        index = [_manager getURpageForKey:[NSString stringWithFormat:@"%i", self.tag]];
     }
     [self.delegate messageImgViewBgGestureDidPressWithTag:self.tag Index:index];
 }

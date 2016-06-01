@@ -18,7 +18,12 @@
 -(void)setMYpage:(int)page ForKey:(NSString*)key;
 -(int)getMYpageForKey:(NSString*)key;
 
+-(void)setURpage:(int)page ForKey:(NSString*)key;
+-(int)getURpageForKey:(NSString*)key;
+
+
 -(void)restoreState;
 -(void)restoreMYState;
+-(void)restoreURState;
 
 @end

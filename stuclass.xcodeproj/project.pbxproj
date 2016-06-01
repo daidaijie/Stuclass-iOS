@@ -31,6 +31,7 @@
 		13187AD21CFDD70B00C05059 /* MessageFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13187AD11CFDD70B00C05059 /* MessageFooterView.m */; };
 		13187AD51CFDE31B00C05059 /* MessageMyPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13187AD41CFDE31B00C05059 /* MessageMyPostTableViewController.m */; };
 		13187AFB1CFEF4D600C05059 /* MailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13187AFA1CFEF4D600C05059 /* MailViewController.m */; };
+		13187AFF1CFF02FF00C05059 /* MessageUnreadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13187AFE1CFF02FF00C05059 /* MessageUnreadTableViewController.m */; };
 		131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */; };
 		131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D21BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m */; };
 		131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D81BCB8676004EE13A /* ClassNumberCollectionReusableView.m */; };
@@ -220,6 +221,8 @@
 		13187AD41CFDE31B00C05059 /* MessageMyPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMyPostTableViewController.m; sourceTree = "<group>"; };
 		13187AF91CFEF4D600C05059 /* MailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailViewController.h; sourceTree = "<group>"; };
 		13187AFA1CFEF4D600C05059 /* MailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailViewController.m; sourceTree = "<group>"; };
+		13187AFD1CFF02FF00C05059 /* MessageUnreadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageUnreadTableViewController.h; sourceTree = "<group>"; };
+		13187AFE1CFF02FF00C05059 /* MessageUnreadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageUnreadTableViewController.m; sourceTree = "<group>"; };
 		131951CE1BCB47E2004EE13A /* ClassCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewLayout.h; sourceTree = "<group>"; };
 		131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewLayout.m; sourceTree = "<group>"; };
 		131951D11BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassBackgroundCollectionReusableView.h; sourceTree = "<group>"; };
@@ -762,6 +765,8 @@
 				1353ECC21CE6D78B00E6E03E /* MessageCell */,
 				1326F7D21C02DB5E0016B88E /* MessageTableViewController.h */,
 				1326F7D31C02DB5E0016B88E /* MessageTableViewController.m */,
+				13187AFD1CFF02FF00C05059 /* MessageUnreadTableViewController.h */,
+				13187AFE1CFF02FF00C05059 /* MessageUnreadTableViewController.m */,
 				13187AD31CFDE31B00C05059 /* MessageMyPostTableViewController.h */,
 				13187AD41CFDE31B00C05059 /* MessageMyPostTableViewController.m */,
 				13560DAB1CFC1ED800F448AE /* Detail */,
@@ -1861,6 +1866,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13187AFF1CFF02FF00C05059 /* MessageUnreadTableViewController.m in Sources */,
 				1366D6681BD3E42600B69C04 /* BarView.m in Sources */,
 				13F6617E1CF969A7001599E2 /* QBAlbumsViewController.m in Sources */,
 				13ED2C871BD88AB500E250A2 /* CourseTable.m in Sources */,

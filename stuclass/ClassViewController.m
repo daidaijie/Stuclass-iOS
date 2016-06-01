@@ -1249,7 +1249,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     UIView *headerView = [[NSBundle mainBundle] loadNibNamed:@"IntroHeader" owner:nil options:nil][0];
     
-    MYIntroductionPanel *panel1 = [[MYIntroductionPanel alloc] initWithFrame:CGRectMake(0, 0, width, height) title:@"在这里，你可以..." description:@"查看课表、考试安排、成绩、馆藏图书，一键连接校园Wi-Fi..." image:[UIImage imageNamed:@"intro-img1"] header:headerView];
+    MYIntroductionPanel *panel1 = [[MYIntroductionPanel alloc] initWithFrame:CGRectMake(0, 0, width, height) title:@"在这里，你可以..." description:@"查看课表、考试安排、成绩、邮件、馆藏图书，一键连接校园Wi-Fi..." image:[UIImage imageNamed:@"intro-img1"] header:headerView];
     
     MYIntroductionPanel *panel2 = [[MYIntroductionPanel alloc] initWithFrame:CGRectMake(0, 0, width, height) title:@"在这里，你还可以..." description:@"制作自己的任务清单，让一天的事务一目了然！" image:[UIImage imageNamed:@"intro-img2"] header:nil];
     
