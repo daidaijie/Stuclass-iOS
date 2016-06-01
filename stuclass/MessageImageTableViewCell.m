@@ -102,8 +102,8 @@
         
         _messageImgView.scrollView.contentSize = CGSizeMake(width * 2, height);
         
-    } else if (imageURLs.count == 3) {
-        // 3 images
+    } else {
+        // >3 images
         NSURL *url1 = [NSURL URLWithString:imageURLs[0]];
         [_messageImgView.imageView1 sd_setImageWithURL:url1 placeholderImage:placeholder completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             

@@ -61,6 +61,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 @property (strong, nonatomic) UIImageView *avatarImageView;
 
+@property (assign, nonatomic) BOOL isEggAvailable;
+
 @end
 
 @implementation ClassViewController
@@ -88,6 +90,8 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     // Show Annoucement
     [self showAnnoucement];
+    
+    _isEggAvailable = YES;
 }
 
 #pragma mark - View Delegate
@@ -132,43 +136,26 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)setupItems
 {
-    // LEFT
     
-//    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-//    NSString *username = [ud objectForKey:@"USERNAME"];
-//    
-//    UIButton *btn;
-//    UIBarButtonItem *connectItem;
-//    
-//    if ([username isEqualToString:@"15sxwang"]) {
-//        connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-thunder"] style:UIBarButtonItemStylePlain target:self action:@selector(sixuePress)];
-//    } else {
-//        connectItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-thunder"] style:UIBarButtonItemStylePlain target:self action:@selector(connectItemPress)];
-//    }
-//
-//    if ([username isEqualToString:@"15sxwang"] || [username isEqualToString:@"14jhwang"]) {
-//        // For Sixue
-//        [MobClick event:@"Sixue_Connect"];
-//        btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-//        btn.showsTouchWhenHighlighted = YES;
-//        [btn setImage:[UIImage imageNamed:@"toolbar-sixue"] forState:UIControlStateNormal];
-//        if ([username isEqualToString:@"15sxwang"]) {
-//            [btn addTarget:self action:@selector(connectItemPress) forControlEvents:UIControlEventTouchUpInside];
-//        } else {
-//            [btn addTarget:self action:@selector(sixuePress) forControlEvents:UIControlEventTouchUpInside];
-//        }
-//        
-//        // longPress
-//        UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showHello:)];
-//        gesture.minimumPressDuration = 6.0;
-//        [btn addGestureRecognizer:gesture];
-//        
-//        UIBarButtonItem *sixueItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-//        self.navigationItem.leftBarButtonItems = @[connectItem, sixueItem];
-//    } else {
-//        // Others
-//        self.navigationItem.leftBarButtonItem = connectItem;
-//    }
+    // JUST FOR HER
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSString *username = [ud objectForKey:@"USERNAME"];
+    
+    UIButton *sixueBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    sixueBtn.showsTouchWhenHighlighted = YES;
+    [sixueBtn setImage:[UIImage imageNamed:@"toolbar-sixue"] forState:UIControlStateNormal];
+    
+    // longPress
+    UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showFake:)];
+    gesture.minimumPressDuration = 6.0;
+    [sixueBtn addGestureRecognizer:gesture];
+    
+    UIBarButtonItem *sixueItem = [[UIBarButtonItem alloc] initWithCustomView:sixueBtn];
+    
+    // Swipe
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(showHello:)];
+    [sixueBtn addGestureRecognizer:pan];
     
     
     // LEFT
@@ -190,34 +177,45 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreItemPress)];
     
-    self.navigationItem.leftBarButtonItems = @[userItem];
+    if ([username isEqualToString:@"15sxwang"] || ![username isEqualToString:@"14jhwang"]) {
+        self.navigationItem.leftBarButtonItems = @[userItem, sixueItem];
+    } else {
+        self.navigationItem.leftBarButtonItems = @[userItem];
+    }
+    
     self.navigationItem.rightBarButtonItems = @[moreItem, connectItem];
 }
 
-- (void)showHello:(UILongPressGestureRecognizer *)gesture
+- (void)showFake:(UILongPressGestureRecognizer *)gesture
 {
     if (gesture.state == UIGestureRecognizerStateBegan) {
         
-        UIImageView *view = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 260, 185)];
-        view.center = CGPointMake([UIScreen mainScreen].bounds.size.width / 2, 100);
-        view.backgroundColor = [UIColor orangeColor];
-        view.layer.cornerRadius = 8.0;
-        view.clipsToBounds = YES;
-        view.image = [UIImage imageNamed:@"panda.jpg"];
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"给思学的...不对" andMessage:@"嘻嘻，彩蛋不再是长按啦！春虫虫>_<"];
         
+        [alertView addButtonWithTitle:@"聪明的我是不会放弃的！" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView){
+        }];
         
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"给思学的小彩蛋#3" andMessage:@"思学🙄，你最近好忙啊！\n觉得你很努力，也很可爱！加油！"];
+        alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
+        [alertView show];
+    }
+}
+
+- (void)showHello:(UIPanGestureRecognizer *)gesture
+{
+    CGPoint point = [gesture translationInView:self.view];
+    
+    if (point.x > 200 && point.y > 500 && _isEggAvailable) {
+        _isEggAvailable = NO;
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"给思学的小彩蛋#4" andMessage:@"思学🙄，你最近好忙啊！\n觉得你很努力，也很可爱！加油！"];
         
         [alertView addButtonWithTitle:@"返回" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView){
-            view.hidden = YES;
+            _isEggAvailable = YES;
         }];
         
         [alertView addButtonWithTitle:@"好听的蛋黄Solo" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView){
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://chuckwo.com:81/sixue/ClarinetSolo.mp3"]];
-            view.hidden = YES;
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://chuckwo.com:81/sixue/ClarinetSolo.mp3"]];
+            _isEggAvailable = YES;
         }];
-        
-        [alertView addSubview:view];
         
         alertView.transitionStyle = SIAlertViewTransitionStyleBounce;
         [alertView show];
