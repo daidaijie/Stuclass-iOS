@@ -18,7 +18,7 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2];
+        self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.05];
         
         _numLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _numLabel.textAlignment = NSTextAlignmentCenter;

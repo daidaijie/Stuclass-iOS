@@ -306,7 +306,7 @@ static NSString *cell_id = @"DocumentTableViewCell";
         
     }];
     
-    [alertView addButtonWithTitle:@"删了" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
+    [alertView addButtonWithTitle:@"清空" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView) {
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         [ud setObject:nil forKey:@"DOCUMENTS"];
         _documentData = nil;

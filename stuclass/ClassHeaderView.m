@@ -137,11 +137,11 @@
     CGFloat k = SCREEN_WIDTH / 320.0;
     
     if ([self isToday:i]) {
-        weekView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.3];
+        weekView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2];
         weekView.dateLabel.font = [UIFont systemFontOfSize:11.0 * k weight:UIFontWeightSemibold];
         weekView.weekLabel.font = [UIFont systemFontOfSize:14.0 * k weight:UIFontWeightSemibold];
     } else {
-        weekView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2];
+        weekView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.05];
         weekView.dateLabel.font = [UIFont systemFontOfSize:10.0 * k];
         weekView.weekLabel.font = [UIFont systemFontOfSize:13.0 * k];
     }

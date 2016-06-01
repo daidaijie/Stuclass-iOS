@@ -798,7 +798,6 @@
 				132226F31C05643C0093826C /* ClassSemesterTableViewController */,
 				139509B11C873820008CA07B /* ClassWeekTableViewController */,
 				137F4E9E1C0614ED00A6DC0E /* MeTableViewController */,
-				1361642B1CFAD53E0094402E /* IntroHeader.xib */,
 				134530891BC8AE0C0018C15E /* ClassViewController.h */,
 				13FD91361C8A790500F89806 /* ClassViewController.m */,
 			);
@@ -1110,6 +1109,7 @@
 		13C4C3471BCC0D1A0003E703 /* SettingTableViewController */ = {
 			isa = PBXGroup;
 			children = (
+				1361642B1CFAD53E0094402E /* IntroHeader.xib */,
 				13C4C3481BCC0D300003E703 /* SettingTableViewController.h */,
 				13C4C3491BCC0D300003E703 /* SettingTableViewController.m */,
 				13C4C35F1BCCDC9B0003E703 /* BackgroundTableViewController */,
