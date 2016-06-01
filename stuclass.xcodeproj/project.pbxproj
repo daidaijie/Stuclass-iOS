@@ -30,6 +30,7 @@
 		131611851CF813700083DC92 /* CatZanButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 131611841CF813700083DC92 /* CatZanButton.m */; };
 		13187AD21CFDD70B00C05059 /* MessageFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13187AD11CFDD70B00C05059 /* MessageFooterView.m */; };
 		13187AD51CFDE31B00C05059 /* MessageMyPostTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13187AD41CFDE31B00C05059 /* MessageMyPostTableViewController.m */; };
+		13187AFB1CFEF4D600C05059 /* MailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13187AFA1CFEF4D600C05059 /* MailViewController.m */; };
 		131951D01BCB47E2004EE13A /* ClassCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */; };
 		131951D31BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D21BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.m */; };
 		131951D91BCB8676004EE13A /* ClassNumberCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 131951D81BCB8676004EE13A /* ClassNumberCollectionReusableView.m */; };
@@ -217,6 +218,8 @@
 		13187AD11CFDD70B00C05059 /* MessageFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageFooterView.m; sourceTree = "<group>"; };
 		13187AD31CFDE31B00C05059 /* MessageMyPostTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageMyPostTableViewController.h; sourceTree = "<group>"; };
 		13187AD41CFDE31B00C05059 /* MessageMyPostTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageMyPostTableViewController.m; sourceTree = "<group>"; };
+		13187AF91CFEF4D600C05059 /* MailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MailViewController.h; sourceTree = "<group>"; };
+		13187AFA1CFEF4D600C05059 /* MailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MailViewController.m; sourceTree = "<group>"; };
 		131951CE1BCB47E2004EE13A /* ClassCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassCollectionViewLayout.h; sourceTree = "<group>"; };
 		131951CF1BCB47E2004EE13A /* ClassCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassCollectionViewLayout.m; sourceTree = "<group>"; };
 		131951D11BCB6BFF004EE13A /* ClassBackgroundCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassBackgroundCollectionReusableView.h; sourceTree = "<group>"; };
@@ -589,6 +592,15 @@
 				13187AD11CFDD70B00C05059 /* MessageFooterView.m */,
 			);
 			name = view;
+			sourceTree = "<group>";
+		};
+		13187AFC1CFEF4DA00C05059 /* MailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				13187AF91CFEF4D600C05059 /* MailViewController.h */,
+				13187AFA1CFEF4D600C05059 /* MailViewController.m */,
+			);
+			name = MailViewController;
 			sourceTree = "<group>";
 		};
 		131951CD1BCB47C9004EE13A /* ClassLayout */ = {
@@ -1188,6 +1200,7 @@
 				13C707161BC7DE10003061A4 /* Main.storyboard */,
 				1326F7D11C02D9F20016B88E /* MessageTableViewController */,
 				131287851CB89ECA0089D8D7 /* ActivityTableViewController */,
+				13187AFC1CFEF4DA00C05059 /* MailViewController */,
 				13FEE6401CB90A48000C72BC /* LibraryViewController */,
 				13587A1B1CD5CC43005379FC /* AddBoxTableViewController */,
 				5A421B153599CE926F9064AD /* TaskListTableViewController */,
@@ -1878,6 +1891,7 @@
 				13187AD51CFDE31B00C05059 /* MessageMyPostTableViewController.m in Sources */,
 				13C4C34A1BCC0D300003E703 /* SettingTableViewController.m in Sources */,
 				13F6617D1CF969A7001599E2 /* QBAlbumCell.m in Sources */,
+				13187AFB1CFEF4D600C05059 /* MailViewController.m in Sources */,
 				1335FC7F1BCA343100BC0F23 /* ClassButton.m in Sources */,
 				13C707151BC7DE10003061A4 /* LoginViewController.m in Sources */,
 				130299741C892BA900E4734C /* HeaderCollectionReusableView.m in Sources */,

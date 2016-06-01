@@ -28,7 +28,7 @@
 #import "MessageCommentTableViewController.h"
 
 static const CGFloat kHeightForSectionHeader = 8.5;
-static const CGFloat kHeightForFooterView = 67.0;
+static const CGFloat kHeightForFooterView = 60.5;
 
 static NSString *message_text_cell_id = @"MessageTextTableViewCell";
 static NSString *message_image_cell_id = @"MessageImageTableViewCell";

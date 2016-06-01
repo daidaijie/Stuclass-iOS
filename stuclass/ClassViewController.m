@@ -37,6 +37,7 @@
 #import "MeTableViewController.h"
 #import "UIImageView+WebCache.h"
 #import "MYBlurIntroductionView.h"
+#import "MailViewController.h"
 
 
 static const CGFloat kAnimationDurationForSemesterButton = 0.3;
@@ -269,7 +270,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 
 - (void)initMoreView
 {
-    _moreView = [[MoreView alloc] initWithItems:@[@"添加格子", @"同步课表", @"考试安排", @"我的成绩", @"图书检索", @"任务清单"] images:@[[UIImage imageNamed:@"more-addbox"], [UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-task"]]];
+    _moreView = [[MoreView alloc] initWithItems:@[@"添加格子", @"同步课表", @"考试安排", @"我的成绩", @"图书检索", @"汕大邮箱", @"任务清单"] images:@[[UIImage imageNamed:@"more-addbox"], [UIImage imageNamed:@"more-sync"], [UIImage imageNamed:@"more-exam"], [UIImage imageNamed:@"more-grade"], [UIImage imageNamed:@"more-library"], [UIImage imageNamed:@"more-mail"], [UIImage imageNamed:@"more-task"]]];
     
     UIButton *addBtn = _moreView.itemsArray[0];
     [addBtn addTarget:self action:@selector(moreAddPress) forControlEvents:UIControlEventTouchUpInside];
@@ -286,7 +287,10 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     UIButton *libraryBtn = _moreView.itemsArray[4];
     [libraryBtn addTarget:self action:@selector(moreLibraryPress) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *taskBtn = _moreView.itemsArray[5];
+    UIButton *mailBtn = _moreView.itemsArray[5];
+    [mailBtn addTarget:self action:@selector(moreMailPress) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *taskBtn = _moreView.itemsArray[6];
     [taskBtn addTarget:self action:@selector(moreTaskPress) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -642,6 +646,13 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
 {
     [self book];
     [MobClick event:@"More_Library"];
+}
+
+- (void)moreMailPress
+{
+    [_popover dismiss];
+    [MobClick event:@"Show_Mail"];
+    [self performSegueWithIdentifier:@"ShowMail" sender:nil];
 }
 
 - (void)moreTaskPress

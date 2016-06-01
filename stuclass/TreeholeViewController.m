@@ -61,7 +61,7 @@
 
     if (_firstLoad) {
         
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"错误" andMessage:@"加载失败，请重试"];
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"错误" andMessage:global_connection_failed];
         
         alertView.transitionStyle = SIAlertViewTransitionStyleDropDown;
         
@@ -72,7 +72,7 @@
         [alertView show];
         
     } else {
-        [self showHUDWithText:@"加载失败，请重试" andHideDelay:global_hud_delay];
+        [self showHUDWithText:global_connection_failed andHideDelay:global_hud_delay];
     }
 }
 

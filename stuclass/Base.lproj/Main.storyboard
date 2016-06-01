@@ -173,6 +173,7 @@
                         <segue destination="lQx-0V-2s8" kind="show" identifier="ShowExam" id="zLF-cu-aBH"/>
                         <segue destination="c2l-aT-URn" kind="show" identifier="ShowLibrary" id="weM-MK-zMb"/>
                         <segue destination="fwB-FW-mqQ" kind="show" identifier="ShowTaskList" id="CYY-do-eOb"/>
+                        <segue destination="PqU-YL-ami" kind="show" identifier="ShowMail" id="CgU-wB-Za0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N4H-ed-wR0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1365,7 +1366,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="悬崖上的金鱼姬" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DbE-2r-o1f">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="悬崖上的金鱼公主" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DbE-2r-o1f">
                                                     <rect key="frame" x="15" y="0.0" width="290" height="49.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -4160,6 +4161,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mf-xM-gql" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4000" y="1308"/>
+        </scene>
+        <!--汕大邮箱-->
+        <scene sceneID="epU-w5-zpp">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="PqU-YL-ami" customClass="MailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZUQ-HG-AZa"/>
+                        <viewControllerLayoutGuide type="bottom" id="EwE-6w-LgF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="egw-7w-eUc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <navigationItem key="navigationItem" title="汕大邮箱" id="k9h-JV-iQ8">
+                        <barButtonItem key="rightBarButtonItem" image="toolbar-refresh" id="7uC-QF-22S">
+                            <connections>
+                                <action selector="refresh:" destination="PqU-YL-ami" id="avd-kO-3gW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nk9-hM-0ge" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3361" y="-4"/>
         </scene>
     </scenes>
     <resources>
