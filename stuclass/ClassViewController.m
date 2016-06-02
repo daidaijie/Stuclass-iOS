@@ -156,6 +156,7 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     // Swipe
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(showHello:)];
     [sixueBtn addGestureRecognizer:pan];
+    [sixueBtn addTarget:self action:@selector(sixueBtnPress) forControlEvents:UIControlEventTouchUpInside];
     
     
     // LEFT
@@ -177,13 +178,18 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"toolbar-more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreItemPress)];
     
-    if ([username isEqualToString:@"15sxwang"] || ![username isEqualToString:@"14jhwang"]) {
+    if ([username isEqualToString:@"15sxwang"] || [username isEqualToString:@"14jhwang"]) {
         self.navigationItem.leftBarButtonItems = @[userItem, sixueItem];
     } else {
         self.navigationItem.leftBarButtonItems = @[userItem];
     }
     
     self.navigationItem.rightBarButtonItems = @[moreItem, connectItem];
+}
+
+- (void)sixueBtnPress
+{
+    [self moreMailPress];
 }
 
 - (void)showFake:(UILongPressGestureRecognizer *)gesture
@@ -206,14 +212,15 @@ static const CGFloat kAnimationDurationForSemesterButton = 0.3;
     
     if (point.x > 200 && point.y > 500 && _isEggAvailable) {
         _isEggAvailable = NO;
-        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"给思学的小彩蛋#4" andMessage:@"思学🙄，你最近好忙啊！\n觉得你很努力，也很可爱！加油！"];
+        [MobClick event:@"Colorful_Egg_V14" attributes:@{@"Username": [[NSUserDefaults standardUserDefaults] objectForKey:@"USERNAME"]}];
+        SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:@"给思学的小彩蛋#4" andMessage:@"哇噢，你好棒啊！🎉\n可是还没结束呢🌚，继续下一步吧！"];
         
         [alertView addButtonWithTitle:@"返回" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView){
             _isEggAvailable = YES;
         }];
         
-        [alertView addButtonWithTitle:@"好听的蛋黄Solo" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView){
-//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://chuckwo.com:81/sixue/ClarinetSolo.mp3"]];
+        [alertView addButtonWithTitle:@"下一步，GO！" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alertView){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://chuckwo.com:81/sixue/tip.html"]];
             _isEggAvailable = YES;
         }];
         

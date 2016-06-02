@@ -4179,11 +4179,18 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="汕大邮箱" id="k9h-JV-iQ8">
-                        <barButtonItem key="rightBarButtonItem" image="toolbar-refresh" id="7uC-QF-22S">
-                            <connections>
-                                <action selector="refresh:" destination="PqU-YL-ami" id="avd-kO-3gW"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem image="toolbar-refresh" id="7uC-QF-22S">
+                                <connections>
+                                    <action selector="refresh:" destination="PqU-YL-ami" id="avd-kO-3gW"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="toolbar-key" id="uMA-EX-Xt3">
+                                <connections>
+                                    <action selector="pastePassword:" destination="PqU-YL-ami" id="pa9-t5-Pa8"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -4423,6 +4430,7 @@
         <image name="toolbar-at" width="22" height="22"/>
         <image name="toolbar-backward" width="22" height="22"/>
         <image name="toolbar-favorite" width="22" height="22"/>
+        <image name="toolbar-key" width="22" height="22"/>
         <image name="toolbar-mypost" width="22" height="22"/>
         <image name="toolbar-read" width="22" height="22"/>
         <image name="toolbar-refresh" width="22" height="22"/>

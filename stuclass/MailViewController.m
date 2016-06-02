@@ -23,6 +23,20 @@
     [super viewDidLoad];
     
     [self setupWebView];
+    
+    [self showTip];
+}
+
+- (void)showTip
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    
+    BOOL isSecondTimeMail = [ud boolForKey:@"SECOND_TIME_MAIL"];
+    
+    if (!isSecondTimeMail) {
+        [self showHUDWithText:@"右上角可以复制密码，方便你登录邮箱" andHideDelay:global_hud_delay];
+        [ud setBool:YES forKey:@"SECOND_TIME_MAIL"];
+    }
 }
 
 - (void)setupWebView
@@ -59,6 +73,11 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://m.stu.edu.cn/"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:global_timeout];
     
     [_webView loadRequest:request];
+}
+- (IBAction)pastePassword:(id)sender
+{
+    [self showHUDWithText:@"已复制你的密码" andHideDelay:global_hud_short_delay - 0.2];
+    [UIPasteboard generalPasteboard].string = [[NSUserDefaults standardUserDefaults] objectForKey:@"PASSWORD"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
